@@ -15,6 +15,14 @@ app.use(express.static("./client/build"));
 
 /***  APIs ***/
 
+//get all clients
+app.get('/api/clients',
+  (req, res) => {
+    dao.getAllClients()
+      .then((clients) => { res.json(clients)})
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
+
 /*** End APIs ***/
 
 // activate the server
