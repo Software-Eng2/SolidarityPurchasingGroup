@@ -18,3 +18,18 @@ exports.getAllClients = () => {
         });
     })
 };
+
+// get all the clients
+exports.getAllProducts = () => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM PRODUCTS';
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const products = rows.map((p) => ({ ID: p.ID, NAME: p.NAME,DESCRIPTION: p.DESCRIPTION, CATEGORY: p.CATEGORY, QUANTITY: p.QUANTITY, EXPIRE: p.EXPIRE, FARMER_ID: p.FARMER_ID, IMG_PATH: p.IMG_PATH }));
+            resolve(products);
+        });
+    })
+};

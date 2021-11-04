@@ -23,6 +23,14 @@ app.get('/api/clients',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
 });
 
+//get all products
+app.get('/api/products',
+  (req, res) => {
+    dao.getAllProducts()
+      .then((products) => { res.json(products)})
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
+
 /*** End APIs ***/
 
 // activate the server

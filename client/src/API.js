@@ -1,4 +1,5 @@
 import {Client} from './Client'
+import { Product } from './Product';
 const BASEURL = '/api';
 
 async function getAllClients(){
@@ -14,4 +15,17 @@ async function getAllClients(){
     }
 }
 
-export {getAllClients}
+async function getAllProducts(){
+
+    const response = await fetch(BASEURL + '/products');
+  
+    const products = await response.json();
+  
+    if (response.ok) {
+        return products.map((p) => new Product(p.ID, p.NAME, p.DESCRIPTION, p.CATEGORY, p.QUANTITY, p.EXPIRE, p.FARMER_ID));
+    } else {
+        return undefined;
+    }
+}
+
+export {getAllClients, getAllProducts}
