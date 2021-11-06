@@ -15,6 +15,27 @@ async function getAllClients(){
     }
 }
 
+async function createClient(c) {
+    try {
+      const response = await fetch(BASEURL + '/clients', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({NAME: c.NAME, SURNAME: c.SURNAME, ROLE: c.ROLE, BIRTHDATE: c.BIRTHDATE, 
+            EMAIL: c.EMAIL, PASSWORD: c.PASSWORD })
+      })
+      const newID = await response.json();
+  
+      if (!response.ok) {
+        throw response;
+      }
+  
+      return newID;
+    }
+    catch {
+      return false;
+    }
+}
+
 async function getAllProducts(){
 
     const response = await fetch(BASEURL + '/products');
@@ -28,4 +49,47 @@ async function getAllProducts(){
     }
 }
 
-export {getAllClients, getAllProducts}
+async function createProduct(p) {
+    try {
+      const response = await fetch(BASEURL + '/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            { NAME: p.NAME,DESCRIPTION: p.DESCRIPTION, CATEGORY: p.CATEGORY, QUANTITY: p.QUANTITY, CONFIRMED: p.CONFIRMED,
+              FARMER_ID: p.FARMER_ID, IMG_PATH: p.IMG_PATH, PRICE: p.PRICE }
+        )
+      })
+      const newID = await response.json();
+  
+      if (!response.ok) {
+        throw response;
+      }
+  
+      return newID;
+    }
+    catch {
+      return false;
+    }
+  
+    }
+
+async function updateConfirmedProduct(confirmed, id) {
+
+    const response = await fetch(BASEURL + '/products', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          confirmed: confirmed,
+          id:id
+        })
+      });
+  
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  
+}
+
+export {getAllClients, getAllProducts, updateConfirmedProduct, createClient, createProduct}

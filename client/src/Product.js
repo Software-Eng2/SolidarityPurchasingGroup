@@ -1,4 +1,4 @@
-import { getAllProducts } from "./API";
+import { getAllProducts, createProduct, updateConfirmedProduct } from "./API";
 
 /**
  * Product object
@@ -32,10 +32,14 @@ class Product{
  * WARNING: object must be initialized with initialize() method
  * after being created
  * 
+ * Methods of the class:
+ * 
  * @param {Function} initialize - load data from DB
  * @param {Function} getProducts - return an array of Product objects
  * @param {Function} getProductsFromId - return an array with the Product object with the specified id
  * @param {Function} getProductsFromCategory - return an array of Product objects with the specified category
+ * @param {Function} addProduct - add a new Product in the DB
+ * @param {Function} updateConfirm - update the confirmed status of the product
  */
 class ProductsList{
 
@@ -104,6 +108,50 @@ class ProductsList{
         }
 
         return this.productsList.filter((p) => p.category === category);
+    }
+
+    /**
+     * Add a new product
+     * 
+     * @param {string} name - name of the product
+     * @param {string} description - description of the product
+     * @param {number} price - price of the product
+     * @param {string} category - category of the product
+     * @param {number} confirmed - 0 if the product id not confirmed, 1 otherwise
+     * @param {number} quantity - quantity of the product
+     * @param {string} img_path - path of the image to show in the UI
+     * @param {number} farmer_id - id of the farmer who sells the product
+     * 
+     * @return {boolean} return true if the product was added correctly in the DB, false otherwise
+     */
+    async addProduct(name, description, price, category, confirmed, quantity, img_path, farmer_id){
+
+        if(!this.init){
+            return undefined;
+        }
+
+        const result = createProduct({NAME:name, DESCRIPTION: description, PRICE:price, CATEGORY: category, CONFIRMED: confirmed, QUANTITY: quantity, IMG_PATH: img_path, FARMER_ID: farmer_id});
+
+        return result;
+    }
+
+    /**
+     * Update the confirmed field of the product specified
+     * 
+     * @param {number} id - id of the product to update
+     * @param {number} confirm_value - 0 if the product is not confirmed, 1 otherwise
+     * 
+     * @return {boolean} return true if the product was correctly updated, false otherwise
+     */
+    async updateConfirm(id, confirm_value){
+
+        if(!this.init){
+            return undefined;
+        }
+
+        const result = updateConfirmedProduct({confirm_value, id});
+
+        return result;
     }
 
 }

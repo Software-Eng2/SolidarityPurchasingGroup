@@ -1,4 +1,4 @@
-import { getAllClients } from "./API";
+import { getAllClients, createClient } from "./API";
 
 /**
  * Client object
@@ -32,9 +32,12 @@ class Client{
  * WARNING: object must be initialized with initialize() method
  * after being created
  * 
+ * Methods of the class:
+ * 
  * @param {Function} initialize - load data from the DB
  * @param {Function} getClients - returns an array of Clients objects
  * @param {Function} getClientFromId - returns a Client object matching the specified id
+ * @param {Function} addClient - add a new client
  */
 class ClientsList{
 
@@ -87,6 +90,29 @@ class ClientsList{
 
         return this.clientsList.filter((c) => c.getId() === id);
 
+    }
+
+    /**
+     * Add a new client
+     * 
+     * @param {string} name - name of the client
+     * @param {string} surname - surname of the client
+     * @param {string} role - role of the client
+     * @param {string} birthdate - date in format dd/mm/aaaa
+     * @param {string} email - email of the client
+     * @param {string} password - hash of the password of the client
+     * 
+     * @return {boolean} return true if the client was correctly inserted in the DB, false otherwise
+     */
+    async addClient(name, surname, role, birthdate, email, password){
+
+        if(!this.init){
+            return undefined;
+        }
+
+        const result = await createClient({NAME:name, SURNAME: surname, ROLE: role, BIRTHDATE: birthdate, EMAIL: email, PASSWORD: password});
+
+        return result;
     }
 }
 
