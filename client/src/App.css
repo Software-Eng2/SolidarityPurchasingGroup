@@ -1,38 +1,37 @@
-.App {
-  text-align: center;
-}
+/*
+UI COLORS:
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+$chef-green: #48B3AA;
+$chef-green-dark: #1F998F;
+$dark-gray: #2E3338;
+$semi-gray: #737F8C;
+$light-gray: #ABB2BA;
+$pure-white: #FFFFFF;
+$lighter-gray: #FAFAFA;
+$border-gray: rgba(227, 230, 232, 0.7);
+$overlay-dark:  rgba(0, 0, 0, 0.6);
+$alert-red: #FA0057;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+BRAND COLORS:
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+$fresh-green: #37BD55;
+$pantry-gray: #858585;
+$dairy-blue: #6FB4F8;
+$bread-orange:  #D99B21;
+$meat-red:  #F84D4D;
+$drink-pink:  #E34CF0;
+$fish-turquoise: #0DCCAA;
 
-.App-link {
-  color: #61dafb;
-}
+BUTTON:
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+$white-smoke: #F2F5F7;
+$click-green: #34AFA0;
+
+BUTTON TEXT:
+
+$button-black: #5C6166;
+*/
+
+.nav{
+  background-color: #37BD55 !important;
 }
