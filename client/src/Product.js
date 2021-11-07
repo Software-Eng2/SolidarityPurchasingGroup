@@ -1,4 +1,4 @@
-import { getAllProducts, createProduct, updateConfirmedProduct } from "./API";
+import API from "./API";
 
 /**
  * Product object
@@ -55,7 +55,7 @@ class ProductsList{
      */
     async initialize(){
 
-        this.productsList = await getAllProducts();
+        this.productsList = await API.getAllProducts();
 
         if(this.productsList === undefined){
             return false;
@@ -130,7 +130,7 @@ class ProductsList{
             return undefined;
         }
 
-        const result = createProduct({NAME:name, DESCRIPTION: description, PRICE:price, CATEGORY: category, CONFIRMED: confirmed, QUANTITY: quantity, IMG_PATH: img_path, FARMER_ID: farmer_id});
+        const result = API.createProduct({NAME:name, DESCRIPTION: description, PRICE:price, CATEGORY: category, CONFIRMED: confirmed, QUANTITY: quantity, IMG_PATH: img_path, FARMER_ID: farmer_id});
 
         return result;
     }
@@ -149,7 +149,7 @@ class ProductsList{
             return undefined;
         }
 
-        const result = updateConfirmedProduct({confirm_value, id});
+        const result = API.updateConfirmedProduct({confirm_value, id});
 
         return result;
     }

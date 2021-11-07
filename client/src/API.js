@@ -92,25 +92,52 @@ async function updateConfirmedProduct(confirmed, id) {
   
 }
 
-async function logIn(credentials) {
-  return getJson(fetch(BASEURL + '/sessions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  })
-  )
-}
+function logIn(email, password) {
+  return new Promise((resolve, reject) => {
+    fetch(BASEURL + '/api/sessions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    }).then((response) => {
+      if (response.ok) {
+        response.json().then((user) => {
+          resolve([user.name,user.id]);
+        }).catch((err) => reject(err));
+      } else {
+        reject();
+      }
+    }).catch((err) => reject(err));
+  });
+};
 
 async function logOut() {
   await fetch(BASEURL + '/sessions/current', { method: 'DELETE' });
 }
 
-async function getUserInfo() {
-  return getJson(
-    fetch(BASEURL + '/sessions/current')
-  )
+function getUserInfo() {
+  return new Promise((resolve, reject) => {
+    fetch(BASEURL + '/api/sessions/current')
+      .then((response) => {
+        if (response.ok) {
+          response.json().then((userInfo) => {
+            resolve(userInfo);
+          }).catch((err) => reject(err));
+        } else {
+          reject();
+        }
+      }).catch((err) => reject(err));
+  });
+};
+
+const API = {
+  getAllClients,
+  getAllProducts,
+  updateConfirmedProduct,
+  createClient,
+  createProduct,
+  logIn,
+  logOut,
+  getUserInfo
 }
 
-export {getAllClients, getAllProducts, updateConfirmedProduct, createClient, createProduct, logIn, logOut, getUserInfo}
+export default API;

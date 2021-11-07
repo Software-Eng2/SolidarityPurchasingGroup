@@ -1,11 +1,44 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { BrowserRouter as Router,Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router,Switch, Route, Redirect, useHistory} from 'react-router-dom';
+import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
+import LoginForm from './Login';
+import API from './API';
+
 
 function App() {
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userid, setUserid] = useState(0);
+  const [userEmail, setUserEmail] = useState(''); //getting the email
+  const routerHistory = useHistory();
+
+
+  const doLogIn = (email, password) => {
+    API.logIn(email, password).then(([email,id]) => {
+      setUserEmail(email);
+      setUserid(id);
+      setLoggedIn(true);
+      routerHistory.push('/');
+    }).catch((err) => {
+      console.log(err);
+    });
+    
+  };
+
+  const doLogOut = () => {
+    API.logOut().then(() => {
+      setLoggedIn(false);
+      setUserEmail('');
+      setUserid('');
+      routerHistory.push('/');
+      window.location.reload(); //refresh the homepage
+    }).catch((err) => console.log(err));
+  };
+
   return (
     <Router>
       <NavBar/>
@@ -23,7 +56,11 @@ function App() {
           <h1>Clients(+ wallet ?) List </h1> 
         </Route>
         <Route exact path="/login">
-          <h1>Login & Sing In Forms</h1>
+        {loggedIn ? (
+            ''
+          ) : (<Route exact path="/login">
+          <LoginForm doLogIn={doLogIn}/>
+        </Route>) }
         </Route>
       </Switch>
     </Router>

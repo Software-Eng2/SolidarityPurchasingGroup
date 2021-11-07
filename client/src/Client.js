@@ -1,4 +1,4 @@
-import { getAllClients, createClient } from "./API";
+import API from "./API";
 
 /**
  * Client object
@@ -51,7 +51,7 @@ class ClientsList{
      * @return {boolean} return true if the clientsList is correctly initialized with DB data, false otherwise
      */
     async initialize(){
-        this.clientsList = await getAllClients();
+        this.clientsList = await API.getAllClients();
 
         if(this.clientsList === undefined){
             return false;
@@ -109,7 +109,7 @@ class ClientsList{
             return undefined;
         }
 
-        const result = await createClient({role: 'client', name: name, surname: surname, birtdate: birthdate, email: email, password: password});
+        const result = await API.createClient({role: 'client', name: name, surname: surname, birtdate: birthdate, email: email, password: password});
 
         return result;
     }
