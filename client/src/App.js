@@ -35,7 +35,6 @@ function App() {
       setUserEmail('');
       setUserid('');
       routerHistory.push('/');
-      window.location.reload(); //refresh the homepage
     }).catch((err) => console.log(err));
   };
 
