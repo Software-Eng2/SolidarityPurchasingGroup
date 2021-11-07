@@ -20,8 +20,8 @@ async function createClient(c) {
       const response = await fetch(BASEURL + '/clients', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({NAME: c.NAME, SURNAME: c.SURNAME, ROLE: c.ROLE, BIRTHDATE: c.BIRTHDATE, 
-            EMAIL: c.EMAIL, PASSWORD: c.PASSWORD })
+        body: JSON.stringify({role: c.role, name: c.name, surname: c.surname, birthdate: c.birthdate, 
+            email: c.email, password: c.password })
       })
       const newID = await response.json();
   
@@ -92,4 +92,25 @@ async function updateConfirmedProduct(confirmed, id) {
   
 }
 
-export {getAllClients, getAllProducts, updateConfirmedProduct, createClient, createProduct}
+async function logIn(credentials) {
+  return getJson(fetch(BASEURL + '/sessions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  })
+  )
+}
+
+async function logOut() {
+  await fetch(BASEURL + '/sessions/current', { method: 'DELETE' });
+}
+
+async function getUserInfo() {
+  return getJson(
+    fetch(BASEURL + '/sessions/current')
+  )
+}
+
+export {getAllClients, getAllProducts, updateConfirmedProduct, createClient, createProduct, logIn, logOut, getUserInfo}

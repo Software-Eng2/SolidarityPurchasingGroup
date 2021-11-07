@@ -3,6 +3,11 @@
 const express = require('express');
 const dao = require('./dao');
 const { check, validationResult, body } = require('express-validator');
+const userDao = require('./user-dao'); // module for accessing the users in the DB
+const session = require('express-session'); // enable sessions
+const LocalStrategy = require('passport-local').Strategy; // username and password for login
+const passport = require('passport'); // auth middleware
+const dayjs = require('dayjs');
 
 // init express
 const app = new express();
@@ -12,6 +17,52 @@ const port = 3001;
 app.use(express.json());
 app.use(express.static("./client/build"));
 
+/*** Set up Passport ***/
+// set up the "username and password" login strategy
+// by setting a function to verify username and password
+passport.use(new LocalStrategy(
+  function(email, password, done) {
+    userDao.getUser(email, password).then((user) => {
+      if (!user)
+        return done(null, false, { error: 'Wrong email and/or password.' });
+      return done(null, user);
+    });
+  }
+));
+
+// serialize and de-serialize the user (user object <-> session)
+// we serialize the user id and we store it in the session: the session is very small in this way
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// starting from the data in the session, we extract the current (logged-in) user
+passport.deserializeUser((id, done) => {
+  userDao.getUserById(id)
+      .then(user => {
+          done(null, user); // this will be available in req.user
+      }).catch(err => {
+          done(err, null);
+      });
+});
+
+// custom middleware: check if a given request is coming from an authenticated user
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated())
+      return next();
+
+  return res.status(401).json({ error: 'User not authenticated' });
+}
+
+// set up the session
+app.use(session({
+  // by default, Passport uses a MemoryStore to keep track of the sessions
+  secret: 'a secret sentence not to share with anybody and anywhere, used to sign the session ID cookie',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 /***  APIs ***/
@@ -24,15 +75,16 @@ app.get('/api/clients',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
 });
 
-// add a new client
+// add a new client 
 app.post('/api/clients',
   [
-    check('NAME').isString(),
-    check('SURNAME').isString(),
-    check('ROLE').isString(),
-    check('BIRTHDATE').isString(),
-    check('EMAIL').isString(),
-    check('PASSWORD').isString()
+    check('role').isString(),
+    check('name').isString(),
+    check('surname').isString(),
+    check('birthdate').isString(),
+    check('email').isString(),
+    check('password').isString(),
+    check('isConfirmed').isInt()
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -41,12 +93,13 @@ app.post('/api/clients',
       return res.status(422).json({ errors: errors.array() })
     }
     const client = {
-      NAME: req.body.NAME,
-      SURNAME: req.body.SURNAME,
-      ROLE: req.body.ROLE,
-      BIRTHDATE: req.body.BIRTHDATE,
-      EMAIL: req.body.EMAIL,
-      PASSWORD: req.body.PASSWORD
+      role: req.body.role,
+      name: req.body.name,
+      surname: req.body.surname,
+      birthdate: req.body.birthdate,
+      email: req.body.email,
+      password: req.body.password,
+      isConfirmed: req.body.isConfirmed
     }
     dao.createClient(client).then((id) => res.status(201).json({ id: id }))
       .catch((err) =>
@@ -54,7 +107,7 @@ app.post('/api/clients',
           error: "Error " + err,
         })
       );
-  });
+  }); 
 
 //get all products
 app.get('/api/products',
@@ -121,10 +174,51 @@ app.put('/api/products',
       );
   })
 
+
+
+
+ // Login --> POST /sessions 
+app.post('/api/sessions', function(req, res, next) {
+  passport.authenticate('local', (err, user, info) => {
+    if (err)
+      return next(err);
+      if (!user) {
+        // display wrong login messages
+        return res.status(401).json(info);
+      }
+      // success, perform the login
+      req.login(user, (err) => {
+        if (err)
+          return next(err);
+        // req.user contains the authenticated user, we send all the user info back
+        // this is coming from userDao.getUser()
+        return res.json(req.user);
+      });
+  })(req, res, next);
+});
+
+// Logout --> DELETE /sessions/current 
+app.delete('/api/sessions/current', (req, res) => {
+  req.logout();
+  res.end();
+});
+
+// GET /sessions/current
+// check whether the user is logged in or not
+app.get('/api/sessions/current', (req, res) => {
+  if(req.isAuthenticated()) {
+    console.log(req);
+    res.status(200).json(req.user);}
+  else
+    res.status(401).json({error: 'Unauthenticated user!'});
+}); 
 /*** End APIs ***/
+
 
 // activate the server
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+
+
 

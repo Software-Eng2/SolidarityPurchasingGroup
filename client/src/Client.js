@@ -12,13 +12,12 @@ import { getAllClients, createClient } from "./API";
  * @param {number} walletID - id of the wallet linked to this client
  */
 class Client{
-    constructor(id, name, surname, age, sex, walletID){
+    constructor(id, name, surname, birthdate, isConfirmed){
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.walletID = walletID;
-        this.sex = sex;
-        this.age = age;
+        this.birthdate = birthdate;
+        this.isConfirmed = isConfirmed;  
     }
 
     getId = () => {
@@ -104,13 +103,13 @@ class ClientsList{
      * 
      * @return {boolean} return true if the client was correctly inserted in the DB, false otherwise
      */
-    async addClient(name, surname, role, birthdate, email, password){
+    async addClient(name, surname, birthdate, email, password, isConfirmed){
 
         if(!this.init){
             return undefined;
         }
 
-        const result = await createClient({NAME:name, SURNAME: surname, ROLE: role, BIRTHDATE: birthdate, EMAIL: email, PASSWORD: password});
+        const result = await createClient({role: 'client', name: name, surname: surname, birtdate: birthdate, email: email, password: password});
 
         return result;
     }
