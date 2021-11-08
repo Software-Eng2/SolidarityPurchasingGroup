@@ -43,7 +43,9 @@ function NavBar(props) {
                 <Nav className="ml-3">
                     {
                         loggedIn ? (
-                            <Button onClick={doLogOut}>Logout</Button>
+                            <Link to={{ pathname: '/' }} onClick={doLogOut} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
+                                Logout
+                    </Link>
                         ) : (
                             <Link to={{ pathname: '/login' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
                         Login

@@ -45,9 +45,7 @@ function App() {
     useEffect(()=>{
       if(loggedIn && dirty){
         API.getAllClients().then((newC) => {
-        console.log(newC);
         setAllClients(newC);
-        console.log(allClients);
         setDirty(false);
       }).catch((err) => console.log(err));
       }
@@ -58,23 +56,14 @@ function App() {
   const doLogIn = (email, password) => {
     API.logIn(email, password).then(([email,id]) => {   
       API.getUserInfo().then((user) => {      
-        setUserEmail(user.email);
-        setUserid(user.id);
+        setUserEmail(email);
+        setUserid(id);
         setLoggedIn(true);
-        setUserRole(user.role);  
+        setUserRole(user.role);
+        console.log(user.role);  
         setDirty(true);  
       }).catch((err) => console.log(err));   
-      console.log(userRole);
-      switch(userRole){
-        case 'shopemployee':
-          console.log('ciao');
-          routerHistory.push('/shopemployee');
-        break;
-        case 'client':
-          routerHistory.push('/client');
-        break;
-        //TODO ADD NEW ACTOR ROUTES
-      }      
+      routerHistory.push('orders');  
       
     }).catch((err) => {
       console.log(err);
@@ -86,6 +75,7 @@ function App() {
       setLoggedIn(false);
       setUserEmail('');
       setUserid('');
+      setUserRole('');
       routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
