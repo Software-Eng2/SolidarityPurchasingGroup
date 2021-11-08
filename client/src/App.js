@@ -5,12 +5,9 @@ import { BrowserRouter as Router,Switch, Route, Redirect, useHistory} from 'reac
 import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
-<<<<<<< HEAD
 import RegisterInterface from './components/RegisterPage';
-=======
 import Wallet from './components/Wallet';
 import ClientsList from './components/ClientsList';
->>>>>>> 034a467a34a00d611ee3f2931b6819fe029d46ad
 import LoginForm from './Login';
 import API from './API';
 import { Button} from 'react-bootstrap';
