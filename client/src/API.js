@@ -2,17 +2,18 @@ import {Client} from './Client'
 import { Product } from './Product';
 const BASEURL = '/api';
 
-async function getAllClients(){
-
-    const response = await fetch(BASEURL + '/clients');
-  
-    const clients = await response.json();
-  
-    if (response.ok) {
-        return clients.map((c) => new Client(c.ID, c.NAME, c.SURNAME, c.AGE, c.SEX, c.WALLET_ID));
-    } else {
-        return undefined;
-    }
+function getAllClients(){
+    return new Promise((resolve,reject) => {
+      fetch(BASEURL+'/clients').then((response)=>{
+        if(response.ok){
+          response.json().then((json)=>{
+            const clients = json.map((clientJson) => Client.from(clientJson));
+            console.log(clients);
+            resolve(clients);
+          }).catch((err)=>reject(err));
+        } else reject();
+      }).catch((err) => reject(err));
+    });
 }
 
 async function createClient(c) {
@@ -92,12 +93,12 @@ async function updateConfirmedProduct(confirmed, id) {
   
 }
 
-function logIn(email, password) {
+function logIn(username, password) {
   return new Promise((resolve, reject) => {
-    fetch(BASEURL + '/api/sessions', {
+    fetch(BASEURL+'/sessions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     }).then((response) => {
       if (response.ok) {
         response.json().then((user) => {
@@ -116,7 +117,7 @@ async function logOut() {
 
 function getUserInfo() {
   return new Promise((resolve, reject) => {
-    fetch(BASEURL + '/api/sessions/current')
+    fetch(BASEURL+'/sessions/current')
       .then((response) => {
         if (response.ok) {
           response.json().then((userInfo) => {

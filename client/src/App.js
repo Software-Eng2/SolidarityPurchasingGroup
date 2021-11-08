@@ -5,28 +5,75 @@ import { BrowserRouter as Router,Switch, Route, Redirect, useHistory} from 'reac
 import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
+import ShopEmployeePage from './components/ShopEmployeePage';
 import LoginForm from './Login';
 import API from './API';
 
 
 function App() {
 
+  const [allClients, setAllClients] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userid, setUserid] = useState(0);
   const [userEmail, setUserEmail] = useState(''); //getting the email
+  const [userRole, setUserRole] = useState('');
+  const [dirty, setDirty] = useState(false);
   const routerHistory = useHistory();
 
 
-  const doLogIn = (email, password) => {
-    API.logIn(email, password).then(([email,id]) => {
-      setUserEmail(email);
-      setUserid(id);
+
+
+  useEffect(()=>{
+    API.getUserInfo().then((user) => {
+      setUserEmail(user.email);
+      setUserid(user.id);
       setLoggedIn(true);
-      routerHistory.push('/');
+      setUserRole(user.role);
+      setDirty(true);
+    })
+    API.getAllClients().then((newC)=>{
+      setAllClients(newC);
+    })
+  },[])
+
+    // Rehydrate meme when user is logged in
+    useEffect(()=>{
+      if(loggedIn && dirty){
+        API.getAllClients().then((newC) => {
+        console.log(newC);
+        setAllClients(newC);
+        console.log(allClients);
+        setDirty(false);
+      }).catch((err) => console.log(err));
+      }
+     },[loggedIn, dirty]);
+
+    
+
+  const doLogIn = (email, password) => {
+    API.logIn(email, password).then(([email,id]) => {   
+      API.getUserInfo().then((user) => {      
+        setUserEmail(user.email);
+        setUserid(user.id);
+        setLoggedIn(true);
+        setUserRole(user.role);  
+        setDirty(true);  
+      }).catch((err) => console.log(err));   
+      console.log(userRole);
+      switch(userRole){
+        case 'shopemployee':
+          console.log('ciao');
+          routerHistory.push('/shopemployee');
+        break;
+        case 'client':
+          routerHistory.push('/client');
+        break;
+        //TODO ADD NEW ACTOR ROUTES
+      }      
+      
     }).catch((err) => {
       console.log(err);
     });
-    
   };
 
   const doLogOut = () => {
@@ -40,7 +87,7 @@ function App() {
 
   return (
     <Router>
-      <NavBar/>
+      <NavBar loggedIn={loggedIn}/>
       <Switch>
         <Route exact path="/">
           <h1>Homepage</h1>
@@ -51,12 +98,12 @@ function App() {
         <Route exact path="/orders">
           <OrderPage/>         
         </Route>
-        <Route exact path="/clients">
-          <h1>Clients(+ wallet ?) List </h1> 
+        <Route exact path="/shopemployee">
+          <ShopEmployeePage allClients={allClients}/>
         </Route>
         <Route exact path="/login">
         {loggedIn ? (
-            ''
+            'YOU ARE ALREADY LOGGED IN'
           ) : (<Route exact path="/login">
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }

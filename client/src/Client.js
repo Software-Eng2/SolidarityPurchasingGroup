@@ -7,22 +7,28 @@ import API from "./API";
  * @param {number} id - id of the client
  * @param {string} name - name of the client
  * @param {string} surname - surname of the client
- * @param {string} sex - sex of the client
- * @param {number} age - age of the client
- * @param {number} walletID - id of the wallet linked to this client
+ * @param {string} birthdate - birthdate of the client
+ * @param {string} email - email of the client
+ * @param {number} isConfirmed - client to be confirmed
  */
 class Client{
-    constructor(id, name, surname, birthdate, isConfirmed){
+    constructor(id, name, surname, birthdate, email, isConfirmed){
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;
+        this.email = email;
         this.isConfirmed = isConfirmed;  
     }
 
     getId = () => {
         return this.id;
     }
+    static from(json) {
+        const client = new Client();
+        Object.assign(client, json);
+        return client;
+      }
 
 }
 
@@ -109,7 +115,7 @@ class ClientsList{
             return undefined;
         }
 
-        const result = await API.createClient({role: 'client', name: name, surname: surname, birtdate: birthdate, email: email, password: password});
+        const result = await API.createClient({role: 'client', name: name, surname: surname, birtdate: birthdate, email: email, password: password, isConfirmed: isConfirmed});
 
         return result;
     }

@@ -4,6 +4,8 @@ import { shopIcon } from './Icons'
 
 function NavBar(props) {
 
+    const {loggedIn} = props;
+
     return (
 
         <Navbar collapseOnSelect expand="lg"/*  bg="dark" variant="dark"  */className="nav">
@@ -39,9 +41,17 @@ function NavBar(props) {
                     </Col>
                 </Nav>
                 <Nav className="ml-3">
-                    <Link to={{ pathname: '/login' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
+                    {
+                        loggedIn ? (
+                            <Link to={{ pathname: '/' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
+                        Logout
+                    </Link>
+                        ) : (
+                            <Link to={{ pathname: '/login' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
                         Login
                     </Link>
+                        )
+                    }
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
