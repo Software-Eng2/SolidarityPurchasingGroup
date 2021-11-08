@@ -62,9 +62,16 @@ function App() {
         setUserRole(user.role);
         console.log(user.role);  
         setDirty(true);  
+        switch(user.role){
+          case 'shopemployee':
+            routerHistory.push('/shopemployee');  
+            window.location.reload();
+            break;
+          /* case 'client':
+            routerHistory.push('/client');  
+            window.location.reload(); */ //TODO ADD NEW ROUTE PER ACTOR
+        }
       }).catch((err) => console.log(err));   
-      routerHistory.push('orders');  
-      
     }).catch((err) => {
       console.log(err);
     });
@@ -96,14 +103,11 @@ function App() {
         <Route exact path="/shopemployee">
           <ShopEmployeePage allClients={allClients}/>
         </Route>
-
-        <Route exact path="/login">
         {loggedIn ? (
-            'YOU ARE ALREADY LOGGED IN'
+            ''
           ) : (<Route exact path="/login">
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }
-        </Route>
       </Switch>
     </Router>
   );
