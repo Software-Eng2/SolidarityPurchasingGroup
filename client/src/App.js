@@ -5,6 +5,7 @@ import { BrowserRouter as Router,Switch, Route, Redirect, useHistory} from 'reac
 import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
+import RegisterInterface from './components/RegisterPage';
 import LoginForm from './Login';
 import API from './API';
 
@@ -50,6 +51,9 @@ function App() {
         </Route>
         <Route exact path="/orders">
           <OrderPage/>         
+        </Route>
+        <Route exact path="/registerClient">
+          <RegisterInterface/>         
         </Route>
         <Route exact path="/clients">
           <h1>Clients(+ wallet ?) List </h1> 
