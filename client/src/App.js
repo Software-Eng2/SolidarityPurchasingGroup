@@ -92,7 +92,7 @@ function App() {
 
   return (
     <Router>
-      <NavBar loggedIn={loggedIn}/>
+      <NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>
       <Switch>
         <Route exact path="/">
           <h1>Homepage</h1>

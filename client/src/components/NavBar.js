@@ -1,10 +1,10 @@
-import { Col, Navbar, Nav} from 'react-bootstrap';
+import { Col, Navbar, Nav, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { shopIcon } from './Icons'
 
 function NavBar(props) {
 
-    const {loggedIn} = props;
+    const {loggedIn, doLogOut} = props;
 
     return (
 
@@ -43,9 +43,7 @@ function NavBar(props) {
                 <Nav className="ml-3">
                     {
                         loggedIn ? (
-                            <Link to={{ pathname: '/' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
-                        Logout
-                    </Link>
+                            <Button onClick={doLogOut}>Logout</Button>
                         ) : (
                             <Link to={{ pathname: '/login' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
                         Login
