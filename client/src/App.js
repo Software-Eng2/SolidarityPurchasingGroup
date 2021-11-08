@@ -6,8 +6,12 @@ import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
+import RegisterInterface from './components/RegisterPage';
+import Wallet from './components/Wallet';
+import ClientsList from './components/ClientsList';
 import LoginForm from './Login';
 import API from './API';
+import { Button} from 'react-bootstrap';
 
 
 function App() {
@@ -18,6 +22,8 @@ function App() {
   const [userEmail, setUserEmail] = useState(''); //getting the email
   const [userRole, setUserRole] = useState('');
   const [dirty, setDirty] = useState(false);
+  const [walletShow, setWalletShow] = useState(false);
+  const [user, setUser] = useState([]); 
   const routerHistory = useHistory();
 
 
@@ -101,6 +107,7 @@ function App() {
         <Route exact path="/shopemployee">
           <ShopEmployeePage allClients={allClients}/>
         </Route>
+
         <Route exact path="/login">
         {loggedIn ? (
             'YOU ARE ALREADY LOGGED IN'

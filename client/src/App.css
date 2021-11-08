@@ -35,3 +35,17 @@ $button-black: #5C6166;
 .nav{
   background-color: #37BD55 !important;
 }
+
+.register-form {
+  margin-top: 2em;
+  padding-bottom: 1em;
+  border: 4px solid #37BD55;
+  border-radius: 10px 10px 10px 10px;
+  height: 75%;
+  background-color: #fff9ea;
+}
+.user-icon {
+  margin-top: -2.3em;
+  margin-bottom: 1em;
+  color: #37BD55;
+}
