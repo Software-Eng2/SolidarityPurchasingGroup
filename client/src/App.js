@@ -5,8 +5,11 @@ import { BrowserRouter as Router,Switch, Route, Redirect, useHistory} from 'reac
 import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
+import Wallet from './components/Wallet';
+import ClientsList from './components/ClientsList';
 import LoginForm from './Login';
 import API from './API';
+import { Button} from 'react-bootstrap';
 
 
 function App() {
@@ -14,6 +17,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userid, setUserid] = useState(0);
   const [userEmail, setUserEmail] = useState(''); //getting the email
+  const [walletShow, setWalletShow] = useState(false);
+  const [user, setUser] = useState([]); 
   const routerHistory = useHistory();
 
 
@@ -52,8 +57,12 @@ function App() {
           <OrderPage/>         
         </Route>
         <Route exact path="/clients">
-          <h1>Clients(+ wallet ?) List </h1> 
+        <>
+          <ClientsList setWalletShow={setWalletShow} setUser={setUser}/>
+          <Wallet show={walletShow} onHide={() => setWalletShow(false)} user={user}/>
+        </>
         </Route>
+
         <Route exact path="/login">
         {loggedIn ? (
             ''
