@@ -8,7 +8,6 @@ import OrderPage from './components/OrderPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
 import Wallet from './components/Wallet';
-import ClientsList from './components/ClientsList';
 import LoginForm from './Login';
 import API from './API';
 import { Button} from 'react-bootstrap';
