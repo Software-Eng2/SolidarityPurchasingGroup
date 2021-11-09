@@ -10,6 +10,11 @@ import API from "./API";
  * @param {string} birthdate - birthdate of the client
  * @param {string} email - email of the client
  * @param {number} isConfirmed - client to be confirmed
+ * 
+ * Methods:
+ * 
+ * @function getId - return the ID of the client
+ * @function updateWallet - update the wallet of the client
  */
 class Client{
     constructor(id, name, surname, birthdate, email, isConfirmed){
@@ -29,6 +34,10 @@ class Client{
         Object.assign(client, json);
         return client;
       }
+
+    updateWallet(amount){
+        return API.updateWallet(amount, this.id);
+    }
 
 }
 

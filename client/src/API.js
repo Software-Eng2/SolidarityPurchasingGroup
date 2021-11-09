@@ -1,4 +1,5 @@
 import {Client} from './Client'
+import { Order } from './Order';
 import { Product } from './Product';
 const BASEURL = '/api';
 
@@ -51,28 +52,75 @@ async function getAllProducts(){
 }
 
 async function createProduct(p) {
-    try {
-      const response = await fetch(BASEURL + '/products', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-            { NAME: p.NAME,DESCRIPTION: p.DESCRIPTION, CATEGORY: p.CATEGORY, QUANTITY: p.QUANTITY, CONFIRMED: p.CONFIRMED,
-              FARMER_ID: p.FARMER_ID, IMG_PATH: p.IMG_PATH, PRICE: p.PRICE }
-        )
-      })
-      const newID = await response.json();
-  
-      if (!response.ok) {
-        throw response;
-      }
-  
-      return newID;
+  try {
+    const response = await fetch(BASEURL + '/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          NAME: p.NAME, DESCRIPTION: p.DESCRIPTION, CATEGORY: p.CATEGORY, QUANTITY: p.QUANTITY, CONFIRMED: p.CONFIRMED,
+          FARMER_ID: p.FARMER_ID, IMG_PATH: p.IMG_PATH, PRICE: p.PRICE
+        }
+      )
+    })
+    const newID = await response.json();
+
+    if (!response.ok) {
+      throw response;
     }
-    catch {
-      return false;
+
+    return newID;
+  }
+  catch {
+    return false;
+  }
+
+}
+
+async function getAllOrders() {
+
+  const response = await fetch(BASEURL + '/orders');
+
+  const orders = await response.json();
+
+  if (response.ok) {
+    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.total, o.status, o.pick_up, o.address, o.date, o.time));
+  } else {
+    return undefined;
+  }
+}
+
+async function createOrder(o) {
+  try {
+    const response = await fetch(BASEURL + '/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          creation_date: o.creation_date,
+          client_id: o.client_id,
+          total: o.total,
+          status: o.status,
+          pick_up: o.pick_up,
+          address: o.address,
+          date: o.date,
+          time: o.time
+        }
+      )
+    })
+    const newID = await response.json();
+
+    if (!response.ok) {
+      throw response;
     }
-  
-    }
+
+    return newID;
+  }
+  catch {
+    return false;
+  }
+
+}
 
 async function updateConfirmedProduct(confirmed, id) {
 
@@ -91,6 +139,23 @@ async function updateConfirmedProduct(confirmed, id) {
       return false;
     }
   
+}
+
+async function updateWallet(amount, clientID){
+  const response = await fetch(BASEURL + '/wallets', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      amount: amount,
+      id: clientID
+    })
+  });
+
+if (response.ok) {
+  return true;
+} else {
+  return false;
+}
 }
 
 function logIn(username, password) {
@@ -136,9 +201,12 @@ const API = {
   updateConfirmedProduct,
   createClient,
   createProduct,
+  getAllOrders,
+  createOrder,
   logIn,
   logOut,
-  getUserInfo
+  getUserInfo,
+  updateWallet
 }
 
 export default API;

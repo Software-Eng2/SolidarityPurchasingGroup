@@ -103,13 +103,31 @@ app.post('/api/clients',
       password: req.body.password,
       isConfirmed: req.body.isConfirmed
     }
-    dao.createClient(client).then((id) => res.status(201).json({ id: id }))
+    dao.createClient(client).then((id) => dao.createWallet(id).then(res.status(201).json({ id: id })).catch((err) =>
+      res.status(500).json({
+        error: "Error " + err,
+      })))
       .catch((err) =>
         res.status(500).json({
           error: "Error " + err,
         })
       );
-  }); 
+  });
+  
+app.put('/api/wallets/', 
+ [check('amount').isInt({min: 0}), check('id').isInt({min:0})],
+ (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.array())
+    return res.status(422).json({ errors: errors.array() })
+  }
+
+  dao.updateWallet(req.body.amount, req.body.id).then((id) => res.status(201).json({id: id}))
+  .catch((err) => res.status(500).json({
+    error: "error " + err
+  }));
+ })
 
 //get all products
 app.get('/api/products',
@@ -176,7 +194,49 @@ app.put('/api/products',
       );
   })
 
+//get all orders
+app.get('/api/orders',
+  (req, res) => {
+    dao.getAllOrders()
+      .then((orders) => { res.json(orders)})
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
 
+// add a new product
+app.post('/api/orders',
+  [
+    check('creation_date').isString(),
+    check('client_id').isInt(),
+    check('total').isNumeric(),
+    check('status').isString(),
+    check('pick_up').isInt({min:0, max:1}),
+    check('address').isString(),
+    check('date').isString(),
+    check('time').isString()
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+    const order = {
+      creation_date: req.body.creation_date,
+      client_id: req.body.client_id,
+      total: req.body.total,
+      status: req.body.status,
+      pick_up: req.body.pick_up,
+      address: req.body.address,
+      date: req.body.date,
+      time: req.body.time
+    }
+    dao.createOrder(order).then((id) => res.status(201).json({ id: id }))
+      .catch((err) =>
+        res.status(500).json({
+          error: "Error " + err,
+        })
+      );
+  });
 
 
  // Login --> POST /sessions 
