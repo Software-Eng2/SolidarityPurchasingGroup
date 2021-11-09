@@ -103,13 +103,31 @@ app.post('/api/clients',
       password: req.body.password,
       isConfirmed: req.body.isConfirmed
     }
-    dao.createClient(client).then((id) => res.status(201).json({ id: id }))
+    dao.createClient(client).then((id) => dao.createWallet(id).then(res.status(201).json({ id: id })).catch((err) =>
+      res.status(500).json({
+        error: "Error " + err,
+      })))
       .catch((err) =>
         res.status(500).json({
           error: "Error " + err,
         })
       );
-  }); 
+  });
+  
+app.put('/api/wallets/', 
+ [check('amount').isInt({min: 0}), check('id').isInt({min:0})],
+ (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.array())
+    return res.status(422).json({ errors: errors.array() })
+  }
+
+  dao.updateWallet(req.body.amount, req.body.id).then((id) => res.status(201).json({id: id}))
+  .catch((err) => res.status(500).json({
+    error: "error " + err
+  }));
+ })
 
 //get all products
 app.get('/api/products',

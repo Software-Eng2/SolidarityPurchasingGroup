@@ -77,3 +77,35 @@ exports.updatedConfirmedProduct = (confirmed, id) => {
         });
     });
 };
+
+// add a new wallet 
+exports.createWallet = (clientID) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO WALLETS(AMOUNT, CLIENT_ID) VALUES(?,?)';
+    
+    db.run(sql, [0, clientID], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
+
+//update the amount on a wallet
+exports.updateWallet = (value, client_id) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE WALLETS SET AMOUNT = ? WHERE CLIENT_ID = ?';
+
+      db.run(sql, [value, client_id], function (err) {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(this.lastID);
+      });
+
+  });
+};

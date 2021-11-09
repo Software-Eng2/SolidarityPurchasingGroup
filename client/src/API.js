@@ -93,6 +93,23 @@ async function updateConfirmedProduct(confirmed, id) {
   
 }
 
+async function updateWallet(amount, clientID){
+  const response = await fetch(BASEURL + '/wallets', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      amount: amount,
+      id: clientID
+    })
+  });
+
+if (response.ok) {
+  return true;
+} else {
+  return false;
+}
+}
+
 function logIn(username, password) {
   return new Promise((resolve, reject) => {
     fetch(BASEURL+'/sessions', {
@@ -138,7 +155,8 @@ const API = {
   createProduct,
   logIn,
   logOut,
-  getUserInfo
+  getUserInfo,
+  updateWallet
 }
 
 export default API;
