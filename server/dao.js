@@ -77,3 +77,30 @@ exports.updatedConfirmedProduct = (confirmed, id) => {
         });
     });
 };
+
+exports.getAllOrders = () => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM ORDERS';
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const orders = rows.map((o) => ({ id: o.id, creation_date: o.creation_date, client_id: o.client_id, total: o.total, status: o.status, pick_up: o.pick_up, address: o.address, date: o.date, time: o.time }));
+      resolve(orders);
+    });
+  })
+};
+
+exports.createOrder = (order) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO ORDERS (creation_date, client_id, total, status, pick_up, address, date, time) VALUES(?,?,?,?,?,?,?,?)';
+    db.run(sql, [order.creation_date, order.client_id, order.total, order.status, order.pick_up, order.address, order.date, order.time], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  })
+};
