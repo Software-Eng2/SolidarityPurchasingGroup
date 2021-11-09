@@ -9,28 +9,25 @@ const db = new sqlite.Database('spg.sqlite', (err) => {
     if (err) throw err;
   });
 
-  exports.getUser = (email, password) => {
-    return new Promise((resolve, reject) => {
-        const sql = 'SELECT * FROM USERS WHERE email = ?';
-        db.get(sql, [email], (err, row) => {
-            if (err)
-                reject(err);
-            else if (row === undefined) {
-                resolve(false);
-            }
-            else {
-                const user = { id: row.id, role: row.role, name: row.name, surname: row.surname, birthdate: row.birthdate, email: row.email, isConfirmed: row.isConfirmed};
-                bcrypt.compare(password, row.password).then(result => {
-                    if (result) {     
-                        resolve(user);
-                    }
-                    else
-                        resolve(false);
-                });
-            }
+  exports.getUser = (email, password) => new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM USERS WHERE email = ?';
+    db.get(sql, [email], (err, row) => {
+      if (err) {
+        reject(err);
+      } else if (row) {
+        const user = { id: row.id, role: row.role, name: row.name, surname: row.surname, birthdate: row.birthdate, email: row.email, isConfirmed: row.isConfirmed };
+        bcrypt.compare(password, row.password).then((result) => {
+          if (result) {
+            resolve(user);
+          } else {
+            resolve(false);
+          }
         });
+      } else {
+        resolve(false);
+      }
     });
-};
+  });
 
 // get user by id
 exports.getUserById = (id) => new Promise((resolve, reject) => {

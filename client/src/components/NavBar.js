@@ -1,8 +1,10 @@
-import { Col, Navbar, Nav} from 'react-bootstrap';
+import { Col, Navbar, Nav, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { shopIcon } from './Icons'
 
 function NavBar(props) {
+
+    const {loggedIn, doLogOut} = props;
 
     return (
 
@@ -39,9 +41,17 @@ function NavBar(props) {
                     </Col>
                 </Nav>
                 <Nav className="ml-3">
-                    <Link to={{ pathname: '/login' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
+                    {
+                        loggedIn ? (
+                            <Link to={{ pathname: '/' }} onClick={doLogOut} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
+                                Logout
+                    </Link>
+                        ) : (
+                            <Link to={{ pathname: '/login' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
                         Login
                     </Link>
+                        )
+                    }
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

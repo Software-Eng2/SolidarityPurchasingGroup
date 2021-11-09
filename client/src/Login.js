@@ -5,25 +5,25 @@ import {
   
   function LoginForm(props) {
     const { doLogIn } = props;
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [invalidUsername, setInvalidUsername] = useState(false);
+    const [invalidEmail, setInvalidEmail] = useState(false);
     const [invalidPassword, setInvalidPassword] = useState(false);
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      if (username === '' || password === '') {
-        setInvalidUsername(username === '');
+      if (email === '' || password === '') {
+        setInvalidEmail(email === '');
         setInvalidPassword(password === '');
       } else {
-        doLogIn(username, password);
+        doLogIn(email, password);
       }
     };
   
     const handleChange = (event) => {
-      if (event.target.id === 'username') {
-        setUsername(event.target.value);
-        setInvalidUsername(event.target.value === '');
+      if (event.target.id === 'email') {
+        setEmail(event.target.value);
+        setInvalidEmail(event.target.value === '');
       } else if (event.target.id === 'password') {
         setPassword(event.target.value);
         setInvalidPassword(event.target.value === '');
@@ -36,10 +36,10 @@ import {
         <Card className="text-center" style={{ width: '24rem' }}>
           <Card.Body>
             <Form>
-              <Form.Group className="text-left mb-4" controlId="username">
+              <Form.Group className="text-left mb-4" controlId="email">
                 <Form.Label>Email:</Form.Label>
-                <Form.Control isInvalid={invalidUsername} placeholder="Enter Email" type="email" value={username} onChange={handleChange} />
-                <Form.Control.Feedback type="invalid">Please insert username.</Form.Control.Feedback>
+                <Form.Control isInvalid={invalidEmail} placeholder="Enter Email" type="email" value={email} onChange={handleChange} />
+                <Form.Control.Feedback type="invalid">Please insert email.</Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="text-left mb-4" controlId="password">
                 <Form.Label>Password:</Form.Label>
