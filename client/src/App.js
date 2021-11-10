@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
+import Homepage from './components/Homepage';
 import LoginForm from './Login';
 import API from './API';
 
@@ -85,10 +86,10 @@ function App() {
 
   return (
     <Router>
-      <NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>
+       {loggedIn ? (<NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>) : ''}
       <Switch>
         <Route exact path="/">
-          <h1>Homepage</h1>
+          <Homepage/>
         </Route>
         <Route exact path="/products">
           <h1>Products (+ Cart Management ?)</h1>          
