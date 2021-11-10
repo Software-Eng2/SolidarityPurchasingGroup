@@ -84,7 +84,7 @@ async function getAllOrders() {
   const orders = await response.json();
 
   if (response.ok) {
-    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.total, o.status, o.pick_up, o.address, o.date, o.time));
+    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.name, o.surname, o.total, o.status, o.pick_up, o.address, o.date, o.time));
   } else {
     return undefined;
   }
@@ -139,6 +139,25 @@ async function updateConfirmedProduct(confirmed, id) {
       return false;
     }
   
+}
+
+async function changeStatus(order_id, status) {
+
+  const response = await fetch(BASEURL + '/orders', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        order_id: order_id,
+        status: status
+      })
+    });
+
+  if (response.ok) {
+    return true;
+  } else {
+    return false;
+  }
+
 }
 
 async function updateWallet(amount, clientID){
@@ -203,6 +222,7 @@ const API = {
   createProduct,
   getAllOrders,
   createOrder,
+  changeStatus,
   logIn,
   logOut,
   getUserInfo,

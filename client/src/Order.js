@@ -9,6 +9,8 @@ import dayjs from 'dayjs';
  * @param {number} id - id of the order
  * @param {string} creation_date - creation date of the order
  * @param {number} client_id - id of the client linked to the order
+ * @param {string} client_name - name of the client linked to the order
+ * @param {string} client_surname - surname of the client linked to the order
  * @param {number} total - total cost of the order
  * @param {string} status - status of the order (pending, accepted, cancelling, failed, ready, delivered)
  * @param {boolean} pick_up - type of delivery (pick_up = 1 / home delivery = 0)
@@ -18,11 +20,13 @@ import dayjs from 'dayjs';
  * 
  */
 
-class Order{
-    constructor(id, creation_date, client_id, total, status, pick_up, address, date, time){
+class Order {
+    constructor(id, creation_date, client_id, client_name, client_surname, total, status, pick_up, address, date, time) {
         this.id = id;
         this.creation_date = creation_date;
         this.client_id = client_id;
+        this.client_name = client_name;
+        this.client_surname = client_surname;
         this.total = total;
         this.status = status;
         this.pick_up = pick_up;
@@ -47,9 +51,9 @@ class Order{
  * @param {Function} getPickUpOrders - return an array of Order objects with type of delivery = pick up (pick_up = 1)
  * @param {Function} getClientOrders - update the confirmed status of the product
  */
-class OrdersList{
+class OrdersList {
 
-    constructor(){
+    constructor() {
         this.init = false;
         this.ordersList = [];
     }
@@ -59,11 +63,11 @@ class OrdersList{
      * 
      * @return {boolean} return true if the ordersList is correctly initialized with DB data, false otherwise
      */
-    async initialize(){
+    async initialize() {
 
         this.ordersList = await API.getAllOrders();
 
-        if(this.ordersList === undefined){
+        if (this.ordersList === undefined) {
             return false;
         }
         this.init = true;
@@ -75,9 +79,9 @@ class OrdersList{
      * 
      * @return {Array} array with Order type objects, returns undefined if the object as not correctly initialized
      */
-    getOrders(){
+    getOrders() {
 
-        if(!this.init){
+        if (!this.init) {
             return undefined;
         }
 
@@ -89,7 +93,7 @@ class OrdersList{
      *
      * @param {number} id - id of the order
      * @param {string} creation_date - creation date of the order
-     * @param {number} client_id - id of the client linked to the order
+     * @param {number} client_id - id of the client linked to the order     
      * @param {number} total - total cost of the order
      * @param {string} status - status of the order (pending, accepted, cancelling, failed, ready, delivered)
      * @param {boolean} pick_up - type of delivery (pick_up = 1 / home delivery = 0)
@@ -99,16 +103,37 @@ class OrdersList{
      *
      * @return {boolean} return true if the order was added correctly in the DB, false otherwise
      */
-    async addOrder(creation_date, client_id, total, status, pick_up, address, date, time) {
+    async addOrder(creation_date, client_id, total, pick_up, address, date, time) {
 
         if (!this.init) {
             return undefined;
         }
 
+        const status = 'PENDING';
         const result = API.createOrder({ creation_date: creation_date, client_id: client_id, total: total, status: status, pick_up: pick_up, address: address, date: date, time: time });
 
         return result;
-    }
+    };
+
+    /**
+     * Update the status of the choosen order
+     * 
+     * @param {number} order_id - id of the order to update
+     * @param {string} status - new status of the order
+     * 
+     * @return {boolean} return true if the status was correctly updated, false otherwise
+     */
+    async changeStatus(order_id, status) {
+
+        console.log(this.init);
+        /* if (!this.init) {
+            return undefined;
+        } */
+
+        const result = API.changeStatus(order_id, status);
+
+        return result;
+    };
 
     /**
      * Get am order with a specific ID
@@ -116,29 +141,29 @@ class OrdersList{
      * @param {number} id - id of the order
      * @return {Array} return an array with the Order object with the specified id, undefined in case of non initialized object
      */
-    getOrderFromId(id){
+    getOrderFromId(id) {
 
-        if(!this.init){
+        if (!this.init) {
             return undefined;
         }
 
         return this.ordersList.filter((o) => o.id === id);
 
-    }
+    };
 
     /**
      * Get orders with type of delivery = delivery (pick_up = 0)
      * 
      * @return {Array} return an array with the Order objects with the specified type of delivery, undefined in case of non initialized object
      */
-     getDeliverOrders(){
+    getDeliverOrders() {
 
-        if(!this.init){
+        if (!this.init) {
             return undefined;
         }
 
         return this.ordersList.filter((o) => o.pick_up === 0);
-    }
+    };
 
     /**
      * Get orders with type of delivery = pick_up (pick_up = 1)
@@ -152,7 +177,7 @@ class OrdersList{
         }
 
         return this.ordersList.filter((o) => o.pick_up === 1);
-    }
+    };
 
     /**
      * Get all orders related to a specific client
@@ -161,15 +186,15 @@ class OrdersList{
      * 
      * @return {Array} return an array of Order objects related to a specific client, undefined in case of non initialized object
      */
-    getClientOrders(client_id){
-        
+    getClientOrders(client_id) {
+
         if (!this.init) {
             return undefined;
         }
 
         return this.ordersList.filter((o) => o.client_id === client_id);
-    }
+    };
 
-}
+};
 
-export {Order, OrdersList}
+export { Order, OrdersList }
