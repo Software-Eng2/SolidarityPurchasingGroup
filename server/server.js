@@ -73,7 +73,7 @@ const isLoggedIn = (req, res, next) => {
 app.get('/api/clients',
   (req, res) => {
     dao.getAllClients()
-      .then((clients) => { res.json(clients)})
+      .then((clients) => {res.json(clients)})
       .catch((err) => res.status(500).json({ error: "Error " + err }));
 });
 
@@ -119,7 +119,6 @@ app.put('/api/wallets/',
  (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors.array())
     return res.status(422).json({ errors: errors.array() })
   }
 

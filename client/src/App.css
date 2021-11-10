@@ -70,3 +70,17 @@ $button-black: #5C6166;
   margin-bottom: 1em;
   color: #37BD55;
 }
+
+
+th{
+  color: #2E3338;
+  background-color: #b4e6e2;
+}
+.negative{
+  background-color: #ffcccb;
+}
+
+.positive{
+  color: #2E3338;
+}
+

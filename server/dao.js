@@ -7,13 +7,13 @@ const db = require('./db');
 // get all the clients
 exports.getAllClients = () => {
     return new Promise((resolve, reject) => {
-        const sql = 'SELECT USERS.id, USERS.name, USERS.surname, USERS.birthdate, USERS.email, USERS.isConfirmed FROM USERS WHERE USERS.role = "client"';
+        const sql = 'SELECT USERS.id, USERS.name, USERS.surname, USERS.birthdate, USERS.email, USERS.isConfirmed, WALLETS.amount FROM USERS JOIN WALLETS WHERE USERS.role = "client" AND USERS.id = WALLETS.client_id';
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
                 return;
             }
-            const clients = rows.map((c) => ({ id: c.id, name: c.name, surname: c.surname, birthdate: c.birthdate, email: c.email, isConfirmed: c.isConfirmed }));
+            const clients = rows.map((c) => ({ id: c.id, name: c.name, surname: c.surname, birthdate: c.birthdate, email: c.email, isConfirmed: c.isConfirmed, amount: c.amount }));
             resolve(clients);
         });
     })
@@ -139,7 +139,7 @@ exports.createWallet = (clientID) => {
 //update the amount on a wallet
 exports.updateWallet = (value, client_id) => {
   return new Promise((resolve, reject) => {
-      const sql = 'UPDATE WALLETS SET AMOUNT = ? WHERE CLIENT_ID = ?';
+      const sql = 'UPDATE WALLETS SET amount = ? WHERE client_id = ?';
 
       db.run(sql, [value, client_id], function (err) {
           if (err) {

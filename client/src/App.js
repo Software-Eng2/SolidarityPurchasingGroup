@@ -7,10 +7,8 @@ import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
-import Wallet from './components/Wallet';
 import LoginForm from './Login';
 import API from './API';
-import { Button} from 'react-bootstrap';
 import {OrdersList} from "./Order";
 
 
