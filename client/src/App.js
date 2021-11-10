@@ -8,6 +8,7 @@ import OrderPage from './components/OrderPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
 import Wallet from './components/Wallet';
+import Market from './views/Market';
 import LoginForm from './Login';
 import API from './API';
 import { Button} from 'react-bootstrap';
@@ -95,7 +96,7 @@ function App() {
           <h1>Homepage</h1>
         </Route>
         <Route exact path="/products">
-          <h1>Products (+ Cart Management ?)</h1>          
+          <Market></Market>        
         </Route>
         <Route exact path="/orders">
           <OrderPage/>         

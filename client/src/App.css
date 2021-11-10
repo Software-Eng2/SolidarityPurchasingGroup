@@ -32,7 +32,7 @@ BUTTON TEXT:
 $button-black: #5C6166;
 */
 
-.nav{
+.nav {
   background-color: #37BD55 !important;
 }
 
@@ -44,8 +44,71 @@ $button-black: #5C6166;
   height: 75%;
   background-color: #fff9ea;
 }
+
 .user-icon {
   margin-top: -2.3em;
   margin-bottom: 1em;
   color: #37BD55;
+}
+
+.market-nav {
+  background-color: #ABB2BA !important;
+}
+
+.img-modal img {
+  height: 6rem;
+  width: 8rem;
+}
+
+.product-quantity {
+  width: fit-content;
+  margin: 0px;
+}
+
+.editquantity-btn {
+  background-color: white;
+  border-style: none;
+  font-size: 34px;
+  color: #247D37;
+  outline: none;
+}
+
+.editquantity-btn:hover {
+  color: #37BD55;
+}
+
+.editquantity-btn.click {
+  color: #37BD55;
+}
+
+.editquantity-btn:disabled {
+  color: #737F8C;
+}
+
+.display-count {
+  margin: 1rem;
+  color: #247D37;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid #247D37;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.error {
+  color: #F84D4D;
 }
