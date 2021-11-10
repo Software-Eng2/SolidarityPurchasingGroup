@@ -45,7 +45,7 @@ function ListOfClients(props){
             </Table>
         
             <Row className="justify-content-center">
-                <Button className="mt-5" disabled={selected=="" || selected.amount < TotalAmount}>Order now</Button>
+                <Button className="mt-5" disabled={selected=="" || selected.amount < TotalAmount}>Continue</Button>
             </Row>
         </div>
     );
