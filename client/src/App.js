@@ -10,6 +10,7 @@ import RegisterInterface from './components/RegisterPage';
 import Homepage from './components/Homepage';
 import LoginForm from './Login';
 import API from './API';
+import {OrdersList} from "./Order";
 
 
 function App() {
@@ -20,10 +21,26 @@ function App() {
   const [userEmail, setUserEmail] = useState(''); //getting the email
   const [userRole, setUserRole] = useState('');
   const [dirty, setDirty] = useState(false);
+  const [walletShow, setWalletShow] = useState(false);
+  const [user, setUser] = useState([]); 
+  const [orders, setOrders] = useState([]);
   const routerHistory = useHistory();
 
-
-
+  //initialize object ordersList (to fix)
+  const o = new OrdersList();
+  
+  const getOrdersList = async () => {
+    let o = new OrdersList();
+    await o.initialize();
+    setOrders(o.ordersList);
+  };
+  //change status of the selected order
+  const changeStatus = async (order_id, status) => {
+    getOrdersList();
+    console.log('status of order' + ' ' + order_id + ' ' + 'changing in... ' + status);
+    o.changeStatus(order_id, status);
+    setDirty(true);
+  }
 
   useEffect(()=>{
     API.getUserInfo().then((user) => {
@@ -43,6 +60,7 @@ function App() {
       if(loggedIn && dirty){
         API.getAllClients().then((newC) => {
         setAllClients(newC);
+        getOrdersList();
         setDirty(false);
       }).catch((err) => console.log(err));
       }
@@ -95,7 +113,7 @@ function App() {
           <h1>Products (+ Cart Management ?)</h1>          
         </Route>
         <Route exact path="/orders">
-          <OrderPage/>         
+          <OrderPage orders={orders} setOrders={setOrders} changeStatus={changeStatus} getOrdersList={getOrdersList}/>         
         </Route>
         <Route exact path="/shopemployee">
           <ShopEmployeePage allClients={allClients}/>

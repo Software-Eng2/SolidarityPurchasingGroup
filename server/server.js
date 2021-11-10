@@ -201,7 +201,7 @@ app.get('/api/orders',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
 });
 
-// add a new product
+// add a new order
 app.post('/api/orders',
   [
     check('creation_date').isString(),
@@ -236,6 +236,26 @@ app.post('/api/orders',
         })
       );
   });
+//change status of an order
+  app.put('/api/orders',  
+  [
+    check('status').isIn(['PENDING', 'ACCEPTED','CANCELLING','FAILED','READY','DELIVERED']), 
+    check('order_id').isInt({min:0})
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
+
+    dao.changeStatus(req.body.order_id, req.body.status)
+      .then((id) => res.status(201).json({ id: id }))
+      .catch((err) =>
+        res.status(500).json({
+          error: "Error " + err,
+        })
+      );
+  })
 
 
  // Login --> POST /sessions 
