@@ -38,7 +38,7 @@ function ListOfClients(props){
                             <td>{client.surname}</td>
                             <td>{client.birthdate}</td>
                             <td>{client.email}</td>
-                            <td>{client.amount}{client.amount < TotalAmount ? <Button size="sm" variant="outline-danger" className="ml-5" onClick={() => handleClick(client)}>Top up</Button>: ""} </td> 
+                            <td>$ {client.amount}{client.amount < TotalAmount ? <Button size="sm" variant="outline-danger" className="ml-5" onClick={() => handleClick(client)}>Top up</Button>: ""} </td> 
                        </tr>
                     ))}
                 </tbody>

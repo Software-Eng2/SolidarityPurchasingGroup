@@ -10,6 +10,7 @@ import API from "./API";
  * @param {string} birthdate - birthdate of the client
  * @param {string} email - email of the client
  * @param {number} isConfirmed - client to be confirmed
+ * @param {number} amount - total amount of money in client wallet
  * 
  * Methods:
  * 
@@ -17,13 +18,14 @@ import API from "./API";
  * @function updateWallet - update the wallet of the client
  */
 class Client{
-    constructor(id, name, surname, birthdate, email, isConfirmed){
+    constructor(id, name, surname, birthdate, email, isConfirmed, amount){
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;
         this.email = email;
-        this.isConfirmed = isConfirmed;  
+        this.isConfirmed = isConfirmed;
+        this.amount = amount;
     }
 
     getId = () => {

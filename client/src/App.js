@@ -20,8 +20,6 @@ function App() {
   const [userEmail, setUserEmail] = useState(''); //getting the email
   const [userRole, setUserRole] = useState('');
   const [dirty, setDirty] = useState(false);
-  const [walletShow, setWalletShow] = useState(false);
-  const [user, setUser] = useState([]); 
   const [orders, setOrders] = useState([]);
   const routerHistory = useHistory();
 

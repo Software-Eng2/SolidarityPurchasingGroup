@@ -7,7 +7,7 @@ const db = require('./db');
 // get all the clients
 exports.getAllClients = () => {
     return new Promise((resolve, reject) => {
-        const sql = 'SELECT USERS.id, USERS.name, USERS.surname, USERS.birthdate, USERS.email, USERS.isConfirmed, WALLETS.amount FROM USERS JOIN WALLETS WHERE USERS.role = "client" AND USERS.id = WALLETS.client_id';
+        const sql = 'SELECT USERS.id, USERS.name, USERS.surname, USERS.birthdate, USERS.email, USERS.isConfirmed, WALLETS.amount FROM USERS INNER JOIN WALLETS ON USERS.id = WALLETS.client_id WHERE USERS.role = "client" ';
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
