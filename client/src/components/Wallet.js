@@ -1,5 +1,5 @@
 import { Modal, Container, Row, Col, Button, Form, Alert} from 'react-bootstrap';
-import { useState, useEffect} from 'react';
+import { useState} from 'react';
 import {MdDoneOutline} from "react-icons/md";
 import API from '../API';
 
@@ -15,7 +15,7 @@ function Wallet(props) {
         props.setWalletShow(false); 
         setDone(false);
         props.setIncrement(0);
-      }, 4000)
+      }, 3000)
     }).catch((err) => console.log(err));
   }
 
