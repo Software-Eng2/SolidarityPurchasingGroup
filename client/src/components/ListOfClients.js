@@ -23,7 +23,7 @@ function ListOfClients(props){
                 <Col>
                     <h1 className="font-italic mt-3">Select the client</h1>
                 </Col>
-                <Col>
+                <Col className="d-flex justify-content-end">
                     <Form.Control onChange={(ev) => {
                         var value = ev.target.value;
                         if(value !== ""){
