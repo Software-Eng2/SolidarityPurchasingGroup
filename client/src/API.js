@@ -45,34 +45,32 @@ async function getAllProducts(){
     const products = await response.json();
   
     if (response.ok) {
-        return products.map((p) => new Product(p.ID, p.NAME, p.DESCRIPTION, p.CATEGORY, p.QUANTITY, p.EXPIRE, p.FARMER_ID));
+        return products.map((p) => new Product(p.id, p.name, p.description, p.category, p.quantity, p.price, p.farmer_id, p.img_path, p.confirmed));
     } else {
         return undefined;
     }
 }
 
 async function createProduct(p) {
-  try {
-    const response = await fetch(BASEURL + '/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(
-        {
-          NAME: p.NAME, DESCRIPTION: p.DESCRIPTION, CATEGORY: p.CATEGORY, QUANTITY: p.QUANTITY, CONFIRMED: p.CONFIRMED,
-          FARMER_ID: p.FARMER_ID, IMG_PATH: p.IMG_PATH, PRICE: p.PRICE
-        }
-      )
-    })
-    const newID = await response.json();
-
-    if (!response.ok) {
-      throw response;
-    }
-
-    return newID;
-  }
-  catch {
-    return false;
+    try {
+      const response = await fetch(BASEURL + '/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            { name: p.name,description: p.description, category: p.category, quantity: p.quantity, price: p.price , 
+              farmer_id: p.farmer_id, img_path: p.img_path, confirmed: p.confirmed}
+        )
+      })
+      const newID = await response.json();
+  
+      if (!response.ok) {
+        throw response;
+      }
+  
+      return newID;
+    } 
+    catch {
+      return false;
   }
 
 }

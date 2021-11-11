@@ -7,6 +7,8 @@ import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
+import Wallet from './components/Wallet';
+import Market from './views/Market';
 import Homepage from './components/Homepage';
 import LoginForm from './Login';
 import API from './API';
@@ -23,6 +25,13 @@ function App() {
   const [dirty, setDirty] = useState(false);
   const [orders, setOrders] = useState([]);
   const routerHistory = useHistory();
+  const [products, setProducts] = useState([]); 
+
+  useEffect(()=>{
+    API.getAllProducts().then((products) => {
+      setProducts(products);
+    })
+  },[])
 
   //initialize object ordersList (to fix)
   const o = new OrdersList();
@@ -108,7 +117,7 @@ function App() {
           <Homepage/>
         </Route>
         <Route exact path="/products">
-          <h1>Products (+ Cart Management ?)</h1>          
+          <Market products={products}></Market>        
         </Route>
         <Route exact path="/orders">
           <OrderPage orders={orders} setOrders={setOrders} changeStatus={changeStatus} getOrdersList={getOrdersList}/>         

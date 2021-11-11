@@ -43,7 +43,7 @@ exports.getAllProducts = () => {
                 reject(err);
                 return;
             }
-            const products = rows.map((p) => ({ ID: p.ID, NAME: p.NAME,DESCRIPTION: p.DESCRIPTION, CATEGORY: p.CATEGORY, QUANTITY: p.QUANTITY, CONFIRMED: p.CONFIRMED, FARMER_ID: p.FARMER_ID, IMG_PATH: p.IMG_PATH, PRICE: p.PRICE }));
+            const products = rows.map((p) => ({ id: p.id, name: p.name,description: p.description, category: p.category, quantity: p.quantity, price: p.price, farmer_id: p.farmer_id, img_path: p.img_path, confirmed: p.confirmed }));
             resolve(products);
         });
     })
@@ -52,9 +52,9 @@ exports.getAllProducts = () => {
 // add a new product 
 exports.createProduct = (product) => {
     return new Promise((resolve, reject) => {
-      const sql = 'INSERT INTO PRODUCTS(NAME,DESCRIPTION,CATEGORY,QUANTITY, CONFIRMED, FARMER_ID, IMG_PATH, PRICE) VALUES(?,?,?,?,?,?,?,?)';
+      const sql = 'INSERT INTO PRODUCTS(name,description,category,quantity, price, farmer_id, img_path, confirmed) VALUES(?,?,?,?,?,?,?,?)';
       
-      db.run(sql, [product.NAME, product.DESCRIPTION, product.CATEGORY, product.QUANTITY,  p.CONFIRMED, p.FARMER_ID, p.IMG_PATH, p.PRICE], function (err) {
+      db.run(sql, [product.name, product.description, product.category, product.quantity, p.price, p.farmer_id, p.img_path, p.confirmed,], function (err) {
         if (err) {
           reject(err);
           return;
@@ -67,7 +67,7 @@ exports.createProduct = (product) => {
 //update the confirmed field of a product
 exports.updatedConfirmedProduct = (confirmed, id) => {
     return new Promise((resolve, reject) => {
-        const sql = 'UPDATE PRODUCTS SET CONFIRMED = ? WHERE id = ?';
+        const sql = 'UPDATE PRODUCTS SET confirmed = ? WHERE id = ?';
         db.run(sql, [confirmed, id], function (err) {
             if (err) {
                 reject(err);
