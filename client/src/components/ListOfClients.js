@@ -1,4 +1,4 @@
-import { Table, Row, Button} from "react-bootstrap";
+import { Table, Row, Button, Form, Col} from "react-bootstrap";
 import {IoWallet} from "react-icons/io5";
 import '../App.css';
 import { useState} from 'react';
@@ -7,6 +7,8 @@ import { useState} from 'react';
 function ListOfClients(props){
     const {allClients} = props;
     const [selected, setSelected] = useState(""); //client selected
+    const [view, setView] = useState("view"); //2 possible values: view for visualizing all clients, search for visualizing only search results
+    const [search, setSearch] = useState(""); //value to search
     const TotalAmount = 67;         //TODO SOTITUIRE CON IL TOTALE DELL'ACQUISTO
 
 
@@ -17,8 +19,23 @@ function ListOfClients(props){
 
     return(
         <div className="w-75 mx-auto">
-            <Row className="justify-content-center">
-                <h1 className="font-italic mt-3">Select the client</h1>
+            <Row className="justify-content-center align-items-center">
+                <Col>
+                    <h1 className="font-italic mt-3">Select the client</h1>
+                </Col>
+                <Col>
+                    <Form.Control onChange={(ev) => {
+                        var value = ev.target.value;
+                        if(value !== ""){
+                            setView("search");
+                            setSearch(value);
+                        }
+                        else{
+                            setView("view");
+                        }                        
+                    }} 
+                     style={{marginTop:"1rem", width:"20rem"}}  id="inlineFormInputName2" placeholder="Search here..."></Form.Control>
+                </Col>
             </Row>
             
             <Table variant="light">
@@ -32,7 +49,8 @@ function ListOfClients(props){
                     </tr>
                 </thead>
                 <tbody>
-                    {allClients.map((client) => (
+                    {(view === "view") ? 
+                    allClients.map((client) => (
                        <tr key={client.id} className="p-0" style={selected == client ? client.amount < TotalAmount ? {backgroundColor: "#f8d7da"} : {backgroundColor: "#d4edda"} : {}}  onClick={()=>{setSelected(client);}}>        
                             <td>{client.name}</td>
                             <td>{client.surname}</td>
@@ -40,7 +58,17 @@ function ListOfClients(props){
                             <td>{client.email}</td>
                             <td>$ {client.amount}{client.amount < TotalAmount ? <Button size="sm" variant="outline-danger" className="ml-5" onClick={() => handleClick(client)}>Top up</Button>: ""} </td> 
                        </tr>
-                    ))}
+                    ) )
+                    :
+                    allClients.filter((c) => c.name.includes(search) || c.surname.includes(search) || c.email.includes(search)).map((client) => (
+                        <tr key={client.id} className="p-0" style={selected == client ? client.amount < TotalAmount ? {backgroundColor: "#f8d7da"} : {backgroundColor: "#d4edda"} : {}}  onClick={()=>{setSelected(client);}}>        
+                             <td>{client.name}</td>
+                             <td>{client.surname}</td>
+                             <td>{client.birthdate}</td>
+                             <td>{client.email}</td>
+                             <td>$ {client.amount}{client.amount < TotalAmount ? <Button size="sm" variant="outline-danger" className="ml-5" onClick={() => handleClick(client)}>Top up</Button>: ""} </td> 
+                        </tr>
+                     ))}
                 </tbody>
             </Table>
         
