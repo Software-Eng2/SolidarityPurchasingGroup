@@ -95,7 +95,7 @@ function App() {
 
   return (
     <Router>
-       {loggedIn ? (<NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>) : ''}
+        <NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>
       <Switch>
         <Route exact path="/">
           <Homepage/>
