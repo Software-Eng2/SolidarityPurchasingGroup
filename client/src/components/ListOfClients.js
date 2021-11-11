@@ -18,12 +18,12 @@ function ListOfClients(props){
     }
 
     return(
-        <Container className="page width-100 below-nav table">
-            <Row className="justify-content-center align-items-center">
-                <Col xs={10}>
-                    <h2 className="font-italic mt-3">Select the client</h2>
+        <Container className="page below-nav table">
+            <Row className="justify-content-center align-items-center mb-2">
+                <Col xs={10} md={6}>
+                    <h1 className="font-italic mt-3">Select a client</h1>
                 </Col>
-                <Col xs={2} className="d-flex justify-content-end" >
+                <Col xs={2} md={6} className="d-flex justify-content-end" >
                     <Form.Control onChange={(ev) => {
                         var value = ev.target.value;
                         if(value !== ""){
