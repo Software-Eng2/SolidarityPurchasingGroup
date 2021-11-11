@@ -1,4 +1,4 @@
-import { Table, Row, Button, Form, Col} from "react-bootstrap";
+import { Container, Table, Row, Button, Form, Col} from "react-bootstrap";
 import {IoWallet} from "react-icons/io5";
 import '../App.css';
 import { useState} from 'react';
@@ -18,12 +18,12 @@ function ListOfClients(props){
     }
 
     return(
-        <div className="w-75 mx-auto">
+        <Container className="page width-100 below-nav table">
             <Row className="justify-content-center align-items-center">
-                <Col>
-                    <h1 className="font-italic mt-3">Select the client</h1>
+                <Col xs={10}>
+                    <h2 className="font-italic mt-3">Select the client</h2>
                 </Col>
-                <Col className="d-flex justify-content-end">
+                <Col xs={2} className="d-flex justify-content-end" >
                     <Form.Control onChange={(ev) => {
                         var value = ev.target.value;
                         if(value !== ""){
@@ -38,7 +38,7 @@ function ListOfClients(props){
                 </Col>
             </Row>
             
-            <Table variant="light">
+            <Table responsive variant="light">
                 <thead >
                     <tr>
                         <th>First Name</th>
@@ -75,7 +75,7 @@ function ListOfClients(props){
             <Row className="justify-content-center">
                 <Button className="mt-5" disabled={selected=="" || selected.amount < TotalAmount}>Continue</Button>
             </Row>
-        </div>
+        </Container>
     );
 }
 
