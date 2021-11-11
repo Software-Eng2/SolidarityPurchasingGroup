@@ -32,10 +32,10 @@ function Product(props) {
 							</Col>
 							
 							<Col xs={6} md={6}>
-								<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1rem"}}>Description</h3>
-								<p>{description}</p>
-								<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1rem"}}>Category</h3>
-								<p>{category}</p>
+								<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1rem", fontSize: "1.3rem"}}>Description</h3>
+								<p style={{margin: "0", padding: "0"}}>{description}</p>
+								<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1rem", fontSize: "1.3rem"}}>Category</h3>
+								<p style={{margin: "0", padding: "0"}}>{category}</p>
 							</Col>
 						</Row>
 						<Row style={{marginTop:"1rem"}}>
@@ -49,10 +49,10 @@ function Product(props) {
 						<hr className='solid'/>
 						<Row align="center" style={{marginTop:"1rem", marginBottom:"1.2rem"}}>
 							<Col xs={6} md={6}>
-								<h3 >Price</h3>
+								<h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>Price</h3>
 							</Col>
 							<Col xs={6} md={6}>
-								<h3>Select quantity</h3>
+								<h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>Select quantity</h3>
 							</Col>
 						</Row>
 						<Row align="center" style={{marginTop:"1rem", marginBottom:"1.2rem"}}>

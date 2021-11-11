@@ -11,8 +11,8 @@ function Card(props) {
                 <div className='card-title'>
                     <h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>{props.title}</h3>
                 </div>
-                <div className='card-body'>
-                    <p>{props.body}</p> 
+                <div className='card-body-p'>
+                    <p style={{margin: "0", padding: "0"}}>{props.body}</p> 
                 </div>  
                 <hr className='solid'/>
                 <div className='card-subinfo'>
