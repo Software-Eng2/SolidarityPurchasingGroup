@@ -9,9 +9,10 @@ import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
 import Wallet from './components/Wallet';
 import Market from './views/Market';
+import Homepage from './components/Homepage';
 import LoginForm from './Login';
 import API from './API';
-import { Button} from 'react-bootstrap';
+import {OrdersList} from "./Order";
 
 
 function App() {
@@ -22,8 +23,7 @@ function App() {
   const [userEmail, setUserEmail] = useState(''); //getting the email
   const [userRole, setUserRole] = useState('');
   const [dirty, setDirty] = useState(false);
-  const [walletShow, setWalletShow] = useState(false);
-  const [user, setUser] = useState([]); 
+  const [orders, setOrders] = useState([]);
   const routerHistory = useHistory();
   const [products, setProducts] = useState([]); 
 
@@ -33,6 +33,21 @@ function App() {
     })
   },[])
 
+  //initialize object ordersList (to fix)
+  const o = new OrdersList();
+  
+  const getOrdersList = async () => {
+    let o = new OrdersList();
+    await o.initialize();
+    setOrders(o.ordersList);
+  };
+  //change status of the selected order
+  const changeStatus = async (order_id, status) => {
+    getOrdersList();
+    console.log('status of order' + ' ' + order_id + ' ' + 'changing in... ' + status);
+    o.changeStatus(order_id, status);
+    setDirty(true);
+  }
 
   useEffect(()=>{
     API.getUserInfo().then((user) => {
@@ -52,6 +67,7 @@ function App() {
       if(loggedIn && dirty){
         API.getAllClients().then((newC) => {
         setAllClients(newC);
+        getOrdersList();
         setDirty(false);
       }).catch((err) => console.log(err));
       }
@@ -95,16 +111,16 @@ function App() {
 
   return (
     <Router>
-      <NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>
+       {loggedIn ? (<NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>) : ''}
       <Switch>
         <Route exact path="/">
-          <h1>Homepage</h1>
+          <Homepage/>
         </Route>
         <Route exact path="/products">
           <Market products={products}></Market>        
         </Route>
         <Route exact path="/orders">
-          <OrderPage/>         
+          <OrderPage orders={orders} setOrders={setOrders} changeStatus={changeStatus} getOrdersList={getOrdersList}/>         
         </Route>
         <Route exact path="/shopemployee">
           <ShopEmployeePage allClients={allClients}/>

@@ -32,6 +32,27 @@ BUTTON TEXT:
 $button-black: #5C6166;
 */
 
+.vheight-100 {
+  min-height: 100vh;
+}
+
+.width-100 {
+  min-width: 100%;
+}
+
+.below-nav {
+  padding-top: 1rem;
+}
+
+.page {
+  min-height: 87vh;
+  overflow-x: hidden;
+}
+
+.table .dropdown {
+  position: static !important;
+}
+
 .nav {
   background-color: #37BD55 !important;
 }
@@ -171,4 +192,31 @@ input[type=number] {
   display: inline-block;
   line-height: 40px;
   padding: 0;
+}
+
+th {
+  color: #2E3338;
+  background-color: #b4e6e2;
+}
+
+.negative {
+  background-color: #ffcccb;
+}
+
+.positive {
+  color: #2E3338;
+}
+
+.carousel {
+  max-width: 50vw;
+  max-height: 80vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.carousel-item>img {
+  max-width: 65vw;
+  max-height: 40vh;
+  margin-left: auto;
+  margin-right: auto;
 }
