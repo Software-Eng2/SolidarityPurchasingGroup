@@ -9,15 +9,15 @@ function Card(props) {
             </div>
             <div className='card-content'>
                 <div className='card-title'>
-                    <h3>{props.title}</h3>
+                    <h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>{props.title}</h3>
                 </div>
                 <div className='card-body'>
                     <p>{props.body}</p> 
                 </div>  
                 <hr className='solid'/>
                 <div className='card-subinfo'>
-                    <h3> Price </h3>
-                    <h4>€{props.subinfo.toFixed(2)}</h4>
+                    <h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}> Price </h3>
+                    <h4 style={{fontSize: "1.9rem", margin: "0", padding: "0", justifyContent: "left", fontWeight: "bold"}}>€{props.subinfo.toFixed(2)}</h4>
                 </div>  
             </div>
             <div className='card-button'>
