@@ -25,8 +25,13 @@ function App() {
   const [walletShow, setWalletShow] = useState(false);
   const [user, setUser] = useState([]); 
   const routerHistory = useHistory();
+  const [products, setProducts] = useState([]); 
 
-
+  useEffect(()=>{
+    API.getAllProducts().then((products) => {
+      setProducts(products);
+    })
+  },[])
 
 
   useEffect(()=>{
@@ -96,7 +101,7 @@ function App() {
           <h1>Homepage</h1>
         </Route>
         <Route exact path="/products">
-          <Market></Market>        
+          <Market products={products}></Market>        
         </Route>
         <Route exact path="/orders">
           <OrderPage/>         

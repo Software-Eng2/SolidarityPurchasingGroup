@@ -15,15 +15,16 @@ import API from "./API";
  * 
  */
 class Product{
-    constructor(id, name, description, category, quantity, expire, farmer_id, img_path){
+    constructor(id, name, description, category, quantity, price, farmer_id, img_path, confirmed){
         this.id = id;
         this.name = name;
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.expire = expire;
+        this.price = price;
         this.farmer_id = farmer_id;
         this.img_path = img_path;
+        this.confirmed = confirmed;
     }
 }
 

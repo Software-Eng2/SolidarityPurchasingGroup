@@ -1,108 +1,64 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import{ Container, Row, Col } from "react-bootstrap";
-import MarketNavbar from '../components/MarketNavbar';
 import Product from '../components/Product';
-import Sidebar from '../components/Sidebar/Sidebar'
-
-
+import 'react-pro-sidebar/dist/css/styles.css';
+import SideBar from '../components/SideBar';
 
 function Market(props) {
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [collapsed, setCollapsed] = useState(false);
+    const [size, setSize] = useState(0);
+    const [width, setWitdh] = useState("");
+    console.log(props.products);
+    const products = props.products;
+    useLayoutEffect(() => {
+        function updateSize() {
+            setSize(window.innerWidth);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
 
-    const product1 = {name: "Butter", 
-        price: 2.00, 
-        description: "Excelent butter made from free cows", 
-        quantity: 63, 
-        img: "https://images.lider.cl/wmtcl?source=url[file:/productos/300575a.jpg]&sink", 
-        confirmed: true};
-    const product2 = {name: "Milk", 
-        price: 1.75, 
-        description: "Excelent milk from free cows", 
-        quantity: 16, 
-        img: "https://www.icbfs.cl/wp-content/uploads/104523400.jpg", 
-        confirmed: true};
-    const product3 = {name: "Philadelfia Cheese", 
-        price: 1.80, 
-        description: "Excelent cheese", 
-        quantity: 32, 
-        img: "https://images.lider.cl/wmtcl?source=url[file:/productos/874674a.jpg]&sink", 
-        confirmed: true,
-        farmer_id: 1};
-    const product4 = {name: "Milk", 
-        price: 1.75, 
-        description: "Excelent milk from free cows", 
-        quantity: 16, 
-        img: "https://www.icbfs.cl/wp-content/uploads/104523400.jpg", 
-        confirmed: true,
-        farmer_id: 1};
-    const product5 = {name: "Milk", 
-        price: 1.75, 
-        description: "Excelent milk from free cows", 
-        quantity: 16, 
-        img: "https://www.icbfs.cl/wp-content/uploads/104523400.jpg", 
-        confirmed: true,
-        farmer_id: 1};
-        const product6 = {name: "Butter", 
-        price: 2.00, 
-        description: "Excelent butter made from free cows", 
-        quantity: 63, 
-        img: "https://images.lider.cl/wmtcl?source=url[file:/productos/300575a.jpg]&sink", 
-        confirmed: true,
-        farmer_id: 1};
-    const product7 = {name: "Milk", 
-        price: 1.75, 
-        description: "Excelent milk from free cows", 
-        quantity: 16, 
-        img: "https://www.icbfs.cl/wp-content/uploads/104523400.jpg", 
-        confirmed: true,
-        farmer_id: 1};
-    const product8 = {name: "Philadelfia Cheese", 
-        price: 1.80, 
-        description: "Excelent cheese", 
-        quantity: 32, 
-        img: "https://images.lider.cl/wmtcl?source=url[file:/productos/874674a.jpg]&sink", 
-        confirmed: true,
-        farmer_id: 1};
-    const product9 = {name: "Milk", 
-        price: 1.60, 
-        description: "Excelent milk from free cows", 
-        quantity: 16, 
-        img: "https://www.icbfs.cl/wp-content/uploads/104523400.jpg", 
-        confirmed: true,
-        farmer_id: 1};
-    const product10 = {name: "Milk", 
-        price: 1.75, 
-        description: "Excelent milk from free cows", 
-        quantity: 16, 
-        img: "https://www.icbfs.cl/wp-content/uploads/104523400.jpg", 
-        confirmed: true,
-        farmer_id: 1};
-
-    
-    const products = [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10];
-
-
+    useEffect(() => {
+        if (size < 1000
+            ) {
+            setCollapsed(true);
+        } else {
+            setCollapsed(false);
+            setWitdh("13rem");
+        }
+    }, [size])
+  
 	return (
-        <Container fluid style={{maxWidth: "100%"}} >
+        <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%"}} >
             <Row>
-                <Col>      
-                    <MarketNavbar />
-                </Col>
-            </Row>
-            <Row>
-            
-                <Container >
-                    <Row >
-                        {products.map(product => 
-                        <Col fluid="lg" lg={2} sm={4} style={{marginTop:"0.5rem", marginBottom:"0.5rem", marginLeft:"1rem", marginRight:"1rem"}}>
-                            <Product product={product}/>
-                        </Col>
-                        )}
-                    </Row>
+                <Col xs={2} sm={2} md={2}>
+                    <div className={`app `}>
 
-                </Container>
+                        <SideBar 
+                        collapsed={collapsed}
+                        width={width}
+                        />
+                    </div>
+
+                </Col>
+                <Col xs={10} sm={10} md={10}>
+                    <Container fluid style={{marginTop:"2rem"}}>
+                        <Row >
+                            {products.map(product => 
+                            product.confirmed ? 
+                            <Col fluid xs={12} sm={6} md={4} lg={3} >
+                                <Product product={product}/>
+                            </Col> : ''
+                            
+                            )}
+                        </Row>
+                        {/* style={{marginTop:"0.5rem", marginBottom:"0.5rem", marginLeft:"1rem", marginRight:"1rem"}} */}
+
+                    </Container>
+
+                </Col>
+                
             </Row>
 
 

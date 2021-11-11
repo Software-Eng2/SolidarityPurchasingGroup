@@ -5,21 +5,20 @@ import Card from '../components/Card/Card';
 
 
 function Product(props) {
-    const {name, price, description, quantity, img, confirmed, farmer_id} = props.product;
+    const {id, name, description, category, quantity, price, farmer_id, img_path, confirmed} = props.product;
 	const [show, setShow] = useState(false);
 	const [counter, setCounter] = useState(1);
 	const [total, setTotal] = useState(price);
     const handleShow = () => setShow(true);
-	const handleClose = () => setShow(false);
+	const handleClose = () => {setShow(false); setCounter(1); setTotal(price)};
 	const decrease = () => setCounter(counter-1);
 	const increase = () => setCounter(counter+1); 
 	const updateTotal = () => setTotal(price*counter);
-	console.log(total);
 
 	return (
 		<>
 			<Container onClick={handleShow}>
-				<Card title={name} body={description} img={img} subinfo={price} ></Card>		
+				<Card title={name} body={description} img={img_path} subinfo={price} ></Card>		
 			</Container>
 			<Modal centered show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
@@ -29,17 +28,17 @@ function Product(props) {
 					<Container fluid>
 						<Row>
 							<Col xs={12} md={6}>
-								<img src={img} alt={name} className="img-fluid"/>
+								<img src={img_path} alt={name} className="img-fluid" style={{height:"10rem", width:"10rem"}}/>
 							</Col>
 							
 							<Col xs={6} md={6}>
-								<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1.2rem"}}>Description</h3>
+								<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1rem"}}>Description</h3>
 								<p>{description}</p>
-								<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1.2rem"}}>Category</h3>
-								<p>Fruit</p>
+								<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1rem"}}>Category</h3>
+								<p>{category}</p>
 							</Col>
 						</Row>
-						<Row >
+						<Row style={{marginTop:"1rem"}}>
 							<Col xs={12} md={12}>
 								<Alert variant="success">
 									<Alert.Heading style={{textAlign: "center"}}>Availability of the week: {quantity}</Alert.Heading>
