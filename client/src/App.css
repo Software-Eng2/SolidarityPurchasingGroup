@@ -62,7 +62,7 @@ $button-black: #5C6166;
   height: 2rem;  
 }
 .dropdown-btn:hover {
-  background-color: #37BD55;
+  background-color: #37BD55 !important;
 }
 
 .nav {
