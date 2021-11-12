@@ -20,7 +20,7 @@ function RegisterInterface(props) {
     const [password, setPassword] = useState('');
 
     const addClient = async(c) => {
-        const result= await API.createClient({ role: 'client', name: c.name, surname: c.surname, birthdate: c.birthday, email: c.email, password: c.password });  
+        const result= await API.createClient({ role: 'client', name: c.name, surname: c.surname, birthdate: dayjs(c.birthday).format('DD-MM-YYYY'), email: c.email, password: c.password });  
     }
 
     const handleSubmit = (event) => {
