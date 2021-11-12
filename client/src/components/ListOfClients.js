@@ -74,7 +74,7 @@ function ListOfClients(props){
         
             <Row>
                 <Col sm={12} md={6}>
-                    <Link to={{ pathname: '/registerform' }}>
+                    <Link to={{ pathname: '/registerform' , state:'client' }}>
                         <Button style={{backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color:'black'}} className="mt-5">Add a new client</Button>
                     </Link>
                 </Col>

@@ -17,16 +17,16 @@ function getAllClients(){
     });
 }
 
-async function createClient(c) {
-  console.log(c);
+async function createUser(u) {
+  console.log(u);
 
     try {
-      const response = await fetch(BASEURL + '/clients', {
+      const response = await fetch(BASEURL + '/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
-          {role: c.role, name: c.name, surname: c.surname, birthdate: c.birthdate, 
-            email: c.email, password: c.password, isConfirmed : 0 }
+          {role: u.role, name: u.name, surname: u.surname, birthdate: u.birthdate, 
+            email: u.email, password: u.password, isConfirmed : u.isConfirmed }
           )
       })
       const newID = await response.json();
@@ -221,7 +221,7 @@ const API = {
   getAllClients,
   getAllProducts,
   updateConfirmedProduct,
-  createClient,
+  createUser,
   createProduct,
   getAllOrders,
   createOrder,

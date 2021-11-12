@@ -19,12 +19,12 @@ exports.getAllClients = () => {
     })
 };
 
-// add a new client TODO = chiedere andrea la modalità di scelta della password
- exports.createClient = (client) => {
+// add a new user
+ exports.createUser = (user) => {
     return new Promise((resolve, reject) => {
       const sql = 'INSERT INTO USERS (role,name,surname,birthdate,email,password,isConfirmed) VALUES(?,?,?,?,?,?,?)';
       
-      db.run(sql, [client.role, client.name, client.surname, client.birthdate, client.email, client.password, client.isConfirmed], function (err) {
+      db.run(sql, [user.role, user.name, user.surname, user.birthdate, user.email, user.password, user.isConfirmed], function (err) {
         if (err) {
           reject(err);
           return;

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import dayjs from 'dayjs';
 import API from '../API';
+import User from '../User';
+import { useLocation } from "react-router-dom";
 
 
 function RegisterInterface(props) {
@@ -19,9 +21,8 @@ function RegisterInterface(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const addClient = async(c) => {
-        const result= await API.createClient({ role: 'client', name: c.name, surname: c.surname, birthdate: dayjs(c.birthday).format('DD-MM-YYYY'), email: c.email, password: c.password });  
-    }
+    const role = useLocation().state;
+    console.log(role);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -32,21 +33,7 @@ function RegisterInterface(props) {
             event.stopPropagation();
 
         } else {
-
-            const client = {
-                name: firstName,
-                surname : lastName,
-                birthday : birthday,
-                email : email,
-                password : password
-            }
-
-            addClient(client);
-
-
-
-
-
+            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('DD/MM/YYYY'), email, password));
         }
 
         setValidated(true);
@@ -194,7 +181,7 @@ function RegisterInterface(props) {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    {/*<Form.Group as={Col} sm={10} controlId="password">
+                    <Form.Group as={Col} sm={10} controlId="password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             required
@@ -206,7 +193,7 @@ function RegisterInterface(props) {
                         <Form.Control.Feedback type="invalid">
                             Please insert a new password.
                         </Form.Control.Feedback>
-                        </Form.Group>*/}
+                        </Form.Group>
 
                     <Form.Group as={Col} sm={11} className="mt-5 ">
                         <Form.Check

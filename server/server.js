@@ -8,6 +8,7 @@ const session = require('express-session'); // enable sessions
 const passportLocal = require('passport-local'); // username and password for login
 const passport = require('passport'); // auth middleware
 const dayjs = require('dayjs');
+const bcrypt = require('bcrypt');
 
 // init express
 const app = new express();
@@ -78,41 +79,48 @@ app.get('/api/clients',
 });
 
 // add a new client 
-app.post('/api/clients',
-  [
-    check('role').isString(),
-    check('name').isString(),
-    check('surname').isString(),
-    check('birthdate').isString(),
-    check('email').isString(),
-    check('password').isString(),
-    check('isConfirmed').isInt()
-  ],
-  (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      console.log(errors.array())
-      return res.status(422).json({ errors: errors.array() })
+app.post('/api/users', 
+[
+  check('role').isIn(['client', 'farmer', 'rider']),
+  check('name').isString(),
+  check('surname').isString(),
+  check('birthdate').isString(),
+  check('email').isString(),
+  check('password').isString(),
+  check('isConfirmed').isInt()
+],
+(req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.array())
+    return res.status(422).json({ errors: errors.array() })
+  }
+
+  const client = {
+    role: req.body.role,
+    name: req.body.name,
+    surname: req.body.surname,
+    birthdate: req.body.birthdate,
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
+    isConfirmed: req.body.isConfirmed
+  }
+  
+  function createWallet(id){
+    if (client.role === 'client') {
+      dao.createWallet(id).then(
+        res.status(201).json({ id: id }))
+        .catch((err) => res.status(500)
+          .json({ error: "Error " + err, }))
+        .catch((err) =>
+          res.status(500).
+            json({ error: "Error " + err, })
+        );
     }
-    const client = {
-      role: req.body.role,
-      name: req.body.name,
-      surname: req.body.surname,
-      birthdate: req.body.birthdate,
-      email: req.body.email,
-      password: req.body.password,
-      isConfirmed: req.body.isConfirmed
-    }
-    dao.createClient(client).then((id) => dao.createWallet(id).then(res.status(201).json({ id: id })).catch((err) =>
-      res.status(500).json({
-        error: "Error " + err,
-      })))
-      .catch((err) =>
-        res.status(500).json({
-          error: "Error " + err,
-        })
-      );
-  });
+  }
+
+  dao.createUser(client).then((id) =>createWallet(id));
+});
   
 app.put('/api/wallets/', 
  [check('amount').isInt({min: 0}), check('id').isInt({min:0})],

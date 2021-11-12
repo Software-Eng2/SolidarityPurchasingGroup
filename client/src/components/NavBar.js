@@ -6,6 +6,10 @@ function NavBar(props) {
 
     const {loggedIn, doLogOut} = props;
 
+    const roles = [{ role: 'client', link: 'Join our Community' },
+                   { role: 'farmer', link: 'Become our Supplier' },
+                   { role: 'rider', link: 'Deliver our Products' }];
+
     return (
 
         <Navbar collapseOnSelect expand="lg"/*  bg="dark" variant="dark"  */className="nav">
@@ -20,33 +24,29 @@ function NavBar(props) {
             <Navbar.Collapse id="responsive-navbar-nav">
                 {!loggedIn &&
                 <Nav className="mx-auto justify-content-around">
-                    <Col lg={3}>
-                        <Link to={{ pathname: '/products' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}} /* className="mx-4" */>
-                            Our Products
-                        </Link>
-                    </Col>
-                    <Col lg={4}>
-                        <Link to={{ pathname: '/' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
-                            Become our Supplier
-                        </Link>
-                    </Col>
-                    <Col lg={4}>
-                        <Link to={{ pathname: '/' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
-                            Deliver our product
-                        </Link>
-                    </Col>
-                    <Col lg={4}>
-                        <Link to={{ pathname: '/' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
-                            Join our warehouse
-                        </Link>
-                    </Col>
-                </Nav>}
+                <Col lg={3}>
+                    <Link to={{ pathname: '/products' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }} /* className="mx-4" */>
+                        Our Products
+                    </Link>
+                </Col>
+                {
+                    roles.map((r) => (
+                        <Col lg={4} key={r.role}>
+                            <Link to={{ pathname: '/registerForm', state: r.role }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
+                                {r.link}
+                            </Link>
+                        </Col>
+                    ))
+                }
+            </Nav>}
                 <Nav className="d-flex justify-content-end"> 
                     {
                         loggedIn ? 
-                            <Link to={{ pathname: '/' }} onClick={doLogOut} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
-                                Logout
-                            </Link>
+                            <Col>
+                                <Link to={{ pathname: '/' }} onClick={doLogOut} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
+                                    Logout
+                                </Link>
+                            </Col>
                             : 
                             <Link to={{ pathname: '/login' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
                                 Login
