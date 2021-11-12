@@ -66,7 +66,7 @@ $button-black: #5C6166;
 }
 
 .nav {
-  background-color: #37BD55 !important;
+  background-color: #247D37 !important;
 }
 
 .register-form {
@@ -218,17 +218,27 @@ th {
 .positive {
   color: #2E3338;
 }
-
-.carousel {
-  max-width: 50vw;
-  max-height: 80vh;
-  margin-left: auto;
-  margin-right: auto;
+.overlay{
+  position: absolute;
+  top: 12rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.carousel-item>img {
-  max-width: 65vw;
-  max-height: 40vh;
-  margin-left: auto;
-  margin-right: auto;
+.overlayArrow{
+  position: absolute;
+  top: 17rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cardHome{
+  height: 15rem;
+  width: 20rem;
 }
