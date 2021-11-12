@@ -7,13 +7,10 @@ import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
-import Wallet from './components/Wallet';
 import Market from './views/Market';
 import Homepage from './components/Homepage';
 import LoginForm from './Login';
 import API from './API';
-import {OrdersList} from "./Order";
-
 
 function App() {
 
@@ -30,25 +27,9 @@ function App() {
   useEffect(()=>{
     API.getAllProducts().then((products) => {
       setProducts(products);
-    })
-  },[])
-
-  //initialize object ordersList (to fix)
-  const o = new OrdersList();
+    });
+  },[]);
   
-  const getOrdersList = async () => {
-    let o = new OrdersList();
-    await o.initialize();
-    setOrders(o.ordersList);
-  };
-  //change status of the selected order
-  const changeStatus = async (order_id, status) => {
-    getOrdersList();
-    console.log('status of order' + ' ' + order_id + ' ' + 'changing in... ' + status);
-    o.changeStatus(order_id, status);
-    setDirty(true);
-  }
-
   useEffect(()=>{
     API.getUserInfo().then((user) => {
       setUserEmail(user.email);
@@ -62,14 +43,16 @@ function App() {
     })
   },[])
 
-    // Rehydrate meme when user is logged in
+    // Rehydrate clientsList & ordersList when user is logged in
     useEffect(()=>{
       if(loggedIn && dirty){
         API.getAllClients().then((newC) => {
         setAllClients(newC);
-        getOrdersList();
         setDirty(false);
       }).catch((err) => console.log(err));
+        API.getAllOrders().then((orders) => {
+          setOrders(orders);
+        });
       }
      },[loggedIn, dirty]);
 
@@ -86,7 +69,7 @@ function App() {
         setDirty(true);  
         switch(user.role){
           case 'shopemployee':
-            routerHistory.push('/shopemployee');  
+            routerHistory.push('/clientlist');  
             window.location.reload();
             break;
           /* case 'client':
@@ -111,7 +94,7 @@ function App() {
 
   return (
     <Router>
-       {loggedIn ? (<NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>) : ''}
+        <NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>
       <Switch>
         <Route exact path="/">
           <Homepage/>
@@ -120,11 +103,15 @@ function App() {
           <Market products={products}></Market>        
         </Route>
         <Route exact path="/orders">
-          <OrderPage orders={orders} setOrders={setOrders} changeStatus={changeStatus} getOrdersList={getOrdersList}/>         
+          <OrderPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/>         
         </Route>
-        <Route exact path="/shopemployee">
+        <Route exact path="/clientlist">
           <ShopEmployeePage allClients={allClients}/>
         </Route>
+        <Route exact path="/registerform">
+          <RegisterInterface/>     
+        </Route>
+
         {loggedIn ? (
             ''
           ) : (<Route exact path="/login">

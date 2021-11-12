@@ -53,6 +53,18 @@ $button-black: #5C6166;
   position: static !important;
 }
 
+.dropdown-btn {
+  color: white !important;
+  background-color: #247D37 !important;
+  border: 0px !important;
+  border-radius: 10px !important;
+  width: 8rem;
+  height: 2rem;  
+}
+.dropdown-btn:hover {
+  background-color: #37BD55 !important;
+}
+
 .nav {
   background-color: #37BD55 !important;
 }

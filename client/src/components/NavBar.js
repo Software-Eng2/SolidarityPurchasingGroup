@@ -9,15 +9,16 @@ function NavBar(props) {
     return (
 
         <Navbar collapseOnSelect expand="lg"/*  bg="dark" variant="dark"  */className="nav">
-                <Navbar.Brand>
-                    <Link to={{ pathname: '/' }} className="font-weight-bold" style={{color: "white", textDecoration: "none"}}>
-                        {shopIcon}
-                        {' '}
-                        SP⁵G
-                    </Link>
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Brand>
+                <Link to={{ pathname: '/' }} className="font-weight-bold" style={{color: "white", textDecoration: "none"}}>
+                    {shopIcon}
+                    {' '}
+                    SP⁵G
+                </Link>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
+                {!loggedIn &&
                 <Nav className="mx-auto justify-content-around">
                     <Col lg={3}>
                         <Link to={{ pathname: '/products' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}} /* className="mx-4" */>
@@ -39,18 +40,17 @@ function NavBar(props) {
                             Join our warehouse
                         </Link>
                     </Col>
-                </Nav>
-                <Nav className="ml-3">
+                </Nav>}
+                <Nav className="d-flex justify-content-end"> 
                     {
-                        loggedIn ? (
+                        loggedIn ? 
                             <Link to={{ pathname: '/' }} onClick={doLogOut} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
                                 Logout
-                    </Link>
-                        ) : (
+                            </Link>
+                            : 
                             <Link to={{ pathname: '/login' }} className="font-weight-light" style={{color: "white", textDecoration: "none"}}>
-                        Login
-                    </Link>
-                        )
+                                Login
+                            </Link>    
                     }
                 </Nav>
             </Navbar.Collapse>
