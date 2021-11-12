@@ -2,11 +2,12 @@ import { Form, Button, Container, Col, Row, Stack } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
+import dayjs from 'dayjs';
 
 
 function RegisterInterface(props) {
     const [firstName, setFirstName] = useState('');
-    const [lastName, , setLastName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [birthday, setBirthday] = useState('');
     const [address, setAddress] = useState('');
     const [number, setNumber] = useState('');
@@ -27,14 +28,12 @@ function RegisterInterface(props) {
         }
 
         setValidated(true);
-
-
     }
 
     return (
 
-
-        <Container as={Col} sm={8} md={8} className="register-form">
+    <>
+        <Container as={Col} sm={8} md={8} className="register-form mt-5">
             <div className="text-center user-icon">
                 <FaUserCircle size={60}></FaUserCircle>
             </div>
@@ -76,11 +75,10 @@ function RegisterInterface(props) {
                         <Form.Label>Birthday</Form.Label>
                         <Form.Control
                             required
-                            type="text"
-                            placeholder="06/09/1996"
+                            type="date"
                             value={birthday}
                             onChange={(event) => setBirthday(event.target.value)}
-
+                            max={dayjs().format("YYYY-MM-DD")}
                         />
                         <Form.Control.Feedback type="invalid">
                             Please insert your birthday date.
@@ -173,7 +171,7 @@ function RegisterInterface(props) {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Form.Group as={Col} sm={10} controlId="password">
+                    {/*<Form.Group as={Col} sm={10} controlId="password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             required
@@ -185,7 +183,7 @@ function RegisterInterface(props) {
                         <Form.Control.Feedback type="invalid">
                             Please insert a new password.
                         </Form.Control.Feedback>
-                    </Form.Group>
+                        </Form.Group>*/}
 
                     <Form.Group as={Col} sm={11} className="mt-5 ">
                         <Form.Check
@@ -194,26 +192,18 @@ function RegisterInterface(props) {
                             feedback="You must agree before submitting."
                             feedbackType="invalid"
                         />
-                    </Form.Group>
-
-
-                    
+                    </Form.Group>          
                         <Button variant="success" type="submit" className="mt-4">submit</Button>
-                        
-                        
-
-
-
-
-
-
                 </Row>
-
-
             </Form>
         </Container>
 
-
+        <Row className="pb-4 mb-4 ml-4 pl-4">
+            <Link to={{ pathname: '/clientlist' }}>
+                <Button style={{backgroundColor: '#247D37', border: '0px', borderRadius: '4px'}}>Back</Button>
+            </Link>
+        </Row>
+    </>
 
 
     );

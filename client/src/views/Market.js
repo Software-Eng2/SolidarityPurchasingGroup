@@ -7,6 +7,7 @@ import SideBar from '../components/SideBar';
 function Market(props) {
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
+    const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [width, setWitdh] = useState("");
     console.log(props.products);
     const products = props.products;
@@ -38,6 +39,7 @@ function Market(props) {
                         <SideBar 
                         collapsed={collapsed}
                         width={width}
+                        basket={basket}
                         />
                     </div>
 
@@ -48,7 +50,7 @@ function Market(props) {
                             {products.map(product => 
                             product.confirmed ? 
                             <Col fluid xs={12} sm={6} md={4} lg={3} >
-                                <Product product={product}/>
+                                <Product product={product} basket={basket} setBasket={setBasket}/>
                             </Col> : ''
                             
                             )}

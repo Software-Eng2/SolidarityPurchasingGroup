@@ -1,15 +1,15 @@
 import { Container, Table, Row, Button, Form, Col} from "react-bootstrap";
+import {Link} from 'react-router-dom';
+import { useState} from 'react';
 import {IoWallet} from "react-icons/io5";
 import '../App.css';
-import { useState} from 'react';
 
-//TODO fare join tabelle per sapere amount//
 function ListOfClients(props){
     const {allClients} = props;
     const [selected, setSelected] = useState(""); //client selected
     const [view, setView] = useState("view"); //2 possible values: view for visualizing all clients, search for visualizing only search results
     const [search, setSearch] = useState(""); //value to search
-    const TotalAmount = 67;         //TODO SOTITUIRE CON IL TOTALE DELL'ACQUISTO
+   // const TotalAmount = 67;         //TODO SOTITUIRE CON IL TOTALE DELL'ACQUISTO
 
 
     const handleClick = (client) => {
@@ -51,30 +51,40 @@ function ListOfClients(props){
                 <tbody>
                     {(view === "view") ? 
                     allClients.map((client) => (
-                       <tr key={client.id} className="p-0" style={selected == client ? client.amount < TotalAmount ? {backgroundColor: "#f8d7da"} : {backgroundColor: "#d4edda"} : {}}  onClick={()=>{setSelected(client);}}>        
+                       <tr key={client.id} className="p-0" style={selected == client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelected(client);}}>        
                             <td>{client.name}</td>
                             <td>{client.surname}</td>
                             <td>{client.birthdate}</td>
                             <td>{client.email}</td>
-                            <td>$ {client.amount}{client.amount < TotalAmount ? <Button size="sm" variant="outline-danger" className="ml-5" onClick={() => handleClick(client)}>Top up</Button>: ""} </td> 
+                            <td>$ {client.amount}</td> 
                        </tr>
                     ) )
                     :
                     allClients.filter((c) => c.name.includes(search) || c.surname.includes(search) || c.email.includes(search)).map((client) => (
-                        <tr key={client.id} className="p-0" style={selected == client ? client.amount < TotalAmount ? {backgroundColor: "#f8d7da"} : {backgroundColor: "#d4edda"} : {}}  onClick={()=>{setSelected(client);}}>        
+                        <tr key={client.id} className="p-0" style={selected == client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelected(client);}}>        
                              <td>{client.name}</td>
                              <td>{client.surname}</td>
                              <td>{client.birthdate}</td>
                              <td>{client.email}</td>
-                             <td>$ {client.amount}{client.amount < TotalAmount ? <Button size="sm" variant="outline-danger" className="ml-5" onClick={() => handleClick(client)}>Top up</Button>: ""} </td> 
+                             <td>$ {client.amount}</td> 
                         </tr>
                      ))}
                 </tbody>
             </Table>
         
-            <Row className="justify-content-center">
-                <Button className="mt-5" disabled={selected=="" || selected.amount < TotalAmount}>Continue</Button>
+            <Row>
+                <Col sm={12} md={6}>
+                    <Link to={{ pathname: '/registerform' }}>
+                        <Button style={{backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color:'black'}} className="mt-5">Add a new client</Button>
+                    </Link>
+                </Col>
+                <Col sm={12} md={6} className="d-flex justify-content-end">
+                    <Link to={{ pathname: '/products' }}>
+                        <Button size="lg" className="mt-5" disabled={selected==""} style={{backgroundColor: '#247D37', border: '0px', borderRadius: '4px'}} >Shop now</Button>
+                    </Link>
+                </Col>
             </Row>
+            
         </Container>
     );
 }

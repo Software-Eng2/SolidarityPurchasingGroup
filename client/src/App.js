@@ -7,7 +7,6 @@ import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
-import Wallet from './components/Wallet';
 import Market from './views/Market';
 import Homepage from './components/Homepage';
 import LoginForm from './Login';
@@ -70,7 +69,7 @@ function App() {
         setDirty(true);  
         switch(user.role){
           case 'shopemployee':
-            routerHistory.push('/shopemployee');  
+            routerHistory.push('/clientlist');  
             window.location.reload();
             break;
           /* case 'client':
@@ -106,9 +105,13 @@ function App() {
         <Route exact path="/orders">
           <OrderPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/>         
         </Route>
-        <Route exact path="/shopemployee">
+        <Route exact path="/clientlist">
           <ShopEmployeePage allClients={allClients}/>
         </Route>
+        <Route exact path="/registerform">
+          <RegisterInterface/>     
+        </Route>
+
         {loggedIn ? (
             ''
           ) : (<Route exact path="/login">

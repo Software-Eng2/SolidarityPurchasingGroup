@@ -14,6 +14,11 @@ function Product(props) {
 	const decrease = () => setCounter(counter-1);
 	const increase = () => setCounter(counter+1); 
 	const updateTotal = () => setTotal(price*counter);
+	
+	const handleConfirm = () => {
+		props.setBasket([...props.basket, {name:name, price:price, counter:counter}]);
+		console.log(props.basket);
+	}
 
 	return (
 		<>
@@ -84,7 +89,7 @@ function Product(props) {
 						</Col>
 						<Col xs={12} md={6}>
 							<div className='card-button align-left'>
-								<button style={{fontWeight:"bold"}}>
+								<button style={{fontWeight:"bold"}} onClick={() => {handleConfirm(); handleClose();}}>
 									Confirm €{(price*counter).toFixed(2)}
 								</button>
 							</div>
