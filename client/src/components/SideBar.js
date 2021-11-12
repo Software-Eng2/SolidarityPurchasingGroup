@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   ProSidebar,
   Menu,
@@ -9,11 +8,11 @@ import {
   SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar';
-import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaHeart } from 'react-icons/fa';
+import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaHeart,FaShoppingCart } from 'react-icons/fa';
 import {GiMilkCarton, GiSheep} from 'react-icons/gi';
 
 
-const SideBar = ({collapsed, width}) => {
+const SideBar = ({collapsed, width, basket}) => {
    
 
     return (
@@ -22,6 +21,25 @@ const SideBar = ({collapsed, width}) => {
         collapsed={collapsed}
         width={width}>
             <SidebarHeader>
+                <Menu iconShape="circle">
+                    <MenuItem icon={<FaShoppingCart/>}>
+                        <div
+                        style={{
+                            textTransform: 'uppercase',
+                            fontWeight: 'bold',
+                            fontSize: 12,
+                            letterSpacing: '1px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                        }}
+                        >
+                        Your Basket
+                        </div>
+                    </MenuItem> 
+                </Menu>
+            </SidebarHeader>
+            <SidebarContent>
                 <div
                     style={{
                         padding: '24px',
@@ -36,8 +54,6 @@ const SideBar = ({collapsed, width}) => {
                     >
                     Our Categories
                 </div>
-            </SidebarHeader>
-            <SidebarContent>
                 <Menu iconShape="circle">
                     <MenuItem icon={<GiMilkCarton />}>Dairies</MenuItem>
                     <MenuItem icon={<FaAppleAlt />}>Fruits</MenuItem>
@@ -62,13 +78,13 @@ const SideBar = ({collapsed, width}) => {
                 }}
                 >
                 <a
-                    href="/"
+                    href="/clientlist"
                     className="sidebar-btn"
                     rel="noopener noreferrer"
                 >
-                    <FaHeart />
+                  
                     <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                    Go Home
+                    Go back to clients
                     </span>
                 </a>
                 </div>
