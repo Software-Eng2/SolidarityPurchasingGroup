@@ -16,7 +16,7 @@ function Product(props) {
 	const updateTotal = () => setTotal(price*counter);
 	
 	const handleConfirm = () => {
-		props.setBasket([...props.basket, {name:name, price:price, counter:counter}]);
+		props.setBasket([...props.basket, {id: id, name:name, price:price, img: img_path, quantity:counter, total: price*counter}]);
 		console.log(props.basket);
 	}
 
@@ -102,20 +102,6 @@ function Product(props) {
 				</Modal.Footer>
 			</Modal>	
 		</>
-		
-        // <Container>
-		// 	<Card style={{ width: '12rem', height: ' 2rem', backgroundColor: '#FAFAFA'}}>
-		// 		<Card.Img variant="top" src={img} />
-		// 		<Card.Body>
-		// 			<Card.Title>{name}</Card.Title>
-		// 			<Card.Text>
-		// 				{description}
-		// 			</Card.Text>
-		// 			<Button className="add-button">Add to cart</Button>
-		// 		</Card.Body>
-		// 	</Card>
-
-        // </Container>
 		
 	);
 }

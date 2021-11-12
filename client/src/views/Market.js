@@ -3,13 +3,16 @@ import{ Container, Row, Col } from "react-bootstrap";
 import Product from '../components/Product';
 import 'react-pro-sidebar/dist/css/styles.css';
 import SideBar from '../components/SideBar';
+import Basket from '../components/Basket';
 
 function Market(props) {
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [width, setWitdh] = useState("");
-    console.log(props.products);
+    const [showBasket, setShowBasket] = useState(false);
+    const handleBasket = () => {setCollapsed((s) => !s); setShowBasket((s) => !s)};
+
     const products = props.products;
     useLayoutEffect(() => {
         function updateSize() {
@@ -21,25 +24,27 @@ function Market(props) {
     }, []);
 
     useEffect(() => {
-        if (size < 1000
-            ) {
+        if (size < 1000 ) {
             setCollapsed(true);
-        } else {
+        } 
+        if (size >= 1000 && !showBasket) {
             setCollapsed(false);
-            setWitdh("13rem");
         }
-    }, [size])
+    }, [size, showBasket])
   
 	return (
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%"}} >
+
+            <Basket basket={basket} handleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket}/>
             <Row>
                 <Col xs={2} sm={2} md={2}>
                     <div className={`app `}>
 
                         <SideBar 
                         collapsed={collapsed}
-                        width={width}
+                        width="13rem"
                         basket={basket}
+                        handleBasket={handleBasket}
                         />
                     </div>
 
