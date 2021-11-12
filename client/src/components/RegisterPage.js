@@ -2,11 +2,13 @@ import { Form, Button, Container, Col, Row, Stack } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
+import API from '../API';
+
 
 
 function RegisterInterface(props) {
     const [firstName, setFirstName] = useState('');
-    const [lastName, , setLastName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [birthday, setBirthday] = useState('');
     const [address, setAddress] = useState('');
     const [number, setNumber] = useState('');
@@ -14,20 +16,40 @@ function RegisterInterface(props) {
     const [state, setState] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [validated, setValidated] = useState(false);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const addClient = async(c) => {
+        const result= await API.createClient({ role: 'client', name: c.name, surname: c.surname, birthdate: c.birthday, email: c.email, password: c.password });  
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
+        
 
-        if (form.checkValidity() === false) {
+        if (form.checkValidity() === false ) {
             event.stopPropagation();
+
+        } else {
+
+            const client = {
+                name: firstName,
+                surname : lastName,
+                birthday : birthday,
+                email : email,
+                password : password
+            }
+
+            addClient(client);
+
+
+
+
+
         }
 
         setValidated(true);
-
 
     }
 
@@ -196,20 +218,9 @@ function RegisterInterface(props) {
                         />
                     </Form.Group>
 
-
-                    
-                        <Button variant="success" type="submit" className="mt-4">submit</Button>
-                        
-                        
-
-
-
-
-
+                    <Button variant="success" type="submit" className="mt-4">submit</Button>
 
                 </Row>
-
-
             </Form>
         </Container>
 
