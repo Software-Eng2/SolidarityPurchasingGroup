@@ -8,7 +8,7 @@ function Homepage() {
     
     return (
         <div>
-            <div style={{ overflowX: "hidden", backgroundColor: "#DEDEDE", position: "relative" }}>
+            <div style={{ overflowX: "hidden", backgroundColor: "#DEDEDE", position: "relative", maxHeight:"100vh" }}>
                 <video style={{ maxHeight: "100vh", width: "100vw" }} autoPlay loop muted>
                     <source src={backgroundimg} type='video/mp4' />
                 </video>
@@ -52,8 +52,8 @@ function Homepage() {
                             JOIN US!
                         </h1>
                     </Row>
-                    <Row style={{ marginTop: "2rem" }}>
-                        <Col>
+                    <Row style={{ marginTop: "2rem" }} xs={1} md={1} xl={1} sm={1} xxl={1} lg={1} className="g-4">
+                        <CardGroup>
                             <Card style={{maxHeight:"65vh", minHeight:"65vh"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://images.pexels.com/photos/3962283/pexels-photo-3962283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <Card.Body>
@@ -70,8 +70,6 @@ function Homepage() {
                                     </Button>
                                 </Card.Footer>
                             </Card>
-                        </Col>
-                        <Col>
                             <Card style={{maxHeight:"65vh", minHeight:"65vh"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://www.altromercato.it/wp-content/uploads/2021/09/produttore_Hualtaco_Peru_AgrofairEurope-scaled-e1632143818906-800x582.jpg" />
                                 <Card.Body>
@@ -88,8 +86,6 @@ function Homepage() {
                                     </Button>
                                 </Card.Footer>
                             </Card>
-                        </Col>
-                        <Col>
                             <Card style={{maxHeight:"65vh", minHeight:"65vh"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://images.pexels.com/photos/7844008/pexels-photo-7844008.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <Card.Body>
@@ -106,7 +102,7 @@ function Homepage() {
                                     </Button>
                                 </Card.Footer>
                             </Card>
-                        </Col>
+                            </CardGroup>
                     </Row>
                 </Container>
             </div>
