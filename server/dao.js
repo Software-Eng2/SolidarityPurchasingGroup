@@ -24,7 +24,7 @@ exports.getAllClients = () => {
     return new Promise((resolve, reject) => {
       const sql = 'INSERT INTO USERS (role,name,surname,birthdate,email,password,isConfirmed) VALUES(?,?,?,?,?,?,?)';
       
-      db.run(sql, [client.role, client.name, client.surname, client.birthdate, client.email, client.password], function (err) {
+      db.run(sql, [client.role, client.name, client.surname, client.birthdate, client.email, client.password, client.isConfirmed], function (err) {
         if (err) {
           reject(err);
           return;

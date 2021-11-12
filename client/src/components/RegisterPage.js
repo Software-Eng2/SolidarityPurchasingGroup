@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import dayjs from 'dayjs';
+import API from '../API';
 
 
 function RegisterInterface(props) {
@@ -15,19 +16,41 @@ function RegisterInterface(props) {
     const [state, setState] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [validated, setValidated] = useState(false);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const addClient = async(c) => {
+        const result= await API.createClient({ role: 'client', name: c.name, surname: c.surname, birthdate: dayjs(c.birthday).format('DD-MM-YYYY'), email: c.email, password: c.password });  
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
+        
 
-        if (form.checkValidity() === false) {
+        if (form.checkValidity() === false ) {
             event.stopPropagation();
+
+        } else {
+
+            const client = {
+                name: firstName,
+                surname : lastName,
+                birthday : birthday,
+                email : email,
+                password : password
+            }
+
+            addClient(client);
+
+
+
+
+
         }
 
         setValidated(true);
+
     }
 
     return (
@@ -192,8 +215,10 @@ function RegisterInterface(props) {
                             feedback="You must agree before submitting."
                             feedbackType="invalid"
                         />
-                    </Form.Group>          
-                        <Button variant="success" type="submit" className="mt-4">submit</Button>
+                    </Form.Group>
+
+                    <Button variant="success" type="submit" className="mt-4">submit</Button>
+
                 </Row>
             </Form>
         </Container>

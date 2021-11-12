@@ -18,16 +18,21 @@ function getAllClients(){
 }
 
 async function createClient(c) {
+  console.log(c);
+
     try {
       const response = await fetch(BASEURL + '/clients', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({role: c.role, name: c.name, surname: c.surname, birthdate: c.birthdate, 
-            email: c.email, password: c.password })
+        body: JSON.stringify(
+          {role: c.role, name: c.name, surname: c.surname, birthdate: c.birthdate, 
+            email: c.email, password: c.password, isConfirmed : 0 }
+          )
       })
       const newID = await response.json();
   
       if (!response.ok) {
+        console.log(response);
         throw response;
       }
   
@@ -68,7 +73,7 @@ async function createProduct(p) {
       }
   
       return newID;
-    } 
+    }
     catch {
       return false;
   }
