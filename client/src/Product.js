@@ -131,7 +131,10 @@ class ProductsList{
             return undefined;
         }
 
-        const result = API.createProduct({NAME:name, DESCRIPTION: description, PRICE:price, CATEGORY: category, CONFIRMED: confirmed, QUANTITY: quantity, IMG_PATH: img_path, FARMER_ID: farmer_id});
+        const result = await API.createProduct({name:name, description: description, price:price, category: category, confirmed: confirmed, quantity: quantity, img_path: img_path, farmer_id: farmer_id});
+        if(result !== false){
+            this.productsList.push(new Product(result,name,description,category,quantity,price,farmer_id,img_path,confirmed));
+        }
 
         return result;
     }
@@ -150,7 +153,7 @@ class ProductsList{
             return undefined;
         }
 
-        const result = API.updateConfirmedProduct({confirm_value, id});
+        const result = await API.updateConfirmedProduct(confirm_value, id);
 
         return result;
     }

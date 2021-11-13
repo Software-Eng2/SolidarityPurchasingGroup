@@ -8,13 +8,11 @@ import {
   SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar';
-import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaHeart,FaShoppingCart } from 'react-icons/fa';
+import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaProductHunt ,FaShoppingCart } from 'react-icons/fa';
 import {GiMilkCarton, GiSheep} from 'react-icons/gi';
-import Basket from './Basket';
 
 
-const SideBar = ({collapsed, width, basket, handleBasket}) => {
-
+const SideBar = ({collapsed, width, searchCategory, handleBasket}) => {
     return (
         <>
 
@@ -57,19 +55,20 @@ const SideBar = ({collapsed, width, basket, handleBasket}) => {
                         Our Categories
                     </div>
                     <Menu iconShape="circle">
-                        <MenuItem icon={<GiMilkCarton />}>Dairies</MenuItem>
-                        <MenuItem icon={<FaAppleAlt />}>Fruits</MenuItem>
-                        <MenuItem icon={<FaCarrot />}>Vegetables</MenuItem>
-                        <MenuItem icon={<GiSheep />}>Meat</MenuItem>
-                        <MenuItem icon={<FaSeedling/>}>Plants</MenuItem>
-                        <MenuItem icon={<FaFish/>}>Fish</MenuItem>
-                        <SubMenu title="Farmers" icon={<FaHeart />}>
+                        <MenuItem value="All" onClick={() => { searchCategory("All") }} icon={<FaProductHunt />}>All products</MenuItem>
+                        <MenuItem value="Dairies" onClick={() => { searchCategory("Dairies") }} icon={<GiMilkCarton />}>Dairies</MenuItem>
+                        <MenuItem value="Fruits" onClick={() => { searchCategory("Fruits") }} icon={<FaAppleAlt />}>Fruits</MenuItem>
+                        <MenuItem value="Vegetables" onClick={() => { searchCategory("Vegetables") }} icon={<FaCarrot />}>Vegetables</MenuItem>
+                        <MenuItem value="Meat" onClick={() => { searchCategory("Meat") }} icon={<GiSheep />}>Meat</MenuItem>
+                        <MenuItem value="Plants" onClick={() => { searchCategory("Plants") }} icon={<FaSeedling/>}>Plants</MenuItem>
+                        <MenuItem value="Fish" onClick={() => { searchCategory("Fish") }} icon={<FaFish/>}>Fish</MenuItem>
+                        {/* <SubMenu title="Farmers" icon={<FaHeart />}>
                         <MenuItem>Farmer 1</MenuItem>
                         <MenuItem>Farmer 2</MenuItem>
                         <MenuItem>Farmer 3</MenuItem>
                         <MenuItem>Farmer 4</MenuItem>
                         <MenuItem>Farmer 5</MenuItem>
-                        </SubMenu>
+                        </SubMenu> */}
                     </Menu>
                 </SidebarContent>
                 <SidebarFooter style={{ textAlign: 'center' }}>
