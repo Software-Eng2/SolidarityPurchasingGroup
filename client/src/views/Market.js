@@ -4,6 +4,7 @@ import Product from '../components/Product';
 import 'react-pro-sidebar/dist/css/styles.css';
 import SideBar from '../components/SideBar';
 import Basket from '../components/Basket';
+import AlertWallet from '../components/AlertWallet';
 
 function Market(props) {
     const [collapsed, setCollapsed] = useState(false);
@@ -11,9 +12,15 @@ function Market(props) {
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [width, setWitdh] = useState("");
     const [showBasket, setShowBasket] = useState(false);
+
+      //state if the wallet is insufficient
+    const [alertWalletShow, setAlertWalletShow] = useState(false);
+    const [topUp, setTopUp] = useState(0); //how much to top up
+
     const handleBasket = () => {setCollapsed((s) => !s); setShowBasket((s) => !s)};
 
     const products = props.products;
+    const client = props.client;
     useLayoutEffect(() => {
         function updateSize() {
             setSize(window.innerWidth);
@@ -35,7 +42,8 @@ function Market(props) {
 	return (
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%"}} >
 
-            <Basket basket={basket} handleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket}/>
+            <Basket basket={basket} client={client} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
+            <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client}/>
             <Row>
                 <Col xs={2} sm={2} md={2}>
                     <div className={`app `}>
@@ -45,6 +53,7 @@ function Market(props) {
                         width="13rem"
                         basket={basket}
                         handleBasket={handleBasket}
+                        //client= {props.location.state}
                         />
                     </div>
 

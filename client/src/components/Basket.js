@@ -1,15 +1,24 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react';
 import SlidingPane from 'react-sliding-pane';
 import{ Container, Row, Col} from "react-bootstrap";
-
 import 'react-sliding-pane/dist/react-sliding-pane.css';
-
+import { useHistory } from "react-router-dom"; 
 
 function Basket(props){
     const basket = props.basket;
     const qty = basket.length;
+    const client = props.client;
+    let history = useHistory();
 
+    const handleShop = () => {
+        let totale = 0;
+        basket.map(info => {totale += info.price * info.quantity})
+        if(client.amount < totale){
+            props.setAlertWalletShow(true);
+        }else{
+            history.push('/orders');
+        }
+    }
 	return(
 		<SlidingPane
             className="basket"
@@ -67,11 +76,9 @@ function Basket(props){
                     <hr className='solid'/>
                         <Row className='justify-content-center'>
                             <div className='card-button'>
-                                <Link to={{ pathname: '/orders' }}>
-                                    <button style={{fontWeight:"bold"}} >
-                                        Shop now 
-                                    </button>
-                                </Link>
+                                <button style={{fontWeight:"bold"}} onClick={()=>{handleShop()}}>
+                                    Shop now 
+                                </button>
                             </div>
 
                         </Row>

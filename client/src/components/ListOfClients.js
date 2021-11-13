@@ -1,20 +1,26 @@
 import { Container, Table, Row, Button, Form, Col} from "react-bootstrap";
 import {Link} from 'react-router-dom';
-import { useState} from 'react';
 import {IoWallet} from "react-icons/io5";
 import '../App.css';
+import API from '../API';
+import { useState, useEffect} from 'react';
 
 function ListOfClients(props){
-    const {allClients} = props;
-    const [selected, setSelected] = useState(""); //client selected
+    const [allClients, setAllClients] = useState([]);
+    const [selectedClient, setSelectedClient] = useState(""); //client selected
     const [view, setView] = useState("view"); //2 possible values: view for visualizing all clients, search for visualizing only search results
     const [search, setSearch] = useState(""); //value to search
-   // const TotalAmount = 67;         //TODO SOTITUIRE CON IL TOTALE DELL'ACQUISTO
 
+
+    useEffect(()=>{
+        API.getAllClients().then((clients)=>{
+          setAllClients(clients);
+        })
+      },[])
 
     const handleClick = (client) => {
         props.setWalletShow(true);
-        props.setUser(client); 
+        props.setUser(client);
     }
 
     return(
@@ -46,27 +52,30 @@ function ListOfClients(props){
                         <th>Birthdate</th>
                         <th>Email</th>
                         <th><IoWallet size={27}></IoWallet></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {(view === "view") ? 
                     allClients.map((client) => (
-                       <tr key={client.id} className="p-0" style={selected == client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelected(client);}}>        
+                       <tr key={client.id} className="p-0" style={selectedClient == client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelectedClient(client);}}>        
                             <td>{client.name}</td>
                             <td>{client.surname}</td>
                             <td>{client.birthdate}</td>
                             <td>{client.email}</td>
-                            <td>$ {client.amount}</td> 
+                            <td>$ {client.amount}</td>
+                            <td><Button size="sm" variant="outline-info" className="ml-5" onClick={() => handleClick(client)}>Top up</Button></td>
                        </tr>
                     ) )
                     :
                     allClients.filter((c) => c.name.includes(search) || c.surname.includes(search) || c.email.includes(search)).map((client) => (
-                        <tr key={client.id} className="p-0" style={selected == client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelected(client);}}>        
+                        <tr key={client.id} className="p-0" style={selectedClient == client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelectedClient(client);}}>        
                              <td>{client.name}</td>
                              <td>{client.surname}</td>
                              <td>{client.birthdate}</td>
                              <td>{client.email}</td>
                              <td>$ {client.amount}</td> 
+                             <td><Button size="sm" variant="outline-info" className="ml-5" onClick={() => handleClick(client)}>Top up</Button></td>
                         </tr>
                      ))}
                 </tbody>
@@ -79,8 +88,8 @@ function ListOfClients(props){
                     </Link>
                 </Col>
                 <Col sm={12} md={6} className="d-flex justify-content-end">
-                    <Link to={{ pathname: '/products' }}>
-                        <Button size="lg" className="mt-5" disabled={selected==""} style={{backgroundColor: '#247D37', border: '0px', borderRadius: '4px'}} >Shop now</Button>
+                    <Link to={{ pathname: '/products',  state: {client: {id: selectedClient.id, name:selectedClient.name, surname:selectedClient.surname, birthdate: selectedClient.birthdate, amount: selectedClient.amount}} }}>
+                        <Button size="lg" className="mt-5" disabled={selectedClient==""} style={{backgroundColor: '#247D37', border: '0px', borderRadius: '4px'}}>Shop now</Button>
                     </Link>
                 </Col>
             </Row>

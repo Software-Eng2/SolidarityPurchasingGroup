@@ -5,7 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 import dayjs from 'dayjs';
 import API from '../API';
 import User from '../User';
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 
 function RegisterInterface(props) {
@@ -20,6 +20,7 @@ function RegisterInterface(props) {
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    let history = useHistory();
 
     const role = useLocation().state;
     console.log(role);
@@ -33,7 +34,7 @@ function RegisterInterface(props) {
             event.stopPropagation();
 
         } else {
-            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('DD/MM/YYYY'), email, password));
+            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('DD/MM/YYYY'), email, password)).then(()=>{ history.push("/clientlist");})
         }
 
         setValidated(true);

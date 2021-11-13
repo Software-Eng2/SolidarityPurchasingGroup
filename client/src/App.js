@@ -46,10 +46,6 @@ function App() {
     // Rehydrate clientsList & ordersList when user is logged in
     useEffect(()=>{
       if(loggedIn && dirty){
-        API.getAllClients().then((newC) => {
-        setAllClients(newC);
-        setDirty(false);
-      }).catch((err) => console.log(err));
         API.getAllOrders().then((orders) => {
           setOrders(orders);
         });
@@ -99,14 +95,14 @@ function App() {
         <Route exact path="/">
           <Homepage/>
         </Route>
-        <Route exact path="/products">
-          <Market products={products}></Market>        
-        </Route>
+        <Route exact path='/products' render={({location}) => 
+          <Market products={products} client={location.state ? location.state.client : ""}/>
+        }/>
         <Route exact path="/orders">
           <OrderPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/>         
         </Route>
         <Route exact path="/clientlist">
-          <ShopEmployeePage allClients={allClients}/>
+          <ShopEmployeePage/>
         </Route>
         <Route exact path="/registerform">
           <RegisterInterface/>     

@@ -9,7 +9,6 @@ function getAllClients(){
         if(response.ok){
           response.json().then((json)=>{
             const clients = json.map((clientJson) => Client.from(clientJson));
-            console.log(clients);
             resolve(clients);
           }).catch((err)=>reject(err));
         } else reject();
