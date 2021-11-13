@@ -1,6 +1,7 @@
 # dependencies
 node_modules
 target
+coverage
 
 # misc
 .DS_Store
