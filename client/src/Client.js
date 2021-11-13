@@ -10,7 +10,6 @@ import API from "./API";
  * @param {string} birthdate - birthdate of the client
  * @param {string} email - email of the client
  * @param {number} isConfirmed - client to be confirmed
- * @param {number} amount - total amount of money in client wallet
  * 
  * Methods:
  * 
@@ -28,9 +27,6 @@ class Client{
         this.amount = amount;
     }
 
-    getId = () => {
-        return this.id;
-    }
     static from(json) {
         const client = new Client();
         Object.assign(client, json);
@@ -104,7 +100,9 @@ class ClientsList{
             return undefined;
         }
 
-        return this.clientsList.filter((c) => c.getId() === id);
+        const result = this.clientsList.filter((c) => c.id === id);
+
+        return result;
 
     }
 
@@ -126,9 +124,13 @@ class ClientsList{
             return undefined;
         }
 
-        const result = await API.createClient({role: 'client', name: name, surname: surname, birtdate: birthdate, email: email, password: password, isConfirmed: isConfirmed});
+        const result = await API.createUser({role: 'client', name: name, surname: surname, birthdate: birthdate, email: email, password: password, isConfirmed: isConfirmed});
 
-        return result;
+        if(result !== false){
+            this.clientsList.push(new Client(result,name,surname,birthdate,email,isConfirmed))
+        }
+
+        return true;
     }
 }
 

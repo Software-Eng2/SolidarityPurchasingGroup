@@ -147,14 +147,14 @@ app.get('/api/products',
 // add a new product
 app.post('/api/products',
   [
-    check('NAME').isString(),
-    check('DESCRIPTION').isString(),
-    check('CATEGORY').isString(),
-    check('QUANTITY').isInt({min:0}),
-    check('PRICE').isInt({min:0}),
-    check('FARMER_ID').isInt(),
-    check('IMG_PATH').isString(),
-    check('CONFIRMED').isInt({min:0, max:1})
+    check('name').isString(),
+    check('description').isString(),
+    check('category').isString(),
+    check('quantity').isInt({min:0}),
+    check('price').isFloat({min:0}),
+    check('farmer_id').isInt(),
+    check('img_path').isString(),
+    check('confirmed').isInt({min:0, max:1})
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -163,14 +163,14 @@ app.post('/api/products',
       return res.status(422).json({ errors: errors.array() })
     }
     const product = {
-      NAME: req.body.NAME,
-      DESCRIPTION: req.body.DESCRIPTION,
-      CATEGORY: req.body.CATEGORY,
-      QUANTITY: req.body.QUANTITY,
-      PRICE: req.body.PRICE,
-      FARMER_ID: req.body.FARMER_ID,
-      IMG_PATH: req.body.IMG_PATH,
-      CONFIRMED: req.body.CONFIRMED
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      quantity: req.body.quantity,
+      price: req.body.price,
+      farmer_id: req.body.farmer_id,
+      img_path: req.body.img_path,
+      confirmed: req.body.confirmed
     }
     dao.createProduct(product).then((id) => res.status(201).json({ id: id }))
       .catch((err) =>

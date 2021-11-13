@@ -54,7 +54,7 @@ exports.createProduct = (product) => {
     return new Promise((resolve, reject) => {
       const sql = 'INSERT INTO PRODUCTS(name,description,category,quantity, price, farmer_id, img_path, confirmed) VALUES(?,?,?,?,?,?,?,?)';
       
-      db.run(sql, [product.name, product.description, product.category, product.quantity, p.price, p.farmer_id, p.img_path, p.confirmed,], function (err) {
+      db.run(sql, [product.name, product.description, product.category, product.quantity, product.price, product.farmer_id, product.img_path, product.confirmed], function (err) {
         if (err) {
           reject(err);
           return;

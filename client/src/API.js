@@ -1,7 +1,14 @@
 import {Client} from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-const BASEURL = '/api';
+import "jest-fetch-mock" //decommentare per il testing
+
+//const BASEURL = '/api';
+
+/*
+//TO UNCOMMENT IN CASE OF TESTING
+*/
+const BASEURL = 'http://localhost:3001/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -18,7 +25,6 @@ function getAllClients(){
 }
 
 async function createUser(u) {
-  console.log(u);
 
     try {
       const response = await fetch(BASEURL + '/users', {
@@ -36,7 +42,7 @@ async function createUser(u) {
         throw response;
       }
   
-      return newID;
+      return newID.id;
     }
     catch {
       return false;
@@ -69,10 +75,11 @@ async function createProduct(p) {
       const newID = await response.json();
   
       if (!response.ok) {
+        console.log(response);
         throw response;
       }
   
-      return newID;
+      return newID.id;
     }
     catch {
       return false;
