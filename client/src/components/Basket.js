@@ -49,7 +49,7 @@ function Basket(props){
                             <h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>{product.name} x {product.quantity}</h3>
                         </Row>
                         <Row>
-                            <h3 style={{fontSize: "1rem", marginTop: "3px", padding: "0"}}>Total: €{product.total}</h3>                        
+                            <h3 style={{fontSize: "1rem", marginTop: "3px", padding: "0"}}>Total: €{product.total.toFixed(2)}</h3>                        
                         </Row>
                     </Col>
                     <Col xs={2} md={2}>

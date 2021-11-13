@@ -8,12 +8,33 @@ import Basket from '../components/Basket';
 function Market(props) {
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
+    const [category, setCategory] = useState('All');
+    const [filter, setFilter] = useState(false);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [width, setWitdh] = useState("");
     const [showBasket, setShowBasket] = useState(false);
     const handleBasket = () => {setCollapsed((s) => !s); setShowBasket((s) => !s)};
 
     const products = props.products;
+    const searchCategory = (category) => {
+        setCategory(category);
+        
+    };
+    useEffect(() => {
+        if (category === "All" ){
+            setFilter(false);
+
+        } else {
+            var filtered = products.filter((el) =>
+                el.category === category);
+            setFilteredProducts(filtered);
+            setFilter(true);
+        }
+
+
+    }, [category, products])
+
     useLayoutEffect(() => {
         function updateSize() {
             setSize(window.innerWidth);
@@ -31,7 +52,7 @@ function Market(props) {
             setCollapsed(false);
         }
     }, [size, showBasket])
-  
+    
 	return (
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%"}} >
 
@@ -43,7 +64,7 @@ function Market(props) {
                         <SideBar 
                         collapsed={collapsed}
                         width="13rem"
-                        basket={basket}
+                        searchCategory={(cat) => searchCategory(cat)}
                         handleBasket={handleBasket}
                         />
                     </div>
@@ -52,7 +73,18 @@ function Market(props) {
                 <Col xs={10} sm={10} md={10}>
                     <Container fluid style={{marginTop:"2rem"}}>
                         <Row >
-                            {products.map(product => 
+                            {filter ? 
+                            filteredProducts.map(product => 
+                                product.confirmed ? 
+                                <Col fluid xs={12} sm={6} md={4} lg={3} >
+                                    <Product product={product} basket={basket} setBasket={setBasket}/>
+                                </Col> : ''
+                                
+                                )
+                            
+                            : 
+                            
+                            products.map(product => 
                             product.confirmed ? 
                             <Col fluid xs={12} sm={6} md={4} lg={3} >
                                 <Product product={product} basket={basket} setBasket={setBasket}/>
