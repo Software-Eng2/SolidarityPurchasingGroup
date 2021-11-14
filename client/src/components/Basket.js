@@ -18,7 +18,6 @@ function Basket(props){
         return basket.reduce((a, b) => a + (b[key] || 0), 0);
     }
     const total = sum("total");
-    console.log(total);
 
     const handleShop = () => {
         if(client.amount < total){
@@ -42,7 +41,6 @@ function Basket(props){
                 setOrderId(response.id);
             });
             handleBasketConfirmation();
-
             history.push('/orders');
         }
 
@@ -64,7 +62,6 @@ function Basket(props){
             return success;
 
         })
-        API.createBasket()
     }
 	return(
 		<SlidingPane
