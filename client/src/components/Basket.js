@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import SlidingPane from 'react-sliding-pane';
 import{ Container, Row, Col, Form} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
@@ -11,7 +11,6 @@ function Basket(props){
     const basket = props.basket;
     const qty = basket.length;
     const client = props.client;
-    const [orderId, setOrderId] = useState(0);
     let history = useHistory();
 
     const sum = (key) => {
@@ -36,33 +35,29 @@ function Basket(props){
                 now,
                 time
             );
-
-            API.createOrder(order).then((response) => {
-                setOrderId(response.id);
+            
+            API.createOrder(order).then(function(response){
+                basket.map((product) => {
+                    const productBasket = {
+                        order_id: response.id,
+                        product_id: product.id,
+                        quantity: product.quantity
+                    };
+                    const success = API.createBasket(productBasket).then((response) => {
+                        if (!response.inserted){
+                            console.log("Error inserting basket in db.");
+                        }
+                        return response.inserted;
+                    })
+                    return success;
+        
+                })
             });
-            handleBasketConfirmation();
             history.push({pathname:'/orders', state: {orderDirty: true}});
         }
 
     }
 
-    const handleBasketConfirmation = () => {
-        basket.map((product) => {
-            const productBasket = {
-                order_id: orderId,
-                product_id: product.id,
-                quantity: product.quantity
-            };
-            const success = API.createBasket(productBasket).then((response) => {
-                if (!response.inserted){
-                    console.log("Error inserting basket in db.");
-                }
-                return response.inserted;
-            })
-            return success;
-
-        })
-    }
 	return(
 		<SlidingPane
             className="basket"
