@@ -38,15 +38,15 @@ import {
             <Form>
               <Form.Group className="text-left mb-4" controlId="email">
                 <Form.Label>Email:</Form.Label>
-                <Form.Control isInvalid={invalidEmail} placeholder="Enter Email" type="email" value={email} onChange={handleChange} />
+                <Form.Control isInvalid={invalidEmail} data-testid="testemail" placeholder="Enter Email" type="email" value={email} onChange={handleChange} />
                 <Form.Control.Feedback type="invalid">Please insert email.</Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="text-left mb-4" controlId="password">
                 <Form.Label>Password:</Form.Label>
-                <Form.Control isInvalid={invalidPassword} placeholder="Enter Password" type="password" value={password} onChange={handleChange} />
+                <Form.Control isInvalid={invalidPassword} placeholder="Enter Password" type="password" data-testid="testpassword" value={password} onChange={handleChange} />
                 <Form.Control.Feedback type="invalid">Please insert password.</Form.Control.Feedback>
               </Form.Group>
-              <Button className="btn-lg btn-block" variant="danger" onClick={handleSubmit}>Log In</Button>
+              <Button className="btn-lg btn-block" variant="danger" onClick={handleSubmit} data-testid="testbuttonlogin">Log In</Button>
             </Form>
           </Card.Body>
         </Card>
