@@ -39,7 +39,7 @@ function Basket(props){
             );
 
             API.createOrder(order).then((response) => {
-                setOrderId(response);
+                setOrderId(response.id);
             });
             handleBasketConfirmation();
 
