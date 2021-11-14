@@ -281,6 +281,33 @@ app.delete('/api/sessions/current', isLoggedIn, (req, res) => {
 app.get('/api/sessions/current', isLoggedIn, (req, res) => {
   res.json(req.user);
 });
+
+
+// add a new basket
+app.post('/api/basket',
+  [
+    check('order_id').isInt({min: 0}),
+    check('product_id').isInt({min: 0}),
+    check('quantity').isInt({min: 0}),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+    const basket = {
+      order_id: req.body.order_id,
+      product_id: req.body.product_id,
+      quantity: req.body.quantity,
+    }
+    dao.createBasket(basket).then((inserted) => res.status(201).json({ inserted: inserted }))
+      .catch((err) =>
+        res.status(500).json({
+          error: "Error " + err,
+        })
+      );
+  });
 /*** End APIs ***/
 
 
