@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router,Switch, Route, useHistory} from 'react-router-dom';
 import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
-import OrderPage from './components/OrderPage';
+import OrdersPage from './components/OrdersPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
 import RegisterInterface from './components/RegisterPage';
 import Market from './views/Market';
@@ -99,7 +99,7 @@ function App() {
           <Market products={products} client={location.state ? location.state.client : ""}/>
         }/>
         <Route exact path="/orders">
-          <OrderPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/>         
+          <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/>         
         </Route>
         <Route exact path="/clientlist">
           <ShopEmployeePage/>

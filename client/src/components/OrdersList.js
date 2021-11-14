@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import{ Container, Table, Dropdown, Button, ButtonGroup} from "react-bootstrap";
+import{ Container, Table, Dropdown, Button, ButtonGroup, Form} from "react-bootstrap";
 import API from '../API';
 import {pickUpIcon, deliveryIcon} from "./Icons";
 import { useLocation} from "react-router-dom";
 
-function OrderPage(props){
+function OrdersList(props){
 
-    const {orders, setOrders, loggedIn} = props;
+    const {orders, setOrders, loggedIn, setSelectedOrder, setModalShow} = props;
     const [dirty, setDirty] = useState(false);
     const orderDirty = useLocation().state;
 
@@ -33,14 +33,21 @@ function OrderPage(props){
 
     return (
         <Container fluid className="page width-100 below-nav table">
-           <OrderTable orders={orders} changeStatus={changeStatus}/>
+           <OrderTable orders={orders} changeStatus={changeStatus} setSelectedOrder={setSelectedOrder} setModalShow={setModalShow}/>
         </Container>
     );
 }
 
 function OrderTable(props){
 
-    const {orders, changeStatus} = props;
+    const {orders, changeStatus, setSelectedOrder, setModalShow} = props;
+
+    const handleClick = (o) => {
+        setModalShow(true);
+        setSelectedOrder(o);
+        console.log(o.id);
+    }
+
 
     return(
         <Table striped bordered hover responsive >
@@ -63,16 +70,16 @@ function OrderTable(props){
                 {
                     orders.map((o) => (
                         <tr key={o.id}>
-                            <td>{o.id}</td>
-                            <td>{o.creation_date}</td>
-                            <td>{o.client_id}</td>
-                            <td>{o.client_name}</td>
-                            <td>{o.client_surname}</td>
-                            <td> € {o.total.toFixed(2)}</td>
-                            {o.pick_up ? <td> {pickUpIcon} PickUp  </td> : <td> {deliveryIcon} Delivery </td>}
-                            <td>{o.address}</td>
-                            <td>{o.date}</td>
-                            <td>{o.time}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.id}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.creation_date}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.client_id}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.client_name}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.client_surname}</td>
+                            <td onClick={()=>{handleClick(o)}}> € {o.total.toFixed(2)}</td>
+                            {o.pick_up ? <td onClick={()=>{handleClick(o)}}> {pickUpIcon} PickUp  </td> : <td onClick={()=>{handleClick(o)}}> {deliveryIcon} Delivery </td>}
+                            <td onClick={()=>{handleClick(o)}}>{o.address}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.date ? o.date : 'click to update'}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.time ? o.date : 'click to update'}</td>
                             <td className="text-center">
                                 <TableDropdown changeStatus={changeStatus} id={o.id} status={o.status} />
                             </td>
@@ -104,5 +111,5 @@ function TableDropdown(props) {
     );
 }
 
-export default OrderPage;
+export default OrdersList;
 

@@ -24,7 +24,8 @@ function Basket(props){
         }else{
             const id = dayjs().unix();
             const now = dayjs().format('YYYY-MM-DD');
-            const time = dayjs().format('HH:mm')
+            const date = '';
+            const time ='';
             const order = new Order(
                 id,
                 now,
@@ -32,7 +33,7 @@ function Basket(props){
                 client.name,
                 client.surname,
                 total,
-                now,
+                date,
                 time
             );
             
