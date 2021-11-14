@@ -137,6 +137,7 @@ function Basket(props){
                                 <Col xs={12} md={6}>
                                     <div key="default-radio">
                                         <Form.Check 
+                                            defaultChecked
                                             type="radio"
                                             id="default-radio"
                                             label="Pick-up"

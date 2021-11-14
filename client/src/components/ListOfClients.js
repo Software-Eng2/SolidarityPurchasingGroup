@@ -58,7 +58,7 @@ function ListOfClients(props){
                 <tbody>
                     {(view === "view") ? 
                     allClients.map((client) => (
-                       <tr key={client.id} className="p-0" style={selectedClient == client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelectedClient(client);}}>        
+                       <tr key={client.id} className="p-0" style={selectedClient === client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelectedClient(client);}}>        
                             <td>{client.name}</td>
                             <td>{client.surname}</td>
                             <td>{client.birthdate}</td>
@@ -69,7 +69,7 @@ function ListOfClients(props){
                     ) )
                     :
                     allClients.filter((c) => c.name.includes(search) || c.surname.includes(search) || c.email.includes(search)).map((client) => (
-                        <tr key={client.id} className="p-0" style={selectedClient == client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelectedClient(client);}}>        
+                        <tr key={client.id} className="p-0" style={selectedClient === client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelectedClient(client);}}>        
                              <td>{client.name}</td>
                              <td>{client.surname}</td>
                              <td>{client.birthdate}</td>
@@ -89,7 +89,7 @@ function ListOfClients(props){
                 </Col>
                 <Col sm={12} md={6} className="d-flex justify-content-end">
                     <Link to={{ pathname: '/products',  state: {client: {id: selectedClient.id, name:selectedClient.name, surname:selectedClient.surname, birthdate: selectedClient.birthdate, amount: selectedClient.amount}} }}>
-                        <Button size="lg" className="mt-5" disabled={selectedClient==""} style={{backgroundColor: '#247D37', border: '0px', borderRadius: '4px'}}>Shop now</Button>
+                        <Button size="lg" className="mt-5" disabled={selectedClient===""} style={{backgroundColor: '#247D37', border: '0px', borderRadius: '4px'}}>Shop now</Button>
                     </Link>
                 </Col>
             </Row>

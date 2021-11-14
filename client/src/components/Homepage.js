@@ -1,5 +1,4 @@
 import { Card, CardGroup, Container, Row, Col, Button } from 'react-bootstrap';
-import { useState } from 'react';
 import backgroundimg from '../img/finale.mp4';
 import { arrowIcon } from './Icons';
 import { Link } from 'react-router-dom';

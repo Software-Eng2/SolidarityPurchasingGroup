@@ -13,7 +13,6 @@ function Market(props) {
     const [filter, setFilter] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [basket, setBasket] = useState([]); //total of products ordered by a client
-    const [width, setWitdh] = useState("");
     const [showBasket, setShowBasket] = useState(false);
 
       //state if the wallet is insufficient

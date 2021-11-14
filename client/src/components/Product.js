@@ -5,15 +5,13 @@ import Card from '../components/Card/Card';
 
 
 function Product(props) {
-    const {id, name, description, category, quantity, price, farmer_id, img_path, confirmed} = props.product;
+    const {id, name, description, category, quantity, price, img_path} = props.product;
 	const [show, setShow] = useState(false);
 	const [counter, setCounter] = useState(1);
-	const [total, setTotal] = useState(price);
     const handleShow = () => setShow(true);
-	const handleClose = () => {setShow(false); setCounter(1); setTotal(price)};
+	const handleClose = () => {setShow(false); setCounter(1)};
 	const decrease = () => setCounter(counter-1);
 	const increase = () => setCounter(counter+1); 
-	const updateTotal = () => setTotal(price*counter);
 	
 	const handleConfirm = () => {
 		props.setBasket([...props.basket, {id: id, name:name, price:price, img: img_path, quantity:counter, total: price*counter}]);
@@ -67,9 +65,9 @@ function Product(props) {
 							</Col>
 							<Col xs={6} md={6}>
 								<div className = "product-quantity">
-									<button className = "editquantity-btn" disabled={counter === 0 || counter === '' || counter instanceof String ? true : false} onClick = {() => {updateTotal(); decrease();  }} >-</button>
+									<button className = "editquantity-btn" disabled={counter === 0 || counter === '' || counter instanceof String ? true : false} onClick = {() => {decrease();  }} >-</button>
 									<input name = 'count-multiplied' value = {counter} type= 'number' className = "display-count" onChange= {e => setCounter(Number(e.target.value))} />
-									<button className = "editquantity-btn" disabled={counter >= quantity ? true : false} onClick = {() => {updateTotal(); increase();  }}  >+</button>
+									<button className = "editquantity-btn" disabled={counter >= quantity ? true : false} onClick = {() => { increase();  }}  >+</button>
 									<p><span className="error" >{counter > quantity ? 'The quantity is invalid' : ''}{counter instanceof String ? 'Insert a valid number' : ''}</span></p>
 								</div>
 
