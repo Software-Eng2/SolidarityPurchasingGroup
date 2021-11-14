@@ -8,7 +8,7 @@ function Homepage() {
     return (
         <div>
             <div style={{ overflowX: "hidden", backgroundColor: "#DEDEDE", position: "relative", maxHeight: "100vh", overflowY: "hidden", justifyContent: "center" }}>
-                <video style={{ maxHeight: "100vh", width: "100vw" }} autoPlay loop muted>
+                <video style={{ maxHeight: "100vh", width: "100vw" }} data-testid="vidMyVideo" autoPlay loop muted>
                     <source src={backgroundimg} type='video/mp4' />
                 </video>
                 <div className="overlay">
@@ -35,8 +35,8 @@ function Homepage() {
                             <h4 style={{ marginTop: "7vh" }}>
                                 It's local. It's fair. It's for our planet.
                             </h4>
-                            <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop: "7vh" }} >
-                                <Link to={{ pathname: '/products' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
+                            <Button size="lg" variant="success" href="products" style={{ backgroundColor: "#247D37", marginTop: "7vh" }} >
+                                <Link to={{ pathname: '/products' }} data-testid="linktoproducts" className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                     Discover our products
                                 </Link>
                             </Button>
