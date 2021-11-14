@@ -1,14 +1,14 @@
 import { Card, CardGroup, Container, Row, Col, Button } from 'react-bootstrap';
-import { useState} from 'react';
+import { useState } from 'react';
 import backgroundimg from '../img/finale.mp4';
 import { arrowIcon } from './Icons';
 import { Link } from 'react-router-dom';
 
 function Homepage() {
-    
+
     return (
         <div>
-            <div style={{ overflowX: "hidden", backgroundColor: "#DEDEDE", position: "relative", maxHeight:"100vh" }}>
+            <div style={{ overflowX: "hidden", backgroundColor: "#DEDEDE", position: "relative", maxHeight: "100vh", overflowY: "hidden", justifyContent: "center" }}>
                 <video style={{ maxHeight: "100vh", width: "100vw" }} autoPlay loop muted>
                     <source src={backgroundimg} type='video/mp4' />
                 </video>
@@ -52,17 +52,17 @@ function Homepage() {
                             JOIN US!
                         </h1>
                     </Row>
-                    <Row style={{ marginTop: "2rem" }} xs={1} md={1} xl={1} sm={1} xxl={1} lg={1} className="g-4">
-                        <CardGroup>
-                            <Card style={{maxHeight:"65vh", minHeight:"65vh"}}>
+                    <Row style={{ marginTop: "2rem" }} xs={1} sm={1} md={1} lg={3} xl={3} xxl={3} className="g-4">
+                        <Col>
+                            <Card style={{maxHeight:"70vh", minHeight:"70vh"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://images.pexels.com/photos/3962283/pexels-photo-3962283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <Card.Body>
                                     <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Why buying in SPG?</Card.Title>
                                     <Card.Text>
-                                    In SPG the products travel an average of 61 kilometers before reaching the plate. Each territory holds a treasure of local products.
+                                        In SPG the products travel an average of 61 kilometers before reaching the plate. Each territory holds a treasure of local products.
                                     </Card.Text>
                                 </Card.Body>
-                                <Card.Footer>
+                                <Card.Footer className="text-center">
                                     <Button size="lg" variant="success" style={{ backgroundColor: "#247D37" }} >
                                         <Link to={{ pathname: '/registerform' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Client
@@ -70,7 +70,9 @@ function Homepage() {
                                     </Button>
                                 </Card.Footer>
                             </Card>
-                            <Card style={{maxHeight:"65vh", minHeight:"65vh"}}>
+                        </Col>
+                        <Col>
+                            <Card style={{maxHeight:"70vh", minHeight:"70vh"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://www.altromercato.it/wp-content/uploads/2021/09/produttore_Hualtaco_Peru_AgrofairEurope-scaled-e1632143818906-800x582.jpg" />
                                 <Card.Body>
                                     <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Why selling in SPG?</Card.Title>
@@ -78,7 +80,7 @@ function Homepage() {
                                         You decide the price and all orders are placed before distribution. So you will bring only what has been planned, and you will leave without any unsold goods.
                                     </Card.Text>
                                 </Card.Body>
-                                <Card.Footer>
+                                <Card.Footer className="text-center">
                                     <Button size="lg" variant="success" style={{ backgroundColor: "#247D37" }} >
                                         <Link to={{ pathname: '/' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Supplier
@@ -86,15 +88,17 @@ function Homepage() {
                                     </Button>
                                 </Card.Footer>
                             </Card>
-                            <Card style={{maxHeight:"65vh", minHeight:"65vh"}}>
+                        </Col>
+                        <Col>
+                            <Card style={{maxHeight:"70vh", minHeight:"70vh"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://images.pexels.com/photos/7844008/pexels-photo-7844008.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <Card.Body>
-                                    <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Work with us</Card.Title>
+                                    <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Work with us!</Card.Title>
                                     <Card.Text>
-                                       Be part of the change.
+                                        Be part of the change.
                                     </Card.Text>
                                 </Card.Body>
-                                <Card.Footer>
+                                <Card.Footer className="text-center">
                                     <Button size="lg" variant="success" style={{ backgroundColor: "#247D37" }} >
                                         <Link to={{ pathname: '/' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Delivery person
@@ -102,7 +106,7 @@ function Homepage() {
                                     </Button>
                                 </Card.Footer>
                             </Card>
-                            </CardGroup>
+                        </Col>
                     </Row>
                 </Container>
             </div>
