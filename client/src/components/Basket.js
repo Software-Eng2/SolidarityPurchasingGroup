@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState} from "react";
 import SlidingPane from 'react-sliding-pane';
 import{ Container, Row, Col} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
@@ -11,6 +12,7 @@ function Basket(props){
     const basket = props.basket;
     const qty = basket.length;
     const client = props.client;
+    const [orderId, setOrderId] = useState('');
     let history = useHistory();
 
     const handleShop = () => {
@@ -35,7 +37,7 @@ function Basket(props){
         );
 
         API.createOrder(order);
-        history.push('/orders');
+        history.push({pathname:'/orders', state: {orderDirty: true}});
 
     }
 

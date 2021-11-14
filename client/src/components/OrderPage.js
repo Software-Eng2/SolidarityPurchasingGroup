@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import{ Container, Table, Dropdown, Button, ButtonGroup} from "react-bootstrap";
 import API from '../API';
 import {pickUpIcon, deliveryIcon} from "./Icons";
-
+import { useLocation} from "react-router-dom";
 
 function OrderPage(props){
 
     const {orders, setOrders, loggedIn} = props;
     const [dirty, setDirty] = useState(false);
+    const orderDirty = useLocation().state;
 
     //change status of the selected order
     const changeStatus = async (order_id, status) => {
@@ -20,7 +21,7 @@ function OrderPage(props){
 
     useEffect(() => {
         console.log(loggedIn + ' ' + dirty);
-        if (loggedIn && dirty) {
+        if ((loggedIn && dirty) || (loggedIn && orderDirty )) {
             //initialization of new ordersList 
             API.getAllOrders().then((orders) => {
                 console.log(orders);
@@ -28,7 +29,7 @@ function OrderPage(props){
                 setDirty(false);
             });
         }
-    }, [dirty]);
+    }, [loggedIn, dirty, orderDirty]);
 
     return (
         <Container fluid className="page width-100 below-nav table">
@@ -67,7 +68,7 @@ function OrderTable(props){
                             <td>{o.client_id}</td>
                             <td>{o.client_name}</td>
                             <td>{o.client_surname}</td>
-                            <td> € {o.total}</td>
+                            <td> € {o.total.toFixed(2)}</td>
                             {o.pick_up ? <td> {pickUpIcon} PickUp  </td> : <td> {deliveryIcon} Delivery </td>}
                             <td>{o.address}</td>
                             <td>{o.date}</td>
