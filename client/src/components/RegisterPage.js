@@ -34,7 +34,7 @@ function RegisterInterface(props) {
             event.stopPropagation();
 
         } else {
-            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('DD/MM/YYYY'), email, password)).then(()=>{ history.push("/clientlist");})
+            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('YYYY-MM-DD'), email, password)).then(()=>{ history.push("/clientlist");})
         }
 
         setValidated(true);

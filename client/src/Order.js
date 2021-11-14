@@ -21,18 +21,18 @@ import dayjs from 'dayjs';
  */
 
 class Order {
-    constructor(id, creation_date, client_id, client_name, client_surname, total, status, pick_up, address, date, time) {
+    constructor(id, creation_date, client_id, client_name, client_surname, total, date, time, pick_up=1, address='Corso Duca degli Abruzzi, 24', status='PENDING') {
         this.id = id;
         this.creation_date = creation_date;
         this.client_id = client_id;
         this.client_name = client_name;
         this.client_surname = client_surname;
         this.total = total;
-        this.status = status;
-        this.pick_up = pick_up;
-        this.address = address;
         this.date = date;
         this.time = time;
+        this.pick_up = pick_up;
+        this.address = address;
+        this.status = status;
     }
 }
 

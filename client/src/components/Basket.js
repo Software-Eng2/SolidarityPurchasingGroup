@@ -3,6 +3,9 @@ import SlidingPane from 'react-sliding-pane';
 import{ Container, Row, Col} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import { useHistory } from "react-router-dom"; 
+import API from '../API';
+import dayjs from 'dayjs';
+import { Order } from '../Order';
 
 function Basket(props){
     const basket = props.basket;
@@ -15,10 +18,27 @@ function Basket(props){
         basket.map(info => {totale += info.price * info.quantity})
         if(client.amount < totale){
             props.setAlertWalletShow(true);
-        }else{
-            history.push('/orders');
         }
+
+        const id = dayjs().unix();
+        const now = dayjs().format('YYYY-MM-DD');
+        const time = dayjs().format('HH:mm')
+        const order = new Order(
+            id,
+            now,
+            client.id,
+            client.name,
+            client.surname,
+            totale,
+            now,
+            time
+        );
+
+        API.createOrder(order);
+        history.push('/orders');
+
     }
+
 	return(
 		<SlidingPane
             className="basket"

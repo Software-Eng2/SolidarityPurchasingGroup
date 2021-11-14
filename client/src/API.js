@@ -1,14 +1,14 @@
 import {Client} from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-import "jest-fetch-mock" //decommentare per il testing
+//import "jest-fetch-mock" //decommentare per il testing
 
-//const BASEURL = '/api';
+const BASEURL = '/api';
 
 /*
 //TO UNCOMMENT IN CASE OF TESTING
 */
-const BASEURL = 'http://localhost:3001/api';
+//const BASEURL = 'http://localhost:3001/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -93,7 +93,7 @@ async function getAllOrders() {
   const orders = await response.json();
 
   if (response.ok) {
-    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.name, o.surname, o.total, o.status, o.pick_up, o.address, o.date, o.time));
+    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.name, o.surname, o.total, o.date, o.time, o.pick_up, o.address, o.status));
   } else {
     return undefined;
   }
@@ -109,7 +109,7 @@ async function createOrder(o) {
           creation_date: o.creation_date,
           client_id: o.client_id,
           total: o.total,
-          status: o.status,
+          status: 'PENDING',
           pick_up: o.pick_up,
           address: o.address,
           date: o.date,
