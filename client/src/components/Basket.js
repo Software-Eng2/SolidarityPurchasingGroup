@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SlidingPane from 'react-sliding-pane';
-import{ Container, Row, Col} from "react-bootstrap";
+import{ Container, Row, Col, Form} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import { useHistory } from "react-router-dom"; 
 import API from '../API';
@@ -11,34 +11,61 @@ function Basket(props){
     const basket = props.basket;
     const qty = basket.length;
     const client = props.client;
+    const [orderId, setOrderId] = useState(0);
     let history = useHistory();
 
+    const sum = (key) => {
+        return basket.reduce((a, b) => a + (b[key] || 0), 0);
+    }
+    const total = sum("total");
+    console.log(total);
+
     const handleShop = () => {
-        let totale = 0;
-        basket.map(info => {totale += info.price * info.quantity})
-        if(client.amount < totale){
+        if(client.amount < total){
             props.setAlertWalletShow(true);
+        }else{
+            const id = dayjs().unix();
+            const now = dayjs().format('YYYY-MM-DD');
+            const time = dayjs().format('HH:mm')
+            const order = new Order(
+                id,
+                now,
+                client.id,
+                client.name,
+                client.surname,
+                total,
+                now,
+                time
+            );
+
+            API.createOrder(order).then((response) => {
+                setOrderId(response);
+            });
+            handleBasketConfirmation();
+
+            history.push('/orders');
         }
-
-        const id = dayjs().unix();
-        const now = dayjs().format('YYYY-MM-DD');
-        const time = dayjs().format('HH:mm')
-        const order = new Order(
-            id,
-            now,
-            client.id,
-            client.name,
-            client.surname,
-            totale,
-            now,
-            time
-        );
-
-        API.createOrder(order);
-        history.push('/orders');
 
     }
 
+    const handleBasketConfirmation = () => {
+        basket.map((product) => {
+            const productBasket = {
+                order_id: orderId,
+                product_id: product.id,
+                quantity: product.quantity
+            };
+            const success = API.createBasket(productBasket).then((response) => {
+                if (!response.inserted){
+                    console.log("Error inserting basket in db.");
+                }
+                return response.inserted;
+            })
+            return success;
+
+        })
+        API.createBasket()
+    }
 	return(
 		<SlidingPane
             className="basket"
@@ -93,7 +120,50 @@ function Basket(props){
                 )}
                 { qty > 0 ?
                 <>
+                    <Row className='justify-content-center'>
+                            <div
+                            style={{
+                                textTransform: 'uppercase',
+                                fontWeight: 'bold',
+                                marginTop: "2rem",
+                                fontSize: 22,
+                                letterSpacing: '1px',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                
+                            }}
+                            >
+                            Total: €{total.toFixed(2)}
+                            </div>
+
+                        </Row>
                     <hr className='solid'/>
+                        <Form>
+                            <Row className='justify-content-center'>
+                            
+                                <Col xs={12} md={6}>
+                                    <div key="default-radio">
+                                        <Form.Check 
+                                            type="radio"
+                                            id="default-radio"
+                                            label="Pick-up"
+                                        />
+                                    </div>
+                                </Col>
+                                <Col xs={12} md={6}>
+                                    <div key="default-radio">
+                                        <Form.Check
+                                                disabled
+                                                type="radio"
+                                                label="Delivery"
+                                                id="disabled-default-radio"
+                                            />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Form>
+                        
                         <Row className='justify-content-center'>
                             <div className='card-button'>
                                 <button style={{fontWeight:"bold"}} onClick={()=>{handleShop()}}>
