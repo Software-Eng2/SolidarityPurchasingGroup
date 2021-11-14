@@ -230,9 +230,9 @@ async function createBasket(b) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
         {
-          order_id: b.creation_date,
-          product_id: b.client_id,
-          quantity: b.total
+          order_id: b.order_id,
+          product_id: b.product_id,
+          quantity: b.quantity
         }
       )
     })
