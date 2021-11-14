@@ -93,7 +93,7 @@ async function getAllOrders() {
   const orders = await response.json();
 
   if (response.ok) {
-    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.name, o.surname, o.total, o.status, o.pick_up, o.address, o.date, o.time));
+    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.name, o.surname, o.total, o.date, o.time, o.pick_up, o.address, o.status));
   } else {
     return undefined;
   }
@@ -109,7 +109,7 @@ async function createOrder(o) {
           creation_date: o.creation_date,
           client_id: o.client_id,
           total: o.total,
-          status: o.status,
+          status: 'PENDING',
           pick_up: o.pick_up,
           address: o.address,
           date: o.date,
@@ -230,9 +230,9 @@ async function createBasket(b) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
         {
-          order_id: b.creation_date,
-          product_id: b.client_id,
-          quantity: b.total
+          order_id: b.order_id,
+          product_id: b.product_id,
+          quantity: b.quantity
         }
       )
     })

@@ -1,4 +1,4 @@
-import { Col, Navbar, Nav, Button} from 'react-bootstrap';
+import { Col, Navbar, Nav} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { shopIcon } from './Icons'
 

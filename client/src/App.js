@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { BrowserRouter as Router,Switch, Route, Redirect, useHistory} from 'react-router-dom';
+import { BrowserRouter as Router,Switch, Route, useHistory} from 'react-router-dom';
 import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';

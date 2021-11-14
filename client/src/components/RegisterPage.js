@@ -1,4 +1,4 @@
-import { Form, Button, Container, Col, Row, Stack } from 'react-bootstrap';
+import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
@@ -34,7 +34,7 @@ function RegisterInterface(props) {
             event.stopPropagation();
 
         } else {
-            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('DD/MM/YYYY'), email, password)).then(()=>{ history.push("/clientlist");})
+            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('YYYY-MM-DD'), email, password)).then(()=>{ history.push("/clientlist");})
         }
 
         setValidated(true);
