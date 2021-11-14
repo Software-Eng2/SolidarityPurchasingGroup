@@ -61,7 +61,7 @@ function Market(props) {
     }, [size, showBasket])
     
 	return (
-        <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%"}} >
+        <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} >
 
             <Basket basket={basket} client={client} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
             <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client}/>

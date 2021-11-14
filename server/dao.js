@@ -151,3 +151,18 @@ exports.updateWallet = (value, client_id) => {
 
   });
 };
+
+// add a new basket
+exports.createBasket = (basket) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO BASKETS (order_id, product_id, quantity) VALUES(?,?,?)';
+    
+    db.run(sql, [basket.order_id, basket.product_id, basket.quantity], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(true);
+    });
+  });
+};

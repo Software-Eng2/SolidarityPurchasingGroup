@@ -8,7 +8,7 @@ function Card(props) {
                 <img src={props.img} alt={props.title}/>
             </div>
             <div className='card-content'>
-                <div className='card-title'>
+                <div className='card-title' style={{overflowX:"hidden", overflowY:"hidden"}}>
                     <h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>{props.title}</h3>
                 </div>
                 <div className='card-body-p'>

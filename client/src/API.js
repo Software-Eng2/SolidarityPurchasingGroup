@@ -223,6 +223,32 @@ function getUserInfo() {
   });
 };
 
+async function createBasket(b) {
+  try {
+    const response = await fetch(BASEURL + '/basket', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          order_id: b.creation_date,
+          product_id: b.client_id,
+          quantity: b.total
+        }
+      )
+    })
+    const inserted = await response.json();
+
+    if (!response.ok) {
+      throw response;
+    }
+
+    return inserted;
+  }
+  catch {
+    return false;
+  }
+
+}
 const API = {
   getAllClients,
   getAllProducts,
@@ -235,7 +261,8 @@ const API = {
   logIn,
   logOut,
   getUserInfo,
-  updateWallet
+  updateWallet,
+  createBasket
 }
 
 export default API;
