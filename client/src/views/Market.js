@@ -5,8 +5,10 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import SideBar from '../components/SideBar';
 import Basket from '../components/Basket';
 import AlertWallet from '../components/AlertWallet';
+import PropTypes from 'prop-types';
 
 function Market(props) {
+    const { products, client} = props;
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
     const [category, setCategory] = useState('All');
@@ -21,8 +23,7 @@ function Market(props) {
 
     const handleBasket = () => {setCollapsed((s) => !s); setShowBasket((s) => !s)};
 
-    const products = props.products;
-    const client = props.client;
+    
     const searchCategory = (category) => {
         setCategory(category);
         
@@ -60,7 +61,7 @@ function Market(props) {
     }, [size, showBasket])
     
 	return (
-        <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} >
+        <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
 
             <Basket basket={basket} client={client} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
             <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client}/>
@@ -84,7 +85,7 @@ function Market(props) {
                             {filter ? 
                             filteredProducts.map(product => 
                                 product.confirmed ? 
-                                <Col fluid xs={12} sm={6} md={4} lg={3} >
+                                <Col fluid key={`product-"${product.id}"`} xs={12} sm={6} md={4} lg={3} >
                                     <Product product={product} basket={basket} setBasket={setBasket}/>
                                 </Col> : ''
                                 
@@ -94,7 +95,7 @@ function Market(props) {
                             
                             products.map(product => 
                             product.confirmed ? 
-                            <Col fluid xs={12} sm={6} md={4} lg={3} >
+                            <Col fluid key={`product-"${product.id}"`} xs={12} sm={6} md={4} lg={3} >
                                 <Product product={product} basket={basket} setBasket={setBasket}/>
                             </Col> : ''
                             
@@ -114,5 +115,10 @@ function Market(props) {
 		
 	);
 }
+
+Market.propTypes = {
+    products: PropTypes.array.isRequired,
+    client: PropTypes.object.isRequired
+  };
 
 export default Market;
