@@ -6,7 +6,7 @@ import React from 'react';
 import { render, cleanup, getByText, fireEvent, screen} from "@testing-library/react";
 import ReactDOM from 'react-dom';
 
-import Wallet from '../components/Wallet';
+import AlertWallet from '../components/AlertWallet';
 import { Button} from 'react-bootstrap';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -22,7 +22,7 @@ configure({ adapter: new Adapter() });
 
 it('includes link to products', () => {
     const user = {id:'1', name:'Mario', surname:'Rossi', birthdate:'13-10-1999', email: 'mariorossi@gmail', amount: '3$' }
-    const wrapper = shallow(<Wallet show={true} setWalletShow={false} increment={0} setIncrement={1} onHide={() => {setWalletShow(false); setIncrement(0)}} user={user}/>);
+    const wrapper = shallow(<AlertWallet show={true} setAlertWalletShow={false} topUp={0} setTopUp={1} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={user}/>);
     expect(wrapper.props().user).toBe(user);
 });
 
@@ -57,7 +57,7 @@ it('State done is changed when button clicked', () => {
 
  test('calls onClick prop when clicked', () => {
     const updateWallet = jest.fn()
-    render(  <Button 
+    render( <Button 
         data-testid="button-top-up"
           className="text-center mt-5"
           variant="success"
