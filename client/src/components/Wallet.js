@@ -20,7 +20,7 @@ function Wallet(props) {
   }
 
     return (
-      <Modal {...props} centered>
+      <Modal {...props} centered data-testid="modal_test">
         {done ? 
         <Modal.Body style={{backgroundColor: "#d4edda"}}>
           <Alert show={done} variant="success">
@@ -40,13 +40,13 @@ function Wallet(props) {
             Your wallet
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body >
+        <Modal.Body>
           <Container>
             <Row>
                 <Col xs={12}>
                     <h5 className="text-center">{props.user.name} {props.user.surname}</h5>
                     <h6 className="text-center">{props.user.email}</h6>
-                </Col>
+                </Col> 
             </Row>
             <Row className="mt-1">
                 <Col xs={12} >
@@ -73,6 +73,7 @@ function Wallet(props) {
 
             <Row className="justify-content-center">
                 <Button 
+                data-testid="button-top-up"
                   className="text-center mt-5"
                   variant="success"
                   disabled={props.increment <= 0}
@@ -80,7 +81,7 @@ function Wallet(props) {
                     Top up now
                 </Button>
             </Row>
-          </Container>
+          </Container> 
         </Modal.Body>
         <Modal.Footer style={{backgroundColor: "#b4e6e2"}}>
           <Button onClick={props.onHide}>Close</Button>
