@@ -68,9 +68,9 @@ function App() {
             routerHistory.push('/clientlist');  
             window.location.reload();
             break;
-          /* case 'client':
-            routerHistory.push('/client');  
-            window.location.reload(); */ //TODO ADD NEW ROUTE PER ACTOR
+          case 'client':
+            routerHistory.push('/');  
+            window.location.reload(); //TODO ADD NEW ROUTE PER ACTOR
         }
       }).catch((err) => console.log(err));   
     }).catch((err) => {
@@ -90,7 +90,7 @@ function App() {
 
   return (
     <Router>
-        <NavBar loggedIn={loggedIn} doLogOut={doLogOut}/>
+        <NavBar loggedIn={loggedIn} doLogOut={doLogOut} userRole={userRole}/>
       <Switch>
         <Route exact path="/">
           <Homepage/>
