@@ -43,10 +43,14 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "testResultsProcessor": "jest-sonar-reporter"
+  },
   "devDependencies": {
     "@testing-library/react": "^11.2.7",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
+    "jest-sonar-reporter": "^2.0.0",
     "msw": "^0.35.0"
   }
 }

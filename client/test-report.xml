@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js">
+    <testCase name="testing search of a client" duration="202"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
+    <testCase name="renders button correctly" duration="34"/>
+    <testCase name="includes link to products" duration="26"/>
+    <testCase name="includes link to registerform" duration="10"/>
+    <testCase name="renders container of the page correctly" duration="7"/>
+    <testCase name="renders video correctly" duration="3"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js">
+    <testCase name="LoginForm should allow a user to log in" duration="205">
+      <failure message="Error: thrown: undefined"><![CDATA[Error: thrown: undefined
+    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js:42:3
+    at _dispatchDescribe (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/index.js:67:26)
+    at describe (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/index.js:30:5)
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js:40:1)
+    at Runtime._execModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:1299:24)
+    at Runtime._loadModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:898:12)
+    at Runtime.requireModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:746:10)
+    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:106:13)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
+    at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
+    at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
+    </testCase>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
+    <testCase name="renders market without crashing" duration="0"/>
+    <testCase name="passing props accepts products and client props" duration="1"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js">
+    <testCase name="c-getClients" duration="30"/>
+    <testCase name="c-addClient" duration="2"/>
+    <testCase name="c-getFromId" duration="0"/>
+    <testCase name="p-getProducts" duration="280"/>
+    <testCase name="p-addProduct" duration="197"/>
+    <testCase name="p-getProductsFromCategory" duration="0"/>
+    <testCase name="p-updateConfirmed" duration="124"/>
+  </file>
+</testExecutions>

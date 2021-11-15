@@ -28,5 +28,11 @@ setx SONAR_TOKEN value
 4. Execute the following command:
 ```
 mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sofia-catalano_SolidarityPurchasingGroup
+```
 
+# Coverage
+
+Run the following command inside:
+```
+CI=true npm test -- --coverage --testResultsProcessor=jest-sonar-reporter
 ```
