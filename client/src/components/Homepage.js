@@ -62,7 +62,7 @@ function Homepage() {
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer className="text-center">
-                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37" }} >
+                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop:"0.5rem",marginBottom:"0.5rem" }} >
                                         <Link to={{ pathname: '/registerform' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Client
                                         </Link>
@@ -80,7 +80,7 @@ function Homepage() {
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer className="text-center">
-                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37" }} >
+                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop:"0.5rem",marginBottom:"0.5rem" }} >
                                         <Link to={{ pathname: '/' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Supplier
                                         </Link>
@@ -98,7 +98,7 @@ function Homepage() {
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer className="text-center">
-                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37" }} >
+                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop:"0.5rem",marginBottom:"0.5rem" }} >
                                         <Link to={{ pathname: '/' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Delivery person
                                         </Link>
