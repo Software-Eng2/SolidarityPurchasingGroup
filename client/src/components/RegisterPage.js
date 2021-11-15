@@ -28,13 +28,13 @@ function RegisterInterface(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
-        
 
-        if (form.checkValidity() === false ) {
+
+        if (form.checkValidity() === false) {
             event.stopPropagation();
 
         } else {
-            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('YYYY-MM-DD'), email, password)).then(()=>{ history.push("/clientlist");})
+            API.createUser(new User(role, firstName, lastName, dayjs(birthday).format('YYYY-MM-DD'), email, password)).then(() => { history.push("/clientlist"); })
         }
 
         setValidated(true);
@@ -43,59 +43,59 @@ function RegisterInterface(props) {
 
     return (
 
-    <>
-        <Container as={Col} sm={8} md={8} className="register-form mt-5">
-            <div className="text-center user-icon">
-                <FaUserCircle size={60}></FaUserCircle>
-            </div>
+        <>
+            <Container as={Col} sm={8} md={8} className="register-form mt-5">
+                <div className="text-center user-icon">
+                    <FaUserCircle size={60}></FaUserCircle>
+                </div>
 
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Row className="justify-content-center">
-                    <Form.Group as={Col} sm={5} md={5} controlId="fisrstName">
-                        <Form.Label>First name</Form.Label>
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="First name"
-                            value={firstName}
-                            onChange={(event) => setFirstName(event.target.value)}
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Row className="justify-content-center">
+                        <Form.Group as={Col} sm={5} md={6} controlId="fisrstName">
+                            <Form.Label>First name</Form.Label>
+                            <Form.Control
+                                required
+                                type="text"
+                                placeholder="First name"
+                                value={firstName}
+                                onChange={(event) => setFirstName(event.target.value)}
 
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please insert a name.
-                        </Form.Control.Feedback>
-                    </Form.Group>
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please insert a name.
+                            </Form.Control.Feedback>
+                        </Form.Group>
 
 
-                    <Form.Group as={Col} sm={5} controlId="lastName">
-                        <Form.Label>Last name</Form.Label>
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="Last name"
-                            value={lastName}
-                            onChange={(event) => setLastName(event.target.value)}
+                        <Form.Group as={Col} sm={6} controlId="lastName">
+                            <Form.Label>Last name</Form.Label>
+                            <Form.Control
+                                required
+                                type="text"
+                                placeholder="Last name"
+                                value={lastName}
+                                onChange={(event) => setLastName(event.target.value)}
 
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please insert a surname.
-                        </Form.Control.Feedback>
-                    </Form.Group>
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please insert a surname.
+                            </Form.Control.Feedback>
+                        </Form.Group>
 
-                    <Form.Group as={Col} sm={10} controlId="birthday">
-                        <Form.Label>Birthday</Form.Label>
-                        <Form.Control
-                            required
-                            type="date"
-                            value={birthday}
-                            onChange={(event) => setBirthday(event.target.value)}
-                            max={dayjs().format("YYYY-MM-DD")}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please insert your birthday date.
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
+                        <Form.Group as={Col} sm={12} controlId="birthday">
+                            <Form.Label>Birthday</Form.Label>
+                            <Form.Control
+                                required
+                                type="date"
+                                value={birthday}
+                                onChange={(event) => setBirthday(event.target.value)}
+                                max={dayjs().format("YYYY-MM-DD")}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please insert your birthday date.
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        {/*
                     <Form.Group as={Col} sm={7} controlId="address" className="mt-5">
                         <Form.Label>Address</Form.Label>
                         <Form.Control
@@ -166,57 +166,58 @@ function RegisterInterface(props) {
                         <Form.Control.Feedback type="invalid">
                             Please insert a postal code.
                         </Form.Control.Feedback>
-                    </Form.Group>
+                    </Form.Group>*/}
 
-                    <Form.Group as={Col} sm={10} controlId="email" className="mt-5">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            required
-                            type="email"
-                            placeholder="Enter your email.."
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please insert your email.
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group as={Col} sm={10} controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            required
-                            type="password"
-                            placeholder="Enter new password.."
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please insert a new password.
-                        </Form.Control.Feedback>
+                        <Form.Group as={Col} sm={12} controlId="email" className="mt-5">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control
+                                required
+                                type="email"
+                                placeholder="Enter your email.."
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please insert your email.
+                            </Form.Control.Feedback>
                         </Form.Group>
 
-                    <Form.Group as={Col} sm={11} className="mt-5 ">
-                        <Form.Check
-                            required
-                            label="Agree to terms and conditions"
-                            feedback="You must agree before submitting."
-                            feedbackType="invalid"
-                        />
-                    </Form.Group>
+                        <Form.Group as={Col} sm={12} controlId="password" className="mt-1">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                                required
+                                type="password"
+                                placeholder="Enter new password.."
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please insert a new password.
+                            </Form.Control.Feedback>
+                        </Form.Group>
 
-                    <Button variant="success" type="submit" className="mt-4">submit</Button>
 
-                </Row>
-            </Form>
-        </Container>
 
-        <Row className="pb-4 mb-4 ml-4 pl-4">
-            <Link to={{ pathname: '/clientlist' }}>
-                <Button style={{backgroundColor: '#247D37', border: '0px', borderRadius: '4px'}}>Back</Button>
-            </Link>
-        </Row>
-    </>
+                    </Row>
+
+                    <Row className="pb-4 mb-4 ml-4 pl-4">
+                        <Col xs={5} sm={6} className="d-flex justify-content-start align-items-center">
+                        <Link to={{ pathname: '/clientlist' }}>
+                            <Button className="mt-5" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}>back</Button>
+                        </Link>
+                        </Col>
+                        
+                        <Col xs={4} sm={5} className="d-flex justify-content-end align-items-center">
+                            <Button className="mt-5" variant="success" type="submit" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px'  }}>submit</Button>
+                        </Col>
+                        <Col></Col>
+
+                    </Row>
+                </Form>
+            </Container>
+
+
+        </>
 
 
     );
