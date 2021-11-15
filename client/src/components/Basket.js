@@ -12,51 +12,56 @@ function Basket(props){
     const qty = basket.length;
     const client = props.client;
     let history = useHistory();
+    let flag = false;
 
     const sum = (key) => {
         return basket.reduce((a, b) => a + (b[key] || 0), 0);
     }
     const total = sum("total");
-
+    
     const handleShop = () => {
         if(client.amount < total){
             props.setAlertWalletShow(true);
-        }else{
-            const id = dayjs().unix();
-            const now = dayjs().format('YYYY-MM-DD');
-            const date = '';
-            const time ='';
-            const order = new Order(
-                id,
-                now,
-                client.id,
-                client.name,
-                client.surname,
-                total,
-                date,
-                time
-            );
-            
-            API.createOrder(order).then(function(response){
-                basket.map((product) => {
-                    const productBasket = {
-                        order_id: response.id,
-                        product_id: product.id,
-                        quantity: product.quantity
-                    };
-                    const success = API.createBasket(productBasket).then((response) => {
-                        if (!response.inserted){
-                            console.log("Error inserting basket in db.");
-                        }
-                        return response.inserted;
-                    })
-                    return success;
-        
-                })
-            });
-            history.push({pathname:'/orders', state: {orderDirty: true}});
+            flag = true;
         }
+        const id = dayjs().unix();
+        const now = dayjs().format('YYYY-MM-DD');
+        const date = '';
+        const time ='';
+        const order = new Order(
+            id,
+            now,
+            client.id,
+            client.name,
+            client.surname,
+            total,
+            date,
+            time
+        );
+            
+        API.createOrder(order).then(function(response){
+            basket.map((product) => {
+                const productBasket = {
+                    order_id: response.id,
+                    product_id: product.id,
+                    quantity: product.quantity
+                };
+                const success = API.createBasket(productBasket).then((response) => {
+                    if (!response.inserted){
+                        console.log("Error inserting basket in db.");
+                    }
+                    return response.inserted;
+                })
+                return success;
+    
+            })
+            });
 
+            if(flag == false){
+                history.push({pathname:'/orders', state: {orderDirty: true}});
+            }
+
+            flag = false;
     }
 
 	return(
