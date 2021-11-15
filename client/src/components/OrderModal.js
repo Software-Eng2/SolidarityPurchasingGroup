@@ -1,33 +1,41 @@
 import { Modal, Container, Row, Col, Button, Form, Alert} from 'react-bootstrap';
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import {MdDoneOutline} from "react-icons/md";
 import dayjs from 'dayjs';
 import API from '../API';
 
 function OrderModal(props) {
 
-  const {selectedOrder, modalShow, setModalShow} = props;  
+  const {selectedOrder, modalShow, setModalShow, setDirty, date, setDate, time, setTime} = props;  
+  const [basket, setBasket] = useState([]);
   const [done, setDone] = useState(false);
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  /* const [date, setDate] = useState('');
+  const [time, setTime] = useState(''); */
 
   const updateOrder = () => {
-    /* API.updateOrder().then(() => {
+    console.log(date + ' ' + time);
+    API.changeDateTime(selectedOrder.id, date, time).then(() => {
       
       setDone(true);
+      setDirty(true);
       setTimeout(() => {
         // After 3 seconds set the done false 
         setModalShow(false); 
         setDone(false);
+        setDate('');
+        setTime('');
       }, 3000)
-    }).catch((err) => console.log(err)); */
-    setDone(true);
-      setTimeout(() => {
-        // After 3 seconds set the done false 
-        setModalShow(false); 
-        setDone(false);
-      }, 3000)
-  }
+    }).catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    if(selectedOrder){
+      API.getBasket(selectedOrder.id).then((products) => {
+        console.log(products);
+        setBasket(products);
+      })
+    }
+}, [selectedOrder]);
 
     return (
       <Modal {...props}  centered>
@@ -58,6 +66,24 @@ function OrderModal(props) {
                     {/* To be fetched from basket table in db */}
                 </Col>
             </Row>
+                {
+                  basket.map((p) => (
+                    <Row key={p.id}>
+                      <Col xs={2} >
+                        <strong>ID: {p.id}</strong>
+                      </Col>
+                      <Col xs={5} >
+                        {p.name}
+                      </Col>
+                      <Col xs={3} >
+                        € {p.price}
+                      </Col>
+                      <Col xs={2} >
+                        x {p.quantity}
+                      </Col>
+                    </Row>
+                  ))
+                }
             <Row className="mt-3">
                 <Col xs={6}>
                   <h6>Select pick-up date</h6>
@@ -67,7 +93,7 @@ function OrderModal(props) {
                     type="date" 
                     placeholder="date" 
                     value={date} 
-                    onChange={(event) => setDate(event.target.value)}
+                    onChange={(event) => {setDate(event.target.value);}}
                     min={dayjs().format("YYYY-MM-DD")} />
                 </Col>
             </Row>
@@ -76,11 +102,11 @@ function OrderModal(props) {
                   <h6 >Select pick-up time</h6>
                 </Col>
                 <Col xs={6}>
-                <Form.Control /* isInvalid={invalidDeadline}  */
+                <Form.Control 
                     type="time" 
                     placeholder="time" 
                     value={time}
-                    onChange={(event) => setTime(event.target.value)} />
+                    onChange={(event) => {setTime(event.target.value);}} />
                 </Col>
             </Row>
           </Container>
@@ -92,7 +118,7 @@ function OrderModal(props) {
           </Button>
           </Col>
           <Col className="text-right" >
-          <Button variant="success" /* disabled={props.increment <= 0} */ onClick={updateOrder}>
+          <Button variant="success" disabled={((date === '') || (time === ''))} onClick={updateOrder}>
               Confirm
          </Button>
          </Col>

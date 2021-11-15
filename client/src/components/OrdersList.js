@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import{ Container, Table, Dropdown, Button, ButtonGroup, Form} from "react-bootstrap";
+import { useEffect } from "react";
+import{ Container, Table, Dropdown, ButtonGroup} from "react-bootstrap";
 import API from '../API';
 import {pickUpIcon, deliveryIcon} from "./Icons";
 import { useLocation} from "react-router-dom";
 
 function OrdersList(props){
 
-    const {orders, setOrders, loggedIn, setSelectedOrder, setModalShow} = props;
-    const [dirty, setDirty] = useState(false);
+    const {orders, setOrders, loggedIn, dirty, setDirty, setSelectedOrder, setModalShow} = props;
     const orderDirty = useLocation().state;
 
     //change status of the selected order
@@ -45,7 +44,6 @@ function OrderTable(props){
     const handleClick = (o) => {
         setModalShow(true);
         setSelectedOrder(o);
-        console.log(o.id);
     }
 
 
@@ -75,11 +73,11 @@ function OrderTable(props){
                             <td onClick={()=>{handleClick(o)}}>{o.client_id}</td>
                             <td onClick={()=>{handleClick(o)}}>{o.client_name}</td>
                             <td onClick={()=>{handleClick(o)}}>{o.client_surname}</td>
-                            <td onClick={()=>{handleClick(o)}}> € {o.total.toFixed(2)}</td>
+                            <td onClick={()=>{handleClick(o)}}><strong>€ {o.total.toFixed(2)}</strong></td>
                             {o.pick_up ? <td onClick={()=>{handleClick(o)}}> {pickUpIcon} PickUp  </td> : <td onClick={()=>{handleClick(o)}}> {deliveryIcon} Delivery </td>}
                             <td onClick={()=>{handleClick(o)}}>{o.address}</td>
-                            <td onClick={()=>{handleClick(o)}}>{o.date ? o.date : 'click to update'}</td>
-                            <td onClick={()=>{handleClick(o)}}>{o.time ? o.date : 'click to update'}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.date ? o.date : <strong>click to update</strong>}</td>
+                            <td onClick={()=>{handleClick(o)}}>{o.time ? o.time : <strong>click to update</strong>}</td>
                             <td className="text-center">
                                 <TableDropdown changeStatus={changeStatus} id={o.id} status={o.status} />
                             </td>

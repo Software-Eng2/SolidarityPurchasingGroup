@@ -244,8 +244,9 @@ app.post('/api/orders',
         })
       );
   });
+
 //change status of an order
-  app.put('/api/orders',  
+app.put('/api/orders/status',  
   [
     check('status').isIn(['PENDING', 'ACCEPTED','CANCELLING','FAILED','READY','DELIVERED']), 
     check('order_id').isInt({min:0})
@@ -263,7 +264,29 @@ app.post('/api/orders',
           error: "Error " + err,
         })
       );
-  })
+});
+
+//change date & time of an order
+app.put('/api/orders/datetime',  
+  [
+    check('date').isString(), 
+    check('time').isString(), 
+    check('order_id').isInt({min:0})
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
+
+    dao.changeDateTime(req.body.order_id, req.body.date, req.body.time)
+      .then((id) => res.status(201).json({ id: id }))
+      .catch((err) =>
+        res.status(500).json({
+          error: "Error " + err,
+        })
+      );
+});
 
 
  // Login --> POST /sessions 
@@ -308,6 +331,15 @@ app.post('/api/basket',
         })
       );
   });
+
+  //get a basket from an order_id
+app.get('/api/basket/:order_id',
+(req, res) => {
+  const order_id = req.params.order_id;
+  dao.getBasket(order_id)
+    .then((products) => { res.json(products)})
+    .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
 /*** End APIs ***/
 
 

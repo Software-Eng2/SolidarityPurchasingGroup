@@ -152,12 +152,32 @@ async function updateConfirmedProduct(confirmed, id) {
 
 async function changeStatus(order_id, status) {
 
-  const response = await fetch(BASEURL + '/orders', {
+  const response = await fetch(BASEURL + '/orders/status', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         order_id: order_id,
         status: status
+      })
+    });
+
+  if (response.ok) {
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
+async function changeDateTime(order_id, date, time) {
+
+  const response = await fetch(BASEURL + '/orders/datetime', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        order_id: order_id,
+        date: date,
+        time: time
       })
     });
 
@@ -248,7 +268,22 @@ async function createBasket(b) {
     return false;
   }
 
-}
+};
+
+async function getBasket(order_id) {
+
+  const response = await fetch(BASEURL + '/basket/' + order_id);
+
+  const products = await response.json();
+
+  if (response.ok) {
+    return products/* .map((p) =>{new Product(p.id, p.name,'' ,'' ,p.quantity, p.price,'','','')}) */;
+  } else {
+    return undefined;
+  }
+};
+
+
 const API = {
   getAllClients,
   getAllProducts,
@@ -258,11 +293,13 @@ const API = {
   getAllOrders,
   createOrder,
   changeStatus,
+  changeDateTime,
   logIn,
   logOut,
   getUserInfo,
   updateWallet,
-  createBasket
+  createBasket,
+  getBasket
 }
 
 export default API;

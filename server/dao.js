@@ -119,6 +119,19 @@ exports.changeStatus = (order_id, status) => {
     });
   });
 };
+//update date and time of an order
+exports.changeDateTime = (order_id, date, time) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'UPDATE ORDERS SET date = ?, time = ? WHERE id = ?';
+    db.run(sql, [date, time, order_id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
 
 // add a new wallet 
 exports.createWallet = (clientID) => {
@@ -165,4 +178,19 @@ exports.createBasket = (basket) => {
       resolve(true);
     });
   });
+};
+
+// retrieve a basket from a order id
+exports.getBasket = (order_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT BASKETS.product_id, PRODUCTS.name, PRODUCTS.price, BASKETS.quantity FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE BASKETS.order_id = ?';
+    db.all(sql, [order_id], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const products = rows.map((p) => ({ id: p.product_id, name: p.name, price: p.price, quantity: p.quantity }));
+      resolve(products);
+    });
+  })
 };
