@@ -1,6 +1,7 @@
 import React from 'react';
 import "@testing-library/jest-dom/extend-expect";
-import { shallow, configure, mount } from 'enzyme';
+import { shallow, configure } from 'enzyme';
+import { render, fireEvent, getByTestId} from "@testing-library/react";
 import{ Container } from "react-bootstrap";
 import Market from '../views/Market';
 import Adapter from 'enzyme-adapter-react-16';
@@ -50,20 +51,20 @@ it("renders market without crashing", () => {
     shallow(<Market products={fakeProducts} client={fakeClient}/>);
 });
 
-describe("passing props", () => {
+it("renders market components without crashing", () => {
     const wrapperMarket = shallow(<Market products={fakeProducts} client={fakeClient}/>);
-    it("accepts products and client props", () => {
-        expect(wrapperMarket.props().products).toBe(fakeProducts);
-        expect(wrapperMarket.props().client).toBe(fakeClient);
-    })
+    expect(wrapperMarket.find('Basket').exists()).toBeTruthy();
+    expect(wrapperMarket.find('AlertWallet').exists()).toBeTruthy();
+    expect(wrapperMarket.find('Container').exists()).toBeTruthy();
+    expect(wrapperMarket.find('SideBar').exists()).toBeTruthy();
+    expect(wrapperMarket.find('Product').exists()).toBeTruthy();
+});
 
-})
 
-// describe("click on product card", () => {
-//     const wrapperMarket = shallow(<Market products={fakeProducts} client={fakeClient}/>);
-//     it("accepts products and client props", () => {
-//         expect(wrapperMarket.props().products).toBe(fakeProducts);
-//         expect(wrapperMarket.props().client).toBe(fakeClient);
-//     })
 
-// })
+
+it("accepts products and client props", () => {
+    const wrapperMarket = shallow(<Market products={fakeProducts} client={fakeClient}/>);
+    expect(wrapperMarket.props().products).toBe(fakeProducts);
+    expect(wrapperMarket.props().client).toBe(fakeClient);
+});
