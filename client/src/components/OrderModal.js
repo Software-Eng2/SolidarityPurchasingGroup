@@ -118,7 +118,7 @@ function OrderModal(props) {
           </Button>
           </Col>
           <Col className="text-right" >
-          <Button variant="success" disabled={((date === '') || (time === ''))} onClick={updateOrder}>
+          <Button data-testid="button-confirm" variant="success" disabled={((date === '') || (time === ''))} onClick={updateOrder}>
               Confirm
          </Button>
          </Col>
