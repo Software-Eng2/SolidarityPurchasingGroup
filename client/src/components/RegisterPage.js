@@ -23,7 +23,7 @@ function RegisterInterface(props) {
     let history = useHistory();
 
     const role = useLocation().state;
-    console.log(role);
+    //console.log(role);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -55,6 +55,7 @@ function RegisterInterface(props) {
                             <Form.Label>First name</Form.Label>
                             <Form.Control
                                 required
+                                data-testid="firstname"
                                 type="text"
                                 placeholder="First name"
                                 value={firstName}
@@ -203,12 +204,12 @@ function RegisterInterface(props) {
                     <Row className="pb-4 mb-4 ml-4 pl-4">
                         <Col xs={5} sm={6} className="d-flex justify-content-start align-items-center">
                         <Link to={{ pathname: '/clientlist' }}>
-                            <Button className="mt-5" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}>back</Button>
+                            <Button className="mt-5" data-testid="back-button" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}>back</Button>
                         </Link>
                         </Col>
                         
                         <Col xs={4} sm={5} className="d-flex justify-content-end align-items-center">
-                            <Button className="mt-5" variant="success" type="submit" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px'  }}>submit</Button>
+                            <Button className="mt-5" data-testid="submit-Button" variant="success" type="submit" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px'  }}>submit</Button>
                         </Col>
                         <Col></Col>
 
