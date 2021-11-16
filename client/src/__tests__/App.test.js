@@ -5,7 +5,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
-
+import API from '../API';
+import {Order, OrdersList } from '../Order';
 const client = require('../Client');
 const product = require('../Product');
 
@@ -53,6 +54,46 @@ test('p-getProductsFromCategory', () => {
 test('p-updateConfirmed', () =>{
     return productObject.updateConfirm(21,1).then(() => productObject.initialize().then(() => expect(productObject.getProductsFromId(21)[0].confirmed).toEqual(1)))
 })
+
+/* ---------------------------------- */
+
+/* ---------- ORDER ---------- */
+test('o-getAllOrders',()=>{
+    API.logIn("mariorossi@gmail.com","mariorossi");
+    const orders = new OrdersList();
+    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(5)})
+});
+
+test('o-createOrder',()=>{
+    const fakeOrder = new Order('21/01/2021',2,10, 'pending',0,'Corso Castelfidardo 2','23/01/2021','16:00');
+    expect(API.createOrder(fakeOrder)).toBeTruthy();
+});
+
+/* test('o-changeStatusTrue',()=>{
+    const fakeIdOrder = 2;
+    const fakeStatus = 'accepted';
+    return expect(API.changeStatus(fakeIdOrder,fakeStatus)).toBe(true);
+});
+test('o-changeStatusFalse',()=>{
+    const fakeIdOrder = 30000;
+    const fakeStatus = 'accepted';
+    return expect(API.changeStatus(fakeIdOrder,fakeStatus)).toBe(false);
+});
+
+test('o-changeDateTimeTrue',()=>{
+    const fakeIdOrder = 2;
+    const fakeDate = '30/01/2021';
+    const fakeTime = '17:00';
+    return expect(API.changeDateTime(fakeIdOrder,fakeDate,fakeTime)).toBe(true);
+});
+
+test('o-changeDateTimeFalse',()=>{
+    const fakeIdOrder = 30000;
+    const fakeDate = '30/01/2021';
+    const fakeTime = '17:00';
+    return expect(API.changeDateTime(fakeIdOrder,fakeDate,fakeTime)).toBe(false);
+});
+ */
 
 
 
