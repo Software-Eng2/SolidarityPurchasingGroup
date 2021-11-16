@@ -20,14 +20,14 @@ function OrdersList(props){
 
     useEffect(() => {
         console.log(loggedIn + ' ' + dirty);
-        if ((loggedIn && dirty) || (loggedIn && orderDirty )) {
+       
             //initialization of new ordersList 
             API.getAllOrders().then((orders) => {
                 console.log(orders);
                 setOrders(orders)
                 setDirty(false);
             });
-        }
+     
     }, [loggedIn, dirty, orderDirty]);
 
     return (
