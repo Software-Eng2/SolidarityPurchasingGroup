@@ -1,0 +1,100 @@
+import React from 'react';
+import { render, cleanup, findByTestId, getByTestId, fireEvent, getByText, screen } from "@testing-library/react";
+import { shallow, configure, mount } from 'enzyme';
+import RegisterInterface from "../components/RegisterPage";
+import Adapter from 'enzyme-adapter-react-16';
+import { useLocation, useHistory } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { Button, Form, Col } from 'react-bootstrap';
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
+
+
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useLocation: () => ({
+    pathname: "localhost:3000/registerform"
+  })
+}));
+
+
+
+
+afterEach(() => {
+  cleanup();
+});
+
+configure({ adapter: new Adapter() });
+
+
+//avviene il render della pag?
+
+describe("Render", () => {
+
+  it("Check registerpageRender", () => {
+    const page = shallow(<RegisterInterface />);
+    expect(page).toBeTruthy();
+  });
+
+
+
+  it("check button submit ", () => {
+    const wrapper = shallow(<RegisterInterface />)
+    const btn = <Button
+      className="mt-5"
+      data-testid="submit-Button"
+      variant="success"
+      type="submit"
+      style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}
+    >
+      submit
+    </Button>;
+    expect(wrapper.contains(btn)).toEqual(true);
+
+  });
+
+  it("check button back ", () => {
+    const wrapper = shallow(<RegisterInterface />)
+    const btn = <Button
+      className="mt-5"
+      data-testid="back-button"
+      style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}>
+      back
+    </Button>
+    expect(wrapper.contains(btn)).toEqual(true);
+
+  });
+
+});
+
+
+describe("changeInput", () => {
+  //Click bottone
+  it('Button submit', () => {
+    let onButtonClickMock = jest.fn();
+    render( 
+     <Button
+      className="mt-5"
+      data-testid="submit-Button"
+      variant="success"
+      type="submit"
+      style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}
+      onSubmit={onButtonClickMock}
+    >
+      submit
+    </Button>
+    );
+    
+
+    fireEvent.click(screen.getByTestId('submit-Button'));
+    expect(onButtonClickMock).toHaveBeenCalledTimes(0);
+
+  });
+});
+
+
+it('includes link to clienlist', () => {
+  const wrapper = shallow(<RegisterInterface />);
+  expect(wrapper.find(Link).at(0).props().to).toStrictEqual({ pathname: '/clientlist' });
+});

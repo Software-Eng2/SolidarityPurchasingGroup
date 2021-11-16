@@ -1,8 +1,6 @@
 import React from 'react';
 import "@testing-library/jest-dom/extend-expect";
 import { shallow, configure } from 'enzyme';
-import { render, fireEvent, getByTestId} from "@testing-library/react";
-import{ Container } from "react-bootstrap";
 import Basket from '../components/Basket';
 import Adapter from 'enzyme-adapter-react-16';
 /**
@@ -50,14 +48,13 @@ const fakeClient = {id: "0",
     password: "someHashedPassword", 
     isConfirmed: 1 };
 
-it("renders market without crashing", () => {
+it("renders basket without crashing", () => {
     shallow(<Basket basket={fakeBasket} client={fakeClient} isOpen={s} onRequestClose={fakeHandleBasket}/>);
 });
 
-it("renders market components without crashing", () => {
+it("renders basket components without crashing", () => {
     const wrapperBasket = shallow(<Basket basket={fakeBasket} client={fakeClient} isOpen={s} onRequestClose={fakeHandleBasket}/>);
     expect(wrapperBasket.find('ReactSlidingPane').exists()).toBeTruthy();
-    expect(wrapperBasket.find('Container').exists()).toBeTruthy();
     expect(wrapperBasket.find('Container').exists()).toBeTruthy();
     expect(wrapperBasket.find('button').exists()).toBeTruthy();
     expect(wrapperBasket.find('Form').exists()).toBeTruthy();

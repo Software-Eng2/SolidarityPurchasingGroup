@@ -1,8 +1,6 @@
 import React from 'react';
 import "@testing-library/jest-dom/extend-expect";
 import { shallow, configure } from 'enzyme';
-import { render, fireEvent, getByTestId} from "@testing-library/react";
-import{ Container } from "react-bootstrap";
 import Market from '../views/Market';
 import Adapter from 'enzyme-adapter-react-16';
 /**
