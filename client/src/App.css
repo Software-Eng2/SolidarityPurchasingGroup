@@ -273,3 +273,7 @@ th {
   border-radius: 8px;
   color: #FAFAFA;
 }
+
+.login{
+  overflow: hidden;
+}
