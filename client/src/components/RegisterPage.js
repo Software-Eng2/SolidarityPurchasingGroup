@@ -9,6 +9,7 @@ import { useLocation, useHistory } from "react-router-dom";
 
 
 function RegisterInterface(props) {
+    const {userRole} = props;
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthday, setBirthday] = useState('');
@@ -38,6 +39,16 @@ function RegisterInterface(props) {
         }
 
         setValidated(true);
+
+    }
+
+    const handleBack = () => {
+        console.log(userRole);
+        if(userRole === 'shopemployee'){
+            history.push('/clientlist')
+        } else {
+            history.push('/');
+        }
 
     }
 
@@ -202,9 +213,7 @@ function RegisterInterface(props) {
 
                     <Row className="pb-4 mb-4 ml-4 pl-4">
                         <Col xs={5} sm={6} className="d-flex justify-content-start align-items-center">
-                        <Link to={{ pathname: '/clientlist' }}>
-                            <Button className="mt-5" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}>back</Button>
-                        </Link>
+                            <Button className="mt-5" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} onClick={handleBack}>back</Button>
                         </Col>
                         
                         <Col xs={4} sm={5} className="d-flex justify-content-end align-items-center">

@@ -69,7 +69,7 @@ function App() {
             window.location.reload();
             break;
           case 'client':
-            routerHistory.push('/');  
+            routerHistory.push('/products');  
             window.location.reload(); //TODO ADD NEW ROUTE PER ACTOR
         }
       }).catch((err) => console.log(err));   
@@ -99,13 +99,13 @@ function App() {
           <Market products={products} client={location.state ? location.state.client : ""}/>
         }/>
         <Route exact path="/orders">
-          <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/>         
+          {loggedIn ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}        
         </Route>
         <Route exact path="/clientlist">
-          <ShopEmployeePage/>
+          {loggedIn ? <ShopEmployeePage/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/registerform">
-          <RegisterInterface/>     
+         <RegisterInterface userRole={userRole}/>
         </Route>
 
         {loggedIn ? (
