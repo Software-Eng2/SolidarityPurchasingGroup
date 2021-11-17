@@ -57,7 +57,7 @@ function Basket(props){
             })
             });
 
-            if(flag == false){
+            if(flag === false){
                 history.push({pathname:'/orders', state: {orderDirty: true}});
             }
 
@@ -72,6 +72,7 @@ function Basket(props){
             isOpen={props.isOpen}
 			onRequestClose={props.onRequestClose}
             hideHeader={true}
+            {...props}
 		>
 			<Container>
                 <Row className="justify-content-center">
@@ -92,7 +93,7 @@ function Basket(props){
                 </Row>
                 <hr className='solid'/>
                 {basket.map(product =>
-                <Row className='product-basket '>
+                <Row key={`row-${product.id}`} className='product-basket '>
                     <Col xs={4} md={4}>
                         <div className='img-container'>
                             <img style={{height: "3rem", width:"3rem"}} src={product.img} alt={product.name}/>
