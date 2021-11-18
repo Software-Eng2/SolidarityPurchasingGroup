@@ -1,6 +1,6 @@
 # SolidarityPurchasingGroup
 
-Repository of the group P05 for the project "Office Queue Management" of the course Software Engineering 2 2021
+Repository of the group P05 for the project "Solidarity Purchasing Group" of the course Software Engineering 2 2021
 
 # Team 
 1. Catalano Sofia
@@ -30,9 +30,28 @@ setx SONAR_TOKEN value
 mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sofia-catalano_SolidarityPurchasingGroup
 ```
 
-# Coverage
+# SonarCloud statistics
 
-Run the following command inside:
+Upload code statistics on Sonar consists of 2 main processes:
+
+### 1) Execute Jest tests
+A node packet called ```jest-sonar-reporter``` should already be installed in your repo. If no execute
+``` npm install ```. <br><br>```jest-sonar-reporter``` allow to execute Jest tests and create as output statistics file which Sonar can read
+
+Run the following command inside client folder:
 ```
 CI=true npm test -- --coverage --testResultsProcessor=jest-sonar-reporter
 ```
+
+### 2) Upload results on SonarCloud
+
+1. Install Sonar Scanner from the following [link](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
+
+2. Get your SONAR_TOKEN (go to SPG sonar site > Administration > Analysis Method > Manual > Maven)
+
+3. Set the SONAR_TOKEN env variable on your system as explained in Testing section
+
+4. Execute ```sonar-scanner``` inside client folder (sonar properties file should be present there)
+
+```
+NOTE: coverage and .scannerwork folders created by jest and sonar-scanner are not synchronized as they are added to the .gitignore
