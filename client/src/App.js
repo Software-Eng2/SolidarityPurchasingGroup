@@ -11,6 +11,7 @@ import Market from './views/Market';
 import Homepage from './components/Homepage';
 import LoginForm from './Login';
 import API from './API';
+import VirtualClock from './components/VirtualClock';
 
 function App() {
 
@@ -106,6 +107,9 @@ function App() {
         </Route>
         <Route exact path="/registerform">
          <RegisterInterface userRole={userRole}/>
+        </Route>
+        <Route exact path="/clock">
+          <VirtualClock></VirtualClock>
         </Route>
 
         {loggedIn ? (
