@@ -22,9 +22,8 @@ function OrdersList(props){
         console.log(loggedIn + ' ' + dirty);
        
             //initialization of new ordersList 
-            API.getAllOrders().then((orders) => {
-                console.log(orders);
-                setOrders(orders)
+            API.getAllOrders().then((o) => {
+                setOrders(o)
                 setDirty(false);
             });
      

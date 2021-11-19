@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import{ Container, Row, Col, Button, Modal} from "react-bootstrap";
-import Card from '../components/Card/Card';
-
+import React, { useState } from 'react';
+import{Button, Modal} from "react-bootstrap";
 
 
 function DetailProduct(props) {
-    const {name, price, description, quantity, img, confirmed} = props.product;
+    const {name, description} = props.product;
     const [isOpen, setOpen] = useState(props.isOpen);
 
 	return (

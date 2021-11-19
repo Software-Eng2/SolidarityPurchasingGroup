@@ -99,10 +99,7 @@ class ClientsList{
         if(!this.init){
             return undefined;
         }
-
-        const result = this.clientsList.filter((c) => c.id === id);
-
-        return result;
+        return this.clientsList.filter((c) => c.id === id);
 
     }
 

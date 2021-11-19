@@ -46,14 +46,12 @@ function Basket(props){
                     product_id: product.id,
                     quantity: product.quantity
                 };
-                const success = API.createBasket(productBasket).then((response) => {
-                    if (!response.inserted){
-                        console.log("Error inserting basket in db.");
-                    }
-                    return response.inserted;
-                })
-                return success;
-    
+            return success = API.createBasket(productBasket).then((res) => {
+                if (!res.inserted){
+                    console.log("Error inserting basket in db.");
+                }
+                return res.inserted;
+            })
             })
             });
 

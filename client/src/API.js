@@ -142,12 +142,8 @@ async function updateConfirmedProduct(confirmed, id) {
         })
       });
   
-    if (response.ok) {
-      return true;
-    } else {
-      return false;
-    }
-  
+    return response.ok;
+    
 }
 
 async function changeStatus(order_id, status) {
@@ -161,12 +157,7 @@ async function changeStatus(order_id, status) {
       })
     });
 
-  if (response.ok) {
-    return true;
-  } else {
-    return false;
-  }
-
+    return response.ok;
 }
 
 async function changeDateTime(order_id, date, time) {
@@ -181,11 +172,7 @@ async function changeDateTime(order_id, date, time) {
       })
     });
 
-  if (response.ok) {
-    return true;
-  } else {
-    return false;
-  }
+  return response.ok;
 
 }
 
@@ -198,12 +185,7 @@ async function updateWallet(amount, clientID){
       id: clientID
     })
   });
-
-if (response.ok) {
-  return true;
-} else {
-  return false;
-}
+  return response.ok;
 }
 
 function logIn(username, password) {
@@ -240,8 +222,8 @@ function getUserInfo() {
           reject();
         }
       }).catch((err) => reject(err));
-  });
-};
+  })
+}
 
 async function createBasket(b) {
   try {
@@ -268,7 +250,7 @@ async function createBasket(b) {
     return false;
   }
 
-};
+}
 
 async function getBasket(order_id) {
 
@@ -281,7 +263,7 @@ async function getBasket(order_id) {
   } else {
     return undefined;
   }
-};
+}
 
 
 const API = {

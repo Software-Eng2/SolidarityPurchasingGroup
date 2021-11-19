@@ -65,7 +65,7 @@ function Product(props) {
 							</Col>
 							<Col xs={6} md={6}>
 								<div data-testid="counter" className = "product-quantity">
-									<button data-test="decrement" className = "editquantity-btn" disabled={counter === 0 || counter === '' || counter instanceof String ? true : false} onClick = {() => {decrease();  }} >-</button>
+									<button data-test="decrement" className = "editquantity-btn" disabled={counter === 0 || counter == '' || counter instanceof String ? true : false} onClick = {() => {decrease();  }} >-</button>
 									<input  name = 'count-multiplied' value = {counter} type= 'number' className = "display-count" onChange= {e => setCounter(Number(e.target.value))} />
 									<button data-test="increment" className = "editquantity-btn" disabled={counter >= quantity ? true : false} onClick = {() => { increase();  }}  >+</button>
 									<p><span className="error" >{counter > quantity ? 'The quantity is invalid' : ''}{counter instanceof String ? 'Insert a valid number' : ''}</span></p>

@@ -6,12 +6,10 @@ import API from '../API';
 
 function OrderModal(props) {
 
-  const {selectedOrder, modalShow, setModalShow, setDirty, date, setDate, time, setTime} = props;  
+  const {selectedOrder, setModalShow, setDirty, date, setDate, time, setTime} = props;  
   const [basket, setBasket] = useState([]);
   const [done, setDone] = useState(false);
-  /* const [date, setDate] = useState('');
-  const [time, setTime] = useState(''); */
-
+  
   const updateOrder = () => {
     console.log(date + ' ' + time);
     API.changeDateTime(selectedOrder.id, date, time).then(() => {

@@ -109,10 +109,9 @@ class OrdersList {
         }
 
         const status = 'PENDING';
-        const result = API.createOrder({ creation_date: creation_date, client_id: client_id, total: total, status: status, pick_up: pick_up, address: address, date: date, time: time });
-
-        return result;
-    };
+    
+        return API.createOrder({ creation_date: creation_date, client_id: client_id, total: total, status: status, pick_up: pick_up, address: address, date: date, time: time });
+    }
 
     /**
      * Update the status of the choosen order
@@ -125,13 +124,7 @@ class OrdersList {
     async changeStatus(order_id, status) {
 
         console.log(this.init);
-        /* if (!this.init) {
-            return undefined;
-        } */
-
-        const result = API.changeStatus(order_id, status);
-
-        return result;
+        return API.changeStatus(order_id, status);
     };
 
     /**

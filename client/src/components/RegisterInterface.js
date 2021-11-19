@@ -1,6 +1,5 @@
 import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import dayjs from 'dayjs';
 import API from '../API';
@@ -13,18 +12,17 @@ function RegisterInterface(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthday, setBirthday] = useState('');
-    const [address, setAddress] = useState('');
+    /*const [address, setAddress] = useState('');
     const [number, setNumber] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
-    const [postalCode, setPostalCode] = useState('');
+    const [postalCode, setPostalCode] = useState('');*/
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     let history = useHistory();
 
     const role = useLocation().state;
-    //console.log(role);
 
     const handleSubmit = (event) => {
         event.preventDefault();

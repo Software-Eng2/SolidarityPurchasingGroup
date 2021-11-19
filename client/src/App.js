@@ -6,16 +6,15 @@ import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrdersPage from './components/OrdersPage';
 import ShopEmployeePage from './components/ShopEmployeePage';
-import RegisterInterface from './components/RegisterPage';
+import RegisterInterface from './components/RegisterInterface';
 import Market from './views/Market';
 import Homepage from './components/Homepage';
-import LoginForm from './Login';
+import LoginForm from './LoginForm';
 import API from './API';
 import VirtualClock from './components/VirtualClock';
 
 function App() {
 
-  const [allClients, setAllClients] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userid, setUserid] = useState(0);
   const [userEmail, setUserEmail] = useState(''); //getting the email
@@ -26,8 +25,8 @@ function App() {
   const [products, setProducts] = useState([]); 
 
   useEffect(()=>{
-    API.getAllProducts().then((products) => {
-      setProducts(products);
+    API.getAllProducts().then((p) => {
+      setProducts(p);
     });
   },[]);
   
@@ -39,16 +38,13 @@ function App() {
       setUserRole(user.role);
       setDirty(true);
     })
-    API.getAllClients().then((newC)=>{
-      setAllClients(newC);
-    })
   },[])
 
     // Rehydrate clientsList & ordersList when user is logged in
     useEffect(()=>{
       if(loggedIn && dirty){
-        API.getAllOrders().then((orders) => {
-          setOrders(orders);
+        API.getAllOrders().then((o) => {
+          setOrders(o);
         });
       }
      },[loggedIn, dirty]);
@@ -56,9 +52,9 @@ function App() {
     
 
   const doLogIn = (email, password) => {
-    API.logIn(email, password).then(([email,id]) => {   
+    API.logIn(email, password).then(([e,id]) => {   
       API.getUserInfo().then((user) => {      
-        setUserEmail(email);
+        setUserEmail(e);
         setUserid(id);
         setLoggedIn(true);
         setUserRole(user.role);
@@ -71,7 +67,7 @@ function App() {
             break;
           case 'client':
             routerHistory.push('/products');  
-            window.location.reload(); //TODO ADD NEW ROUTE PER ACTOR
+            window.location.reload();
         }
       }).catch((err) => console.log(err));   
     }).catch((err) => {

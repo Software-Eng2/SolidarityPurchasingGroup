@@ -24,8 +24,8 @@ function Market(props) {
     const handleBasket = () => {setCollapsed((s) => !s); setShowBasket((s) => !s)};
 
     
-    const searchCategory = (category) => {
-        setCategory(category);
+    const searchCategory = (c) => {
+        setCategory(c);
         
     };
     useEffect(() => {
