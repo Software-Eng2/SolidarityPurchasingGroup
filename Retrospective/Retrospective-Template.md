@@ -21,10 +21,7 @@ sections:
  
 - Unit Tests passing
 - Code review completed
-- Code present on VCS
-- End-to-End tests performed
 
-> Please refine your DoD 
 
 ### Detailed statistics
 
@@ -39,7 +36,6 @@ sections:
 |  6     |    5    |    5   |      8h    |    8h35m     | 
 
 
-> place technical tasks corresponding to story `#0` and leave out story points (not applicable in this case)
 
 - Hours per task (average, standard deviation) 
     average = 95h30m / 33 = 2h53m  
