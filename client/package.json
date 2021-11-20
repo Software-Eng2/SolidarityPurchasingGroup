@@ -26,6 +26,15 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "src/index.js",
+      "src/reportWebVitals.js",
+      "src/App.js",
+      "src/components/VirtualClock.js",
+      "src/User.js"
+    ]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -61,7 +61,7 @@ test('p-updateConfirmed', () =>{
 test('o-getAllOrders',()=>{
     API.logIn("mariorossi@gmail.com","mariorossi");
     const orders = new OrdersList();
-    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(5)})
+    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(9)})
 });
 
 test('o-createOrder',()=>{

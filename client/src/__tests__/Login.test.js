@@ -1,11 +1,10 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Login from '../Login';
 import {setupServer} from 'msw/node';
 import {rest} from 'msw';
 import API from '../API';
-import LoginForm from '../Login';
+import LoginForm from '../LoginForm';
 const handlers = [
     rest.post('/api/sessions', (req, res, ctx) => {
       const { email, password } = req.body
