@@ -49,7 +49,7 @@ sections:
   - Total hours estimated: 14h
   - Total hours spent: 17h20m
   - Nr of automated unit test cases: 45
-  - Coverage (if available): 13.3% (provisional)
+  - Coverage: 44.4% 
 - E2E testing
   - Total hours estimated: 0h
   - Total hours spent: 0h
@@ -77,6 +77,6 @@ sections:
   
 - Which ones you were not able to achieve? Why? A total testing of the application (low coverage).
 
-- Improvement goals for the next sprint and how to achieve them (technical tasks, team coordination, etc.) Try to consider all the aspects of the application, keep a costant overview of the development of the application, never forget about the techinical debt. We wiil start from the issues highlighted by SonarCloud 
+- Improvement goals for the next sprint and how to achieve them (technical tasks, team coordination, etc.) Try to keep a costant overview of the development of the application, never forget about the techinical debt. We wiil start from the issues highlighted by SonarCloud 
 
 - One thing you are proud of as a Team! ZERO DEFECTS FOUNDED BY THE OTHER TEAM.
