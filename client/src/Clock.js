@@ -179,7 +179,7 @@ class Clock{
         return true;
     }
 
-    setWalletOKMilestone(){
+    setWalletOKMilestone(checkDate = true){
 
         let day = this.time.getDay();
         
@@ -194,7 +194,7 @@ class Clock{
 
         //Today is Sunday
         if(day == 0){
-            this.time.setDate(day + 1);
+            this.time.setDate(this.time.getDate() + 1);
             this.time.setHours(20,1)
         }
 
@@ -202,7 +202,7 @@ class Clock{
         //calculating the time difference from today
         //to the milestone and setting the difference
         let daysDifference = 6 - day;
-        this.time.setDate(day + daysDifference);
+        this.time.setDate(this.time.getDate() + daysDifference + 2);
         this.time.setHours(20,1);
 
         return true;

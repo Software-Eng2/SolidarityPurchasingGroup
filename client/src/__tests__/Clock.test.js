@@ -151,8 +151,42 @@ test('clock- set an event', () => {
 //Testing if the event is passed the set function should return false
 test('clock- set an event', () => {
     clock.time.setDate(22);
-    clock.time.setHours(23);
+    clock.time.setHours(19);
     clock.time.setMinutes(0);
     expect(clock.setAvailabilityConfirmedMilestone(false)).toEqual(false);
+})
+
+//Testing availability confirmed and checking time and other events
+test('clock- set an event', () => {
+    clock.time.setDate(18);
+    expect(clock.setWalletOKMilestone(false)).toEqual(true);
+    expect(clock.checkEstimatesMilestone(false)).toEqual(true);
+    expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(true);
+    expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(true);
+    expect(clock.checkWalletsOkMilestone(false)).toEqual(true);
+})
+
+//Testing if it is monday
+test('clock- set an event', () => {
+    clock.time.setDate(22);
+    clock.time.setHours(19);
+    clock.time.setMinutes(0);
+    expect(clock.setWalletOKMilestone(false)).toEqual(true);
+})
+
+//Testing if it is sunday
+test('clock- set an event', () => {
+    clock.time.setDate(21);
+    clock.time.setHours(8);
+    clock.time.setMinutes(0);
+    expect(clock.setWalletOKMilestone(false)).toEqual(true);
+})
+
+//Testing if the event is passed the set function should return false
+test('clock- set an event', () => {
+    clock.time.setDate(22);
+    clock.time.setHours(23);
+    clock.time.setMinutes(0);
+    expect(clock.setWalletOKMilestone(false)).toEqual(false);
 })
 
