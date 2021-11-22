@@ -46,6 +46,7 @@ function Basket(props){
                     product_id: product.id,
                     quantity: product.quantity
                 };
+            API.changeQuantity(productBasket.product_id,productBasket.quantity);
             return API.createBasket(productBasket).then((res) => {
                 if (!res.inserted){
                     console.log("Error inserting basket in db.");

@@ -288,6 +288,25 @@ app.put('/api/orders/datetime',
       );
 });
 
+//reduce quantity of a product
+app.put('/api/products/quantity',
+  [
+    check('product_id').isInt({min:0}),
+    check('order_quantity').isInt({min:0})
+  ],
+  (req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return res.status(422).json({errors:errors.array()})
+    }
+    dao.changeQuantity(req.body.product_id, req.body.order_quantity)
+    .then((id)=>res.status(201).json({id:id}))
+    .catch((err)=>{res.status(500).json({error: "Error" + err,})})
+  }
+)
+
+
+
 
  // Login --> POST /sessions 
  app.post('/api/sessions', passport.authenticate('local'), (req, res) => {

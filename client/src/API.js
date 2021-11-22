@@ -1,14 +1,14 @@
 import {Client} from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-import "jest-fetch-mock" //decommentare per il testing
+//import "jest-fetch-mock" //decommentare per il testing
 
-//const BASEURL = '/api';
+const BASEURL = '/api';
 
 /*
 //TO UNCOMMENT IN CASE OF TESTING
 */
-const BASEURL = 'http://localhost:3001/api';
+//const BASEURL = 'http://localhost:3001/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -176,6 +176,19 @@ async function changeDateTime(order_id, date, time) {
 
 }
 
+async function changeQuantity(product_id, order_quantity){
+  const response = await fetch(BASEURL + '/products/quantity', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        product_id: product_id,
+        order_quantity: order_quantity
+  })
+});
+console.log(response.ok);
+return response.ok;
+}
+
 async function updateWallet(amount, clientID){
   const response = await fetch(BASEURL + '/wallets', {
     method: 'PUT',
@@ -281,7 +294,8 @@ const API = {
   getUserInfo,
   updateWallet,
   createBasket,
-  getBasket
+  getBasket,
+  changeQuantity
 }
 
 export default API;
