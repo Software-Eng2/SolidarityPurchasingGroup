@@ -51,7 +51,7 @@ function Wallet(props) {
             <Row className="mt-1">
                 <Col xs={12} >
                     <h6 className="text-center mt-1">Balance</h6>
-                    <h3 className="text-center">${props.user.amount}</h3>
+                    <h3 className="text-center">€ {props.user.amount}</h3>
                 </Col>
             </Row>
             <Row>
@@ -61,7 +61,7 @@ function Wallet(props) {
                 </Col>
             </Row>
             <Form.Group as={Row} className="mb-3 mt-2" controlId="formPlaintextPassword">
-              <Form.Label column xs={1} md={1} className="ml-3">$</Form.Label>
+              <Form.Label column xs={1} md={1} className="ml-3">€</Form.Label>
               <Col xs={5} md={5}>
                 <Form.Control 
                   type="number"
@@ -84,7 +84,7 @@ function Wallet(props) {
           </Container> 
         </Modal.Body>
         <Modal.Footer style={{backgroundColor: "#b4e6e2"}}>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button variant="danger" onClick={props.onHide}>Close</Button>
         </Modal.Footer>
         </>}
       </Modal>

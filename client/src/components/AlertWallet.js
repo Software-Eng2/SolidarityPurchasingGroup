@@ -55,7 +55,7 @@ function AlertWallet(props) {
             <Row className="mt-1">
                 <Col xs={12} >
                     <h6 className="text-center mt-1">Balance</h6>
-                    <h3 className="text-center">${props.user.amount}</h3>
+                    <h3 className="text-center">€ {props.user.amount}</h3>
                 </Col>
             </Row>
             <Row>
@@ -65,7 +65,7 @@ function AlertWallet(props) {
                 </Col>
             </Row>
             <Form.Group as={Row} className="mb-3 mt-2" controlId="formPlaintextPassword">
-              <Form.Label column xs={1} md={1} className="ml-3">$</Form.Label>
+              <Form.Label column xs={1} md={1} className="ml-3">€</Form.Label>
               <Col xs={5} md={5}>
                 <Form.Control 
                   type="number"

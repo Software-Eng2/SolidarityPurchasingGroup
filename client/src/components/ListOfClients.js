@@ -63,7 +63,7 @@ function ListOfClients(props){
                             <td>{client.surname}</td>
                             <td>{client.birthdate}</td>
                             <td>{client.email}</td>
-                            <td>$ {client.amount}</td>
+                            <td>€ {client.amount}</td>
                             <td><Button size="sm" variant="outline-info" className="ml-5" onClick={() => handleClick(client)}>Top up</Button></td>
                        </tr>
                     ) )
@@ -74,7 +74,7 @@ function ListOfClients(props){
                              <td>{client.surname}</td>
                              <td>{client.birthdate}</td>
                              <td>{client.email}</td>
-                             <td>$ {client.amount}</td> 
+                             <td>€ {client.amount}</td> 
                              <td><Button size="sm" variant="outline-info" className="ml-5" onClick={() => handleClick(client)}>Top up</Button></td>
                         </tr>
                      ))}

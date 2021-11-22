@@ -73,3 +73,7 @@
 .card-button button:hover {
     background-color: #37BD55;
 }
+
+.card-button button:disabled {
+    background-color: #37BD55;
+}
