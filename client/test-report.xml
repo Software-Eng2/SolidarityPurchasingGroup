@@ -1,83 +1,311 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js">
-    <testCase name="LoginForm should allow a user to log in" duration="229">
-      <failure message="Error: thrown: undefined"><![CDATA[Error: thrown: undefined
-    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js:41:3
-    at _dispatchDescribe (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/index.js:67:26)
-    at describe (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/index.js:30:5)
-    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js:39:1)
-    at Runtime._execModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:1299:24)
-    at Runtime._loadModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:898:12)
-    at Runtime.requireModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:746:10)
-    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:106:13)
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js">
+    <testCase name="renders basket without crashing" duration="9"/>
+    <testCase name="renders basket components without crashing" duration="13"/>
+    <testCase name="accepts props" duration="4"/>
+    <testCase name="basket works with empty basket" duration="3"/>
+    <testCase name="state of open basket changes when calling onRequestChange prop" duration="1"/>
+    <testCase name="if basket is empty button shop now and form should not appear" duration="3"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Product.test.js">
+    <testCase name="renders product without crashing" duration="10"/>
+    <testCase name="renders market components without crashing" duration="24"/>
+    <testCase name="accepts props" duration="4"/>
+    <testCase name="product renders  with empty basket" duration="4"/>
+    <testCase name="after click it will increase the quantity of product" duration="10"/>
+    <testCase name="after click it will decrease the quantity of product" duration="10"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/RegisterPage.test.js">
+    <testCase name="Render Check registerpageRender" duration="12"/>
+    <testCase name="Render check button submit " duration="7"/>
+    <testCase name="Render check button back " duration="4"/>
+    <testCase name="changeInput Button submit" duration="72"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
+    <testCase name="includes link to products" duration="21"/>
+    <testCase name="renders button correctly" duration="89"/>
+    <testCase name="calls onClick prop when clicked" duration="19"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
+    <testCase name="includes link to products" duration="4"/>
+    <testCase name="renders button correctly" duration="12"/>
+    <testCase name="calls onClick prop when clicked" duration="13"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
+    <testCase name="renders market without crashing" duration="3"/>
+    <testCase name="renders market components without crashing" duration="11"/>
+    <testCase name="accepts products and client props" duration="2"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrderModal.test.js">
+    <testCase name="includes link to orders" duration="4"/>
+    <testCase name="renders button correctly" duration="6"/>
+    <testCase name="calls onClick prop when clicked" duration="5"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js">
+    <testCase name="c-getClients" duration="14">
+      <failure message="FetchError: request to http://localhost:3001/api/clients failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/clients failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
+    at ClientRequest.emit (events.js:400:28)
+    at Socket.socketErrorListener (_http_client.js:475:9)
+    at Socket.emit (events.js:400:28)
+    at emitErrorNT (internal/streams/destroy.js:106:8)
+    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    </testCase>
+    <testCase name="c-addClient" duration="1"/>
+    <testCase name="c-getFromId" duration="0">
+      <failure message="TypeError: Cannot read property &apos;0&apos; of undefined"><![CDATA[TypeError: Cannot read property '0' of undefined
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:31:12)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
     at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)]]></failure>
+    </testCase>
+    <testCase name="p-getProducts" duration="2">
+      <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
+    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:26:12
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)]]></failure>
+      <failure message="FetchError: request to http://localhost:3001/api/products failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/products failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
+    at ClientRequest.emit (events.js:400:28)
+    at Socket.socketErrorListener (_http_client.js:475:9)
+    at Socket.emit (events.js:400:28)
+    at emitErrorNT (internal/streams/destroy.js:106:8)
+    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    </testCase>
+    <testCase name="p-addProduct" duration="0">
+      <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
+    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:46:12
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)]]></failure>
+    </testCase>
+    <testCase name="p-getProductsFromCategory" duration="0">
+      <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:50:19)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)]]></failure>
+    </testCase>
+    <testCase name="p-updateConfirmed" duration="1">
+      <failure message="FetchError: request to http://localhost:3001/api/products failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/products failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
+    at ClientRequest.emit (events.js:400:28)
+    at Socket.socketErrorListener (_http_client.js:475:9)
+    at Socket.emit (events.js:400:28)
+    at emitErrorNT (internal/streams/destroy.js:106:8)
+    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    </testCase>
+    <testCase name="o-getAllOrders" duration="3">
+      <failure message="FetchError: request to http://localhost:3001/api/sessions failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/sessions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
+    at ClientRequest.emit (events.js:400:28)
+    at Socket.socketErrorListener (_http_client.js:475:9)
+    at Socket.emit (events.js:400:28)
+    at emitErrorNT (internal/streams/destroy.js:106:8)
+    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+      <failure message="FetchError: request to http://localhost:3001/api/orders failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/orders failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
+    at ClientRequest.emit (events.js:400:28)
+    at Socket.socketErrorListener (_http_client.js:475:9)
+    at Socket.emit (events.js:400:28)
+    at emitErrorNT (internal/streams/destroy.js:106:8)
+    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    </testCase>
+    <testCase name="o-createOrder" duration="4"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js">
+    <testCase name="LoginForm should allow a user to log in" duration="198">
+      <failure message="FetchError: request to http://localhost:3001/api/sessions failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/sessions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+    at ClientRequestOverride.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
+    at ClientRequestOverride.emit (events.js:400:28)
+    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/@mswjs/interceptors/src/interceptors/ClientRequest/createClientRequestOverride.ts:309:14)
+    at ClientRequest.emit (events.js:400:28)
+    at Socket.socketErrorListener (_http_client.js:475:9)
+    at Socket.emit (events.js:400:28)
+    at emitErrorNT (internal/streams/destroy.js:106:8)
+    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    </testCase>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js">
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock- set an event" duration="58"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
+    <testCase name="renders button correctly" duration="11"/>
+    <testCase name="includes link to products" duration="22"/>
+    <testCase name="includes link to registerform" duration="9"/>
+    <testCase name="renders container of the page correctly" duration="5"/>
+    <testCase name="renders video correctly" duration="1"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js">
+    <testCase name="testing search of a client" duration="1130">
+      <failure message="FetchError: request to http://localhost:3001/api/clients failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/clients failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
+    at ClientRequest.emit (events.js:400:28)
+    at Socket.socketErrorListener (_http_client.js:475:9)
+    at Socket.emit (events.js:400:28)
+    at emitErrorNT (internal/streams/destroy.js:106:8)
+    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+      <failure message="Error: Unable to find an element with the text: Bianchi. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[Error: Unable to find an element with the text: Bianchi. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+<div>
+  <div
+    class="page below-nav table container"
+  >
+    <div
+      class="justify-content-center align-items-center mb-2 row"
+    >
+      <div
+        class="col-md-6 col-10"
+      >
+        <h1
+          class="font-italic mt-3"
+        >
+          Select a client
+        </h1>
+      </div>
+      <div
+        class="d-flex justify-content-end col-md-6 col-2"
+      >
+        <input
+          class="form-control"
+          id="inlineFormInputName2"
+          placeholder="Search here..."
+          style="margin-top: 1rem; width: 20rem;"
+        />
+      </div>
+    </div>
+    <div
+      class="table-responsive"
+    >
+      <table
+        class="table table-light"
+      >
+        <thead>
+          <tr>
+            <th>
+              First Name
+            </th>
+            <th>
+              Last Name
+            </th>
+            <th>
+              Birthdate
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              <svg
+                fill="currentColor"
+                height="27"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+                width="27"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M95.5 104h320a87.73 87.73 0 0111.18.71 66 66 0 00-77.51-55.56L86 94.08h-.3a66 66 0 00-41.07 26.13A87.57 87.57 0 0195.5 104zm320 24h-320a64.07 64.07 0 00-64 64v192a64.07 64.07 0 0064 64h320a64.07 64.07 0 0064-64V192a64.07 64.07 0 00-64-64zM368 320a32 32 0 1132-32 32 32 0 01-32 32z"
+                />
+                <path
+                  d="M32 259.5V160c0-21.67 12-58 53.65-65.87C121 87.5 156 87.5 156 87.5s23 16 4 16-18.5 24.5 0 24.5 0 23.5 0 23.5L85.5 236z"
+                />
+              </svg>
+            </th>
+            <th />
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+    <div
+      class="row"
+    >
+      <div
+        class="col-md-6 col-sm-12"
+      >
+        <a
+          href="/registerform"
+        >
+          <button
+            class="mt-5 btn btn-primary"
+            style="background-color: rgb(180, 230, 226); border: 0px; border-radius: 4px; color: black;"
+            type="button"
+          >
+            Add a new client
+          </button>
+        </a>
+      </div>
+      <div
+        class="d-flex justify-content-end col-md-6 col-sm-12"
+      >
+        <a
+          href="/products"
+        >
+          <button
+            class="mt-5 btn btn-primary btn-lg"
+            disabled=""
+            style="background-color: rgb(36, 125, 55); border: 0px; border-radius: 4px;"
+            type="button"
+          >
+            Shop now
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+    at waitForWrapper (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/@testing-library/dom/dist/wait-for.js:173:27)
+    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/@testing-library/dom/dist/query-helpers.js:101:33
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js:16:18)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
+    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
     at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
     at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
     at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
     </testCase>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/RegisterPage.test.js">
-    <testCase name="Render Check registerpageRender" duration="10"/>
-    <testCase name="Render check button submit " duration="5"/>
-    <testCase name="Render check button back " duration="2"/>
-    <testCase name="changeInput Button submit" duration="45"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
-    <testCase name="renders market without crashing" duration="1"/>
-    <testCase name="renders market components without crashing" duration="8"/>
-    <testCase name="accepts products and client props" duration="1"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js">
-    <testCase name="renders basket without crashing" duration="3"/>
-    <testCase name="renders basket components without crashing" duration="6"/>
-    <testCase name="accepts props" duration="2"/>
-    <testCase name="basket works with empty basket" duration="1"/>
-    <testCase name="state of open basket changes when calling onRequestChange prop" duration="1"/>
-    <testCase name="if basket is empty button shop now and form should not appear" duration="2"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js">
-    <testCase name="c-getClients" duration="28"/>
-    <testCase name="c-addClient" duration="2"/>
-    <testCase name="c-getFromId" duration="1"/>
-    <testCase name="p-getProducts" duration="374"/>
-    <testCase name="p-addProduct" duration="133"/>
-    <testCase name="p-getProductsFromCategory" duration="1"/>
-    <testCase name="p-updateConfirmed" duration="128"/>
-    <testCase name="o-getAllOrders" duration="9"/>
-    <testCase name="o-createOrder" duration="3"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Product.test.js">
-    <testCase name="renders product without crashing" duration="2"/>
-    <testCase name="renders market components without crashing" duration="9"/>
-    <testCase name="accepts props" duration="2"/>
-    <testCase name="product renders  with empty basket" duration="2"/>
-    <testCase name="after click it will increase the quantity of product" duration="15"/>
-    <testCase name="after click it will decrease the quantity of product" duration="20"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
-    <testCase name="renders button correctly" duration="12"/>
-    <testCase name="includes link to products" duration="39"/>
-    <testCase name="includes link to registerform" duration="24"/>
-    <testCase name="renders container of the page correctly" duration="13"/>
-    <testCase name="renders video correctly" duration="2"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
-    <testCase name="includes link to products" duration="2"/>
-    <testCase name="renders button correctly" duration="22"/>
-    <testCase name="calls onClick prop when clicked" duration="13"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrderModal.test.js">
-    <testCase name="includes link to orders" duration="6"/>
-    <testCase name="renders button correctly" duration="7"/>
-    <testCase name="calls onClick prop when clicked" duration="9"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
-    <testCase name="includes link to products" duration="4"/>
-    <testCase name="renders button correctly" duration="7"/>
-    <testCase name="calls onClick prop when clicked" duration="10"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js">
-    <testCase name="testing search of a client" duration="206"/>
   </file>
 </testExecutions>

@@ -176,6 +176,19 @@ async function changeDateTime(order_id, date, time) {
 
 }
 
+async function changeQuantity(product_id, order_quantity){
+  const response = await fetch(BASEURL + '/products/quantity', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        product_id: product_id,
+        order_quantity: order_quantity
+  })
+});
+console.log(response.ok);
+return response.ok;
+}
+
 async function updateWallet(amount, clientID){
   const response = await fetch(BASEURL + '/wallets', {
     method: 'PUT',
@@ -281,7 +294,8 @@ const API = {
   getUserInfo,
   updateWallet,
   createBasket,
-  getBasket
+  getBasket,
+  changeQuantity
 }
 
 export default API;

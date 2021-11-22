@@ -8,7 +8,7 @@ import AlertWallet from '../components/AlertWallet';
 import PropTypes from 'prop-types';
 
 function Market(props) {
-    const { products, client} = props;
+    const { products, client, userid} = props;
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
     const [category, setCategory] = useState('All');

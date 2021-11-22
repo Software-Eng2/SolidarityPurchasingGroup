@@ -93,7 +93,7 @@ function App() {
           <Homepage/>
         </Route>
         <Route exact path='/products' render={({location}) => 
-          <Market products={products} client={location.state ? location.state.client : ""}/>
+          <Market products={products} userid={userid} client={location.state ? location.state.client : ""}/>
         }/>
         <Route exact path="/orders">
           {loggedIn ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}        
