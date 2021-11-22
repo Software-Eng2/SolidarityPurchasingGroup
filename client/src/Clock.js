@@ -37,21 +37,30 @@ class Clock{
      * NOTE: events are checked from the last to the
      * first in order
      */
-    checkEvents(){
+    checkEvents(checkDate = true){
 
-        this.time = new Date();
+        if(checkDate){
+            this.time = new Date();
+        }
 
          let day = this.time.getDay();
          let hour = this.time.getHours();
+
+         this.eventsObject.availability = false;
+         this.eventsObject.estimates = false;
+         this.eventsObject.ordersAccepted = false;
+         this.eventsObject.walletsOK = false;
+
+         //console.log( day + ' ' + hour +' ')
  
          if(day == 1){                                     // --------- Monday --------- //
-            if(hour > 20){                                 // (20:01 <--> 23:59)
+            if(hour >= 20){                                 // (20:00 <--> 23:59)
                 this.eventsObject.availability = true;
                 this.eventsObject.estimates = true;
                 this.eventsObject.ordersAccepted = true;
                 this.eventsObject.walletsOK = true;
             }
-            else if(hour > 9){                             // (9:01 <--> 20:00)
+            else if(hour >= 9){                             // (9:00 <--> 20:00)
                 this.eventsObject.availability = true;
                 this.eventsObject.estimates = true;
                 this.eventsObject.ordersAccepted = true;
@@ -62,16 +71,16 @@ class Clock{
             }
          }
          else if (day == 0){                               // --------- Sunday ---------//
-            if(hour > 23){
-                this.eventsObject.ordersAccepted = true;   // (23:01 <--> 23:59)
+            if(hour >= 23){
+                this.eventsObject.ordersAccepted = true;   // (23:00 <--> 23:59)
                 this.eventsObject.estimates = true;
             }
             else{
                 this.eventsObject.estimates = true;        // (00:00 <--> 23:00)
             }
          }
-         else if (day == 6 && hour > 9 ){                  // --------- Saturday --------- //
-            this.eventsObject.estimates = true;            // (9:01 <--> 23:59)
+         else if (day == 6 && hour >= 9){                  // --------- Saturday --------- //
+            this.eventsObject.estimates = true;            // (9:00 <--> 23:59)
          }
          
     }
@@ -99,75 +108,73 @@ class Clock{
     /* --------- EVENTS SETTING API --------- */
     /* -------------------------------------- */
 
-    setFarmerEstimatesMilestone(){
+    setFarmerEstimatesMilestone(checkDate = true){
 
-        let day = this.time.getDay();
-        let hour = this.time.getHours();
-        
-        if( (day == 6 && hour > 9) || (day == 0) || (day == 1)){
+        if(this.checkEstimatesMilestone(checkDate)){
             return false;
         }
+
+        let day = this.time.getDay();
 
         //Calculating the time difference from today
         //to the milestone and setting the difference
         let daysDifference = 6 - day;
         this.time.setDate(this.time.getDate() + daysDifference);
-        this.time.setHours(9,1);
+        console.log(this.time.getDate())
+        this.time.setHours(9,0);
 
         return true;
     }
 
 
-    setOrdersAcceptedMilestone(){
+    setOrdersAcceptedMilestone(checkDate = true){
 
         let day = this.time.getDay();
-        let hour = this.time.getHours();
-
-        if( (day == 0 && hour > 23) || (day == 1)){
+        
+        if(this.checkOrdersAcceptedMilestone(checkDate)){
             return false;
         }
 
         //Today is Sunday
         if(day == 0){
-            this.time.setHours(23,1)
+            this.time.setHours(23,0)
         }
 
         //Monday -- Saturday
         //calculating the time difference from today
         //to the milestone and setting the difference
         let daysDifference = 6 - day;
-        this.time.setDate(this.time.getDate() + daysDifference);
-        this.time.setHours(9,1);
+        this.time.setDate(this.time.getDate() + daysDifference + 1);
+        this.time.setHours(23,0);
 
         return true;
     }
 
-    setAvailabilityConfirmedMilestone(){
+    setAvailabilityConfirmedMilestone(checkDate = true){
 
         let day = this.time.getDay();
-        let hour = this.time.getHours();
-
-        if( day == 1 && hour > 9){
+        
+        if(this.checkProductsAvailabilityMilestone(checkDate)){
             return false;
         }
 
         //Today is Monday
         if(day == 1){
-            this.time.setHours(9,1)
+            this.time.setHours(9,0)
         }
 
         //Today is Sunday
         if(day == 0){
-            this.time.setDate(day + 1);
-            this.time.setHours(9,1)
+            this.time.setDate(this.time.getDate() + 1);
+            this.time.setHours(9,0)
         }
 
         //Monday -- Saturday
         //calculating the time difference from today
         //to the milestone and setting the difference
         let daysDifference = 6 - day;
-        this.time.setDate(day + daysDifference);
-        this.time.setHours(9,1);
+        this.time.setDate(this.time.getDate() + daysDifference + 2);
+        this.time.setHours(9,0);
 
         return true;
     }
@@ -175,9 +182,8 @@ class Clock{
     setWalletOKMilestone(){
 
         let day = this.time.getDay();
-        let hour = this.time.getHours();
-
-        if( day == 1 && hour > 20){
+        
+        if(this.checkWalletsOkMilestone(checkDate)){
             return false;
         }
 
@@ -228,26 +234,27 @@ class Clock{
     /* ----------- CHECK EVENTS API ----------- */
     /* ---------------------------------------- */
 
-    checkEstimatesMilestone(){
-        this.checkEvents();
+    checkEstimatesMilestone(checkDate = true){
+        this.checkEvents(checkDate);
         return this.eventsObject.estimates;
     }
 
-    checkOrdersAcceptedMilestone(){
-        this.checkEvents();
+    checkOrdersAcceptedMilestone(checkDate = true){
+        this.checkEvents(checkDate);
         return this.eventsObject.ordersAccepted;
     }
 
-    checkProductsAvailabilityMilestone(){
-        this.checkEvents();
+    checkProductsAvailabilityMilestone(checkDate = true){
+        this.checkEvents(checkDate);
         return this.eventsObject.availability;
     }
 
-    checkWalletsOkMilestone(){
-        this.checkEvents();
+    checkWalletsOkMilestone(checkDate = true){
+        this.checkEvents(checkDate);
         return this.eventsObject.walletsOK;
     }
 
     
 }
 
+export {Clock}
