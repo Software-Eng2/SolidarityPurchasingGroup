@@ -278,6 +278,19 @@ async function getBasket(order_id) {
   }
 }
 
+async function getClientById(client_id) {
+
+  const response = await fetch(BASEURL + '/clients/' + client_id);
+
+  const client = await response.json();
+
+  if (response.ok) {
+    return client;
+  } else {
+    return undefined;
+  }
+}
+
 
 const API = {
   getAllClients,
@@ -295,7 +308,8 @@ const API = {
   updateWallet,
   createBasket,
   getBasket,
-  changeQuantity
+  changeQuantity,
+  getClientById
 }
 
 export default API;

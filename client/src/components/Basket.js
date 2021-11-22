@@ -11,6 +11,7 @@ function Basket(props){
     const basket = props.basket;
     const qty = basket.length;
     const client = props.client;
+    const currentClient = props.currentClient;
     const [delivery, setDelivery] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -25,7 +26,7 @@ function Basket(props){
     const total = sum("total");
     
     const handleShop = () => {
-        if (client.amount < total) {
+        if ((client && client.amount < total) || (currentClient && currentClient.amount < total)) {
             props.setAlertWalletShow(true);
             flag = true;
         }
@@ -37,9 +38,9 @@ function Basket(props){
         const order = new Order(
             id,
             now,
-            client.id,
-            client.name,
-            client.surname,
+            client.id ? client.id : currentClient.id,
+            client.name ? client.name : currentClient.name,
+            client.surname ? client.surname : currentClient.surname,
             total,
             date,
             time,
@@ -65,7 +66,7 @@ function Basket(props){
         });
 
         if (flag === false) {
-            history.push({ pathname: '/orders', state: { orderDirty: true } });
+            history.push({ pathname: '/orders', state: { orderDirty: true } }); //TODO CREARE MODAL E RITORNARE NEI PRODUCTS
         }
 
         flag = false;

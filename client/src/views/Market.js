@@ -6,6 +6,7 @@ import SideBar from '../components/SideBar';
 import Basket from '../components/Basket';
 import AlertWallet from '../components/AlertWallet';
 import PropTypes from 'prop-types';
+import API from '../API';
 
 function Market(props) {
     const { products, client, userid} = props;
@@ -16,6 +17,7 @@ function Market(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [showBasket, setShowBasket] = useState(false);
+    const [currentClient, setCurrentClient] = useState("ciaoo");
 
       //state if the wallet is insufficient
     const [alertWalletShow, setAlertWalletShow] = useState(false);
@@ -28,6 +30,16 @@ function Market(props) {
         setCategory(c);
         
     };
+    useEffect(()=>{
+        if(userid){
+            API.getClientById(userid).then((client) => {
+                setCurrentClient(client);
+            });
+        }
+        console.log(currentClient);
+            
+    },[userid]);
+
     useEffect(() => {
         if (category === "All" ){
             setFilter(false);
@@ -63,8 +75,8 @@ function Market(props) {
 	return (
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
 
-            <Basket basket={basket} client={client} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
-            <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client}/>
+            <Basket basket={basket} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
+            <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient}/>
             <Row>
                 <Col xs={2} sm={2} md={2}>
                     <div className={`app `}>

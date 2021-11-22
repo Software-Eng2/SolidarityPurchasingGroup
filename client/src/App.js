@@ -55,7 +55,7 @@ function App() {
     API.logIn(email, password).then(([e,id]) => {   
       API.getUserInfo().then((user) => {      
         setUserEmail(e);
-        setUserid(id);
+        setUserid(user.id);
         setLoggedIn(true);
         setUserRole(user.role);
         console.log(user.role);  
@@ -66,6 +66,7 @@ function App() {
             window.location.reload();
             break;
           case 'client':
+            console.log(userid);
             routerHistory.push('/products');  
             window.location.reload();
         }
@@ -84,7 +85,7 @@ function App() {
       routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
-
+  
   return (
     <Router>
         <NavBar loggedIn={loggedIn} doLogOut={doLogOut} userRole={userRole}/>

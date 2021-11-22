@@ -19,6 +19,23 @@ exports.getAllClients = () => {
     })
 };
 
+// get specific client by id
+
+exports.getClientById = (client_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT USERS.id, USERS.name, USERS.surname, USERS.birthdate, USERS.email, USERS.isConfirmed, WALLETS.amount FROM USERS INNER JOIN WALLETS ON USERS.id = WALLETS.client_id WHERE WALLETS.client_id = ? ';
+    db.get(sql, [client_id], (err, row) => {
+        if (err) {
+            reject(err);
+            return;
+        }
+        const client = { id: row.id, name: row.name, surname: row.surname, birthdate: row.birthdate, email: row.email, isConfirmed: row.isConfirmed, amount: row.amount };
+        console.log(client);
+        resolve(client);
+    });
+})
+}
+
 // add a new user
  exports.createUser = (user) => {
     return new Promise((resolve, reject) => {

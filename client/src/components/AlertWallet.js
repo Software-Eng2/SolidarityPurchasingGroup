@@ -5,12 +5,15 @@ import { useHistory, Link } from "react-router-dom";
 import API from '../API';
 
 function AlertWallet(props) {
+
   const [done, setDone] = useState(false);
   let history = useHistory();
 
   const updateWallet = () => {
-    API.updateWallet(parseInt(props.topUp) + parseInt(props.user.amount), props.user.id).then(() => {
-      props.user.amount = parseInt(props.topUp) + parseInt(props.user.amount);
+    API.updateWallet(parseInt(props.topUp) + parseInt(props.user.amount ? props.user.amount : props.currentClient.amount), props.user.id ? props.user.id : props.currentClient.id).then(() => {
+      if(props.user.amount){
+        props.user.amount = parseInt(props.topUp)+parseInt(props.user.amount);
+      } else props.currentClient.amount = parseInt(props.topUp)+parseInt(props.currentClient.amount);
       setDone(true);
       console.log("OK");
       setTimeout(() => {
@@ -48,14 +51,14 @@ function AlertWallet(props) {
           <Container>
             <Row>
                 <Col xs={12}>
-                    <h5 className="text-center">{props.user.name} {props.user.surname}</h5>
-                    <h6 className="text-center">{props.user.email}</h6>
+                    <h5 className="text-center">{props.user.name ? props.user.name : props.currentClient.name} {props.user.surname ? props.user.surname : props.currentClient.surname}</h5>
+                    <h6 className="text-center">{props.user.email ? props.user.email : props.currentClient.email}</h6>
                 </Col>
             </Row>
             <Row className="mt-1">
                 <Col xs={12} >
                     <h6 className="text-center mt-1">Balance</h6>
-                    <h3 className="text-center">€ {props.user.amount}</h3>
+                    <h3 className="text-center">€ {props.user.amount ? props.user.amount : props.currentClient.amount}</h3>
                 </Col>
             </Row>
             <Row>
