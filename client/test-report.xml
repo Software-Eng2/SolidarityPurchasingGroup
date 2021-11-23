@@ -2,56 +2,25 @@
 <testExecutions version="1">
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js">
     <testCase name="renders basket without crashing" duration="9"/>
-    <testCase name="renders basket components without crashing" duration="13"/>
+    <testCase name="renders basket components without crashing" duration="14"/>
     <testCase name="accepts props" duration="4"/>
     <testCase name="basket works with empty basket" duration="3"/>
     <testCase name="state of open basket changes when calling onRequestChange prop" duration="1"/>
-    <testCase name="if basket is empty button shop now and form should not appear" duration="3"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Product.test.js">
-    <testCase name="renders product without crashing" duration="10"/>
-    <testCase name="renders market components without crashing" duration="24"/>
-    <testCase name="accepts props" duration="4"/>
-    <testCase name="product renders  with empty basket" duration="4"/>
-    <testCase name="after click it will increase the quantity of product" duration="10"/>
-    <testCase name="after click it will decrease the quantity of product" duration="10"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/RegisterPage.test.js">
-    <testCase name="Render Check registerpageRender" duration="12"/>
-    <testCase name="Render check button submit " duration="7"/>
-    <testCase name="Render check button back " duration="4"/>
-    <testCase name="changeInput Button submit" duration="72"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
-    <testCase name="includes link to products" duration="21"/>
-    <testCase name="renders button correctly" duration="89"/>
-    <testCase name="calls onClick prop when clicked" duration="19"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
-    <testCase name="includes link to products" duration="4"/>
-    <testCase name="renders button correctly" duration="12"/>
-    <testCase name="calls onClick prop when clicked" duration="13"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
-    <testCase name="renders market without crashing" duration="3"/>
-    <testCase name="renders market components without crashing" duration="11"/>
-    <testCase name="accepts products and client props" duration="2"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrderModal.test.js">
-    <testCase name="includes link to orders" duration="4"/>
-    <testCase name="renders button correctly" duration="6"/>
-    <testCase name="calls onClick prop when clicked" duration="5"/>
+    <testCase name="if basket is empty button shop now and form should not appear" duration="2"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js">
-    <testCase name="c-getClients" duration="14">
-      <failure message="FetchError: request to http://localhost:3001/api/clients failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/clients failed, reason: connect ECONNREFUSED 127.0.0.1:3001
-    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
-    at ClientRequest.emit (events.js:400:28)
-    at Socket.socketErrorListener (_http_client.js:475:9)
-    at Socket.emit (events.js:400:28)
-    at emitErrorNT (internal/streams/destroy.js:106:8)
-    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
-    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    <testCase name="c-getClients" duration="2">
+      <failure message="ReferenceError: fetch is not defined"><![CDATA[ReferenceError: fetch is not defined
+    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/API.js:15:7
+    at new Promise (<anonymous>)
+    at Object.getAllClients (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/API.js:14:12)
+    at ClientsList.initialize (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/Client.js:67:38)
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:20:25)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)]]></failure>
     </testCase>
     <testCase name="c-addClient" duration="1"/>
     <testCase name="c-getFromId" duration="0">
@@ -67,25 +36,25 @@
     at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
     at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)]]></failure>
     </testCase>
-    <testCase name="p-getProducts" duration="2">
-      <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
-    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:26:12
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)]]></failure>
-      <failure message="FetchError: request to http://localhost:3001/api/products failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/products failed, reason: connect ECONNREFUSED 127.0.0.1:3001
-    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
-    at ClientRequest.emit (events.js:400:28)
-    at Socket.socketErrorListener (_http_client.js:475:9)
-    at Socket.emit (events.js:400:28)
-    at emitErrorNT (internal/streams/destroy.js:106:8)
-    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
-    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    <testCase name="p-getProducts" duration="1">
+      <failure message="ReferenceError: fetch is not defined"><![CDATA[ReferenceError: fetch is not defined
+    at Object.getAllProducts (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/API.js:53:22)
+    at ProductsList.initialize (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/Product.js:59:39)
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:40:26)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)]]></failure>
     </testCase>
     <testCase name="p-addProduct" duration="0">
       <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
     at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:46:12
     at processTicksAndRejections (internal/process/task_queues.js:95:5)]]></failure>
     </testCase>
-    <testCase name="p-getProductsFromCategory" duration="0">
+    <testCase name="p-getProductsFromCategory" duration="1">
       <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
     at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:50:19)
     at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
@@ -98,88 +67,35 @@
     at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
     at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)]]></failure>
     </testCase>
-    <testCase name="p-updateConfirmed" duration="1">
-      <failure message="FetchError: request to http://localhost:3001/api/products failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/products failed, reason: connect ECONNREFUSED 127.0.0.1:3001
-    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
-    at ClientRequest.emit (events.js:400:28)
-    at Socket.socketErrorListener (_http_client.js:475:9)
-    at Socket.emit (events.js:400:28)
-    at emitErrorNT (internal/streams/destroy.js:106:8)
-    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
-    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    <testCase name="p-updateConfirmed" duration="0">
+      <failure message="ReferenceError: fetch is not defined"><![CDATA[ReferenceError: fetch is not defined
+    at Object.getAllProducts (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/API.js:53:22)
+    at ProductsList.initialize (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/Product.js:59:39)
+    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:55:71
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)]]></failure>
     </testCase>
-    <testCase name="o-getAllOrders" duration="3">
-      <failure message="FetchError: request to http://localhost:3001/api/sessions failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/sessions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
-    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
-    at ClientRequest.emit (events.js:400:28)
-    at Socket.socketErrorListener (_http_client.js:475:9)
-    at Socket.emit (events.js:400:28)
-    at emitErrorNT (internal/streams/destroy.js:106:8)
-    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
-    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
-      <failure message="FetchError: request to http://localhost:3001/api/orders failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/orders failed, reason: connect ECONNREFUSED 127.0.0.1:3001
-    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
-    at ClientRequest.emit (events.js:400:28)
-    at Socket.socketErrorListener (_http_client.js:475:9)
-    at Socket.emit (events.js:400:28)
-    at emitErrorNT (internal/streams/destroy.js:106:8)
-    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
-    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    <testCase name="o-getAllOrders" duration="0">
+      <failure message="ReferenceError: fetch is not defined"><![CDATA[ReferenceError: fetch is not defined
+    at Object.getAllOrders (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/API.js:91:20)
+    at OrdersList.initialize (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/Order.js:67:37)
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js:64:19)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)]]></failure>
     </testCase>
-    <testCase name="o-createOrder" duration="4"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js">
-    <testCase name="LoginForm should allow a user to log in" duration="198">
-      <failure message="FetchError: request to http://localhost:3001/api/sessions failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/sessions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
-    at ClientRequestOverride.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
-    at ClientRequestOverride.emit (events.js:400:28)
-    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/@mswjs/interceptors/src/interceptors/ClientRequest/createClientRequestOverride.ts:309:14)
-    at ClientRequest.emit (events.js:400:28)
-    at Socket.socketErrorListener (_http_client.js:475:9)
-    at Socket.emit (events.js:400:28)
-    at emitErrorNT (internal/streams/destroy.js:106:8)
-    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
-    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
-    </testCase>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js">
-    <testCase name="clock-object-initialization" duration="2"/>
-    <testCase name="clock-object-initialization" duration="1"/>
-    <testCase name="clock-object-initialization" duration="1"/>
-    <testCase name="clock-object-initialization" duration="2"/>
-    <testCase name="clock-object-initialization" duration="2"/>
-    <testCase name="clock-object-initialization" duration="1"/>
-    <testCase name="clock- set an event" duration="58"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
-    <testCase name="renders button correctly" duration="11"/>
-    <testCase name="includes link to products" duration="22"/>
-    <testCase name="includes link to registerform" duration="9"/>
-    <testCase name="renders container of the page correctly" duration="5"/>
-    <testCase name="renders video correctly" duration="1"/>
+    <testCase name="o-createOrder" duration="2"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js">
-    <testCase name="testing search of a client" duration="1130">
-      <failure message="FetchError: request to http://localhost:3001/api/clients failed, reason: connect ECONNREFUSED 127.0.0.1:3001"><![CDATA[FetchError: request to http://localhost:3001/api/clients failed, reason: connect ECONNREFUSED 127.0.0.1:3001
-    at ClientRequest.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/node-fetch/lib/index.js:1461:11)
-    at ClientRequest.emit (events.js:400:28)
-    at Socket.socketErrorListener (_http_client.js:475:9)
-    at Socket.emit (events.js:400:28)
-    at emitErrorNT (internal/streams/destroy.js:106:8)
-    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
-    at processTicksAndRejections (internal/process/task_queues.js:82:21)]]></failure>
+    <testCase name="testing search of a client" duration="1114">
+      <failure message="TypeError: Network request failed"><![CDATA[TypeError: Network request failed
+    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/whatwg-fetch/dist/fetch.umd.js:535:18
+    at Timeout.task [as _onTimeout] (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jsdom/lib/jsdom/browser/Window.js:516:19)
+    at listOnTimeout (internal/timers.js:557:17)
+    at processTimers (internal/timers.js:500:7)]]></failure>
       <failure message="Error: Unable to find an element with the text: Bianchi. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[Error: Unable to find an element with the text: Bianchi. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
 <div>
@@ -307,5 +223,73 @@
     at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
     at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
     </testCase>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
+    <testCase name="renders button correctly" duration="43"/>
+    <testCase name="includes link to products" duration="37"/>
+    <testCase name="includes link to registerform" duration="15"/>
+    <testCase name="renders container of the page correctly" duration="7"/>
+    <testCase name="renders video correctly" duration="2"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
+    <testCase name="includes link to products" duration="10"/>
+    <testCase name="renders button correctly" duration="9"/>
+    <testCase name="calls onClick prop when clicked" duration="15"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js">
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="2"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="2"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="2"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock-reset" duration="1"/>
+    <testCase name="clock-reset" duration="0"/>
+    <testCase name="clock-reset" duration="0"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/RegisterPage.test.js">
+    <testCase name="Render Check registerpageRender" duration="5"/>
+    <testCase name="Render check button submit " duration="6"/>
+    <testCase name="Render check button back " duration="3"/>
+    <testCase name="changeInput Button submit" duration="16"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js">
+    <testCase name="LoginForm should allow a user to log in" duration="259"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Product.test.js">
+    <testCase name="renders product without crashing" duration="3"/>
+    <testCase name="renders market components without crashing" duration="17"/>
+    <testCase name="accepts props" duration="2"/>
+    <testCase name="product renders  with empty basket" duration="1"/>
+    <testCase name="after click it will increase the quantity of product" duration="7"/>
+    <testCase name="after click it will decrease the quantity of product" duration="10"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
+    <testCase name="includes link to products" duration="8"/>
+    <testCase name="renders button correctly" duration="42"/>
+    <testCase name="calls onClick prop when clicked" duration="12"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrderModal.test.js">
+    <testCase name="includes link to orders" duration="2"/>
+    <testCase name="renders button correctly" duration="5"/>
+    <testCase name="calls onClick prop when clicked" duration="7"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
+    <testCase name="renders market without crashing" duration="1"/>
+    <testCase name="renders market components without crashing" duration="7"/>
+    <testCase name="accepts products and client props" duration="1"/>
   </file>
 </testExecutions>

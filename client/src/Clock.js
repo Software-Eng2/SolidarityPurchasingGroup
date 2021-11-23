@@ -51,7 +51,6 @@ class Clock{
          this.eventsObject.ordersAccepted = false;
          this.eventsObject.walletsOK = false;
 
-         //console.log( day + ' ' + hour +' ')
  
          if(day == 1){                                     // --------- Monday --------- //
             if(hour >= 20){                                 // (20:00 <--> 23:59)
@@ -120,7 +119,6 @@ class Clock{
         //to the milestone and setting the difference
         let daysDifference = 6 - day;
         this.time.setDate(this.time.getDate() + daysDifference);
-        console.log(this.time.getDate())
         this.time.setHours(9,0);
 
         return true;
@@ -220,8 +218,13 @@ class Clock{
      */
     reset(startDate){
 
-        var newTime = new Date(startDate);
+        var newTime = undefined;
 
+        newTime = new Date(startDate);
+
+        if(newTime == 'Invalid Date'){
+            return false;
+        }
         if(newTime.getDay() != 2){
             return false;
         }
