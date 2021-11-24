@@ -27,6 +27,8 @@ function Basket(props){
     const total = sum("total");
     
     const handleShop = () => {
+        console.log(currentClient.amount);
+        console.log(total);
         if ((client && client.amount < total) || (currentClient && currentClient.amount < total)) {
             props.setAlertWalletShow(true);
             flag = true;

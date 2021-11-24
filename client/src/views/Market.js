@@ -10,7 +10,7 @@ import API from '../API';
 import {MdDoneOutline} from "react-icons/md";
 
 function Market(props) {
-    const { products, client, userid, userRole} = props;
+    const { products, client, userid, userRole, currentClient} = props;
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
     const [category, setCategory] = useState('All');
@@ -18,7 +18,6 @@ function Market(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [showBasket, setShowBasket] = useState(false);
-    const [currentClient, setCurrentClient] = useState("");
     const [show, setShow] = useState(false); //show order confirmation modal
 
       //state if the wallet is insufficient
@@ -35,15 +34,6 @@ function Market(props) {
         setCategory(c);
         
     };
-    useEffect(()=>{
-        if(userid && userRole === "client"){
-            API.getClientById(userid).then((client) => {
-                setCurrentClient(client);
-            });
-        }
-        console.log(currentClient);
-            
-    },[userid]);
 
     useEffect(() => {
         if (category === "All" ){
