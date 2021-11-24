@@ -7,8 +7,12 @@ import API from '../API';
 function AlertWallet(props) {
 
   const [done, setDone] = useState(false);
+  const [showLaterModal, setShowLaterModal] = useState(false);
   let history = useHistory();
-
+  const handleClose = () => {
+    setShowLaterModal(false);
+    window.location.reload();
+}
   const updateWallet = () => {
     API.updateWallet(parseInt(props.topUp) + parseInt(props.user.amount ? props.user.amount : props.currentClient.amount), props.user.id ? props.user.id : props.currentClient.id).then(() => {
       if(props.user.amount){
@@ -26,6 +30,24 @@ function AlertWallet(props) {
     }).catch((err) => console.log(err));
   }
     return (
+      <>
+       <Modal centered show={showLaterModal} onHide={handleClose}>
+         {showLaterModal ?
+        <Modal.Body style={{backgroundColor: "#fff3cd"}}>
+          <Alert variant="warning">
+              <Alert.Heading className="mt-2">
+                <MdDoneOutline size={30} className="mr-3"/>
+                Order Issued!
+              </Alert.Heading>
+              <p>
+                Remember to top up to confirm the order!
+              </p>
+          </Alert>
+          <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Body> : ''}
+        </Modal>
       <Modal {...props} centered>
         {done ? 
         <Modal.Body style={{backgroundColor: "#d4edda"}}>
@@ -90,11 +112,12 @@ function AlertWallet(props) {
         </Modal.Body>
         <Modal.Footer style={{backgroundColor: "#fff3cd"}}>
             <Link to={{ pathname: '/products'}}>
-                <Button variant="warning" onClick={props.onHide}>Top up later</Button>
+                <Button variant="warning" onClick={()=>{setShowLaterModal(true)}}>Top up later</Button>
             </Link>
         </Modal.Footer>
         </>}
       </Modal>
+      </>
     );
   }
   
