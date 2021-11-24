@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
-import{ Container, Row, Col } from "react-bootstrap";
+import{ Container, Row, Col, Modal, Alert, Button } from "react-bootstrap";
 import Product from '../components/Product';
 import 'react-pro-sidebar/dist/css/styles.css';
 import SideBar from '../components/SideBar';
@@ -7,9 +7,10 @@ import Basket from '../components/Basket';
 import AlertWallet from '../components/AlertWallet';
 import PropTypes from 'prop-types';
 import API from '../API';
+import {MdDoneOutline} from "react-icons/md";
 
 function Market(props) {
-    const { products, client, userid} = props;
+    const { products, client, userid, userRole} = props;
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
     const [category, setCategory] = useState('All');
@@ -17,21 +18,25 @@ function Market(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [showBasket, setShowBasket] = useState(false);
-    const [currentClient, setCurrentClient] = useState("ciaoo");
+    const [currentClient, setCurrentClient] = useState("");
+    const [show, setShow] = useState(false); //show order confirmation modal
 
       //state if the wallet is insufficient
     const [alertWalletShow, setAlertWalletShow] = useState(false);
     const [topUp, setTopUp] = useState(0); //how much to top up
 
     const handleBasket = () => {setCollapsed((s) => !s); setShowBasket((s) => !s)};
-
+    const handleClose = () => {
+        setShow(false);
+        window.location.reload();
+    }
     
     const searchCategory = (c) => {
         setCategory(c);
         
     };
     useEffect(()=>{
-        if(userid){
+        if(userid && userRole === "client"){
             API.getClientById(userid).then((client) => {
                 setCurrentClient(client);
             });
@@ -73,9 +78,25 @@ function Market(props) {
     }, [size, showBasket])
     
 	return (
+        <>
+        <Modal centered show={show} onHide={handleClose}>
+        <Modal.Body style={{backgroundColor: "#d4edda"}}>
+          <Alert variant="success">
+              <Alert.Heading className="mt-2">
+                <MdDoneOutline size={30} className="mr-3"/>
+                Order Issued!
+              </Alert.Heading>
+              <p>
+                You will recieve soon a notification when it's ready.
+              </p>
+          </Alert>
+          <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Body>
+      </Modal>
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
-
-            <Basket basket={basket} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
+            <Basket basket={basket} show={show} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
             <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient}/>
             <Row>
                 <Col xs={2} sm={2} md={2}>
@@ -86,6 +107,7 @@ function Market(props) {
                         width="13rem"
                         searchCategory={(cat) => searchCategory(cat)}
                         handleBasket={handleBasket}
+                        userRole={userRole}
                         //client= {props.location.state}
                         />
                     </div>
@@ -124,7 +146,7 @@ function Market(props) {
 
 
         </Container>
-		
+        </>
 	);
 }
 
