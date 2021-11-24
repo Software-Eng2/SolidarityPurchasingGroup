@@ -21,11 +21,10 @@ function AlertWallet(props) {
         props.setAlertWalletShow(false); 
         setDone(false);
         props.setTopUp(0);
-        history.push('/orders');
+        window.location.reload();
       }, 3000)
     }).catch((err) => console.log(err));
   }
-
     return (
       <Modal {...props} centered>
         {done ? 
@@ -36,7 +35,7 @@ function AlertWallet(props) {
                 Top Up Success
               </Alert.Heading>
               <p>
-                Your top up has been successfully done.<br/> You will be redirect to the list of orders
+                Your top up has been successfully done.<br/> You will recieve a notification when your order is ready.
               </p>
           </Alert>
         </Modal.Body>
@@ -90,7 +89,7 @@ function AlertWallet(props) {
           </Container>
         </Modal.Body>
         <Modal.Footer style={{backgroundColor: "#fff3cd"}}>
-            <Link to={{ pathname: '/orders'}}>
+            <Link to={{ pathname: '/products'}}>
                 <Button variant="warning" onClick={props.onHide}>Top up later</Button>
             </Link>
         </Modal.Footer>

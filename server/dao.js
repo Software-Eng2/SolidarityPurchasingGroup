@@ -23,7 +23,7 @@ exports.getAllClients = () => {
 
 exports.getClientById = (client_id) => {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT USERS.id, USERS.name, USERS.surname, USERS.birthdate, USERS.email, USERS.isConfirmed, WALLETS.amount FROM USERS INNER JOIN WALLETS ON USERS.id = WALLETS.client_id WHERE WALLETS.client_id = ? ';
+    const sql = 'SELECT USERS.id, USERS.name, USERS.surname, USERS.birthdate, USERS.email, USERS.isConfirmed, WALLETS.amount FROM USERS INNER JOIN WALLETS ON USERS.id = WALLETS.client_id WHERE WALLETS.client_id = ? AND USERS.role = "client" ';
     db.get(sql, [client_id], (err, row) => {
         if (err) {
             reject(err);

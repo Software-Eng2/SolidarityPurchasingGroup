@@ -11,7 +11,7 @@ import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaProductHunt ,FaShoppingCart
 import {GiMilkCarton, GiSheep} from 'react-icons/gi';
 
 
-const SideBar = ({collapsed, width, searchCategory, handleBasket}) => {
+const SideBar = ({collapsed, width, searchCategory, handleBasket, userRole}) => {
     return (
         <>
 
@@ -70,25 +70,43 @@ const SideBar = ({collapsed, width, searchCategory, handleBasket}) => {
                         </SubMenu> */}
                     </Menu>
                 </SidebarContent>
-                <SidebarFooter style={{ textAlign: 'center' }}>
+                {userRole === "client" ? <SidebarFooter style={{ textAlign: 'center' }}>
                     <div
                     className="sidebar-btn-wrapper"
                     style={{
                         padding: '20px 24px',
                     }}
                     >
-                    <a
+                     <a
+                        href="/"
+                        className="sidebar-btn"
+                        rel="noopener noreferrer"
+                    >
+                    
+                         <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                        Go back to Home
+                        </span>
+                    </a>
+                    </div>
+                </SidebarFooter> : <SidebarFooter style={{ textAlign: 'center' }}>
+                    <div
+                    className="sidebar-btn-wrapper"
+                    style={{
+                        padding: '20px 24px',
+                    }}
+                    >
+                     <a
                         href="/clientlist"
                         className="sidebar-btn"
                         rel="noopener noreferrer"
                     >
                     
-                        <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                         <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                         Go back to clients
                         </span>
                     </a>
                     </div>
-                </SidebarFooter>
+                </SidebarFooter>}
             </ProSidebar>
         </>
 

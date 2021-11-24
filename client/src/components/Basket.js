@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import SlidingPane from 'react-sliding-pane';
-import{ Container, Row, Col, Form, Button} from "react-bootstrap";
+import{ Container, Row, Col, Form, Button, Modal, Alert} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
-import { useHistory } from "react-router-dom"; 
 import API from '../API';
 import dayjs from 'dayjs';
+
 import { Order } from '../Order';
 
 function Basket(props){
@@ -12,6 +12,7 @@ function Basket(props){
     const qty = basket.length;
     const client = props.client;
     const currentClient = props.currentClient;
+    const {show, setShow} = props;
     const [delivery, setDelivery] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -19,7 +20,7 @@ function Basket(props){
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [isDisabled, setIsDisabled] = useState(true);
-    let history = useHistory();
+    
     let flag = false;
 
     const sum = (key) => {
@@ -28,6 +29,8 @@ function Basket(props){
     const total = sum("total");
     
     const handleShop = () => {
+        console.log(currentClient.amount);
+        console.log(total);
         if ((client && client.amount < total) || (currentClient && currentClient.amount < total)) {
             props.setAlertWalletShow(true);
             flag = true;
@@ -66,13 +69,14 @@ console.log(order);
         });
 
         if (flag === false) {
-            history.push({ pathname: '/orders', state: { orderDirty: true } }); //TODO CREARE MODAL E RITORNARE NEI PRODUCTS
+            setShow(true);
         }
 
         flag = false;
     }
 
 	return(
+        <>
 		<SlidingPane
             className="basket"
 			width="23rem"
@@ -255,6 +259,7 @@ console.log(order);
                 
             </Container>
 		    </SlidingPane>
+        </>
 	);
 }
 

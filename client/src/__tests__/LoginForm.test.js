@@ -4,9 +4,16 @@ import userEvent from '@testing-library/user-event'
 import {setupServer} from 'msw/node';
 import {rest} from 'msw';
 import API from '../API';
+import "@testing-library/jest-dom/extend-expect";
+import { shallow, configure } from 'enzyme';
 import LoginForm from '../LoginForm';
+import Adapter from 'enzyme-adapter-react-16';
+/**
+* @jest-environment node
+*/
+configure({ adapter: new Adapter() });
 const handlers = [
-    rest.post('/api/sessions', (req, res, ctx) => {
+    rest.post('/api/sessions ', (req, res, ctx) => {
       const { email, password } = req.body
   
       return res(
@@ -19,7 +26,9 @@ const handlers = [
   ]
 
   const server = setupServer(...handlers);
-
+  const doLogIn = (email,password)=>{
+    API.logIn(email,password);
+  }
 
 beforeAll(() => {
     // Enable the mocking in tests.
@@ -35,19 +44,13 @@ beforeAll(() => {
     // Clean up once the tests are done.
     server.close()
   })
-
-describe('LoginForm', () => {
+ 
     
   it('should allow a user to log in', async () => {
-    render(<LoginForm />)
-
-
-
-    await userEvent.type(screen.getByTestId('testemail'), 'mariorossi@gmail.com');
-    await userEvent.type(screen.getByTestId('testpassword'), 'mariorossi');
+    shallow(<LoginForm doLogIn={doLogIn}/>)
 
     expect(await API.logIn(["",""])).toStrictEqual([undefined,undefined]);
     expect(await API.logIn("mariorossi@gmail.com","mariorossi")).toBeTruthy();
   })
-})
+
  

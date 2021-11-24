@@ -17,13 +17,13 @@ let productObject = new product.ProductsList();
 
 test('c-getClients', () => {
     //for now only 3 clients present in DB. Modify the toEqual if more clients are stored
-    return clientObject.initialize().then(() => expect(clientObject.getClients().length).toEqual(3));
+    return clientObject.initialize().then(() => expect(clientObject.getClients().length).toEqual(5));
 });
 
 //adding one more client -> testing the createUser API
 test('c-addClient', () => {
     clientObject.addClient('Andrea', 'Di Mauro', '11/03/1998', 'andrea@email.com', 'pass',1).then(() =>
-    expect(clientObject.getClients().length).toEqual(4));
+    expect(clientObject.getClients().length).toEqual(6));
 })
 
 //testing the getFromId
@@ -37,13 +37,13 @@ test('c-getFromId', () => {
 
 test('p-getProducts', () => {
     //WARNING: for now only 20 clients present in DB. Modify the toEqual if more products are stored
-    return productObject.initialize().then(() => expect(productObject.getProducts().length).toEqual(20))
+    return productObject.initialize().then(() => expect(productObject.getProducts().length).toEqual(22))
 })
 
 //adding one more client -> testing the createUser API
 test('p-addProduct', () => {
     return productObject.addProduct("boh", "boh", 0.78, "Fruits", 0,12,"boh", 4).then(() =>
-    expect(productObject.getProducts().length).toEqual(21));
+    expect(productObject.getProducts().length).toEqual(23));
 })
 
 test('p-getProductsFromCategory', () => {
@@ -61,7 +61,7 @@ test('p-updateConfirmed', () =>{
 test('o-getAllOrders',()=>{
     API.logIn("mariorossi@gmail.com","mariorossi");
     const orders = new OrdersList();
-    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(9)})
+    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(4)})
 });
 
 test('o-createOrder',()=>{
