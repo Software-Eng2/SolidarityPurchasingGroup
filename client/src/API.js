@@ -291,8 +291,61 @@ async function getClientById(client_id) {
   }
 }
 
+async function getNotifications(client_id){
+  const response = await fetch(BASEURL + '/notifications/' + client_id);
+
+  const notifications = await response.json();
+
+  if (response.ok) {
+    return notifications;
+  } else {
+    return undefined;
+  }
+}
+
+async function postNotification(client_id, description){
+  try {
+    const response = await fetch(BASEURL + '/notifications/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          client_id: client_id,
+          description: description
+        }
+      )
+    })
+    const inserted = await response.json();
+
+    if (!response.ok) {
+      throw response;
+    }
+
+    return inserted;
+  }
+  catch {
+    return false;
+  }
+
+}
+
+
+async function deleteNotification(client_id){
+  const response = await fetch('/api/notifications/' + client_id, { method: 'DELETE' });
+
+  if(response.ok){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 
 const API = {
+  getNotifications,
+  postNotification,
+  deleteNotification,
   getAllClients,
   getAllProducts,
   updateConfirmedProduct,

@@ -190,3 +190,20 @@ test('clock- set an event', () => {
     expect(clock.setWalletOKMilestone(false)).toEqual(false);
 })
 
+
+/* ---- RESET Function ---- */
+
+//Testing Invalid date format
+test('clock-reset', () => {
+    expect(clock.reset("feferg")).toEqual(false);
+})
+
+//Testing a day that is not Tuesday
+test('clock-reset', () =>{
+    expect(clock.reset("22 November 2021")).toEqual(false);
+})
+
+//Testing a day that is Tuesday
+test('clock-reset', () =>{
+    expect(clock.reset("23 November 2021")).toEqual(true);
+})
