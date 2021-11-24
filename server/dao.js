@@ -225,3 +225,48 @@ exports.changeQuantity = (product_id, order_quantity) => {
     });
   });
 };
+
+// add a new notification
+exports.createNotification = (description, client_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO NOTIFICATIONS (description, client_id) VALUES(?,?)';
+    
+    db.run(sql, [description,client_id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
+// get all the products
+exports.getNotifications = (id) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM NOTIFICATIONS WHERE client_id = ?';
+      db.all(sql, [id], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          const notifications = rows.map((p) => ({ id: id, description: description, client_id: client_id }));
+          resolve(notifications);
+      });
+  })
+};
+
+// delete a notification
+exports.deleteNotification = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM NOTIFICATIONS WHERE ID = ?';
+    
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};

@@ -376,5 +376,59 @@ app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
 
+//get all notifications for a user
+app.get('/api/notifications/:id',
+  [
+    check('id').isInt({min:0})
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+    dao.getNotifications(req.params.id)
+      .then((notifications) => { res.json(notifications) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+  });
 
 
+// add a new notification
+app.post('/api/notifications/',
+  [
+    check('description').isString(),
+    check('client_id').isInt({min: 0})
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+    dao.createNotification(req.body.description, req.body.client_id).then((id) => res.status(201).json({ id: id }))
+      .catch((err) =>
+        res.status(500).json({
+          error: "Error " + err,
+        })
+      );
+  });
+
+  app.delete('api/notifications/:id', 
+    [
+      check('id').isInt({min:0})
+    ],
+    (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        console.log(errors.array())
+        return res.status(422).json({ errors: errors.array() })
+      }
+
+      dao.deleteNotification(req.params.id).then((id) => res.status(200).json({ id: id }))
+        .catch((err) =>
+          res.status(500).json({
+            error: "Error " + err,
+          })
+        );
+    }
+  )
