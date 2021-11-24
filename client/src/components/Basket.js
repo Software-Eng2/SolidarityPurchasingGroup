@@ -17,6 +17,8 @@ function Basket(props){
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
     const [isDisabled, setIsDisabled] = useState(true);
     
     let flag = false;
@@ -35,8 +37,6 @@ function Basket(props){
         }
         const id = dayjs().unix();
         const now = dayjs().format('YYYY-MM-DD');
-        const date = '';
-        const time = '';
         const myAddress = `${address}, ${city}, ${zip}`
         const order = new Order(
             id,
@@ -50,7 +50,7 @@ function Basket(props){
             delivery,
             myAddress
         );
-
+console.log(order);
         API.createOrder(order).then(function (response) {
             basket.map((product) => {
                 const productBasket = {
@@ -214,13 +214,38 @@ function Basket(props){
                                             disabled={isDisabled}
                                         />
                                     </Form.Group>
+                                </Col>                                
+                            </Row>
+                            <Row className='justify-content-center mt-3'>
+                                <h6 className="text-center"><strong>Select a pick-up/dalivery date & time:</strong></h6>
+                                <Col xs={8} md={8}>
+                                    <Form.Group className="mb-1" controlId="formDate">
+                                        <Form.Control
+                                            type="date"
+                                            placeholder="date"
+                                            value={date}
+                                            onChange={(event) => { setDate(event.target.value); }}
+                                            min={dayjs().format("YYYY-MM-DD")} />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={8} md={8}>
+                                    <Form.Group className="mb-1" controlId="formDate">
+                                        <Form.Control
+                                            type="time"
+                                            placeholder="time"
+                                            value={time}
+                                            onChange={(event) => { setTime(event.target.value); }} />
+                                    </Form.Group>
                                 </Col>
                             </Row>
                         </Form>
                         
                         <Row className='justify-content-center'>
                             <div className='card-button'>
-                                <Button style={{fontWeight:"bold"}} onClick={()=>{handleShop()}} disabled={((delivery==='') || (address==='') || (city==='') || (zip===''))? true : false}>
+                                <Button 
+                                    style={{fontWeight:"bold"}} 
+                                    onClick={()=>{handleShop()}} 
+                                    disabled={((delivery==='') || (address==='') || (city==='') || (zip==='') || (date==='') ||(time===''))? true : false}>
                                     Shop now 
                                 </Button>
                             </div>
