@@ -50,7 +50,7 @@ function Basket(props){
             delivery,
             myAddress
         );
-console.log(order);
+        
         API.createOrder(order).then(function (response) {
             basket.map((product) => {
                 const productBasket = {

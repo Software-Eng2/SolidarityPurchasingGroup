@@ -6,7 +6,7 @@ import { useLocation} from "react-router-dom";
 
 function OrdersList(props){
 
-    const {orders, setOrders, loggedIn, dirty, setDirty, setSelectedOrder, setModalShow} = props;
+    const {orders, setOrders, loggedIn, dirty, setDirty, setSelectedOrder, setModalShow, setDate, setTime} = props;
     const orderDirty = useLocation().state;
 
     //change status of the selected order
@@ -31,18 +31,20 @@ function OrdersList(props){
 
     return (
         <Container fluid className="page width-100 below-nav table">
-           <OrderTable orders={orders} changeStatus={changeStatus} setSelectedOrder={setSelectedOrder} setModalShow={setModalShow}/>
+           <OrderTable orders={orders} changeStatus={changeStatus} setSelectedOrder={setSelectedOrder} setModalShow={setModalShow} setDate={setDate} setTime={setTime}/>
         </Container>
     );
 }
 
 function OrderTable(props){
 
-    const {orders, changeStatus, setSelectedOrder, setModalShow} = props;
+    const {orders, changeStatus, setSelectedOrder, setModalShow, setDate, setTime} = props;
 
     const handleClick = (o) => {
         setModalShow(true);
         setSelectedOrder(o);
+        setDate(o.date);
+        setTime(o.time);
     }
 
 
