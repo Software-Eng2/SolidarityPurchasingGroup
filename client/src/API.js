@@ -296,11 +296,7 @@ async function getNotifications(client_id){
 
   const notifications = await response.json();
 
-  if (response.ok) {
-    return notifications;
-  } else {
-    return undefined;
-  }
+  return notifications;
 }
 
 async function postNotification(client_id, description){
@@ -331,14 +327,11 @@ async function postNotification(client_id, description){
 
 
 async function deleteNotification(client_id){
-  const response = await fetch('/api/notifications/' + client_id, { method: 'DELETE' });
+  const response = await fetch(BASEURL + '/notifications/' + client_id, { method: 'DELETE' });
 
-  if(response.ok){
-    return true;
-  }
-  else{
-    return false;
-  }
+  const result = await response.json();
+
+  return true;
 }
 
 

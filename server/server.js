@@ -413,7 +413,7 @@ app.post('/api/notifications/',
       );
   });
 
-  app.delete('api/notifications/:id', 
+  app.delete('/api/notifications/:id', 
     [
       check('id').isInt({min:0})
     ],

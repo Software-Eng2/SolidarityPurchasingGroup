@@ -1,6 +1,8 @@
 "use strict";
 const db = require('./db');
 
+db.get("PRAGMA foreign_keys = ON")
+
 //const { logIn } = require('../client/src/API');
 
 
@@ -229,7 +231,7 @@ exports.changeQuantity = (product_id, order_quantity) => {
 // add a new notification
 exports.createNotification = (description, client_id) => {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO NOTIFICATIONS (description, client_id) VALUES(?,?)';
+    const sql = 'INSERT INTO NOTIFICATIONS(description, client_id) VALUES(?,?)';
     
     db.run(sql, [description,client_id], function (err) {
       if (err) {
@@ -250,7 +252,7 @@ exports.getNotifications = (id) => {
               reject(err);
               return;
           }
-          const notifications = rows.map((p) => ({ id: id, description: description, client_id: client_id }));
+          const notifications = rows.map((n) => ({ id: n.id, description: n.description, client_id: n.client_id }));
           resolve(notifications);
       });
   })
@@ -259,7 +261,7 @@ exports.getNotifications = (id) => {
 // delete a notification
 exports.deleteNotification = (id) => {
   return new Promise((resolve, reject) => {
-    const sql = 'DELETE FROM NOTIFICATIONS WHERE ID = ?';
+    const sql = 'DELETE FROM NOTIFICATIONS WHERE id = ?';
     
     db.run(sql, [id], function (err) {
       if (err) {
