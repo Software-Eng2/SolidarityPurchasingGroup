@@ -1,6 +1,8 @@
 "use strict";
 const db = require('./db');
 
+db.get("PRAGMA foreign_keys = ON")
+
 //const { logIn } = require('../client/src/API');
 
 
@@ -18,6 +20,23 @@ exports.getAllClients = () => {
         });
     })
 };
+
+// get specific client by id
+
+exports.getClientById = (client_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT USERS.id, USERS.name, USERS.surname, USERS.birthdate, USERS.email, USERS.isConfirmed, WALLETS.amount FROM USERS INNER JOIN WALLETS ON USERS.id = WALLETS.client_id WHERE WALLETS.client_id = ? AND USERS.role = "client" ';
+    db.get(sql, [client_id], (err, row) => {
+        if (err) {
+            reject(err);
+            return;
+        }
+        const client = { id: row.id, name: row.name, surname: row.surname, birthdate: row.birthdate, email: row.email, isConfirmed: row.isConfirmed, amount: row.amount };
+        console.log(client);
+        resolve(client);
+    });
+})
+}
 
 // add a new user
  exports.createUser = (user) => {
@@ -193,4 +212,63 @@ exports.getBasket = (order_id) => {
       resolve(products);
     });
   })
+};
+
+//update avaiability of product when an order is issued
+exports.changeQuantity = (product_id, order_quantity) => {
+  return new Promise((resolve,reject)=>{
+    const sql = 'UPDATE PRODUCTS SET quantity = quantity - ? WHERE id = ?';
+    db.run(sql,[order_quantity,product_id], function(err){
+      if(err){
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
+// add a new notification
+exports.createNotification = (description, client_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO NOTIFICATIONS(description, client_id) VALUES(?,?)';
+    
+    db.run(sql, [description,client_id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
+// get all the products
+exports.getNotifications = (id) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM NOTIFICATIONS WHERE client_id = ?';
+      db.all(sql, [id], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          const notifications = rows.map((n) => ({ id: n.id, description: n.description, client_id: n.client_id }));
+          resolve(notifications);
+      });
+  })
+};
+
+// delete a notification
+exports.deleteNotification = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM NOTIFICATIONS WHERE id = ?';
+    
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
 };

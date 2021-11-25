@@ -53,17 +53,17 @@ passport.serializeUser((user, done) => {
 // starting from the data in the session, we extract the current (logged-in) user
 passport.deserializeUser((id, done) => {
   userDao.getUserById(id)
-      .then(user => {
-          done(null, user); // this will be available in req.user
-      }).catch(err => {
-          done(null, err);
-      });
+    .then(user => {
+      done(null, user); // this will be available in req.user
+    }).catch(err => {
+      done(null, err);
+    });
 });
 
 // custom middleware: check if a given request is coming from an authenticated user
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated())
-      return next();
+    return next();
 
   return res.status(401).json({ error: 'User not authenticated' });
 }
@@ -74,75 +74,84 @@ const isLoggedIn = (req, res, next) => {
 app.get('/api/clients',
   (req, res) => {
     dao.getAllClients()
-      .then((clients) => {res.json(clients)})
+      .then((clients) => { res.json(clients) })
       .catch((err) => res.status(500).json({ error: "Error " + err }));
-});
+  });
+
+// get client by id
+app.get('/api/clients/:id',
+  (req, res) => {
+    const client_id = req.params.id;
+    dao.getClientById(client_id)
+      .then((client) => { res.json(client) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+  });
 
 // add a new client 
-app.post('/api/users', 
-[
-  check('role').isIn(['client', 'farmer', 'rider']),
-  check('name').isString(),
-  check('surname').isString(),
-  check('birthdate').isString(),
-  check('email').isString(),
-  check('password').isString(),
-  check('isConfirmed').isInt()
-],
-(req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    console.log(errors.array())
-    return res.status(422).json({ errors: errors.array() })
-  }
-
-  const client = {
-    role: req.body.role,
-    name: req.body.name,
-    surname: req.body.surname,
-    birthdate: req.body.birthdate,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
-    isConfirmed: req.body.isConfirmed
-  }
-  
-  function createWallet(id){
-    if (client.role === 'client') {
-      dao.createWallet(id).then(
-        res.status(201).json({ id: id }))
-        .catch((err) => res.status(500)
-          .json({ error: "Error " + err, }))
-        .catch((err) =>
-          res.status(500).
-            json({ error: "Error " + err, })
-        );
+app.post('/api/users',
+  [
+    check('role').isIn(['client', 'farmer', 'rider']),
+    check('name').isString(),
+    check('surname').isString(),
+    check('birthdate').isString(),
+    check('email').isString(),
+    check('password').isString(),
+    check('isConfirmed').isInt()
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
     }
-  }
 
-  dao.createUser(client).then((id) =>createWallet(id));
-});
-  
-app.put('/api/wallets/', 
- [check('amount').isInt({min: 0}), check('id').isInt({min:0})],
- (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() })
-  }
+    const client = {
+      role: req.body.role,
+      name: req.body.name,
+      surname: req.body.surname,
+      birthdate: req.body.birthdate,
+      email: req.body.email,
+      password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync()),
+      isConfirmed: req.body.isConfirmed
+    }
 
-  dao.updateWallet(req.body.amount, req.body.id).then((id) => res.status(201).json({id: id}))
-  .catch((err) => res.status(500).json({
-    error: "error " + err
-  }));
- })
+    function createWallet(id) {
+      if (client.role === 'client') {
+        dao.createWallet(id).then(
+          res.status(201).json({ id: id }))
+          .catch((err) => res.status(500)
+            .json({ error: "Error " + err, }))
+          .catch((err) =>
+            res.status(500).
+              json({ error: "Error " + err, })
+          );
+      }
+    }
+
+    dao.createUser(client).then((id) => createWallet(id));
+  });
+
+app.put('/api/wallets/',
+  [check('amount').isInt({ min: 0 }), check('id').isInt({ min: 0 })],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
+
+    dao.updateWallet(req.body.amount, req.body.id).then((id) => res.status(201).json({ id: id }))
+      .catch((err) => res.status(500).json({
+        error: "error " + err
+      }));
+  })
 
 //get all products
 app.get('/api/products',
   (req, res) => {
     dao.getAllProducts()
-      .then((products) => { res.json(products)})
+      .then((products) => { res.json(products) })
       .catch((err) => res.status(500).json({ error: "Error " + err }));
-});
+  });
 
 // add a new product
 app.post('/api/products',
@@ -150,11 +159,11 @@ app.post('/api/products',
     check('name').isString(),
     check('description').isString(),
     check('category').isString(),
-    check('quantity').isInt({min:0}),
-    check('price').isFloat({min:0}),
+    check('quantity').isInt({ min: 0 }),
+    check('price').isFloat({ min: 0 }),
     check('farmer_id').isInt(),
     check('img_path').isString(),
-    check('confirmed').isInt({min:0, max:1})
+    check('confirmed').isInt({ min: 0, max: 1 })
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -181,10 +190,10 @@ app.post('/api/products',
   });
 
 //update confirmed status of a product
-app.put('/api/products',  
+app.put('/api/products',
   [
-    check('confirmed').isInt({min:0, max:1}),
-    check('id').isInt({min:0})
+    check('confirmed').isInt({ min: 0, max: 1 }),
+    check('id').isInt({ min: 0 })
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -205,9 +214,9 @@ app.put('/api/products',
 app.get('/api/orders',
   (req, res) => {
     dao.getAllOrders()
-      .then((orders) => { res.json(orders)})
+      .then((orders) => { res.json(orders) })
       .catch((err) => res.status(500).json({ error: "Error " + err }));
-});
+  });
 
 // add a new order
 app.post('/api/orders',
@@ -216,7 +225,7 @@ app.post('/api/orders',
     check('client_id').isInt(),
     check('total').isNumeric(),
     check('status').isString(),
-    check('pick_up').isInt({min:0, max:1}),
+    check('pick_up').isInt({ min: 0, max: 1 }),
     check('address').isString(),
     check('date').isString(),
     check('time').isString()
@@ -246,10 +255,10 @@ app.post('/api/orders',
   });
 
 //change status of an order
-app.put('/api/orders/status',  
+app.put('/api/orders/status',
   [
-    check('status').isIn(['PENDING', 'ACCEPTED','CANCELLING','FAILED','READY','DELIVERED']), 
-    check('order_id').isInt({min:0})
+    check('status').isIn(['PENDING', 'ACCEPTED', 'CANCELLING', 'FAILED', 'READY', 'DELIVERED']),
+    check('order_id').isInt({ min: 0 })
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -264,14 +273,14 @@ app.put('/api/orders/status',
           error: "Error " + err,
         })
       );
-});
+  });
 
 //change date & time of an order
-app.put('/api/orders/datetime',  
+app.put('/api/orders/datetime',
   [
-    check('date').isString(), 
-    check('time').isString(), 
-    check('order_id').isInt({min:0})
+    check('date').isString(),
+    check('time').isString(),
+    check('order_id').isInt({ min: 0 })
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -286,11 +295,30 @@ app.put('/api/orders/datetime',
           error: "Error " + err,
         })
       );
-});
+  });
+
+//reduce quantity of a product
+app.put('/api/products/quantity',
+  [
+    check('product_id').isInt({ min: 0 }),
+    check('order_quantity').isInt({ min: 0 })
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
+    dao.changeQuantity(req.body.product_id, req.body.order_quantity)
+      .then((id) => res.status(201).json({ id: id }))
+      .catch((err) => { res.status(500).json({ error: "Error" + err, }) })
+  }
+)
 
 
- // Login --> POST /sessions 
- app.post('/api/sessions', passport.authenticate('local'), (req, res) => {
+
+
+// Login --> POST /sessions 
+app.post('/api/sessions', passport.authenticate('local'), (req, res) => {
   res.json(req.user);
 });
 // Logout --> DELETE /sessions/current 
@@ -309,9 +337,9 @@ app.get('/api/sessions/current', isLoggedIn, (req, res) => {
 // add a new basket
 app.post('/api/basket',
   [
-    check('order_id').isInt({min: 0}),
-    check('product_id').isInt({min: 0}),
-    check('quantity').isInt({min: 0}),
+    check('order_id').isInt({ min: 0 }),
+    check('product_id').isInt({ min: 0 }),
+    check('quantity').isInt({ min: 0 }),
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -332,14 +360,14 @@ app.post('/api/basket',
       );
   });
 
-  //get a basket from an order_id
+//get a basket from an order_id
 app.get('/api/basket/:order_id',
-(req, res) => {
-  const order_id = req.params.order_id;
-  dao.getBasket(order_id)
-    .then((products) => { res.json(products)})
-    .catch((err) => res.status(500).json({ error: "Error " + err }));
-});
+  (req, res) => {
+    const order_id = req.params.order_id;
+    dao.getBasket(order_id)
+      .then((products) => { res.json(products) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+  });
 /*** End APIs ***/
 
 
@@ -348,5 +376,59 @@ app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
 
+//get all notifications for a user
+app.get('/api/notifications/:id',
+  [
+    check('id').isInt({min:0})
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+    dao.getNotifications(req.params.id)
+      .then((notifications) => { res.json(notifications) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+  });
 
 
+// add a new notification
+app.post('/api/notifications/',
+  [
+    check('description').isString(),
+    check('client_id').isInt({min: 0})
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+    dao.createNotification(req.body.description, req.body.client_id).then((id) => res.status(201).json({ id: id }))
+      .catch((err) =>
+        res.status(500).json({
+          error: "Error " + err,
+        })
+      );
+  });
+
+  app.delete('/api/notifications/:id', 
+    [
+      check('id').isInt({min:0})
+    ],
+    (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        console.log(errors.array())
+        return res.status(422).json({ errors: errors.array() })
+      }
+
+      dao.deleteNotification(req.params.id).then((id) => res.status(200).json({ id: id }))
+        .catch((err) =>
+          res.status(500).json({
+            error: "Error " + err,
+          })
+        );
+    }
+  )

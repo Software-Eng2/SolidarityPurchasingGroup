@@ -20,7 +20,7 @@ import API from "./API";
  */
 
 class Order {
-    constructor(id, creation_date, client_id, client_name, client_surname, total, date, time, pick_up=1, address='Corso Duca degli Abruzzi, 24', status='PENDING') {
+    constructor(id, creation_date, client_id, client_name, client_surname, total, date, time, pick_up, address, status='PENDING') {
         this.id = id;
         this.creation_date = creation_date;
         this.client_id = client_id;

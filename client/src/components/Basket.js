@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SlidingPane from 'react-sliding-pane';
-import{ Container, Row, Col, Form} from "react-bootstrap";
+import{ Container, Row, Col, Form, Button, Modal, Alert} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
-import { useHistory } from "react-router-dom"; 
 import API from '../API';
 import dayjs from 'dayjs';
+
 import { Order } from '../Order';
 
 function Basket(props){
     const basket = props.basket;
     const qty = basket.length;
     const client = props.client;
-    let history = useHistory();
+    const currentClient = props.currentClient;
+    const {show, setShow} = props;
+    const [delivery, setDelivery] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [zip, setZip] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [isDisabled, setIsDisabled] = useState(true);
+    
     let flag = false;
 
     const sum = (key) => {
@@ -20,49 +29,54 @@ function Basket(props){
     const total = sum("total");
     
     const handleShop = () => {
-        if(client.amount < total){
+        console.log(currentClient.amount);
+        console.log(total);
+        if ((client && client.amount < total) || (currentClient && currentClient.amount < total)) {
             props.setAlertWalletShow(true);
             flag = true;
         }
         const id = dayjs().unix();
         const now = dayjs().format('YYYY-MM-DD');
-        const date = '';
-        const time ='';
+        const myAddress = `${address}, ${city}, ${zip}`
         const order = new Order(
             id,
             now,
-            client.id,
-            client.name,
-            client.surname,
+            client.id ? client.id : currentClient.id,
+            client.name ? client.name : currentClient.name,
+            client.surname ? client.surname : currentClient.surname,
             total,
             date,
-            time
+            time,
+            delivery,
+            myAddress
         );
-            
-        API.createOrder(order).then(function(response){
+        
+        API.createOrder(order).then(function (response) {
             basket.map((product) => {
                 const productBasket = {
                     order_id: response.id,
                     product_id: product.id,
                     quantity: product.quantity
                 };
-            return API.createBasket(productBasket).then((res) => {
-                if (!res.inserted){
-                    console.log("Error inserting basket in db.");
-                }
-                return res.inserted;
+                API.changeQuantity(productBasket.product_id, productBasket.quantity);
+                return API.createBasket(productBasket).then((res) => {
+                    if (!res.inserted) {
+                        console.log("Error inserting basket in db.");
+                    }
+                    return res.inserted;
+                })
             })
-            })
-            });
+        });
 
-            if(flag === false){
-                history.push({pathname:'/orders', state: {orderDirty: true}});
-            }
+        if (flag === false) {
+            setShow(true);
+        }
 
-            flag = false;
+        flag = false;
     }
 
 	return(
+        <>
 		<SlidingPane
             className="basket"
 			width="23rem"
@@ -136,37 +150,104 @@ function Basket(props){
 
                         </Row>
                     <hr className='solid'/>
+                    <h6 className="text-center"><strong>Select a delivery method:</strong></h6>
                         <Form>
-                            <Row className='justify-content-center'>
-                            
-                                <Col xs={12} md={6}>
-                                    <div key="default-radio">
+                            <Row className='justify-content-center mb-3'>                            
+                                <Col xs={6} md={6}>
+                                    <div key="default-radio" className="text-left">
                                         <Form.Check 
-                                            defaultChecked
+                                            inline
+                                            label="Pick-Up"
+                                            name="group1"
                                             type="radio"
-                                            id="default-radio"
-                                            label="Pick-up"
+                                            id="inline-radio-1"
+                                            onClick={()=>{setDelivery(1); setAddress("Corso Duca degli Abruzzi, 24"); setCity("Torino"); setZip("10129"); setIsDisabled(true);}}
                                         />
                                     </div>
                                 </Col>
-                                <Col xs={12} md={6}>
-                                    <div key="default-radio">
+                                <Col xs={6} md={6}>
+                                    <div key="default-radio" className="text-right">
                                         <Form.Check
-                                                disabled
-                                                type="radio"
-                                                label="Delivery"
-                                                id="disabled-default-radio"
+                                            inline
+                                            label="Delivery"
+                                            name="group1"
+                                            type="radio"
+                                            id="inline-radio-2"
+                                            onClick={()=>{setDelivery(0); setAddress(''); setCity(''); setZip(''); setIsDisabled(false);}}
                                             />
                                     </div>
+                                </Col>
+                            </Row>
+                            <h6 className="text-center"><strong>Insert an Address:</strong></h6>
+                            <Row>
+                                <Col xs={12} md={12}>
+                                    <Form.Group className="mb-1" controlId="formGridAddress1">
+                                        <Form.Control 
+                                            placeholder="1234 Main St" 
+                                            value={address}
+                                            /* value={delivery===1 ? "Corso Duca degli Abruzzi, 24" : ""}      */                                       
+                                            onChange={(event) => setAddress(event.target.value)}
+                                            disabled={isDisabled}
+                                        />
+                                    </Form.Group>                                
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={6} md={6}>
+                                    <Form.Group  className="mb-1" controlId="formGridAddress1">
+                                        <Form.Control 
+                                            placeholder="City"
+                                            value={city}
+                                            /* value={delivery===1 ? "Torino" : ""} */
+                                            onChange={(event) => setCity(event.target.value)} 
+                                            disabled={isDisabled}
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={6} md={6}>
+                                    <Form.Group  className="mb-1" controlId="formGridAddress2">
+                                        <Form.Control
+                                            placeholder="ZIP" 
+                                            value={zip}
+                                            type="number"
+                                            onChange={(event) => setZip(event.target.value)}
+                                            disabled={isDisabled}
+                                        />
+                                    </Form.Group>
+                                </Col>                                
+                            </Row>
+                            <Row className='justify-content-center mt-3'>
+                                <h6 className="text-center"><strong>Select a pick-up/dalivery date & time:</strong></h6>
+                                <Col xs={8} md={8}>
+                                    <Form.Group className="mb-1" controlId="formDate">
+                                        <Form.Control
+                                            type="date"
+                                            placeholder="date"
+                                            value={date}
+                                            onChange={(event) => { setDate(event.target.value); }}
+                                            min={dayjs().format("YYYY-MM-DD")} />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={8} md={8}>
+                                    <Form.Group className="mb-1" controlId="formDate">
+                                        <Form.Control
+                                            type="time"
+                                            placeholder="time"
+                                            value={time}
+                                            onChange={(event) => { setTime(event.target.value); }} />
+                                    </Form.Group>
                                 </Col>
                             </Row>
                         </Form>
                         
                         <Row className='justify-content-center'>
                             <div className='card-button'>
-                                <button style={{fontWeight:"bold"}} onClick={()=>{handleShop()}}>
+                                <Button 
+                                    style={{fontWeight:"bold"}} 
+                                    onClick={()=>{handleShop()}} 
+                                    disabled={((delivery==='') || (address==='') || (city==='') || (zip==='') || (date==='') ||(time===''))? true : false}>
                                     Shop now 
-                                </button>
+                                </Button>
                             </div>
 
                         </Row>
@@ -178,6 +259,7 @@ function Basket(props){
                 
             </Container>
 		    </SlidingPane>
+        </>
 	);
 }
 

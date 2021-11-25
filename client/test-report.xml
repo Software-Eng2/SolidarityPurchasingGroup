@@ -1,83 +1,198 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js">
-    <testCase name="LoginForm should allow a user to log in" duration="229">
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js">
+    <testCase name="renders basket without crashing" duration="13"/>
+    <testCase name="renders basket components without crashing" duration="19"/>
+    <testCase name="accepts props" duration="8">
+      <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: [{"id": "0", "img": "some-img-path-0", "name": "name0", "price": 100, "quantity": 10, "total": 1000}, {"id": "1", "img": "some-img-path-1", "name": "name1", "price": 200, "quantity": 20, "total": 4000}, {"id": "2", "img": "some-img-path-2", "name": "name2", "price": 300, "quantity": 30, "total": 9000}]
+Received: undefined
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js:66:42)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
+    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
+    at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
+    at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
+    at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
+    </testCase>
+    <testCase name="basket works with empty basket" duration="2">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+Expected: []
+Received: undefined
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js:74:42)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
+    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
+    at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
+    at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
+    at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
+    </testCase>
+    <testCase name="state of open basket changes when calling onRequestChange prop" duration="2">
+      <failure message="TypeError: wrapperBasket.props(...).onRequestClose is not a function"><![CDATA[TypeError: wrapperBasket.props(...).onRequestClose is not a function
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js:82:27)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
+    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
+    at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
+    at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
+    at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
+    </testCase>
+    <testCase name="if basket is empty button shop now and form should not appear" duration="2"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/LoginForm.test.js">
+    <testCase name="should allow a user to log in" duration="49">
       <failure message="Error: thrown: undefined"><![CDATA[Error: thrown: undefined
-    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js:41:3
-    at _dispatchDescribe (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/index.js:67:26)
-    at describe (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/index.js:30:5)
-    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Login.test.js:39:1)
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/LoginForm.test.js:49:3)
     at Runtime._execModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:1299:24)
     at Runtime._loadModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:898:12)
     at Runtime.requireModule (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runtime/build/index.js:746:10)
     at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:106:13)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
     at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
     at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
     at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
     </testCase>
   </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/RegisterPage.test.js">
-    <testCase name="Render Check registerpageRender" duration="10"/>
-    <testCase name="Render check button submit " duration="5"/>
-    <testCase name="Render check button back " duration="2"/>
-    <testCase name="changeInput Button submit" duration="45"/>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
+    <testCase name="includes link to products" duration="16">
+      <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: {"amount": "3$", "birthdate": "13-10-1999", "email": "mariorossi@gmail", "id": "1", "name": "Mario", "surname": "Rossi"}
+Received: undefined
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js:26:34)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
+    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
+    at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
+    at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
+    at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
+    </testCase>
+    <testCase name="renders button correctly" duration="50"/>
+    <testCase name="calls onClick prop when clicked" duration="19"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Notifications.test.js">
+    <testCase name="n-addNotification" duration="257"/>
+    <testCase name="n-addNotification" duration="8"/>
+    <testCase name="n-getNotifications" duration="9"/>
+    <testCase name="n-getNotifications" duration="6"/>
+    <testCase name="n-deleteNotifications" duration="277"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
-    <testCase name="renders market without crashing" duration="1"/>
-    <testCase name="renders market components without crashing" duration="8"/>
-    <testCase name="accepts products and client props" duration="1"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js">
-    <testCase name="renders basket without crashing" duration="3"/>
-    <testCase name="renders basket components without crashing" duration="6"/>
-    <testCase name="accepts props" duration="2"/>
-    <testCase name="basket works with empty basket" duration="1"/>
-    <testCase name="state of open basket changes when calling onRequestChange prop" duration="1"/>
-    <testCase name="if basket is empty button shop now and form should not appear" duration="2"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js">
-    <testCase name="c-getClients" duration="28"/>
-    <testCase name="c-addClient" duration="2"/>
-    <testCase name="c-getFromId" duration="1"/>
-    <testCase name="p-getProducts" duration="374"/>
-    <testCase name="p-addProduct" duration="133"/>
-    <testCase name="p-getProductsFromCategory" duration="1"/>
-    <testCase name="p-updateConfirmed" duration="128"/>
-    <testCase name="o-getAllOrders" duration="9"/>
-    <testCase name="o-createOrder" duration="3"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Product.test.js">
-    <testCase name="renders product without crashing" duration="2"/>
-    <testCase name="renders market components without crashing" duration="9"/>
-    <testCase name="accepts props" duration="2"/>
-    <testCase name="product renders  with empty basket" duration="2"/>
-    <testCase name="after click it will increase the quantity of product" duration="15"/>
-    <testCase name="after click it will decrease the quantity of product" duration="20"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
-    <testCase name="renders button correctly" duration="12"/>
-    <testCase name="includes link to products" duration="39"/>
-    <testCase name="includes link to registerform" duration="24"/>
-    <testCase name="renders container of the page correctly" duration="13"/>
-    <testCase name="renders video correctly" duration="2"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
-    <testCase name="includes link to products" duration="2"/>
-    <testCase name="renders button correctly" duration="22"/>
-    <testCase name="calls onClick prop when clicked" duration="13"/>
+    <testCase name="renders market without crashing" duration="13"/>
+    <testCase name="renders market components without crashing" duration="43"/>
+    <testCase name="accepts products and client props" duration="8">
+      <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: [{"category": "category1", "confirmed": 1, "description": "description1", "farmer_id": 4, "id": "0", "img_path": "some-img-path-1", "name": "name1", "price": 100, "quantity": 100}, {"category": "category2", "confirmed": 1, "description": "description2", "farmer_id": 4, "id": "2", "img_path": "some-img-path-2", "name": "name2", "price": 100, "quantity": 100}, {"category": "category3", "confirmed": 1, "description": "description3", "farmer_id": 4, "id": "3", "img_path": "some-img-path-3", "name": "name3", "price": 100, "quantity": 100}]
+Received: undefined
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js:66:44)
+    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
+    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
+    at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
+    at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
+    at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
+    </testCase>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrderModal.test.js">
-    <testCase name="includes link to orders" duration="6"/>
-    <testCase name="renders button correctly" duration="7"/>
-    <testCase name="calls onClick prop when clicked" duration="9"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
-    <testCase name="includes link to products" duration="4"/>
-    <testCase name="renders button correctly" duration="7"/>
+    <testCase name="includes link to orders" duration="9"/>
+    <testCase name="renders button correctly" duration="20"/>
     <testCase name="calls onClick prop when clicked" duration="10"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js">
-    <testCase name="testing search of a client" duration="206"/>
+    <testCase name="testing search of a client" duration="277"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/App.test.js">
+    <testCase name="c-getClients" duration="12"/>
+    <testCase name="c-addClient" duration="1"/>
+    <testCase name="c-getFromId" duration="0"/>
+    <testCase name="p-getProducts" duration="308"/>
+    <testCase name="p-addProduct" duration="112"/>
+    <testCase name="p-getProductsFromCategory" duration="0"/>
+    <testCase name="p-updateConfirmed" duration="104"/>
+    <testCase name="o-getAllOrders" duration="8"/>
+    <testCase name="o-createOrder" duration="2"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
+    <testCase name="includes link to products" duration="11"/>
+    <testCase name="renders button correctly" duration="16"/>
+    <testCase name="calls onClick prop when clicked" duration="8"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/RegisterPage.test.js">
+    <testCase name="Render Check registerpageRender" duration="12"/>
+    <testCase name="Render check button submit " duration="6"/>
+    <testCase name="Render check button back " duration="3"/>
+    <testCase name="changeInput Button submit" duration="27"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js">
+    <testCase name="clock-object-initialization" duration="4"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock- set an event" duration="2"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="2"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="19"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock-reset" duration="1"/>
+    <testCase name="clock-reset" duration="0"/>
+    <testCase name="clock-reset" duration="1"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Product.test.js">
+    <testCase name="renders product without crashing" duration="7"/>
+    <testCase name="renders market components without crashing" duration="25"/>
+    <testCase name="accepts props" duration="4"/>
+    <testCase name="product renders  with empty basket" duration="4"/>
+    <testCase name="after click it will increase the quantity of product" duration="10"/>
+    <testCase name="after click it will decrease the quantity of product" duration="10"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
   </file>
 </testExecutions>

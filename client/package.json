@@ -32,7 +32,6 @@
     "coveragePathIgnorePatterns": [
       "src/index.js",
       "src/reportWebVitals.js",
-      "src/App.js",
       "src/components/VirtualClock.js",
       "src/User.js"
     ]

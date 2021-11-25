@@ -40,7 +40,7 @@ test('p-getProducts', () => {
     return productObject.initialize().then(() => expect(productObject.getProducts().length).toEqual(20))
 })
 
-//adding one more client -> testing the createUser API
+//adding one more product -> testing the createUser API
 test('p-addProduct', () => {
     return productObject.addProduct("boh", "boh", 0.78, "Fruits", 0,12,"boh", 4).then(() =>
     expect(productObject.getProducts().length).toEqual(21));
@@ -61,7 +61,7 @@ test('p-updateConfirmed', () =>{
 test('o-getAllOrders',()=>{
     API.logIn("mariorossi@gmail.com","mariorossi");
     const orders = new OrdersList();
-    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(9)})
+    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(4)})
 });
 
 test('o-createOrder',()=>{

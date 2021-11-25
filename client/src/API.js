@@ -1,14 +1,14 @@
 import {Client} from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-import "jest-fetch-mock" //decommentare per il testing
+//import "jest-fetch-mock" //decommentare per il testing
 
-//const BASEURL = '/api';
+const BASEURL = '/api';
 
 /*
 //TO UNCOMMENT IN CASE OF TESTING
 */
-const BASEURL = 'http://localhost:3001/api';
+//const BASEURL = 'http://localhost:3001/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -176,6 +176,19 @@ async function changeDateTime(order_id, date, time) {
 
 }
 
+async function changeQuantity(product_id, order_quantity){
+  const response = await fetch(BASEURL + '/products/quantity', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        product_id: product_id,
+        order_quantity: order_quantity
+  })
+});
+console.log(response.ok);
+return response.ok;
+}
+
 async function updateWallet(amount, clientID){
   const response = await fetch(BASEURL + '/wallets', {
     method: 'PUT',
@@ -265,8 +278,67 @@ async function getBasket(order_id) {
   }
 }
 
+async function getClientById(client_id) {
+
+  const response = await fetch(BASEURL + '/clients/' + client_id);
+
+  const client = await response.json();
+
+  if (response.ok) {
+    return client;
+  } else {
+    return undefined;
+  }
+}
+
+async function getNotifications(client_id){
+  const response = await fetch(BASEURL + '/notifications/' + client_id);
+
+  const notifications = await response.json();
+
+  return notifications;
+}
+
+async function postNotification(client_id, description){
+  try {
+    const response = await fetch(BASEURL + '/notifications/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          client_id: client_id,
+          description: description
+        }
+      )
+    })
+    const inserted = await response.json();
+
+    if (!response.ok) {
+      throw response;
+    }
+
+    return inserted;
+  }
+  catch {
+    return false;
+  }
+
+}
+
+
+async function deleteNotification(client_id){
+  const response = await fetch(BASEURL + '/notifications/' + client_id, { method: 'DELETE' });
+
+  const result = await response.json();
+
+  return true;
+}
+
 
 const API = {
+  getNotifications,
+  postNotification,
+  deleteNotification,
   getAllClients,
   getAllProducts,
   updateConfirmedProduct,
@@ -281,7 +353,9 @@ const API = {
   getUserInfo,
   updateWallet,
   createBasket,
-  getBasket
+  getBasket,
+  changeQuantity,
+  getClientById
 }
 
 export default API;

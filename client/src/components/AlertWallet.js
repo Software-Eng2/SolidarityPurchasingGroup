@@ -5,12 +5,19 @@ import { useHistory, Link } from "react-router-dom";
 import API from '../API';
 
 function AlertWallet(props) {
-  const [done, setDone] = useState(false);
-  let history = useHistory();
 
+  const [done, setDone] = useState(false);
+  const [showLaterModal, setShowLaterModal] = useState(false);
+  let history = useHistory();
+  const handleClose = () => {
+    setShowLaterModal(false);
+    window.location.reload();
+}
   const updateWallet = () => {
-    API.updateWallet(parseInt(props.topUp) + parseInt(props.user.amount), props.user.id).then(() => {
-      props.user.amount = parseInt(props.topUp) + parseInt(props.user.amount);
+    API.updateWallet(parseInt(props.topUp) + parseInt(props.user.amount ? props.user.amount : props.currentClient.amount), props.user.id ? props.user.id : props.currentClient.id).then(() => {
+      if(props.user.amount){
+        props.user.amount = parseInt(props.topUp)+parseInt(props.user.amount);
+      } else props.currentClient.amount = parseInt(props.topUp)+parseInt(props.currentClient.amount);
       setDone(true);
       console.log("OK");
       setTimeout(() => {
@@ -18,12 +25,29 @@ function AlertWallet(props) {
         props.setAlertWalletShow(false); 
         setDone(false);
         props.setTopUp(0);
-        history.push('/orders');
+        window.location.reload();
       }, 3000)
     }).catch((err) => console.log(err));
   }
-
     return (
+      <>
+       <Modal centered show={showLaterModal} onHide={handleClose}>
+         {showLaterModal ?
+        <Modal.Body style={{backgroundColor: "#fff3cd"}}>
+          <Alert variant="warning">
+              <Alert.Heading className="mt-2">
+                <MdDoneOutline size={30} className="mr-3"/>
+                Order Issued!
+              </Alert.Heading>
+              <p>
+                Remember to top up to confirm the order!
+              </p>
+          </Alert>
+          <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Body> : ''}
+        </Modal>
       <Modal {...props} centered>
         {done ? 
         <Modal.Body style={{backgroundColor: "#d4edda"}}>
@@ -33,7 +57,7 @@ function AlertWallet(props) {
                 Top Up Success
               </Alert.Heading>
               <p>
-                Your top up has been successfully done.<br/> You will be redirect to the list of orders
+                Your top up has been successfully done.<br/> You will recieve a notification when your order is ready.
               </p>
           </Alert>
         </Modal.Body>
@@ -48,14 +72,14 @@ function AlertWallet(props) {
           <Container>
             <Row>
                 <Col xs={12}>
-                    <h5 className="text-center">{props.user.name} {props.user.surname}</h5>
-                    <h6 className="text-center">{props.user.email}</h6>
+                    <h5 className="text-center">{props.user.name ? props.user.name : props.currentClient.name} {props.user.surname ? props.user.surname : props.currentClient.surname}</h5>
+                    <h6 className="text-center">{props.user.email ? props.user.email : props.currentClient.email}</h6>
                 </Col>
             </Row>
             <Row className="mt-1">
                 <Col xs={12} >
                     <h6 className="text-center mt-1">Balance</h6>
-                    <h3 className="text-center">${props.user.amount}</h3>
+                    <h3 className="text-center">€ {props.user.amount ? props.user.amount : props.currentClient.amount}</h3>
                 </Col>
             </Row>
             <Row>
@@ -65,7 +89,7 @@ function AlertWallet(props) {
                 </Col>
             </Row>
             <Form.Group as={Row} className="mb-3 mt-2" controlId="formPlaintextPassword">
-              <Form.Label column xs={1} md={1} className="ml-3">$</Form.Label>
+              <Form.Label column xs={1} md={1} className="ml-3">€</Form.Label>
               <Col xs={5} md={5}>
                 <Form.Control 
                   type="number"
@@ -87,12 +111,13 @@ function AlertWallet(props) {
           </Container>
         </Modal.Body>
         <Modal.Footer style={{backgroundColor: "#fff3cd"}}>
-            <Link to={{ pathname: '/orders'}}>
-                <Button variant="warning" onClick={props.onHide}>Top up later</Button>
+            <Link to={{ pathname: '/products'}}>
+                <Button variant="warning" onClick={()=>{setShowLaterModal(true)}}>Top up later</Button>
             </Link>
         </Modal.Footer>
         </>}
       </Modal>
+      </>
     );
   }
   

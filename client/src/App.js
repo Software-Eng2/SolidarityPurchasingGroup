@@ -22,7 +22,8 @@ function App() {
   const [dirty, setDirty] = useState(false);
   const [orders, setOrders] = useState([]);
   const routerHistory = useHistory();
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
+  const [currentClient, setCurrentClient] = useState("");
 
   useEffect(()=>{
     API.getAllProducts().then((p) => {
@@ -49,13 +50,20 @@ function App() {
       }
      },[loggedIn, dirty]);
 
-    
+    useEffect (()=> {
+        if(userRole === "client" && userid){
+          API.getClientById(userid).then((client) => {
+            setCurrentClient(client);
+            console.log(currentClient);
+        });
+        }
+    },[userid,userRole])
 
   const doLogIn = (email, password) => {
-    API.logIn(email, password).then(([e,id]) => {   
+    API.logIn(email, password).then(([e]) => {   
       API.getUserInfo().then((user) => {      
         setUserEmail(e);
-        setUserid(id);
+        setUserid(user.id);
         setLoggedIn(true);
         setUserRole(user.role);
         console.log(user.role);  
@@ -66,6 +74,7 @@ function App() {
             window.location.reload();
             break;
           case 'client':
+            console.log(userid);
             routerHistory.push('/products');  
             window.location.reload();
         }
@@ -84,7 +93,7 @@ function App() {
       routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
-
+  
   return (
     <Router>
         <NavBar loggedIn={loggedIn} doLogOut={doLogOut} userRole={userRole}/>
@@ -93,7 +102,7 @@ function App() {
           <Homepage/>
         </Route>
         <Route exact path='/products' render={({location}) => 
-          <Market products={products} client={location.state ? location.state.client : ""}/>
+          <Market products={products} userid={userid} userRole={userRole} currentClient={currentClient} client={location.state ? location.state.client : ""}/>
         }/>
         <Route exact path="/orders">
           {loggedIn ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}        
