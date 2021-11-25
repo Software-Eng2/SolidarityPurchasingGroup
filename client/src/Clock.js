@@ -26,7 +26,7 @@
  * @param {Function} checkProductsAvailabilityMilestone - check if the Farmer Product Availability confirmed event is passed, return true if the event is passed, false otherwise
  * @param {Function} checkWalletsOkMilestone - check if the Wallets top upped deadline is passed, return true if the event is passed, false otherwise
  */
-class Clock{
+ class Clock{
 
     /**
      * Clock object can be initialized in any
@@ -256,10 +256,8 @@ class Clock{
         this.checkEvents(checkDate);
         return this.eventsObject.walletsOK;
     }
+
+    
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8ca5931a2a9cd72e3ef0a9da0554b17bde48a979
 export {Clock}
