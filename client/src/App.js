@@ -105,7 +105,7 @@ function App() {
          <RegisterInterface userRole={userRole}/>
         </Route>
         <Route exact path="/clock">
-          <VirtualClock></VirtualClock>
+          <VirtualClock/>
         </Route>
 
         {loggedIn ? (

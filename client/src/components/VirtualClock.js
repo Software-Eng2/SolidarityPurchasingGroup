@@ -1,64 +1,71 @@
-import { useEffect, useState } from "react";
-import { Container, Row, Table, Col } from "react-bootstrap";
-import { ClientsList } from "../Client";
+import 'react-calendar/dist/Calendar.css';
+import React, { useEffect, useState } from 'react';
+import { ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
+import {BsFillArrowRightSquareFill, BsFillArrowLeftSquareFill} from 'react-icons/bs'
+import Calendar from 'react-calendar';
+import {Clock} from "../Clock.js";
+import {Order} from "../Order";
 
-function VirtualClock(props){
+function VirtualClock(){
+  const [date, setDate] = useState(new Date());
+    const clock = new Clock();
+  useEffect(() => {
+    const interval = setInterval(
+      () => setDate(new Date()),
+      1000
+    );
+ 
+    return () => {
+      clearInterval(interval);
+    }
+  }, []);
 
-    const [allocated, setAllocated] = useState(false);
-    const [initialized, setInitialized] = useState(false);
-    const [clientObject, setClientObject] = useState(undefined);
+  const changeDate = () => {
+      let data = date;
+      setDate(data.getDate() + (((1 + 7 - data.getDay()) % 7) || 7))
+  }
 
-    console.log('Prova');
-    console.log(clientObject);
+    return (
+        <>
+          <ButtonToolbar>
+            <ButtonGroup size="lg" className="clock mx-auto">
+              <Button variant="outline-success" disabled={new Date().getDay() > 1} onClick={()=> clock.setAvailabilityConfirmedMilestone()}>
+                Monday 09:00
+                {/*<p> Farmers confirm available products</p>*/}
+              </Button>
+              <Button variant="outline-success" disabled={new Date().getDay() > 1} onClick={() => clock.setWalletOKMilestone()}>
+                Monday 20:00
+                {/*} <p> farmers deliver their products</p>*/}
+              </Button>
+              <Button variant="outline-success"  disabled={new Date().getDay() > 6} onClick={()=> clock.setFarmerEstimatesMilestone()}>
+              Saturday 09:00
+                {/*<p> farmers provide estimates of available products for next week</p>*/}
+              </Button>
+                <Button variant="outline-success" onClick={()=> clock.setOrdersAcceptedMilestone()}>
+                    Sunday 23:00
+                    {/*<p>Orders from clients are accepted until Sunday 23:00</p>*/}
+                </Button>
+            </ButtonGroup>
+          </ButtonToolbar>
+            <div className='calendar-container d-flex justify-content-center mt-3'>
+                <div>
+                    <Button variant="success" className='ml-1 mr-3' onClick={changeDate}>
+                        <BsFillArrowLeftSquareFill className='ml-1 mr-3' size={30} fill="green"/>
+                        Last week
+                    </Button>
+                </div>
+                <Calendar onChange={setDate} value={date} minDate={new Date()} minDetail='month' maxDate={new Date(2021, 12, 1)}/>
+                <div>
+                    <Button variant="success" className='ml-3 mr-1' onClick={changeDate}>
+                        Next week
+                        <BsFillArrowRightSquareFill className='ml-3 mr-1' size={30} fill="green"/>
+                    </Button>
+                </div>
 
-    useEffect(async () => {
-        if(!allocated){
-            setClientObject(new ClientsList());
-            setAllocated(true);
-        }
-
-        if(allocated && !initialized){
-            let res = await clientObject.initialize();
-            if(res){
-                setInitialized(true);
-            }
-        }
-    }, [allocated]);
-
-
-    return(
-        <Container>
-            <Row>
-                <Col>
-                    <Table>
-                        <thead >
-                            <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Birthdate</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {(initialized === true) ?                        
-                        clientObject.getClients().map((client) => (
-                        <tr key={client.id} className="p-0">        
-                                <td>{client.name}</td>
-                                <td>{client.surname}</td>
-                                <td>{client.birthdate}</td>
-                                <td>{client.email}</td>
-                        </tr>))
-                        :
-                        <>
-                        </>
-                        }
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>
-        </Container>
-    )
-
+            </div>
+            <h1 className='text-center mt-3'></h1>
+        </>
+      )
 }
 
 export default VirtualClock;

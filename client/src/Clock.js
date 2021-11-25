@@ -247,7 +247,7 @@ class Clock{
         this.checkEvents();
         return this.eventsObject.walletsOK;
     }
-
-    
 }
 
+
+export {Clock}

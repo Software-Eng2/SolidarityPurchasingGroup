@@ -44,6 +44,14 @@ $button-black: #5C6166;
   padding-top: 1rem;
 }
 
+.clock {
+  padding-top: 5rem;
+}
+
+.calendar-container{
+  padding-top: 4rem;
+}
+
 .page {
   min-height: 87vh;
   overflow-x: hidden;
