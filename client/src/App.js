@@ -12,6 +12,8 @@ import Homepage from './components/Homepage';
 import LoginForm from './LoginForm';
 import API from './API';
 import VirtualClock from './components/VirtualClock';
+import FarmerPlanning from './components/FarmerPlanning';
+import FarmerInterface from './components/FarmerInterface';
 
 function App() {
 
@@ -77,6 +79,14 @@ function App() {
             console.log(userid);
             routerHistory.push('/products');  
             window.location.reload();
+            break;
+          case 'farmer':
+            routerHistory.push('/farmer');  
+            window.location.reload(); 
+            break;
+          default:
+            routerHistory.push('/');
+
         }
       }).catch((err) => console.log(err));   
     }).catch((err) => {
@@ -93,7 +103,7 @@ function App() {
       routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
-  
+
   return (
     <Router>
         <NavBar loggedIn={loggedIn} doLogOut={doLogOut} userRole={userRole}/>
@@ -122,6 +132,12 @@ function App() {
           ) : (<Route exact path="/login">
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }
+        <Route exact path="/farmer">
+          {loggedIn ? <FarmerInterface products={products} userid={userid} client={""} /> : <LoginForm doLogIn={doLogIn}/>}        
+        </Route>
+        <Route exact path="/farmerPlanning">
+          <FarmerPlanning />
+        </Route>
       </Switch>
     </Router>
   );
