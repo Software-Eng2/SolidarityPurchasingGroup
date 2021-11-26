@@ -12,6 +12,8 @@ import Homepage from './components/Homepage';
 import LoginForm from './LoginForm';
 import API from './API';
 import VirtualClock from './components/VirtualClock';
+import FarmerPlanning from './components/FarmerPlanning';
+import FarmerInterface from './components/FarmerInterface';
 
 function App() {
 
@@ -23,7 +25,7 @@ function App() {
   const [orders, setOrders] = useState([]);
   const routerHistory = useHistory();
   const [products, setProducts] = useState([]);
-  const [currentClient, setCurrentClient] = useState("");
+  const [currentClient, setCurrentClient] = useState('');
 
   useEffect(()=>{
     API.getAllProducts().then((p) => {
@@ -54,7 +56,6 @@ function App() {
         if(userRole === "client" && userid){
           API.getClientById(userid).then((client) => {
             setCurrentClient(client);
-            console.log(currentClient);
         });
         }
     },[userid,userRole])
@@ -77,6 +78,14 @@ function App() {
             console.log(userid);
             routerHistory.push('/products');  
             window.location.reload();
+            break;
+          case 'farmer':
+            routerHistory.push('/farmer');  
+            window.location.reload(); 
+            break;
+          default:
+            routerHistory.push('/');
+
         }
       }).catch((err) => console.log(err));   
     }).catch((err) => {
@@ -93,7 +102,7 @@ function App() {
       routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
-  
+
   return (
     <Router>
         <NavBar loggedIn={loggedIn} doLogOut={doLogOut} userRole={userRole}/>
@@ -102,7 +111,7 @@ function App() {
           <Homepage/>
         </Route>
         <Route exact path='/products' render={({location}) => 
-          <Market products={products} userid={userid} userRole={userRole} currentClient={currentClient} client={location.state ? location.state.client : ""}/>
+          <Market products={products} userRole={userRole} currentClient={currentClient} client={location.state ? location.state.client : ""}/>
         }/>
         <Route exact path="/orders">
           {loggedIn ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}        
@@ -122,6 +131,12 @@ function App() {
           ) : (<Route exact path="/login">
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }
+        <Route exact path="/farmer">
+          {loggedIn ? <FarmerInterface products={products} userid={userid} client={""} /> : <LoginForm doLogIn={doLogIn}/>}        
+        </Route>
+        <Route exact path="/farmerPlanning">
+          <FarmerPlanning />
+        </Route>
       </Switch>
     </Router>
   );

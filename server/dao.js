@@ -272,3 +272,18 @@ exports.deleteNotification = (id) => {
     });
   });
 };
+
+// get products by farmer id
+exports.getProductsByFarmer = (farmer_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM PRODUCTS WHERE farmer_id = ?';
+        db.all(sql, [farmer_id], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const products = rows.map((p) => ({ id: p.id, name: p.name,description: p.description, category: p.category, quantity: p.quantity, price: p.price, farmer_id: p.farmer_id, img_path: p.img_path, confirmed: p.confirmed }));
+            resolve(products);
+        });
+  })
+}

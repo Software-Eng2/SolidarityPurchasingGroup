@@ -334,6 +334,18 @@ async function deleteNotification(client_id){
   return true;
 }
 
+async function getProductsByFarmer(farmer_id){
+
+  const response = await fetch(BASEURL + `/farmer/${farmer_id}/products`);
+
+  const products = await response.json();
+
+  if (response.ok) {
+      return products.map((p) => new Product(p.id, p.name, p.description, p.category, p.quantity, p.price, p.farmer_id, p.img_path, p.confirmed));
+  } else {
+      return undefined;
+  }
+}
 
 const API = {
   getNotifications,
@@ -355,7 +367,8 @@ const API = {
   createBasket,
   getBasket,
   changeQuantity,
-  getClientById
+  getClientById,
+  getProductsByFarmer
 }
 
 export default API;
