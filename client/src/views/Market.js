@@ -6,11 +6,10 @@ import SideBar from '../components/SideBar';
 import Basket from '../components/Basket';
 import AlertWallet from '../components/AlertWallet';
 import PropTypes from 'prop-types';
-import API from '../API';
 import {MdDoneOutline} from "react-icons/md";
 
 function Market(props) {
-    const { products, client, userid, userRole, currentClient} = props;
+    const { products, client, userRole, currentClient} = props;
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
     const [category, setCategory] = useState('All');
@@ -86,7 +85,7 @@ function Market(props) {
         </Modal.Body>
       </Modal>
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
-            <Basket basket={basket} show={show} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
+            <Basket basket={basket} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
             <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient}/>
             <Row>
                 <Col xs={2} sm={2} md={2}>
