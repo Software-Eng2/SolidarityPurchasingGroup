@@ -44,6 +44,14 @@ $button-black: #5C6166;
   padding-top: 1rem;
 }
 
+.clock {
+  padding-top: 5rem;
+}
+
+.calendar-container{
+  padding-top: 4rem;
+}
+
 .page {
   min-height: 87vh;
   overflow-x: hidden;
@@ -273,6 +281,36 @@ th {
   color: #FAFAFA;
 }
 
-.login{
+.login {
   overflow: hidden;
+}
+
+.farmer-title {
+  font-size: 25px;
+  font-weight: 'bold';
+  color: #1d1d1d;
+}
+
+
+.farmer-button button {
+  padding: 0.5rem;
+  width: 17rem;
+  height: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: #1d1d1d;
+  border: 0px;
+  border-radius: 9px;
+  color: white;
+  margin: 1rem;
+  font-size: 23px;
+  font-weight: 'bold';
+}
+
+.farmer-button button:hover {
+  background-color: #373737;
+}
+
+.farmer-button button:disabled {
+  background-color: #37BD55;
 }

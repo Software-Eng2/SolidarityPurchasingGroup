@@ -153,6 +153,15 @@ app.get('/api/products',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
 
+// get all products from a farmer
+app.get('/api/farmer/:farmer_id/products',
+  (req, res) => {
+    const farmer_id = req.params.farmer_id;
+    dao.getProductsByFarmer(farmer_id)
+    .then((products) => { res.json(products) })
+    .catch((err) => res.status(500).json({ error: "Error " + err }));
+  });
+
 // add a new product
 app.post('/api/products',
   [
@@ -413,7 +422,7 @@ app.post('/api/notifications/',
       );
   });
 
-  app.delete('api/notifications/:id', 
+  app.delete('/api/notifications/:id', 
     [
       check('id').isInt({min:0})
     ],

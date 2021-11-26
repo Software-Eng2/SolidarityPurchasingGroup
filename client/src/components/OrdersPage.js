@@ -20,6 +20,8 @@ function OrdersPage(props){
                 setDirty={setDirty} 
                 setSelectedOrder={setSelectedOrder} 
                 setModalShow={setModalShow}
+                setDate={setDate}
+                setTime={setTime}
             />
             <OrderModal 
                 show={modalShow} 
