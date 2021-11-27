@@ -12,6 +12,8 @@ import Homepage from './components/Homepage';
 import LoginForm from './LoginForm';
 import API from './API';
 import VirtualClock from './components/VirtualClock';
+import FarmerPlanning from './components/FarmerPlanning';
+import FarmerInterface from './components/FarmerInterface';
 
 function App() {
 
@@ -27,6 +29,9 @@ function App() {
   const [currentClient, setCurrentClient] = useState("");
   const [notificationFlag, setNotificationFlag] = useState(0); // 0 notification not showed yet, 1 notification showed
   const [amountCancellingOrders, setAmountCancellingOrders] = useState(0);
+  const [farmerProducts, setFarmerProducts] = useState([]);
+  const [currentClient, setCurrentClient] = useState('');
+
   useEffect(()=>{
     API.getAllProducts().then((p) => {
       setProducts(p);
@@ -80,6 +85,16 @@ function App() {
     }
   },[userid,userRole])
 
+  useEffect (()=> {
+    if(userRole === "farmer" && userid){
+      API.getProductsByFarmer(userid).then((products) => {
+        setFarmerProducts(products);
+    });
+    }
+  },[userid,userRole])
+
+
+
   const doLogIn = (email, password) => {
     API.logIn(email, password).then(([e]) => {   
       API.getUserInfo().then((user) => {      
@@ -97,6 +112,14 @@ function App() {
             console.log(userid);
             routerHistory.push('/products');  
             window.location.reload();
+            break;
+          case 'farmer':
+            routerHistory.push('/farmer');  
+            window.location.reload(); 
+            break;
+          default:
+            routerHistory.push('/');
+
         }
       }).catch((err) => console.log(err));   
     }).catch((err) => {
@@ -114,7 +137,7 @@ function App() {
       routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
-  
+
   return (
     <Router>
         <NavBar loggedIn={loggedIn} doLogOut={doLogOut} userRole={userRole}/>
@@ -148,6 +171,12 @@ function App() {
           ) : (<Route exact path="/login">
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }
+        <Route exact path="/farmer">
+          {loggedIn ? <FarmerInterface products={farmerProducts} userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}        
+        </Route>
+        <Route exact path="/farmerPlanning">
+          <FarmerPlanning userid={userid} />
+        </Route>
       </Switch>
     </Router>
   );

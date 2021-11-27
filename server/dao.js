@@ -273,7 +273,7 @@ exports.deleteNotification = (id) => {
   });
 };
 
-// get specific client by id
+// get cancelling orders by client id
 
 exports.getCancellingOdersByClientId = (client_id) => {
   return new Promise((resolve, reject) => {
@@ -287,4 +287,34 @@ exports.getCancellingOdersByClientId = (client_id) => {
       resolve(orders);
     });
 })
+}
+
+
+// get products by farmer id
+exports.getProductsByFarmer = (farmer_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM PRODUCTS WHERE farmer_id = ?';
+        db.all(sql, [farmer_id], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const products = rows.map((p) => ({ id: p.id, name: p.name,description: p.description, category: p.category, quantity: p.quantity, price: p.price, farmer_id: p.farmer_id, img_path: p.img_path, confirmed: p.confirmed }));
+            resolve(products);
+        });
+  })
+}
+
+// delete a product by id
+exports.deleteProduct = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM PRODUCTS WHERE id = ?';
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
 }

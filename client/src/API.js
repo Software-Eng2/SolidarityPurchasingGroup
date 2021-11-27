@@ -1,14 +1,14 @@
 import {Client} from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-//import "jest-fetch-mock" //decommentare per il testing
+import "jest-fetch-mock" //decommentare per il testing
 
-const BASEURL = '/api';
+//const BASEURL = '/api';
 
 /*
 //TO UNCOMMENT IN CASE OF TESTING
 */
-//const BASEURL = 'http://localhost:3001/api';
+const BASEURL = 'http://localhost:3001/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -346,6 +346,31 @@ async function getCancellingOdersByClientId(client_id) {
     return undefined;
   }
 }
+async function getProductsByFarmer(farmer_id){
+
+  const response = await fetch(BASEURL + `/farmer/${farmer_id}/products`);
+
+  const products = await response.json();
+
+  if (response.ok) {
+      return products.map((p) => new Product(p.id, p.name, p.description, p.category, p.quantity, p.price, p.farmer_id, p.img_path, p.confirmed));
+  } else {
+      return undefined;
+  }
+}
+
+async function deleteProduct(product_id){
+  const response = await fetch(BASEURL + '/products/' + product_id, { method: 'DELETE' });
+
+  const result = await response.json();
+  console.log(result);
+  if (response.ok) {
+    return true
+  } else {
+    return false;
+  }
+}
+
 
 const API = {
   getNotifications,
@@ -368,7 +393,9 @@ const API = {
   createBasket,
   getBasket,
   changeQuantity,
-  getClientById
+  getClientById,
+  getProductsByFarmer,
+  deleteProduct
 }
 
 export default API;

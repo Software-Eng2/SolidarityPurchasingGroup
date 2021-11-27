@@ -36,7 +36,7 @@ function OrderModal(props) {
 }, [selectedOrder]);
 
     return (
-      <Modal {...props}  centered>
+      <Modal {...props}  centered data-testid="order-modal" >
         {done ? 
         <Modal.Body style={{backgroundColor: "#d4edda"}}>
           <Alert show={done} variant="success">
@@ -88,11 +88,13 @@ function OrderModal(props) {
                 </Col>
                 <Col xs={6}>
                 <Form.Control
+                    data-testid='date-picker'
                     type="date" 
                     placeholder="date" 
                     value={date} 
                     onChange={(event) => {setDate(event.target.value);}}
-                    min={dayjs().format("YYYY-MM-DD")} />
+                    min={dayjs().add(1, "w").day(3).format("YYYY-MM-DD")}
+                    max={dayjs().add(1, "w").day(5).format("YYYY-MM-DD")} />
                 </Col>
             </Row>
             <Row className="mt-3">
@@ -101,22 +103,28 @@ function OrderModal(props) {
                 </Col>
                 <Col xs={6}>
                 <Form.Control 
+                    data-testid='time-picker'
                     type="time" 
                     placeholder="time" 
                     value={time}
+                    min="09:00"
+                    max="21:00"
                     onChange={(event) => {setTime(event.target.value);}} />
                 </Col>
+            </Row>
+            <Row className="justify-content-end">
+                <small>Please, pick a time between 09:00 and 21:00</small>
             </Row>
           </Container>
         </Modal.Body>
         <Modal.Footer style={{backgroundColor: "#b4e6e2"}}>
           <Col className="text-left">
-          <Button variant='danger'onClick={props.onHide}>
+          <Button data-testid="button-close"  variant='danger'onClick={props.onHide}>
               Close
           </Button>
           </Col>
           <Col className="text-right" >
-          <Button data-testid="button-confirm" variant="success" disabled={((date === '') || (time === ''))} onClick={updateOrder}>
+          <Button data-testid="button-confirm" variant="success" disabled={((date === '') || (time === '')||(time<"09:00")||(time>"21:00"))} onClick={updateOrder}>
               Confirm
          </Button>
          </Col>

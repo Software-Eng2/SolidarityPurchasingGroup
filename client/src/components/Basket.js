@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SlidingPane from 'react-sliding-pane';
-import{ Container, Row, Col, Form, Button, Modal, Alert} from "react-bootstrap";
+import{ Container, Row, Col, Form, Button} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import API from '../API';
 import dayjs from 'dayjs';
@@ -12,7 +12,7 @@ function Basket(props){
     const qty = basket.length;
     const client = props.client;
     const currentClient = props.currentClient;
-    const {show, setShow} = props;
+    const {setShow} = props;
     const [delivery, setDelivery] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -225,7 +225,8 @@ function Basket(props){
                                             placeholder="date"
                                             value={date}
                                             onChange={(event) => { setDate(event.target.value); }}
-                                            min={dayjs().format("YYYY-MM-DD")} />
+                                            min={dayjs().add(1, "w").day(3).format("YYYY-MM-DD")}
+                                            max={dayjs().add(1, "w").day(5).format("YYYY-MM-DD")} />
                                     </Form.Group>
                                 </Col>
                                 <Col xs={8} md={8}>
@@ -234,9 +235,12 @@ function Basket(props){
                                             type="time"
                                             placeholder="time"
                                             value={time}
+                                            min="09:00"
+                                            max="21:00"
                                             onChange={(event) => { setTime(event.target.value); }} />
                                     </Form.Group>
                                 </Col>
+                                <small>Please, pick a time between 09:00 and 21:00</small>
                             </Row>
                         </Form>
                         
@@ -245,7 +249,7 @@ function Basket(props){
                                 <Button 
                                     style={{fontWeight:"bold"}} 
                                     onClick={()=>{handleShop()}} 
-                                    disabled={((delivery==='') || (address==='') || (city==='') || (zip==='') || (date==='') ||(time===''))? true : false}>
+                                    disabled={((delivery==='')||(address==='')||(city==='')||(zip==='')||(date==='')||(time==='')||(time<"09:00")||(time>"21:00"))? true : false}>
                                     Shop now 
                                 </Button>
                             </div>

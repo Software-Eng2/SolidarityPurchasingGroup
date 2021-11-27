@@ -1,10 +1,6 @@
 /**
 * @jest-environment node
 */
-
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from '../App';
 import API from '../API';
 import {Order, OrdersList } from '../Order';
 const client = require('../Client');
@@ -14,6 +10,21 @@ let clientObject = new client.ClientsList();
 let productObject = new product.ProductsList();
 
 /* -------------- CLIENT -------------- */
+
+/* Testing when object is not initialized */
+test('c- addClient', async () => {
+    const result = await clientObject.addClient();
+    expect(result).toEqual(undefined)
+})
+
+test('c- getCLients', () => {
+    expect(clientObject.getClients()).toEqual(undefined)
+})
+
+test('c- getClientFromId', () => {
+    expect(clientObject.getClientFromId()).toEqual(undefined)
+})
+/* -------------------------------------- */
 
 test('c-getClients', () => {
     //for now only 3 clients present in DB. Modify the toEqual if more clients are stored
@@ -31,9 +42,34 @@ test('c-getFromId', () => {
     expect(clientObject.getClientFromId(2)[0].name).toEqual('Marco');
 })
 
+test('c-Client.updateWallet', async () => {
+    const response = await clientObject.getClientFromId(2)[0].updateWallet(20);
+    expect(response).toEqual(true);
+})
+
 /* ---------------------------------- */
 
 /* ---------- PRODUCTS ---------- */
+
+/* Testing when object is not initialized */
+test('p-getProducts', () => {
+    expect(productObject.getProducts()).toEqual(undefined);
+})
+
+test('p-addProduct', async () => {
+    const result = await productObject.addProduct();
+    expect(result).toEqual(undefined);
+})
+
+test('p-getProductsFromCategory', () => {
+    expect(productObject.getProductsFromCategory("Fruits")).toEqual(undefined);
+})
+
+test('p-updateConfirmed', async () =>{
+    const result = await productObject.updateConfirm();
+    expect(result).toEqual(undefined);
+})
+/*---------------------------------------- */
 
 test('p-getProducts', () => {
     //WARNING: for now only 20 clients present in DB. Modify the toEqual if more products are stored

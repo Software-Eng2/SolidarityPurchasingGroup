@@ -19,6 +19,22 @@ const SideBar = ({collapsed, width, searchCategory, handleBasket, userRole}) => 
             collapsed={collapsed}
             width={width}>
                 <SidebarHeader>
+                    { userRole == 'farmer' ? 
+                    <div
+                        style={{
+                            padding: '24px',
+                            textTransform: 'uppercase',
+                            fontWeight: 'bold',
+                            fontSize: 14,
+                            letterSpacing: '1px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                        }}
+                        >
+                        Your Products
+                    </div>
+                    : 
                     <Menu iconShape="circle">
                         <MenuItem icon={<FaShoppingCart/>} onClick={handleBasket}>
                             <div
@@ -34,11 +50,14 @@ const SideBar = ({collapsed, width, searchCategory, handleBasket, userRole}) => 
                             >
                             Your Basket
                             </div>
-                          
                         </MenuItem> 
-                    </Menu>
+                    </Menu> } 
                 </SidebarHeader>
+
                 <SidebarContent>
+                    { userRole == 'farmer' ?
+                    ''
+                    :
                     <div
                         style={{
                             padding: '24px',
@@ -52,7 +71,8 @@ const SideBar = ({collapsed, width, searchCategory, handleBasket, userRole}) => 
                         }}
                         >
                         Our Categories
-                    </div>
+                    </div> 
+                    }
                     <Menu iconShape="circle">
                         <MenuItem value="All" onClick={() => { searchCategory("All") }} icon={<FaProductHunt />}>All products</MenuItem>
                         <MenuItem value="Dairies" onClick={() => { searchCategory("Dairies") }} icon={<GiMilkCarton />}>Dairies</MenuItem>
