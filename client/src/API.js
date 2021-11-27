@@ -347,6 +347,19 @@ async function getProductsByFarmer(farmer_id){
   }
 }
 
+async function deleteProduct(product_id){
+  const response = await fetch(BASEURL + '/products/' + product_id, { method: 'DELETE' });
+
+  const result = await response.json();
+  console.log(result);
+  if (response.ok) {
+    return true
+  } else {
+    return false;
+  }
+}
+
+
 const API = {
   getNotifications,
   postNotification,
@@ -368,7 +381,8 @@ const API = {
   getBasket,
   changeQuantity,
   getClientById,
-  getProductsByFarmer
+  getProductsByFarmer,
+  deleteProduct
 }
 
 export default API;

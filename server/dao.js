@@ -287,3 +287,17 @@ exports.getProductsByFarmer = (farmer_id) => {
         });
   })
 }
+
+// delete a product by id
+exports.deleteProduct = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM PRODUCTS WHERE id = ?';
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+}
