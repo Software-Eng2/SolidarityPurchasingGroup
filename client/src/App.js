@@ -25,6 +25,7 @@ function App() {
   const [orders, setOrders] = useState([]);
   const routerHistory = useHistory();
   const [products, setProducts] = useState([]);
+  const [farmerProducts, setFarmerProducts] = useState([]);
   const [currentClient, setCurrentClient] = useState('');
 
   useEffect(()=>{
@@ -59,6 +60,16 @@ function App() {
         });
         }
     },[userid,userRole])
+
+  useEffect (()=> {
+    if(userRole === "farmer" && userid){
+      API.getProductsByFarmer(userid).then((products) => {
+        setFarmerProducts(products);
+    });
+    }
+  },[userid,userRole])
+
+
 
   const doLogIn = (email, password) => {
     API.logIn(email, password).then(([e]) => {   
@@ -132,10 +143,10 @@ function App() {
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }
         <Route exact path="/farmer">
-          {loggedIn ? <FarmerInterface products={products} userid={userid} client={""} /> : <LoginForm doLogIn={doLogIn}/>}        
+          {loggedIn ? <FarmerInterface products={farmerProducts} userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}        
         </Route>
         <Route exact path="/farmerPlanning">
-          <FarmerPlanning />
+          <FarmerPlanning userid={userid} />
         </Route>
       </Switch>
     </Router>

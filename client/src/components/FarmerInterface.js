@@ -1,13 +1,14 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom'; 
 import{ Container, Row, Col } from "react-bootstrap";
 import SideBar from './SideBar';
 import FarmerProduct from './FarmerProduct';
 import API from '../API';
 import { FaCalendarAlt, FaPlus} from "react-icons/fa";
+import {ImSad } from "react-icons/im";
+
 function FarmerInterface(props) {
-    const { products, client, userid} = props;
+    const { products, userid} = props;
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
     const [category, setCategory] = useState('All');
@@ -68,7 +69,7 @@ function FarmerInterface(props) {
     return (
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
 
-            <Row>
+            <Row style={{minHeight: "45rem"}}>
                 <Col xs={2} sm={2} md={2}>
                     <div className={`app `}>
 
@@ -77,7 +78,7 @@ function FarmerInterface(props) {
                         width="13rem"
                         searchCategory={(cat) => searchCategory(cat)}
                         handleBasket={handleBasket}
-                        farmer={true}
+                        userRole="farmer"
                         //client= {props.location.state}
                         />
                     </div>
@@ -95,7 +96,7 @@ function FarmerInterface(props) {
                             <Col xs={12} sm={12} md={6} >
                                 <Link to={{ pathname: '/farmerPlanning' }}>
                                     <div className="farmer-button">
-                                        <button >
+                                        <button disabled={products.length == 0 ? true : false}>
                                             <FaCalendarAlt/> Plan for next week
                                         </button>
                                        
@@ -122,32 +123,29 @@ function FarmerInterface(props) {
                                 <Col fluid key={`product-"${product.id}"`} xs={12} sm={6} md={4} lg={3} >
                                     <FarmerProduct product={product} basket={basket} setBasket={setBasket}/>
                                 </Col> : ''
-                                
                                 )
-                            
                             : 
-                            
                             products.map(product => 
                             product.confirmed ? 
                             <Col fluid key={`product-"${product.id}"`} xs={12} sm={6} md={4} lg={3} >
                                 <FarmerProduct product={product} basket={basket} setBasket={setBasket}/>
                             </Col> : ''
-                            
                             )}
                         </Row>
-                        {/* style={{marginTop:"0.5rem", marginBottom:"0.5rem", marginLeft:"1rem", marginRight:"1rem"}} */}
-
+                        <Row align='center'> 
+                            {products.length == 0 ? 
+                            <Col xs={12} sm={12} md={12} lg={12}> 
+                                <h3 style={{fontSize: "2.5rem", margin: "4", padding: "0", color: "#247D37"}}> 
+                                There are no products yet <ImSad />
+                                </h3>
+                            </Col>
+                            : 
+                            ''
+                            }
+                        </Row>
                     </Container>
-
                 </Col>
-                
             </Row>
-            {/* <Link to={{ pathname: '/farmerPlanning' }}>
-                <Button className="fixed" variant="success" size="lg">
-                    planning for next week <AiOutlineArrowRight></AiOutlineArrowRight>
-                </Button>
-            </Link> */}
-
         </Container>
         
     );
