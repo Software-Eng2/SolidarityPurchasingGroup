@@ -20,8 +20,6 @@ describe('Test LoginForm', () => {
 
   test('Test error LoginForm', () => {
     const history = createMemoryHistory();
-
-    // mock push function
     history.push = jest.fn();
 
     render(
@@ -29,7 +27,7 @@ describe('Test LoginForm', () => {
         <LoginForm doLogIn={() => jest.fn} />
       </MemoryRouter>
     );
-    //Click on the "Login" button without filling out fields
+    //Click on the "Log In" button without empty fields
     act(() => {
       fireEvent.click(screen.getByText('Log In'));
     });
@@ -49,7 +47,7 @@ describe('Test LoginForm', () => {
       });
     });
 
-    //Click on the "Login" button after filling out fields
+    //Click on the log In button after filling the  fields
     act(() => {
       fireEvent.click(screen.getByText('Log In'));
     });

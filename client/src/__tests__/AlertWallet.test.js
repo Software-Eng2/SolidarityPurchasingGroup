@@ -4,7 +4,9 @@
 
 import React from 'react';
 import { render, cleanup, getByText, fireEvent, screen} from "@testing-library/react";
-import ReactDOM from 'react-dom';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 import AlertWallet from '../components/AlertWallet';
 import { Button} from 'react-bootstrap';
@@ -13,6 +15,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
+import { Client } from '../Client';
 
 
 afterEach(() => {
@@ -20,11 +23,6 @@ afterEach(() => {
 });
 configure({ adapter: new Adapter() });
 
-it('includes link to products', () => {
-    const user = {id:'1', name:'Mario', surname:'Rossi', birthdate:'13-10-1999', email: 'mariorossi@gmail', amount: '3$' }
-    const wrapper = shallow(<AlertWallet show={true} setAlertWalletShow={false} topUp={0} setTopUp={1} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={user}/>);
-    expect(wrapper.props().user).toBe(user);
-});
 
 it("renders button correctly", () => {
     const { getByTestId } = render(  <Button 
@@ -37,23 +35,6 @@ it("renders button correctly", () => {
         </Button>);
     expect(getByTestId('button-top-up')).toHaveTextContent("Top up now");
 });
-
-/*
-it('State done is changed when button clicked', () => {
-    const user = {id:'1', name:'Mario', surname:'Rossi', birthdate:'13-10-1999', email: 'mariorossi@gmail', amount: '3$' }
-    const { getByTestId } = render(  <Button 
-        data-testid="button-top-up"
-          className="text-center mt-5"
-          variant="success"
-          disabled={0}
-          onClick={()=>{}}>
-            Top up now
-        </Button>);
-    fireEvent.click(getByTestId)
-   
-    expect(wrapper.props().setWalletShow).toBe(false);
- })*/
-
 
  test('calls onClick prop when clicked', () => {
     const updateWallet = jest.fn()
@@ -68,3 +49,45 @@ it('State done is changed when button clicked', () => {
     fireEvent.click(screen.getByText(/Top up now/i))
     expect(updateWallet).toHaveBeenCalledTimes(1)
   })
+;
+
+test('top up alert', ()=>{
+    const history = createMemoryHistory();
+    history.push = jest.fn();
+    const alertWalletShow = jest.fn();
+    const setAlertWalletShow = jest.fn();
+    const topUp = jest.fn();
+    const setTopUp = jest.fn();
+    const client = new Client(5,'Luca','Neri','2012-10-24','lucaneri@gmail.com',1,0);
+    const currentClient = new Client(5,'Luca','Neri','2012-10-24','lucaneri@gmail.com',1,0);
+    
+    render(
+      <MemoryRouter history={history}>
+        <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient} />
+      </MemoryRouter>
+    );
+    const topUpLater = screen.getByText('Top up later');
+    const boxAmount = screen.getByTestId('boxTopUp');
+    const topUpNow = screen.getByText('Top up now');
+    expect(topUpLater).toBeInTheDocument();
+    expect(boxAmount).toBeInTheDocument();
+    expect(topUpNow).toBeInTheDocument();
+
+    act(() => {
+        fireEvent.click(screen.getByText('Top up later'));
+      });
+    expect(screen.getByText('Order Issued!'));
+
+    act(() => {
+        fireEvent.click(screen.getByText('Close'));
+    });
+    act(() => {
+        fireEvent.change(screen.getByTestId('boxTopUp'), {
+          target: { value: 200 },
+        });
+      });
+    act(() => {
+        fireEvent.click(screen.getByText('Top up now'));
+    });
+    
+})

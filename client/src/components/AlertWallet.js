@@ -95,6 +95,7 @@ function AlertWallet(props) {
                   type="number"
                   value={props.increment}
                   min="0"
+                  data-testid = "boxTopUp"
                   onChange = {(event) => {props.setTopUp(event.target.value)}} />
               </Col>
             </Form.Group>
