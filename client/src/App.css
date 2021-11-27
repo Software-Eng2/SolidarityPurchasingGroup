@@ -48,7 +48,7 @@ $button-black: #5C6166;
   padding-top: 5rem;
 }
 
-.calendar-container{
+.calendar-container {
   padding-top: 4rem;
 }
 
@@ -312,5 +312,5 @@ th {
 }
 
 .farmer-button button:disabled {
-  background-color: #37BD55;
+  background-color: #ABB2BA;
 }

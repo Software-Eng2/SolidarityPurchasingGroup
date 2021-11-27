@@ -119,7 +119,7 @@ function OrderModal(props) {
         </Modal.Body>
         <Modal.Footer style={{backgroundColor: "#b4e6e2"}}>
           <Col className="text-left">
-          <Button variant='danger'onClick={props.onHide}>
+          <Button data-testid="button-close"  variant='danger'onClick={props.onHide}>
               Close
           </Button>
           </Col>

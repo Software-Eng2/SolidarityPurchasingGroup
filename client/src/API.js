@@ -1,14 +1,14 @@
 import {Client} from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-//import "jest-fetch-mock" //decommentare per il testing
+import "jest-fetch-mock" //decommentare per il testing
 
-const BASEURL = '/api';
+//const BASEURL = '/api';
 
 /*
 //TO UNCOMMENT IN CASE OF TESTING
 */
-//const BASEURL = 'http://localhost:3001/api';
+const BASEURL = 'http://localhost:3001/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -347,6 +347,19 @@ async function getProductsByFarmer(farmer_id){
   }
 }
 
+async function deleteProduct(product_id){
+  const response = await fetch(BASEURL + '/products/' + product_id, { method: 'DELETE' });
+
+  const result = await response.json();
+  console.log(result);
+  if (response.ok) {
+    return true
+  } else {
+    return false;
+  }
+}
+
+
 const API = {
   getNotifications,
   postNotification,
@@ -368,7 +381,8 @@ const API = {
   getBasket,
   changeQuantity,
   getClientById,
-  getProductsByFarmer
+  getProductsByFarmer,
+  deleteProduct
 }
 
 export default API;

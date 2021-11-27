@@ -7,7 +7,7 @@ import { render, cleanup, getByText, fireEvent, screen} from "@testing-library/r
 import ReactDOM from 'react-dom';
 
 import OrderModal from '../components/OrderModal';
-import { Button} from 'react-bootstrap';
+import { Button, Form} from 'react-bootstrap';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -46,7 +46,7 @@ it("renders button correctly", () => {
 
 
  test('calls onClick prop when clicked', () => {
-     const updateOrder = jest.fn()
+     const updateOrder = jest.fn();
      render(
          <Button data-testid="button-confirm" variant="success" disabled={0} onClick={updateOrder}>
              Confirm
@@ -54,3 +54,13 @@ it("renders button correctly", () => {
     fireEvent.click(screen.getByText(/Confirm/i));
     expect(updateOrder).toHaveBeenCalledTimes(1);
   });
+
+  test('calls onHide when Close Button is clicked', () => {
+    const onHide = jest.fn();
+    render(
+        <Button data-testid="button-close" variant='danger'onClick={onHide}>
+            Close
+        </Button>);
+   fireEvent.click(screen.getByText(/Close/i));
+   expect(onHide).toHaveBeenCalledTimes(1);
+ });
