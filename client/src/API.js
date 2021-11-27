@@ -1,14 +1,13 @@
 import {Client} from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-import "jest-fetch-mock" //decommentare per il testing
-
-//const BASEURL = '/api';
+//import "jest-fetch-mock" //decommentare per il testing
+const BASEURL = '/api';
 
 /*
 //TO UNCOMMENT IN CASE OF TESTING
 */
-const BASEURL = 'http://localhost:3001/api';
+//const BASEURL = 'http://localhost:3001/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -217,7 +216,7 @@ function logIn(username, password) {
       }
     }).catch((err) => reject(err));
   });
-};
+}
 
 async function logOut() {
   await fetch(BASEURL + '/sessions/current', { method: 'DELETE' });
@@ -293,10 +292,7 @@ async function getClientById(client_id) {
 
 async function getNotifications(client_id){
   const response = await fetch(BASEURL + '/notifications/' + client_id);
-
-  const notifications = await response.json();
-
-  return notifications;
+  return  await response.json();
 }
 
 async function postNotification(client_id, description){
@@ -364,11 +360,7 @@ async function deleteProduct(product_id){
 
   const result = await response.json();
   console.log(result);
-  if (response.ok) {
-    return true
-  } else {
-    return false;
-  }
+  return response.ok;
 }
 
 

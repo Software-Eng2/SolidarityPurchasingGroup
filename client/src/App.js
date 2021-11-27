@@ -26,7 +26,6 @@ function App() {
   const [cancelOrders, setCancelOrders] = useState([]);
   const routerHistory = useHistory();
   const [products, setProducts] = useState([]);
-  const [currentClient, setCurrentClient] = useState("");
   const [notificationFlag, setNotificationFlag] = useState(0); // 0 notification not showed yet, 1 notification showed
   const [amountCancellingOrders, setAmountCancellingOrders] = useState(0);
   const [farmerProducts, setFarmerProducts] = useState([]);
@@ -148,7 +147,7 @@ function App() {
         <Route exact path='/products' render={({location}) => 
         <>
           <Market products={products} userid={userid} userRole={userRole} currentClient={currentClient}
-                  client={location.state ? location.state.client : ""} show={cancelOrders ? cancelOrders.length > 0 && notificationFlag === 0? true : false : false }
+                  client={location.state ? location.state.client : ""} show={cancelOrders ? (cancelOrders.length > 0 && notificationFlag === 0) : false }
                   cancelOrders={cancelOrders} notificationFlag={notificationFlag} setNotificationFlag={setNotificationFlag} amountCancellingOrders={amountCancellingOrders}/>
 
         </>
