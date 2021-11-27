@@ -8,7 +8,7 @@ import AlertWallet from '../components/AlertWallet';
 import PropTypes from 'prop-types';
 import API from '../API';
 import {MdDoneOutline} from "react-icons/md";
-
+import AlertCancellingOrders from '../components/AlertCancellingOrders';
 function Market(props) {
     const { products, client, userid, userRole, currentClient} = props;
     const [collapsed, setCollapsed] = useState(false);
@@ -77,7 +77,7 @@ function Market(props) {
                 Order Issued!
               </Alert.Heading>
               <p>
-                You will recieve soon a notification when it's ready.
+                You will receive soon a notification when it's ready.
               </p>
           </Alert>
           <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={handleClose}>
@@ -86,6 +86,8 @@ function Market(props) {
         </Modal.Body>
       </Modal>
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
+            <AlertCancellingOrders show={props.show} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false);
+                setTopUp(0)}} currentClient={currentClient} cancelOrders={props.cancelOrders} notificationFlag={props.notificationFlag} setNotificationFlag={props.setNotificationFlag} amountCancellingOrders={props.amountCancellingOrders}/>
             <Basket basket={basket} show={show} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
             <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient}/>
             <Row>

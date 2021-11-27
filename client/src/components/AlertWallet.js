@@ -19,7 +19,6 @@ function AlertWallet(props) {
         props.user.amount = parseInt(props.topUp)+parseInt(props.user.amount);
       } else props.currentClient.amount = parseInt(props.topUp)+parseInt(props.currentClient.amount);
       setDone(true);
-      console.log("OK");
       setTimeout(() => {
         // After 3 seconds set the done false 
         props.setAlertWalletShow(false); 

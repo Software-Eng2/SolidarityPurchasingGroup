@@ -272,3 +272,19 @@ exports.deleteNotification = (id) => {
     });
   });
 };
+
+// get specific client by id
+
+exports.getCancellingOdersByClientId = (client_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT ORDERS.id, ORDERS.creation_date, ORDERS.client_id, ORDERS.total, WALLETS.amount FROM ORDERS JOIN USERS JOIN WALLETS WHERE USERS.id = WALLETS.client_id AND USERS.role = "client" AND USERS.id = ORDERS.client_id AND USERS.id = ? AND ORDERS.status =  "CANCELLING"  ';
+    db.all(sql, [client_id], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const orders = rows.map((o) => ({ id: o.id, creation_date: o.creation_date, client_id: o.client_id, total: o.total, wallet: o.amount }));
+      resolve(orders);
+    });
+})
+}

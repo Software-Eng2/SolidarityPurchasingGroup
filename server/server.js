@@ -431,4 +431,13 @@ app.post('/api/notifications/',
           })
         );
     }
-  )
+  ),
+
+// get cancelling orders by client_id
+app.get('/api/orders/:id',
+(req, res) => {
+  const client_id = req.params.id;
+  dao.getCancellingOdersByClientId(client_id)
+    .then((orders) => { res.json(orders) })
+    .catch((err) => res.status(500).json({ error: "Error " + err }));
+});

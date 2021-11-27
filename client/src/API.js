@@ -334,11 +334,24 @@ async function deleteNotification(client_id){
   return true;
 }
 
+async function getCancellingOdersByClientId(client_id) {
+
+  const response = await fetch(BASEURL + '/orders/' + client_id);
+
+  const orders = await response.json();
+
+  if (response.ok) {
+    return orders;
+  } else {
+    return undefined;
+  }
+}
 
 const API = {
   getNotifications,
   postNotification,
   deleteNotification,
+  getCancellingOdersByClientId,
   getAllClients,
   getAllProducts,
   updateConfirmedProduct,

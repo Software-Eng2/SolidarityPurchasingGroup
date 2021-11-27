@@ -21,10 +21,12 @@ function App() {
   const [userRole, setUserRole] = useState('');
   const [dirty, setDirty] = useState(false);
   const [orders, setOrders] = useState([]);
+  const [cancelOrders, setCancelOrders] = useState([]);
   const routerHistory = useHistory();
   const [products, setProducts] = useState([]);
   const [currentClient, setCurrentClient] = useState("");
-
+  const [notificationFlag, setNotificationFlag] = useState(0); // 0 notification not showed yet, 1 notification showed
+  const [amountCancellingOrders, setAmountCancellingOrders] = useState(0);
   useEffect(()=>{
     API.getAllProducts().then((p) => {
       setProducts(p);
@@ -50,14 +52,33 @@ function App() {
       }
      },[loggedIn, dirty]);
 
-    useEffect (()=> {
-        if(userRole === "client" && userid){
-          API.getClientById(userid).then((client) => {
-            setCurrentClient(client);
-            console.log(currentClient);
+  useEffect (()=> {
+    if(userRole === "client" && userid){
+      API.getClientById(userid).then((client) => {
+        setCurrentClient(client);
+        API.getNotifications(userid).then((notification)=>{
+          if(notification.length > 0){
+            API.getCancellingOdersByClientId(userid).then((orders) => {
+              let tot = 0;
+              setCancelOrders(orders);
+              orders.map((o) => {tot += o.total});
+              setAmountCancellingOrders(tot);
+              //TODO fare questa procedura quando si devono marcare gli ordini marcare gli ordini come cancelling, non qui!!!
+              /*
+              let sum = 0;
+              orders.map((o) => {sum += o.total;})
+              console.log(sum);
+              console.log(client.amount);
+              if(sum < client.amount){
+                setNotificationFlag(1);
+              }*/
+
+            });
+          }
         });
-        }
-    },[userid,userRole])
+      });
+    }
+  },[userid,userRole])
 
   const doLogIn = (email, password) => {
     API.logIn(email, password).then(([e]) => {   
@@ -66,7 +87,6 @@ function App() {
         setUserid(user.id);
         setLoggedIn(true);
         setUserRole(user.role);
-        console.log(user.role);  
         setDirty(true);  
         switch(user.role){
           case 'shopemployee':
@@ -88,8 +108,9 @@ function App() {
     API.logOut().then(() => {
       setLoggedIn(false);
       setUserEmail('');
-      setUserid('');
+      setUserid(0);
       setUserRole('');
+      setCancelOrders([]);
       routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
@@ -102,7 +123,12 @@ function App() {
           <Homepage/>
         </Route>
         <Route exact path='/products' render={({location}) => 
-          <Market products={products} userid={userid} userRole={userRole} currentClient={currentClient} client={location.state ? location.state.client : ""}/>
+        <>
+          <Market products={products} userid={userid} userRole={userRole} currentClient={currentClient}
+                  client={location.state ? location.state.client : ""} show={cancelOrders ? cancelOrders.length > 0 && notificationFlag === 0? true : false : false }
+                  cancelOrders={cancelOrders} notificationFlag={notificationFlag} setNotificationFlag={setNotificationFlag} amountCancellingOrders={amountCancellingOrders}/>
+
+        </>
         }/>
         <Route exact path="/orders">
           {loggedIn ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}        
