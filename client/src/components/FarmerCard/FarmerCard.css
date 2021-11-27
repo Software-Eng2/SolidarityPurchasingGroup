@@ -77,3 +77,19 @@
 .farmer-card-button button:disabled {
     background-color: #ABB2BA;
 }
+
+.farmer-card-button input {
+    padding: 0.5rem;
+    width: 10.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: #247D37;
+    border: 0px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    margin: 1rem;
+}
+
+.farmer-card-button input:hover {
+    background-color: #37BD55;
+}
