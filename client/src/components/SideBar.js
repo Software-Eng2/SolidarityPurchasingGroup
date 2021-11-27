@@ -7,7 +7,7 @@ import {
   SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar';
-import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaProductHunt ,FaShoppingCart, FaPlus } from 'react-icons/fa';
+import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaProductHunt ,FaShoppingCart } from 'react-icons/fa';
 import {GiMilkCarton, GiSheep} from 'react-icons/gi';
 
 
