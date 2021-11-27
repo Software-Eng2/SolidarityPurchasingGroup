@@ -8,7 +8,7 @@ import { act } from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
-import AlertWallet from '../components/AlertWallet';
+import AlertCancellingOrders from '../components/AlertCancellingOrders';
 import { Button} from 'react-bootstrap';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -30,7 +30,7 @@ it("renders button correctly", () => {
           className="text-center mt-5"
           variant="success"
           disabled={0}
-          onClick={() => {}}>
+          onClick={()=>{}}>
             Top up now
         </Button>);
     expect(getByTestId('button-top-up')).toHaveTextContent("Top up now");
@@ -54,16 +54,14 @@ it("renders button correctly", () => {
 test('top up alert', ()=>{
     const history = createMemoryHistory();
     history.push = jest.fn();
-    const alertWalletShow = jest.fn();
-    const setAlertWalletShow = jest.fn();
+    const show = jest.fn();
     const topUp = jest.fn();
-    const setTopUp = jest.fn();
-    const client = new Client(5,'Luca','Neri','2012-10-24','lucaneri@gmail.com',1,0);
+    const setNotificationFlag = jest.fn();
     const currentClient = new Client(5,'Luca','Neri','2012-10-24','lucaneri@gmail.com',1,0);
-    
+    const cancelOrders = [ {id: 1, creation_date: '2021-11-22', client_id: 5, total: 8, wallet: 4}]
     render(
       <MemoryRouter history={history}>
-        <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient} />
+          <AlertCancellingOrders show={show} setAlertWalletShow={false} topUp={topUp} setTopUp={0} onHide={() => {}} currentClient={currentClient} cancelOrders={cancelOrders} notificationFlag={0} setNotificationFlag={setNotificationFlag} amountCancellingOrders={10}/>
       </MemoryRouter>
     );
     const topUpLater = screen.getByText('Top up later');
@@ -76,18 +74,6 @@ test('top up alert', ()=>{
     act(() => {
         fireEvent.click(screen.getByText('Top up later'));
       });
-    expect(screen.getByText('Order Issued!'));
-
-    act(() => {
-        fireEvent.click(screen.getByText('Close'));
-    });
-    act(() => {
-        fireEvent.change(screen.getByTestId('boxTopUp'), {
-          target: { value: 200 },
-        });
-      });
-    act(() => {
-        fireEvent.click(screen.getByText('Top up now'));
-    });
+    expect(screen.getByText('Status of orders: CANCELLING!'));
     
 })

@@ -62,7 +62,7 @@ function App() {
         setCurrentClient(client);
         API.getNotifications(userid).then((notification)=>{
           if(notification.length > 0){
-            API.getCancellingOdersByClientId(userid).then((orders) => {
+            API.getCancellingOrdersByClientId(userid).then((orders) => {
               let tot = 0;
               setCancelOrders(orders);
               orders.map((o) => {tot += o.total});

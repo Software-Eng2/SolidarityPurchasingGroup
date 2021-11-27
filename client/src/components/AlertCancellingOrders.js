@@ -1,14 +1,14 @@
 import { Modal, Container, Row, Col, Button, Form, Alert} from 'react-bootstrap';
 import {MdDoneOutline} from "react-icons/md";
-import {useEffect, useState} from 'react';
-import { Link } from "react-router-dom";
+import {useState} from 'react';
+import {Link, useHistory} from "react-router-dom";
 import API from '../API';
 
 function AlertCancellingOrders(props) {
 
   const [done, setDone] = useState(false);
   const [showLaterModal, setShowLaterModal] = useState(false);
-
+  let history = useHistory();
   const updateWallet = () => {
     API.updateWallet(parseInt(props.topUp) + parseInt( props.currentClient.amount), props.currentClient.id).then(() => {
       let amountCancellingOrders = 0;
@@ -126,6 +126,7 @@ function AlertCancellingOrders(props) {
                         <Form.Control
                           type="number"
                           onChange={(event) => props.setTopUp(event.target.value)}
+                          data-testid = "boxTopUp"
                         />
                         </Col>
                     </Form.Group>
@@ -134,6 +135,7 @@ function AlertCancellingOrders(props) {
 
                   <Row className="justify-content-center">
                       <Button
+                        data-testid="button-top-up"
                         className="text-center mt-5"
                         variant="success"
                         disabled={props.topUp < props.amountCancellingOrders}
