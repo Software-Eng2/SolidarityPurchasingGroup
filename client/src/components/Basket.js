@@ -4,6 +4,7 @@ import{ Container, Row, Col, Form, Button} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import API from '../API';
 import dayjs from 'dayjs';
+import { useHistory } from "react-router-dom"; 
 
 import { Order } from '../Order';
 
@@ -12,7 +13,7 @@ function Basket(props){
     const qty = basket.length;
     const client = props.client;
     const currentClient = props.currentClient;
-    const {setShow} = props;
+    const {setShow, userRole} = props;
     const [delivery, setDelivery] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -20,6 +21,7 @@ function Basket(props){
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [isDisabled, setIsDisabled] = useState(true);
+    let history = useHistory();
     
     let flag = false;
 
@@ -69,7 +71,9 @@ function Basket(props){
         });
 
         if (flag === false) {
-            setShow(true);
+            if(userRole === 'shopemployee'){
+                history.push({pathname:'/orders', state: {orderDirty: true}});
+            } else setShow(true);
         }
 
         flag = false;

@@ -87,8 +87,8 @@ function Market(props) {
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
             <AlertCancellingOrders show={props.show} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false);
                 setTopUp(0)}} currentClient={currentClient} cancelOrders={props.cancelOrders} notificationFlag={props.notificationFlag} setNotificationFlag={props.setNotificationFlag} amountCancellingOrders={props.amountCancellingOrders}/>
-            <Basket basket={basket} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} />
-            <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient}/>
+            <Basket basket={basket} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} userRole={userRole} />
+            <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient} userRole={userRole}/>
             <Row>
                 <Col xs={2} sm={2} md={2}>
                     <div className={`app `}>

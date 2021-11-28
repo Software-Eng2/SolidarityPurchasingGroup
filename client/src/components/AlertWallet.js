@@ -61,61 +61,74 @@ function AlertWallet(props) {
           </Alert>
         </Modal.Body>
           : 
-      <>
-        <Modal.Header  style={{backgroundColor: "#fff3cd"}} className="justify-content-center">
-          <Modal.Title>
-            <b className="mr-1">Warning! </b>Better top up your wallet!
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body >
-          <Container>
-            <Row>
-                <Col xs={12}>
-                    <h5 className="text-center">{props.user.name ? props.user.name : props.currentClient.name} {props.user.surname ? props.user.surname : props.currentClient.surname}</h5>
-                    <h6 className="text-center">{props.user.email ? props.user.email : props.currentClient.email}</h6>
-                </Col>
-            </Row>
-            <Row className="mt-1">
-                <Col xs={12} >
-                    <h6 className="text-center mt-1">Balance</h6>
-                    <h3 className="text-center">€ {props.user.amount ? props.user.amount : props.currentClient.amount}</h3>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={12}>
-                  <h6 className="mt-3">Set amount</h6>
-                  <small className="ml-1">How much would you like to top up?</small>
-                </Col>
-            </Row>
-            <Form.Group as={Row} className="mb-3 mt-2" controlId="formPlaintextPassword">
-              <Form.Label column xs={1} md={1} className="ml-3">€</Form.Label>
-              <Col xs={5} md={5}>
-                <Form.Control 
-                  type="number"
-                  value={props.increment}
-                  min="0"
-                  data-testid = "boxTopUp"
-                  onChange = {(event) => {props.setTopUp(event.target.value)}} />
+      (props.userRole === "shopemployee" ? <>
+      <Modal.Header  style={{backgroundColor: "#fff3cd"}} className="justify-content-center">
+        <Modal.Title>
+          <b className="mr-1">Warning! </b>Better top up your wallet!
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body >
+        <Container>
+          <Row>
+              <Col xs={12}>
+                  <h5 className="text-center">{props.user.name ? props.user.name : props.currentClient.name} {props.user.surname ? props.user.surname : props.currentClient.surname}</h5>
+                  <h6 className="text-center">{props.user.email ? props.user.email : props.currentClient.email}</h6>
               </Col>
-            </Form.Group>
+          </Row>
+          <Row className="mt-1">
+              <Col xs={12} >
+                  <h6 className="text-center mt-1">Balance</h6>
+                  <h3 className="text-center">€ {props.user.amount ? props.user.amount : props.currentClient.amount}</h3>
+              </Col>
+          </Row>
+          <Row>
+              <Col xs={12}>
+                <h6 className="mt-3">Set amount</h6>
+                <small className="ml-1">How much would you like to top up?</small>
+              </Col>
+          </Row>
+          <Form.Group as={Row} className="mb-3 mt-2" controlId="formPlaintextPassword">
+            <Form.Label column xs={1} md={1} className="ml-3">€</Form.Label>
+            <Col xs={5} md={5}>
+              <Form.Control 
+                type="number"
+                value={props.increment}
+                min="0"
+                data-testid = "boxTopUp"
+                onChange = {(event) => {props.setTopUp(event.target.value)}} />
+            </Col>
+          </Form.Group>
 
-            <Row className="justify-content-center">
-                <Button 
-                  className="text-center mt-5"
-                  variant="success"
-                  disabled={props.topUp <= 0}
-                  onClick={updateWallet}>
-                    Top up now
-                </Button>
-            </Row>
-          </Container>
-        </Modal.Body>
-        <Modal.Footer style={{backgroundColor: "#fff3cd"}}>
-            <Link to={{ pathname: '/products'}}>
-                <Button variant="warning" onClick={()=>{setShowLaterModal(true)}}>Top up later</Button>
-            </Link>
-        </Modal.Footer>
-        </>}
+          <Row className="justify-content-center">
+              <Button 
+                className="text-center mt-5"
+                variant="success"
+                disabled={props.topUp <= 0}
+                onClick={updateWallet}>
+                  Top up now
+              </Button>
+          </Row>
+        </Container>
+      </Modal.Body>
+      <Modal.Footer style={{backgroundColor: "#fff3cd"}}>
+          <Link to={{ pathname: '/products'}}>
+              <Button variant="warning" onClick={()=>{setShowLaterModal(true)}}>Top up later</Button>
+          </Link>
+      </Modal.Footer>
+      </> : <Modal.Body style={{backgroundColor: "#fff3cd"}}>
+          <Alert variant="warning">
+              <Alert.Heading className="mt-2">
+                <MdDoneOutline size={30} className="mr-3"/>
+                Order Issued!
+              </Alert.Heading>
+              <p>
+                Remember to top up to confirm the order!
+              </p>
+          </Alert>
+          <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Body> )}
       </Modal>
       </>
     );
