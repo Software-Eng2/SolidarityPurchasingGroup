@@ -245,7 +245,7 @@ function Basket(props){
                         </Form>
                         
                         <Row className='justify-content-center'>
-                            <div className='card-button'>
+                            <div className='card-button mb-4'>
                                 <Button 
                                     style={{fontWeight:"bold"}} 
                                     onClick={()=>{handleShop()}} 

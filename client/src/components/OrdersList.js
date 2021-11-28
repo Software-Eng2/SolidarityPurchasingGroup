@@ -2,12 +2,11 @@ import { useEffect } from "react";
 import{ Container, Table, Dropdown, ButtonGroup} from "react-bootstrap";
 import API from '../API';
 import {pickUpIcon, deliveryIcon} from "./Icons";
-import { useLocation} from "react-router-dom";
 
 function OrdersList(props){
 
     const {orders, setOrders, loggedIn, dirty, setDirty, setSelectedOrder, setModalShow, setDate, setTime} = props;
-    const orderDirty = useLocation().state;
+ 
 
     //change status of the selected order
     const changeStatus = async (order_id, status) => {
@@ -19,7 +18,7 @@ function OrdersList(props){
     }
 
     useEffect(() => {
-        console.log(loggedIn + ' ' + dirty);
+        console.log(loggedIn + ' ' + 'dirty');
        
             //initialization of new ordersList 
             API.getAllOrders().then((o) => {
@@ -27,11 +26,11 @@ function OrdersList(props){
                 setDirty(false);
             });
      
-    }, [loggedIn, dirty, orderDirty]);
+    }, [loggedIn, dirty]);
 
     return (
         <Container fluid className="page width-100 below-nav table">
-           <OrderTable orders={orders} changeStatus={changeStatus} setSelectedOrder={setSelectedOrder} setModalShow={setModalShow} setDate={setDate} setTime={setTime}/>
+           <OrderTable data-testid="order-table" orders={orders} changeStatus={changeStatus} setSelectedOrder={setSelectedOrder} setModalShow={setModalShow} setDate={setDate} setTime={setTime}/>
         </Container>
     );
 }
@@ -111,4 +110,5 @@ function TableDropdown(props) {
 }
 
 export default OrdersList;
+export {OrderTable, TableDropdown};
 
