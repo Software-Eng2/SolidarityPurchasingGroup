@@ -66,7 +66,7 @@ async function createProduct(p) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
-            { name: p.name,description: p.description, category: p.category, quantity: p.quantity, price: p.price , 
+            { name: p.name, description: p.description, category: p.category, quantity: p.quantity, price: p.price , 
               farmer_id: p.farmer_id, img_path: p.img_path, confirmed: p.confirmed}
         )
       })
