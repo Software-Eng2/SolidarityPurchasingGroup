@@ -3,7 +3,7 @@ import './FarmerCard.css';
 
 function FarmerCard(props) {
     return(
-        <div className='farmer-card-container'>
+        <div className={props.confirmed ? 'farmer-card-container' : 'farmer-card-container-disabled'} title={props.confirmed ? '' : 'Not confirmed product'}>
             <div className='farmer-img-container'>
                 <img src={props.img} alt={props.title}/>
             </div>

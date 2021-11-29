@@ -140,7 +140,7 @@ async function updateConfirmedProduct(confirmed, id) {
           id:id
         })
       });
-  
+    console.log(response);
     return response.ok;
     
 }

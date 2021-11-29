@@ -8,8 +8,9 @@ import API from '../API';
 
 function FarmerProduct(props) {
   const {id, name, description, category, quantity, price, img_path, confirmed} = props.product;
+	const initialSwitch = confirmed ? true : false;
 	const [show, setShow] = useState(false);
-	const [switched, setSwitch] = useState(confirmed ? true : false);
+	const [switched, setSwitch] = useState(initialSwitch);
 	const [disabled, setDisabled] = useState(true);
 	const [nameProduct, setNameProduct] = useState(name);
 	const [descriptionProduct, setDescriptionProduct] = useState(description);
@@ -20,9 +21,9 @@ function FarmerProduct(props) {
 	const handleClose = () => setShow(false);
 	const categories = ["Dairies", "Fruits", "Vegetables", "Plants", "Fish", "Meat"];
 
-	const handleSwitch = (checked) => {
-			setSwitch(checked);
-			console.log(switched);
+	const handleSwitch = () => {
+		  handleChange();
+			setSwitch(!switched);
 		}
 	const handleChange = () => {setDisabled(false)};
 	const handleConfirm = () => {
@@ -34,8 +35,10 @@ function FarmerProduct(props) {
             quantity: quantity,
             price: priceProduct,
             img_path: img_path,
-            confirmed: !switched
+            confirmed: switched ? "1" : "0"
         }
+				API.updateConfirmedProduct( changedProduct.confirmed, id);
+				window.location.reload();
         //DO THE API CALL WITH CHANGED VALUES
 		
 	}
@@ -53,10 +56,10 @@ function FarmerProduct(props) {
 	return (
 		<>
 			<Container onClick={handleShow} {...props}>
-				<FarmerCard title={name} body={description} img={img_path} subinfo={price} ></FarmerCard>		
+				<FarmerCard confirmed={confirmed} title={name} body={description} img={img_path} subinfo={price} ></FarmerCard>		
 			</Container>
 			<Modal centered show={show} onHide={handleClose}>
-					<Form>
+					<Form >
 							<Modal.Header closeButton>
 							<Modal.Title>
 									<Form.Group controlId="formGroupEmail">
@@ -97,7 +100,7 @@ function FarmerProduct(props) {
 																	>
 																			<option default>{category}</option>
 																			{categories.map(cat => cat != category ? 
-																			<option value={cat}>{cat} </option>
+																			<option key={cat} value={cat}>{cat} </option>
 																			: "" )}
 																	</Form.Control>
 															</p>
@@ -122,8 +125,9 @@ function FarmerProduct(props) {
 																	/>
 													</Col>
 													<Col xs={6} md={6}>
+														
 															<div data-testid="counter" className = "product-quantity">
-																	<Switch onChange={(checked) => {handleSwitch(checked); handleChange()}} checked={switched}/>
+																	<Switch onChange={handleSwitch} checked={switched}/>
 															</div>
 
 													</Col>
@@ -139,9 +143,9 @@ function FarmerProduct(props) {
 											</Col>
 											<Col xs={12} md={6}>
 													<div className='farmer-card-button align-left'>
-															<button disabled={disabled} style={{fontWeight:"bold"}} onClick={() => {handleConfirm(); handleClose();}}>
-																	Confirm changes
-															</button>
+														<button disabled={disabled} style={{fontWeight:"bold"}} onClick={() => {handleConfirm(); handleClose();}}>
+															Confirm changes
+														</button>															
 													</div>
 											</Col>
 									</Row>
