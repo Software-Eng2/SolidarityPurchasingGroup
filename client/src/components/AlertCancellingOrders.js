@@ -35,14 +35,14 @@ function AlertCancellingOrders(props) {
                           {
                        props.cancelOrders.map((o) => (
                           <Row key={o.id}>
-                            <Col xs={2} >
+                            <Col xs={3} >
                               <strong>ID: {o.id}</strong>
                             </Col>
-                            <Col xs={7} >
-                            <strong>CREATION DATE: </strong>{o.creation_date}
+                            <Col xs={5} >
+                            <strong> DATE: </strong>{o.creation_date}
                             </Col>
-                            <Col xs={3} >
-                            <strong>TOTAL: </strong> € {o.total}
+                            <Col xs={4} >
+                            <strong>TOTAL: </strong> € {o.total.toFixed(2)}
                             </Col>
                           </Row>
                         ))

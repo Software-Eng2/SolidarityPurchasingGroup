@@ -25,6 +25,8 @@ function VirtualClock(){
     function nextWeekdayDate(date, day_in_week) {
         var ret = new Date(date||new Date());
         ret.setDate(ret.getDate() + (day_in_week - 1 - ret.getDay() + 7) % 7 + 1);
+        console.log(ret);
+        clock.reset(ret);
         return ret;
     }
 
