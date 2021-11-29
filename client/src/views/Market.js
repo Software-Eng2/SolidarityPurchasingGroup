@@ -8,6 +8,8 @@ import AlertWallet from '../components/AlertWallet';
 import PropTypes from 'prop-types';
 import {MdDoneOutline} from "react-icons/md";
 import AlertCancellingOrders from '../components/AlertCancellingOrders';
+import { Clock } from '../Clock';
+
 function Market(props) {
     const { products, client, userRole, currentClient} = props;
     const [collapsed, setCollapsed] = useState(false);
@@ -18,7 +20,8 @@ function Market(props) {
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [showBasket, setShowBasket] = useState(false);
     const [show, setShow] = useState(false); //show order confirmation modal
-
+    const timerEvent = new Clock();
+    const passedTime = timerEvent.checkOrdersAcceptedMilestone();
       //state if the wallet is insufficient
     const [alertWalletShow, setAlertWalletShow] = useState(false);
     const [topUp, setTopUp] = useState(0); //how much to top up
@@ -68,6 +71,18 @@ function Market(props) {
     
 	return (
         <>
+        {userRole === "client" && passedTime ? 
+        <Row align='center' style={{marginTop: '5rem'}}> 
+            <Col xs={12} sm={12} md={12} lg={12}> 
+                <h3 style={{fontSize: "2.5rem", margin: "4", padding: "0", color: "#247D37"}}> 
+                    We're sorry, the time for making orders has passed, wait until next time.
+                </h3>
+            </Col>
+        </Row>
+        
+        
+        :
+        <>
         <Modal centered show={show} onHide={handleClose}>
         <Modal.Body style={{backgroundColor: "#d4edda"}}>
           <Alert variant="success">
@@ -83,7 +98,7 @@ function Market(props) {
             Close
           </Button>
         </Modal.Body>
-      </Modal>
+        </Modal>
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
             <AlertCancellingOrders show={props.show} currentClient={currentClient} cancelOrders={props.cancelOrders} setNotificationFlag={props.setNotificationFlag}/>
             <Basket basket={basket} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} userRole={userRole} />
@@ -125,8 +140,6 @@ function Market(props) {
                             
                             )}
                         </Row>
-                        {/* style={{marginTop:"0.5rem", marginBottom:"0.5rem", marginLeft:"1rem", marginRight:"1rem"}} */}
-
                     </Container>
 
                 </Col>
@@ -136,6 +149,12 @@ function Market(props) {
 
 
         </Container>
+        </>
+        
+        
+        
+        }
+        
         </>
 	);
 }

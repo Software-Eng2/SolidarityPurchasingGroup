@@ -69,23 +69,23 @@ it("renders basket components without crashing", () => {
 
 it("accepts props", () => {
     const wrapperBasket = shallow(<Basket basket={fakeBasket} client={fakeClient} isOpen={s} onRequestClose={fakeHandleBasket}/>);
-    expect(wrapperBasket.props().basket).toBe(fakeBasket);
-    expect(wrapperBasket.props().client).toBe(fakeClient);
-    expect(wrapperBasket.props().isOpen).toBe(s);
-    expect(wrapperBasket.props().onRequestClose).toBe(fakeHandleBasket);
+    expect(wrapperBasket.childAt(0).props().basket).toBe(fakeBasket);
+    expect(wrapperBasket.childAt(0).props().client).toBe(fakeClient);
+    expect(wrapperBasket.childAt(0).props().isOpen).toBe(s);
+    expect(wrapperBasket.childAt(0).props().onRequestClose).toBe(fakeHandleBasket);
 });
 
 it("basket works with empty basket", () => {
     const wrapperBasket = shallow(<Basket basket={[]} client={fakeClient} isOpen={s} onRequestClose={fakeHandleBasket}/>);
-    expect(wrapperBasket.props().basket).toEqual([]);
-    expect(wrapperBasket.props().basket).toHaveLength(0);
+    expect(wrapperBasket.childAt(0).props().basket).toEqual([]);
+    expect(wrapperBasket.childAt(0).props().basket).toHaveLength(0);
 });
 
 it("state of open basket changes when calling onRequestChange prop", () => {
     const wrapperBasket = shallow(<Basket basket={[]} client={fakeClient} isOpen={s} onRequestClose={fakeHandleBasket}/>);
-    expect(wrapperBasket.props().isOpen).toBeFalsy();
+    expect(wrapperBasket.childAt(0).props().isOpen).toBeFalsy();
     expect(s).toBeFalsy();
-    wrapperBasket.props().onRequestClose();
+    wrapperBasket.childAt(0).props().onRequestClose();
     expect(s).toBeTruthy();
 });
 
