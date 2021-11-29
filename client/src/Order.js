@@ -125,7 +125,7 @@ class OrdersList {
 
         console.log(this.init);
         return API.changeStatus(order_id, status);
-    };
+    }
 
     /**
      * Get am order with a specific ID
@@ -141,7 +141,7 @@ class OrdersList {
 
         return this.ordersList.filter((o) => o.id === id);
 
-    };
+    }
 
     /**
      * Get orders with type of delivery = delivery (pick_up = 0)
@@ -155,7 +155,7 @@ class OrdersList {
         }
 
         return this.ordersList.filter((o) => o.pick_up === 0);
-    };
+    }
 
     /**
      * Get orders with type of delivery = pick_up (pick_up = 1)
@@ -169,7 +169,7 @@ class OrdersList {
         }
 
         return this.ordersList.filter((o) => o.pick_up === 1);
-    };
+    }
 
     /**
      * Get all orders related to a specific client
@@ -185,8 +185,8 @@ class OrdersList {
         }
 
         return this.ordersList.filter((o) => o.client_id === client_id);
-    };
+    }
 
-};
+}
 
 export { Order, OrdersList }

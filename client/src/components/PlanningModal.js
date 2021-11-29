@@ -1,5 +1,5 @@
 
-import { Modal, Button,    Row, Col, Form } from 'react-bootstrap';
+import { Modal, Button, Row, Col, Form } from 'react-bootstrap';
 import { useState } from "react";
 import API from '../API';
 

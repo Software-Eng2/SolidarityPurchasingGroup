@@ -153,9 +153,7 @@ class ProductsList{
             return undefined;
         }
 
-        const result = await API.updateConfirmedProduct(confirm_value, id);
-
-        return result;
+        return await API.updateConfirmedProduct(confirm_value, id);;
     }
 
 }
