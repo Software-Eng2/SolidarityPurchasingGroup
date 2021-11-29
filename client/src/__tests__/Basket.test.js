@@ -58,6 +58,12 @@ it("renders basket components without crashing", () => {
     expect(wrapperBasket.find('Container').exists()).toBeTruthy();
     expect(wrapperBasket.find('button').exists()).toBeTruthy();
     expect(wrapperBasket.find('Form').exists()).toBeTruthy();
+    expect(wrapperBasket.find('Button').exists()).toBeTruthy();    
+    expect(wrapperBasket.find('Row').exists()).toBeTruthy();
+    expect(wrapperBasket.find('Col').exists()).toBeTruthy();    
+    expect(wrapperBasket.find('div').exists()).toBeTruthy();    
+    expect(wrapperBasket.find('h6').exists()).toBeTruthy();
+    expect(wrapperBasket.find('small').exists()).toBeTruthy();
 });
 
 
@@ -87,6 +93,8 @@ it("if basket is empty button shop now and form should not appear", () => {
     const wrapperBasket = shallow(<Basket basket={[]} client={fakeClient} isOpen={s} onRequestClose={fakeHandleBasket}/>);
     expect(wrapperBasket.find('button').exists()).toBeFalsy();
     expect(wrapperBasket.find('Form').exists()).toBeFalsy();
+    expect(wrapperBasket.find('h6').exists()).toBeFalsy();
+    expect(wrapperBasket.find('Button').exists()).toBeFalsy();
 
 });
 

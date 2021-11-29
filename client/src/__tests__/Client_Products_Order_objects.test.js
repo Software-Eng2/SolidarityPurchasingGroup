@@ -97,40 +97,32 @@ test('p-updateConfirmed', () =>{
 test('o-getAllOrders',()=>{
     API.logIn("mariorossi@gmail.com","mariorossi");
     const orders = new OrdersList();
-    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(4)})
+    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(6)})
 });
 
 test('o-createOrder',()=>{
-    const fakeOrder = new Order('21/01/2021',2,10, 'pending',0,'Corso Castelfidardo 2','23/01/2021','16:00');
+    const fakeOrder = new Order(38,'21/01/2021',2, 'testName', 'testSurname',10,'23/01/2021','16:00', 0, 'Via dei Test, 0, Test, 00000', 'PENDING');
     expect(API.createOrder(fakeOrder)).toBeTruthy();
 });
 
-/* test('o-changeStatusTrue',()=>{
-    const fakeIdOrder = 2;
-    const fakeStatus = 'accepted';
-    return expect(API.changeStatus(fakeIdOrder,fakeStatus)).toBe(true);
-});
-test('o-changeStatusFalse',()=>{
-    const fakeIdOrder = 30000;
-    const fakeStatus = 'accepted';
-    return expect(API.changeStatus(fakeIdOrder,fakeStatus)).toBe(false);
+test('o-changeStatusTrue',()=>{
+    const fakeStatus = 'ACCEPTED';
+    const orders = new OrdersList();
+    return orders.initialize().then(()=>{
+        const order_id = orders.getOrderFromId(orders.ordersList[orders.getOrders().length-1].id)[0].id;
+        expect((API.changeStatus(order_id, fakeStatus))).toBeTruthy();
+    });
 });
 
 test('o-changeDateTimeTrue',()=>{
-    const fakeIdOrder = 2;
     const fakeDate = '30/01/2021';
     const fakeTime = '17:00';
-    return expect(API.changeDateTime(fakeIdOrder,fakeDate,fakeTime)).toBe(true);
+    const orders = new OrdersList();
+    return orders.initialize().then(()=>{
+        const order_id = orders.getOrderFromId(orders.ordersList[orders.getOrders().length-1].id)[0].id;
+        expect((API.changeDateTime(order_id,fakeDate,fakeTime))).toBeTruthy();
+    });
 });
-
-test('o-changeDateTimeFalse',()=>{
-    const fakeIdOrder = 30000;
-    const fakeDate = '30/01/2021';
-    const fakeTime = '17:00';
-    return expect(API.changeDateTime(fakeIdOrder,fakeDate,fakeTime)).toBe(false);
-});
- */
-
 
 
 
