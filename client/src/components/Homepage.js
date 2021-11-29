@@ -8,7 +8,7 @@ function Homepage() {
     return (
         <div>
             <div style={{ overflowX: "hidden", backgroundColor: "#DEDEDE", position: "relative", maxHeight: "100vh", overflowY: "hidden", justifyContent: "center" }}>
-                <video style={{ maxHeight: "100vh", width: "100vw" }} data-testid="vidMyVideo" autoPlay loop muted>
+                <video style={{ maxHeight: "122vh", width: "100vw",marginLeft:"0rem",marginRight:"0rem" }} data-testid="vidMyVideo" autoPlay loop muted>
                     <source src={backgroundimg} type='video/mp4' />
                 </video>
                 <div className="overlay">
