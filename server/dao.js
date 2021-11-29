@@ -317,4 +317,46 @@ exports.deleteProduct = (id) => {
       resolve(this.lastID);
     });
   });
-}
+};
+
+// delete a order by id
+exports.deleteOrder = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM ORDERS WHERE id = ?';
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
+// delete a client by id
+exports.deleteWallet = (client_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM WALLETS WHERE client_id = ?';
+    db.run(sql, [client_id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
+// delete a client by id
+exports.deleteClient = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM USERS WHERE id = ?';
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};

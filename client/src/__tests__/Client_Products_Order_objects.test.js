@@ -2,12 +2,26 @@
 * @jest-environment node
 */
 import API from '../API';
-import {Order, OrdersList } from '../Order';
+import {Order} from '../Order';
 const client = require('../Client');
 const product = require('../Product');
+const order = require('../Order');
 
 let clientObject = new client.ClientsList();
 let productObject = new product.ProductsList();
+let orders = new order.OrdersList();
+
+
+afterAll(async () => {
+    const order_id = orders.getOrderFromId(orders.ordersList[0].id)[0].id;
+    const product_id = productObject.getProducts()[productObject.getProducts().length-1].id;
+    const client_id1 = clientObject.getClients()[clientObject.getClients().length-1].id;
+    const client_id2 = client_id1-1;
+    await API.deleteOrder(order_id).then(()=>console.log('test order deleted'));
+    await API.deleteProduct(product_id).then(()=>console.log('test product deleted'));
+    await API.deleteClient(client_id1).then(()=>console.log('test client ' + client_id1 + ' deleted'));
+    //await API.deleteClient(client_id2).then(()=>console.log('test client ' + client_id2 + ' deleted')); 
+});
 
 /* -------------- CLIENT -------------- */
 
@@ -96,7 +110,6 @@ test('p-updateConfirmed', () =>{
 /* ---------- ORDER ---------- */
 test('o-getAllOrders',()=>{
     API.logIn("mariorossi@gmail.com","mariorossi");
-    const orders = new OrdersList();
     return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(6)})
 });
 
@@ -107,7 +120,6 @@ test('o-createOrder',()=>{
 
 test('o-changeStatusTrue',()=>{
     const fakeStatus = 'ACCEPTED';
-    const orders = new OrdersList();
     return orders.initialize().then(()=>{
         const order_id = orders.getOrderFromId(orders.ordersList[orders.getOrders().length-1].id)[0].id;
         expect((API.changeStatus(order_id, fakeStatus))).toBeTruthy();
@@ -117,15 +129,9 @@ test('o-changeStatusTrue',()=>{
 test('o-changeDateTimeTrue',()=>{
     const fakeDate = '30/01/2021';
     const fakeTime = '17:00';
-    const orders = new OrdersList();
+
     return orders.initialize().then(()=>{
         const order_id = orders.getOrderFromId(orders.ordersList[orders.getOrders().length-1].id)[0].id;
         expect((API.changeDateTime(order_id,fakeDate,fakeTime))).toBeTruthy();
     });
 });
-
-
-
-
-
-

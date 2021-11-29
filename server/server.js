@@ -469,4 +469,49 @@ app.delete('/api/products/:id',
         })
       );
   }
-)
+);
+
+app.delete('/api/orders/:id', 
+  [
+    check('id').isInt({min:0})
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+
+    dao.deleteOrder(req.params.id).then((id) => res.status(200).json({ id: id }))
+      .catch((err) =>
+        res.status(500).json({
+          error: "Error " + err,
+        })
+      );
+  }
+);
+
+app.delete('/api/clients/:id',
+  [
+    check('id').isInt({ min: 0 })
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+    dao.deleteWallet(req.params.id).then(() => {
+      dao.deleteClient(req.params.id).then((id) => res.status(200).json({ id: id }))
+        .catch((err) =>
+          res.status(500).json({
+            error: "Error " + err,
+          })
+        )
+    }).catch((err) =>
+      res.status(500).json({
+        error: "Error " + err,
+      })
+    );
+  }
+);
