@@ -72,7 +72,7 @@ function Basket(props){
 
         if (flag === false) {
             if(userRole === 'shopemployee'){
-                history.push({pathname:'/orders', state: {orderDirty: true}});
+                history.push({pathname:'/orders'});
             } else setShow(true);
         }
 

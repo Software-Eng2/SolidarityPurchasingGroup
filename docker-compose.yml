@@ -1,0 +1,25 @@
+version: '3'
+#TODO come far leggere il db in docker compose
+services:
+  sqlite3:  
+    image: nouchka/sqlite3:latest
+    stdin_open: true
+    tty: true
+    volumes:
+      - /app/server/spg.sqlite
+  backend:
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    image: "francescoplc/solidarity_purchasing_group_p05:server"
+    ports:
+      - "3001:3001"
+  frontend:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    image: "francescoplc/solidarity_purchasing_group_p05:client"
+    ports:
+      - "3000:3000"
+    links:
+      - "backend:be"
