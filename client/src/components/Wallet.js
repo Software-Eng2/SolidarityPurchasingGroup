@@ -10,6 +10,10 @@ function Wallet(props) {
     API.updateWallet(parseInt(props.increment) + parseInt(props.user.amount), props.user.id).then(() => {
       props.user.amount = parseInt(props.increment) + parseInt(props.user.amount);
       setDone(true);
+      if(props.user.amount > props.amountCancellingOrders){
+        console.log(props.user.id);
+        API.deleteNotification(props.user.id).then(()=> console.log("deleted notification"))
+      }
       setTimeout(() => {
         // After 3 seconds set the done false 
         props.setWalletShow(false); 

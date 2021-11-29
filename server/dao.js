@@ -261,7 +261,7 @@ exports.getNotifications = (id) => {
 // delete a notification
 exports.deleteNotification = (id) => {
   return new Promise((resolve, reject) => {
-    const sql = 'DELETE FROM NOTIFICATIONS WHERE id = ?';
+    const sql = 'DELETE FROM NOTIFICATIONS WHERE client_id = ?';
     
     db.run(sql, [id], function (err) {
       if (err) {

@@ -25,54 +25,38 @@ configure({ adapter: new Adapter() });
 
 
 it("renders button correctly", () => {
-    const { getByTestId } = render(  <Button 
-        data-testid="button-top-up"
-          className="text-center mt-5"
-          variant="success"
-          disabled={0}
-          onClick={()=>{}}>
-            Top up now
-        </Button>);
-    expect(getByTestId('button-top-up')).toHaveTextContent("Top up now");
+    const { getByTestId } = render(  <Button data-testid="button-close" variant="danger" onClick={()=>{}}>Close</Button>);
+    expect(getByTestId('button-close')).toHaveTextContent("Close");
 });
 
- test('calls onClick prop when clicked', () => {
-    const updateWallet = jest.fn()
-    render( <Button 
-        data-testid="button-top-up"
-          className="text-center mt-5"
-          variant="success"
-          disabled={0}
-          onClick={updateWallet}>
-            Top up now
-        </Button>);
-    fireEvent.click(screen.getByText(/Top up now/i))
-    expect(updateWallet).toHaveBeenCalledTimes(1)
+ test('calls handleClose prop when clicked', () => {
+    const handleClose = jest.fn()
+    render( <Button data-testid="button-close" variant="danger" onClick={handleClose}>
+                Close
+            </Button>);
+    fireEvent.click(screen.getByText(/Close/i))
+    expect(handleClose).toHaveBeenCalledTimes(1)
   })
 ;
 
-test('top up alert', ()=>{
+test('close alert', ()=>{
     const history = createMemoryHistory();
     history.push = jest.fn();
     const show = jest.fn();
-    const topUp = jest.fn();
     const setNotificationFlag = jest.fn();
     const currentClient = new Client(5,'Luca','Neri','2012-10-24','lucaneri@gmail.com',1,0);
     const cancelOrders = [ {id: 1, creation_date: '2021-11-22', client_id: 5, total: 8, wallet: 4}]
     render(
       <MemoryRouter history={history}>
-          <AlertCancellingOrders show={show} setAlertWalletShow={false} topUp={topUp} setTopUp={0} onHide={() => {}} currentClient={currentClient} cancelOrders={cancelOrders} notificationFlag={0} setNotificationFlag={setNotificationFlag} amountCancellingOrders={10}/>
+          <AlertCancellingOrders show={show} currentClient={currentClient} cancelOrders={cancelOrders} setNotificationFlag={setNotificationFlag}/>
       </MemoryRouter>
     );
-    const topUpLater = screen.getByText('Top up later');
-    const boxAmount = screen.getByTestId('boxTopUp');
-    const topUpNow = screen.getByText('Top up now');
-    expect(topUpLater).toBeInTheDocument();
-    expect(boxAmount).toBeInTheDocument();
-    expect(topUpNow).toBeInTheDocument();
+    const close = screen.getByText('Close');
+    expect(close).toBeInTheDocument();
+
 
     act(() => {
-        fireEvent.click(screen.getByText('Top up later'));
+        fireEvent.click(screen.getByText('Close'));
       });
     expect(screen.getByText('Status of orders: CANCELLING!'));
     

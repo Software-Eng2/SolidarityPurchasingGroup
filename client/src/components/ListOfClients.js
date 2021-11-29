@@ -21,6 +21,15 @@ function ListOfClients(props){
     const handleClick = (client) => {
         props.setWalletShow(true);
         props.setUser(client);
+        API.getNotifications(client.id).then((notification)=>{
+            if(notification.length > 0){
+                API.getCancellingOrdersByClientId(client.id).then((orders) => {
+                    let tot = 0;
+                    orders.map((o) => {tot += o.total});
+                    props.setAmountCancellingOrders(tot);
+                });
+            }
+        });
     }
 
     return(
@@ -40,7 +49,7 @@ function ListOfClients(props){
                             setView("view");
                         }                        
                     }} 
-                     style={{marginTop:"1rem", width:"20rem"}}  id="inlineFormInputName2" placeholder="Search here..."></Form.Control>
+                     style={{marginTop:"1rem", width:"20rem"}}  id="inlineFormInputName2" placeholder="Search here..."/>
                 </Col>
             </Row>
             

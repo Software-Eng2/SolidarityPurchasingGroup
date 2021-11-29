@@ -27,7 +27,6 @@ function App() {
   const routerHistory = useHistory();
   const [products, setProducts] = useState([]);
   const [notificationFlag, setNotificationFlag] = useState(0); // 0 notification not showed yet, 1 notification showed
-  const [amountCancellingOrders, setAmountCancellingOrders] = useState(0);
   const [farmerProducts, setFarmerProducts] = useState([]);
   const [currentClient, setCurrentClient] = useState('');
 
@@ -63,11 +62,8 @@ function App() {
         API.getNotifications(userid).then((notification)=>{
           if(notification.length > 0){
             API.getCancellingOrdersByClientId(userid).then((orders) => {
-              let tot = 0;
               setCancelOrders(orders);
-              orders.map((o) => {tot += o.total});
-              setAmountCancellingOrders(tot);
-              //TODO fare questa procedura quando si devono marcare gli ordini marcare gli ordini come cancelling, non qui!!!
+              // fare questa procedura quando si devono marcare gli ordini marcare gli ordini come cancelling, non qui!!!
               /*
               let sum = 0;
               orders.map((o) => {sum += o.total;})
@@ -148,8 +144,7 @@ function App() {
         <>
           <Market products={products} userid={userid} userRole={userRole} currentClient={currentClient}
                   client={location.state ? location.state.client : ""} show={cancelOrders ? (cancelOrders.length > 0 && notificationFlag === 0) : false }
-                  cancelOrders={cancelOrders} notificationFlag={notificationFlag} setNotificationFlag={setNotificationFlag} amountCancellingOrders={amountCancellingOrders}/>
-
+                  cancelOrders={cancelOrders} setNotificationFlag={setNotificationFlag}/>
         </>
         }/>
         <Route exact path="/orders">
