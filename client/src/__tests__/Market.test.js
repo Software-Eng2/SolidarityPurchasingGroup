@@ -63,6 +63,6 @@ it("renders market components without crashing", () => {
 
 it("accepts products and client props", () => {
     const wrapperMarket = shallow(<Market products={fakeProducts} client={fakeClient}/>);
-    expect(wrapperMarket.props().products).toBe(fakeProducts);
-    expect(wrapperMarket.props().client).toBe(fakeClient);
+    expect(wrapperMarket.childAt(1).props().products).toBe(fakeProducts);
+    expect(wrapperMarket.childAt(1).props().client).toBe(fakeClient);
 });
