@@ -10,7 +10,6 @@ function OrdersList(props){
 
     //change status of the selected order
     const changeStatus = async (order_id, status) => {
-        console.log('status of order' + ' ' + order_id + ' ' + 'changing in... ' + status);
         API.changeStatus(order_id, status).then(() => {
             setDirty(true);
             console.log(dirty);
@@ -18,7 +17,6 @@ function OrdersList(props){
     }
 
     useEffect(() => {
-        console.log(loggedIn + ' ' + 'dirty');
        
             //initialization of new ordersList 
             API.getAllOrders().then((o) => {
