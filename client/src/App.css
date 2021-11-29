@@ -229,7 +229,7 @@ th {
 
 .overlay {
   position: absolute;
-  top: 12rem;
+  top: 11rem;
   bottom: 0;
   left: 0;
   right: 0;
@@ -240,7 +240,7 @@ th {
 
 .overlayArrow {
   position: absolute;
-  top: 17rem;
+  top: 15rem;
   bottom: 0;
   left: 0;
   right: 0;
