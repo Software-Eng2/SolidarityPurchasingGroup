@@ -16,11 +16,9 @@ afterAll(async () => {
     const order_id = orders.getOrderFromId(orders.ordersList[0].id)[0].id;
     const product_id = productObject.getProducts()[productObject.getProducts().length-1].id;
     const client_id1 = clientObject.getClients()[clientObject.getClients().length-1].id;
-    const client_id2 = client_id1-1;
     await API.deleteOrder(order_id).then(()=>console.log('test order deleted'));
     await API.deleteProduct(product_id).then(()=>console.log('test product deleted'));
     await API.deleteClient(client_id1).then(()=>console.log('test client ' + client_id1 + ' deleted'));
-    //await API.deleteClient(client_id2).then(()=>console.log('test client ' + client_id2 + ' deleted')); 
 });
 
 /* -------------- CLIENT -------------- */
