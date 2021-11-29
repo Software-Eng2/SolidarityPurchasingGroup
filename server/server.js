@@ -515,3 +515,115 @@ app.delete('/api/clients/:id',
     );
   }
 );
+
+//get a product for next week from an id_user
+
+app.get('/api/productsNW/:id_user',
+  (req, res) => {
+    const id = req.params.id_user;
+    dao.getProductsForNextWeek(id)
+      .then((products) => { res.json(products)})
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
+
+//insert Product for Next Week
+app.post('/api/productNW',
+  [
+    check('id_user').isInt(),
+    check('id_product').isString(),
+    check('quantity').isNumeric(),
+    check('price').isString()
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array())
+      return res.status(422).json({ errors: errors.array() })
+    }
+    const product = {
+      id_user: req.body.id_user,
+      id_product: req.body.id_product,
+      quantity: req.body.quantity,
+      price: req.body.price
+      
+    }
+    
+    dao.createProductForNextWeek(product).then((id) => res.status(201).json({ id: id }))
+      .catch((err) =>
+        res.status(500).json({
+          error: "Error " + err,
+        })
+      );
+  });
+
+  app.put('/api/productsNW/quantity',
+  [
+    check('id').isInt(),
+    check('quantity').isNumeric({min:0})
+  ],
+  (req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return res.status(422).json({errors:errors.array()})
+    }
+    dao.updateProductForNextWeek(req.body.id, req.body.quantity)
+    .then((id)=>res.status(201).json({id:id}))
+    .catch((err)=>{res.status(500).json({error: "Error" + err,})})
+  }
+);
+
+app.put('/api/product/quantity',
+  [
+    check('farmer_id').isInt(),
+    check('name').isString(),
+    check('quantity').isNumeric({min:0})
+  ],
+  (req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return res.status(422).json({errors:errors.array()})
+    }
+    console.log(req.body.farmer_id+".." + req.body.name+".."+ req.body.quantity)
+    dao.updateProduct(req.body.farmer_id, req.body.name, req.body.quantity)
+    .then((id)=>res.status(201).json({id:id}))
+    .catch((err)=>{res.status(500).json({error: "Error" + err,})})
+  }
+);
+
+  app.delete('/api/productsNW/:id',  async (req, res) => {
+    try {
+        const result = await dao.deleteProductForNextWeek(req.params.id);
+        if (result && result.errors)
+            res.status(404).json(result);
+        else
+            res.status(204).end();
+    } catch (err) {
+        res.status(503).json({ errors: `Database error during the deletion of the task.` });
+    }
+});
+
+//delete all products for a user
+app.delete('/api/allProductsNW/:id_user',  async (req, res) => {
+  try {
+      const result = await dao.deleteUserProductForNextWeek(req.params.id_user);
+      if (result && result.errors)
+          res.status(404).json(result);
+      else
+          res.status(204).end();
+  } catch (err) {
+      res.status(503).json({ errors: `Database error during the deletion of the task.` });
+  }
+});
+
+//delete all products
+app.delete('/api/allProductsNW',  async (req, res) => {
+  try {
+      const result = await dao.deleteAllProductForNextWeek();
+      if (result && result.errors)
+          res.status(404).json(result);
+      else
+          res.status(204).end();
+  } catch (err) {
+      res.status(503).json({ errors: `Database error during the deletion of the task.` });
+  }
+});

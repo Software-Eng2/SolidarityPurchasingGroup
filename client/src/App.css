@@ -314,3 +314,13 @@ th {
 .farmer-button button:disabled {
   background-color: #ABB2BA;
 }
+
+.fixed {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+
+.pointer {
+  cursor: pointer;
+}

@@ -377,6 +377,129 @@ async function deleteClient(client_id){
   return response.ok;
 }
 
+async function getProductNW(id_user) {
+
+  const response = await fetch(BASEURL + '/productsNW/' + id_user);
+
+  const products = await response.json();
+
+  if (response.ok) {
+    return products.map((p) =>{return { 
+      id:p.id,
+      id_user: p.id_user,
+      id_product: p.id_product,
+      quantity: p.quantity,
+      price: p.price}}) ;
+  } else {
+    return undefined;
+  }
+}
+
+//insert Product for Next Week
+async function createProductNW(b) {
+  console.log(b)
+  
+  try {
+    const response = await fetch(BASEURL + '/productNW', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          id_user: b.id_user,
+          id_product: b.id_product,
+          quantity: b.quantity,
+          price: b.price
+        }
+      )
+    })
+    const inserted = await response.json();
+
+    if (!response.ok) {
+      throw response;
+    }
+
+    return inserted;
+  }
+  catch {
+    return false;
+  }
+
+}
+
+async function changeProductNW(id, quantity){
+  const response = await fetch(BASEURL + '/productsNW/quantity', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: id,
+        quantity: quantity
+  })
+});
+return response.ok;
+}
+
+async function changeProduct(b){
+  console.log(b);
+  const response = await fetch(BASEURL + '/product/quantity', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        farmer_id: b.farmer_id,
+        name: b.name,
+        quantity: b.quantity
+  })
+});
+return response.ok;
+}
+
+function deleteProductNW(id) {
+  return new Promise((resolve, reject) => {
+      fetch(BASEURL + '/productsNW/' + id, {
+          method: 'DELETE',
+      }).then((response) => {
+          if (response.ok) {
+              resolve(null);
+          } else {             
+              response.json()
+                  .then((obj) => { reject(obj); }) // error msg in the response body
+                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+          }
+      }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  });
+}
+
+function deleteAllUserProductNW(id_user) {
+  return new Promise((resolve, reject) => {
+      fetch(BASEURL + '/allproductsNW/' + id_user, {
+          method: 'DELETE',
+      }).then((response) => {
+          if (response.ok) {
+              resolve(null);
+          } else {             
+              response.json()
+                  .then((obj) => { reject(obj); }) // error msg in the response body
+                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+          }
+      }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  });
+}
+
+function deleteAllProductNW() {
+  return new Promise((resolve, reject) => {
+      fetch(BASEURL + '/productsNW', {
+          method: 'DELETE',
+      }).then((response) => {
+          if (response.ok) {
+              resolve(null);
+          } else {             
+              response.json()
+                  .then((obj) => { reject(obj); }) // error msg in the response body
+                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+          }
+      }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  });
+}
+
 
 const API = {
   getNotifications,
@@ -403,7 +526,15 @@ const API = {
   getProductsByFarmer,
   deleteProduct,
   deleteOrder,
-  deleteClient
+  deleteClient,
+  getProductNW,
+  createProductNW,
+  changeProductNW,
+  deleteProductNW,
+  deleteAllUserProductNW,
+  deleteAllProductNW,
+  changeProduct
+
 }
 
 export default API;
