@@ -53,12 +53,14 @@ function Homepage() {
                     </Row>
                     <Row style={{ marginTop: "2rem" }} xs={1} sm={1} md={1} lg={3} xl={3} xxl={3} className="g-4">
                         <Col>
-                            <Card style={{maxHeight:"70vh", minHeight:"70vh", marginBottom: "2rem"}}>
+                            <Card style={{ marginBottom: "2rem"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://images.pexels.com/photos/3962283/pexels-photo-3962283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <Card.Body>
                                     <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Why buying in SPG?</Card.Title>
                                     <Card.Text>
                                         In SPG the products travel an average of 61 kilometers before reaching the plate. Each territory holds a treasure of local products.
+                                        <br></br>
+                                        <br></br>
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer className="text-center">
@@ -71,7 +73,7 @@ function Homepage() {
                             </Card>
                         </Col>
                         <Col>
-                            <Card style={{maxHeight:"70vh", minHeight:"70vh", marginBottom: "2rem"}}>
+                            <Card style={{marginBottom: "2rem"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://www.altromercato.it/wp-content/uploads/2021/09/produttore_Hualtaco_Peru_AgrofairEurope-scaled-e1632143818906-800x582.jpg" />
                                 <Card.Body>
                                     <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Why selling in SPG?</Card.Title>
@@ -89,12 +91,16 @@ function Homepage() {
                             </Card>
                         </Col>
                         <Col>
-                            <Card style={{maxHeight:"70vh", minHeight:"70vh", marginBottom: "2rem"}}>
+                            <Card style={{marginBottom: "2rem"}}>
                                 <Card.Img variant="top" className="cardHome" src="https://images.pexels.com/photos/7844008/pexels-photo-7844008.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <Card.Body>
                                     <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Work with us!</Card.Title>
                                     <Card.Text>
                                         Be part of the change.
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer className="text-center">

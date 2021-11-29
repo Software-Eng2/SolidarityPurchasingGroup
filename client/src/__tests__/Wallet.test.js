@@ -4,8 +4,6 @@
 
 import React from 'react';
 import { render, cleanup, getByText, fireEvent, screen} from "@testing-library/react";
-import ReactDOM from 'react-dom';
-
 import Wallet from '../components/Wallet';
 import { Button} from 'react-bootstrap';
 import { shallow, configure } from 'enzyme';
