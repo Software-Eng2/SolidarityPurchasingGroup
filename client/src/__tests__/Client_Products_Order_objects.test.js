@@ -85,13 +85,13 @@ test('p-updateConfirmed', async () =>{
 
 test('p-getProducts', () => {
     //WARNING: for now only 20 clients present in DB. Modify the toEqual if more products are stored
-    return productObject.initialize().then(() => expect(productObject.getProducts().length).toEqual(20))
+    return productObject.initialize().then(() => expect(productObject.getProducts().length).toEqual(22))
 })
 
 //adding one more product -> testing the createUser API
 test('p-addProduct', () => {
     return productObject.addProduct("boh", "boh", 0.78, "Fruits", 0,12,"boh", 4).then(() =>
-    expect(productObject.getProducts().length).toEqual(21));
+    expect(productObject.getProducts().length).toEqual(23));
 })
 
 test('p-getProductsFromCategory', () => {
