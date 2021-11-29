@@ -7,6 +7,19 @@
     background-color: #FAFAFA;
     border-radius: 3px;
     margin: 0.5rem;
+    cursor: pointer;
+}
+
+.farmer-card-container-disabled {
+    width: 13rem;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px -3px #d2d3d4;
+    transition: 0.3s;
+    animation: ease-in;
+    background-color: #e6e6e6;
+    border-radius: 3px;
+    margin: 0.5rem;
+    cursor: pointer;
 }
 
 .farmer-card-container:hover {

@@ -90,7 +90,7 @@ const SideBar = ({collapsed, width, searchCategory, handleBasket, userRole}) => 
                         </SubMenu> */}
                     </Menu>
                 </SidebarContent>
-                {userRole === "client" ? <SidebarFooter style={{ textAlign: 'center' }}>
+                {userRole === "client" || userRole === "farmer" ? <SidebarFooter style={{ textAlign: 'center' }}>
                     <div
                     className="sidebar-btn-wrapper"
                     style={{
