@@ -108,7 +108,7 @@ function FarmerInterface(props) {
                                 </Col>
                                 <Col xs={12} sm={12} md={6}>
                                     <div className="farmer-button">
-                                        <button onClick={handleShow}>
+                                        <button data-testid="new-product-button" onClick={handleShow}>
                                             <FaPlus/> Add new product
                                         </button>
                                     </div>

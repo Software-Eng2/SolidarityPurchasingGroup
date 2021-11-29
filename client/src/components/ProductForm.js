@@ -33,7 +33,7 @@ function ProductForm(props) {
 
 	}
 	return (
-		<Modal centered show={show} onHide={handleShow}>
+		<Modal centered show={show} onHide={handleShow} {...props}>
 			<Modal.Header closeButton>
 				<Modal.Title>
 					Add new product
