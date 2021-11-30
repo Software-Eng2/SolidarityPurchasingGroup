@@ -11,54 +11,26 @@ function ConfirmModal(props) {
   const { show, ...rest } = props;
 
   const deleteUpdateProduct = () => {
-    let status = false;
-    {/*let products = props.products.filter(f => f.farmer_id == props.userid)
-    console.log(products);
-    products = props.productNW.map(r =>
-      products.filter(f => r.id_product == f.name)
-    );
-    console.log(products);*/}
-
-
-
-    const create = () => {
-
-
-      props.productNW.map(r => (
-
-        props.products.filter(f => f.name == r.id_product && f.farmer_id == 4)
-          .map(c => {
-
-            add({ id_product: r.id_product, description: c.description, category: c.category, quantity: r.quantity, price: r.price, id_user: r.id_user, img_path: c.img_path })
-
-          }
-
-          )
-      )
-      )
-    }
-
-    const add = async (b) => {
-      const result = await API.createProduct({ name: b.id_product, description: b.description, category: b.category, quantity: b.quantity, price: b.price, farmer_id: b.id_user, img_path: b.img_path, confirmed: 1 });
-    }
-
-
+  
 
 
     const del = async () => {
       await API.deleteAllUserProductNW(props.userid).then(props.onHide);
-      props.setDisable(true);
       props.setDirty(true);
     }
 
-    const up = async (b) => {
-      await API.changeProduct({ farmer_id: b.id_user, name: b.name, quantity: b.quantity });
-      props.setDisable(true);
-      props.setDirty(true);
+    const up = async () => {
+      props.productNW.map(r =>{
+        
+        API.changeProduct({ farmer_id: r.id_user, name: r.id_product, quantity: r.quantity });
+        props.setDirty(true);
+        
+       })
+      
     }
 
    
-  create();
+  up();
   del();
     
   }
@@ -85,7 +57,7 @@ function ConfirmModal(props) {
             <h3 style={{ color: "green" }}>Summary : </h3>
           </Row>
           <Row className="justify-content-start align-items-center mb-2">
-            <CardRiepilogo productNW={props.productNW} products={props.products} userid={props.userid} />
+            <CardRiepilogo productNW={props.productNW} products={props.products} userid={props.userid} farmerProducts={props.farmerProducts} />
           </Row>
 
         </Modal.Body>
@@ -109,7 +81,7 @@ function CardRiepilogo(props) {
     <>
       {
         props.productNW.map(t =>
-          props.products.filter(f => f.name == t.id_product && f.farmer_id == 4)
+          props.farmerProducts.filter(f => f.name == t.id_product )
             .map(w =>
               <Col key={w.id} className="d-flex justify-content-center">
                 <Card style={{ width: '20rem' }} className="mt-3">
