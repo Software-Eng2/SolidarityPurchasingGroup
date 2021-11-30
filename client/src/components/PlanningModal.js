@@ -35,7 +35,7 @@ function PlanningModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <FormPlanning onHide={rest.onHide} products={rest.products} userid={rest.userid} id={props.id} update={props.update} updateProductNW={updateProductNW} productNW={props.productNW}  />
+                <FormPlanning onHide={rest.onHide} products={rest.products} userid={rest.userid} id={props.id} update={props.update} updateProductNW={updateProductNW} productNW={props.productNW} farmerProducts={props.farmerProducts}  />
             </Modal.Body>
 
 
@@ -128,26 +128,13 @@ function FormPlanning(props) {
                                 required
                                 as="select"
                                 value={product}
-                                onChange={(event) => setProduct(event.target.value)}>
+                                onChange={(event) => {setProduct(event.target.value);setPrice(props.farmerProducts.filter(r => r.name == event.target.value)[0].price) }}
+                                >
                                 <option></option>
-                                <option>Butter</option>
-                                <option>Red Apple</option>
-                                <option>Green Apple</option>
-                                <option>Green Grapes</option>
-                                <option>Grapes</option>
-                                <option>Carrot</option>
-                                <option>Tomato</option>
-                                <option>Fresh Milk</option>
-                                <option>Milk</option>
-                                <option>Mozzarella</option>
-                                <option>Buffala Mozzarella</option>
-                                <option>Tomato Seeds</option>
-                                <option>Lettuce</option>
-                                <option>Fresh Salmon</option>
-                                <option>Frozen Salmon</option>
-                                <option>Chicken Breast</option>
-                                <option>Frozen Meat</option>
-                                <option>Basil</option>
+                                {props.farmerProducts.filter(f => f.confirmed == 1)
+                                .map((r) =>( 
+                                    <option>{r.name}</option>))}
+                                
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">
                                 Please choose a product.
@@ -179,11 +166,13 @@ function FormPlanning(props) {
                             <Form.Group as={Col} sm={5} className="mt-5" controlId="price" variant="outlined">
                                 <Form.Label>Price €  </Form.Label>
                                 <Form.Control
+                                    disabled
                                     required
                                     type="text"
-                                    placeholder="8,36€"
+                                    placeholder = {price}
                                     value={price}
-                                    onChange={(event) => setPrice(event.target.value)}
+                                    
+                                    
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Please insert a price.

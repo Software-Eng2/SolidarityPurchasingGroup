@@ -532,7 +532,7 @@ app.post('/api/productNW',
     check('id_user').isInt(),
     check('id_product').isString(),
     check('quantity').isNumeric(),
-    check('price').isString()
+    
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -583,7 +583,7 @@ app.put('/api/product/quantity',
     if(!errors.isEmpty()){
       return res.status(422).json({errors:errors.array()})
     }
-    console.log(req.body.farmer_id+".." + req.body.name+".."+ req.body.quantity)
+    
     dao.updateProduct(req.body.farmer_id, req.body.name, req.body.quantity)
     .then((id)=>res.status(201).json({id:id}))
     .catch((err)=>{res.status(500).json({error: "Error" + err,})})

@@ -46,13 +46,15 @@ function FarmerPlanning(props) {
             
         <Container className="page below-nav table">
             
-            <FormTable userid={props.userid} productNW={productNW} products={props.products} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} setDisable={setDisable} disable={disable}/>
+                    
+            <FormTable farmerProducts={props.farmerProducts} userid={props.userid} productNW={productNW} products={props.products} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} setDisable={setDisable} disable={disable} />
             <div className="fixed">
                 <BsFillPlusCircleFill className="pointer" size={40} color="#28a745" onClick={() => { setModalShow(true) }} />
                 <PlanningModal
                     show={modalShow}
                     onHide={() => {setModalShow(false); setUpdate(false)}}
                     products={props.products}
+                    farmerProducts={props.farmerProducts}
                     userid={props.userid}
                     update={update}
                     setUpdate={setUpdate}
@@ -138,7 +140,7 @@ function FormTable(props) {
                         props.productNW.filter(p => p.id_user == props.userid)
                             .map(r => (
                                 <tr key={r.id} className="p-0" >
-                                    <td>{r.id_product} {props.products.filter(f => f.name == r.id_product && f.farmer_id == 4)
+                                    <td>{r.id_product} {props.farmerProducts.filter(f => f.name == r.id_product )
                                         .map(c =>
                                             <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
@@ -152,7 +154,7 @@ function FormTable(props) {
                             .filter((t) => t.id_product.includes(search) )
                             .map(r => (
                                 <tr key={r.id} className="p-0" >
-                                    <td>{r.id_product} {props.products.filter(f => f.name == r.id_product && f.farmer_id == 4)
+                                    <td>{r.id_product} {props.farmerProducts.filter(f => f.name == r.id_product )
                                         .map(c =>
                                             <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
@@ -181,6 +183,7 @@ function FormTable(props) {
                         setDirty={props.setDirty}
                         disable={props.disable}
                         setDisable={props.setDisable}
+                        farmerProducts={props.farmerProducts}
                         
                     />
                 </Col>

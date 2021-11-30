@@ -169,7 +169,7 @@ function App() {
           {loggedIn ? <FarmerInterface products={farmerProducts} userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}        
         </Route>
         <Route exact path="/farmerPlanning">
-          <FarmerPlanning userid={userid} products={products}/>
+          <FarmerPlanning userid={userid} products={products} farmerProducts={farmerProducts}/>
         </Route>
       </Switch>
     </Router>
