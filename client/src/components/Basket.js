@@ -31,8 +31,6 @@ function Basket(props){
     const total = sum("total");
     
     const handleShop = () => {
-        console.log(currentClient.amount);
-        console.log(total);
         if ((client && client.amount < total) || (currentClient && currentClient.amount < total)) {
             props.setAlertWalletShow(true);
             flag = true;
@@ -228,6 +226,7 @@ function Basket(props){
                                             type="date"
                                             placeholder="date"
                                             value={date}
+                                            data-testid="calendar"
                                             onChange={(event) => { setDate(event.target.value); }}
                                             min={dayjs().add(1, "w").day(3).format("YYYY-MM-DD")}
                                             max={dayjs().add(1, "w").day(5).format("YYYY-MM-DD")} />
@@ -238,6 +237,7 @@ function Basket(props){
                                         <Form.Control
                                             type="time"
                                             placeholder="time"
+                                            data-testid="time"
                                             value={time}
                                             min="09:00"
                                             max="21:00"
