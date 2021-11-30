@@ -65,7 +65,7 @@ function OrderTable(props){
             <tbody>
                 {
                     orders.map((o) => (
-                        <tr key={o.id} >
+                        <tr key={o.id} data-testid = {`tr-${o.id}`}>
                             <td onClick={()=>{handleClick(o)}}>{o.id}</td>
                             <td onClick={()=>{handleClick(o)}}>{o.creation_date}</td>
                             <td onClick={()=>{handleClick(o)}}>{o.client_id}</td>

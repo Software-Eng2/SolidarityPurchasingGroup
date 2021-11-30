@@ -3,14 +3,15 @@
 */
 
 import React from 'react';
-import { render, cleanup, getByText, fireEvent, screen} from "@testing-library/react";
-import ReactDOM from 'react-dom';
+import { render, cleanup, fireEvent, screen} from "@testing-library/react";
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 import OrdersList from '../components/OrdersList';
 import {OrderTable, TableDropdown} from '../components/OrdersList';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import "jest-fetch-mock";
 
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
@@ -93,3 +94,44 @@ it("render TableDropdown props correctly", () =>{
     expect(wrapper.find('TableDropdown').at(1).props().status).toBe(fakeOrders[1].status);
 });
 
+test('select an order from the list', ()=>{
+    const history = createMemoryHistory();
+    history.push = jest.fn();
+    const setSelectedOrder = jest.fn();
+    const setDirty = jest.fn();
+    const setDate = jest.fn();
+    const setTime = jest.fn();
+
+    render(
+        <MemoryRouter history={history}>
+            <OrdersList orders={fakeOrders} setOrders={''} loggedIn={true} dirty={true} setDirty={setDirty} setSelectedOrder={setSelectedOrder} setModalShow={false} setDate={setDate} setTime={setTime}/>
+        </MemoryRouter>
+    );
+    const thID = screen.getByText(`ID`);
+    const thCD = screen.getByText(`Creation Date`);
+    const thCID = screen.getByText(`Client ID`);
+    const thCN = screen.getByText(`Client Name`);
+    const thCS = screen.getByText(`Client Surname`);
+    const thTot = screen.getByText(`Total`);
+    const thDT = screen.getByText(`Deliver Type`);
+    const thA = screen.getByText(`Address`);
+    const thD = screen.getByText(`Date`);
+    const thT = screen.getByText(`Time`);
+    const thS= screen.getByText(`Status`);
+    expect(thID).toBeInTheDocument();
+    expect(thCD).toBeInTheDocument();
+    expect(thCID).toBeInTheDocument();
+    expect(thCN).toBeInTheDocument();
+    expect(thCS).toBeInTheDocument();
+    expect(thTot).toBeInTheDocument();
+    expect(thDT).toBeInTheDocument();
+    expect(thA).toBeInTheDocument();
+    expect(thD).toBeInTheDocument();
+    expect(thT).toBeInTheDocument();
+    expect(thS).toBeInTheDocument();
+   
+    act(() => {
+        fireEvent.click(screen.getByTestId(`tr-${fakeOrders[0].id}`));
+    });
+
+});

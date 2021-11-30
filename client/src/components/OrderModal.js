@@ -61,7 +61,7 @@ function OrderModal(props) {
             <Row className="mt-1">
                 <Col xs={12} >
                     <h6 className="text-center mt-1">Products:</h6>
-                    {/* To be fetched from basket table in db */}
+                    {/* fetched from basket table in db */}
                 </Col>
             </Row>
                 {
