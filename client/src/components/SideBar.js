@@ -11,13 +11,15 @@ import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaProductHunt ,FaShoppingCart
 import {GiMilkCarton, GiSheep} from 'react-icons/gi';
 
 
-const SideBar = ({collapsed, width, searchCategory, handleBasket, userRole}) => {
+const SideBar = (props) => {
+    const {collapsed, width, searchCategory, handleBasket, userRole} = props;
     return (
         <>
 
             <ProSidebar 
             collapsed={collapsed}
-            width={width}>
+            width={width}
+            {...props}>
                 <SidebarHeader>
                     { userRole == 'farmer' ? 
                     <div
