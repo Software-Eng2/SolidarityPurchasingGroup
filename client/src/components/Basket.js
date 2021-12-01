@@ -10,6 +10,7 @@ import { Order } from '../Order';
 
 function Basket(props){
     const basket = props.basket;
+    const setBasket = props.setBasket;
     const qty = basket.length;
     const client = props.client;
     const currentClient = props.currentClient;
@@ -24,6 +25,10 @@ function Basket(props){
     let history = useHistory();
     
     let flag = false;
+
+    const removeProduct = (p) =>{
+        setBasket(basket.filter(product => product!== p));
+    }
 
     const sum = (key) => {
         return basket.reduce((a, b) => a + (b[key] || 0), 0);
@@ -123,7 +128,7 @@ function Basket(props){
                     </Col>
                     <Col xs={2} md={2}>
                         <Row style={{marginTop:"8px"}}>
-                            <button className='cancel-basket'  >
+                            <button className='cancel-basket' onClick={()=>{removeProduct(product)}} >
                                 X
                             </button>
                         </Row>

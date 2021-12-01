@@ -101,7 +101,7 @@ function Market(props) {
         </Modal>
         <Container fluid style={{paddingLeft: 0, paddingRight: 0 , maxWidth: "100%", overflowX:"hidden"}} {...props}>
             <AlertCancellingOrders show={props.show} currentClient={currentClient} cancelOrders={props.cancelOrders} setNotificationFlag={props.setNotificationFlag}/>
-            <Basket basket={basket} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} userRole={userRole} />
+            <Basket basket={basket} setBasket={setBasket} setShow={setShow} client={client} currentClient={currentClient} setAlertWalletShow={setAlertWalletShow} clienthandleBasket={handleBasket} isOpen={showBasket} onRequestClose={handleBasket} userRole={userRole} />
             <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient} userRole={userRole}/>
             <Row>
                 <Col xs={2} sm={2} md={2}>
