@@ -55,3 +55,19 @@ CI=true npm test -- --coverage --testResultsProcessor=jest-sonar-reporter
 
 ```
 NOTE: coverage and .scannerwork folders created by jest and sonar-scanner are not synchronized as they are added to the .gitignore
+```
+
+# Docker image
+
+To get docker image of our project (demo 1) you can type the following command:
+
+```
+sudo docker pull francescoplc/solidarity_purchasing_group_p05:release1
+```
+
+Run with:
+```
+docker run -it -p 3000:3000 francescoplc/solidarity_purchasing_group_p05:release1
+```
+
+On your browser go to localhost:3000 page to navigate our app
