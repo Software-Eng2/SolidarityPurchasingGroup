@@ -15,7 +15,8 @@ COPY ./server/package-lock.json ./server/
 
 WORKDIR /app/client
 
-RUN npm install 
+RUN npm install && \
+    npm rebuild bcrypt --build-from-source
 
 WORKDIR /app/server
 
