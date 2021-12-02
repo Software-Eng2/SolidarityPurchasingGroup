@@ -26,14 +26,14 @@ function Basket(props){
     
     let flag = false;
 
+    const removeProduct = (p) =>{
+        setBasket(basket.filter(product => product!== p));
+    }
+
     const sum = (key) => {
         return basket.reduce((a, b) => a + (b[key] || 0), 0);
     }
     const total = sum("total");
-    
-    const removeProduct = (p) =>{
-        setBasket(basket.filter(product => product!== p)); 
-    }
     
     const handleShop = () => {
         if ((client && client.amount < total) || (currentClient && currentClient.amount < total)) {
@@ -128,7 +128,7 @@ function Basket(props){
                     </Col>
                     <Col xs={2} md={2}>
                         <Row style={{marginTop:"8px"}}>
-                            <button className='cancel-basket' onClick={()=>{removeProduct(product)}}>
+                            <button className='cancel-basket' onClick={()=>{removeProduct(product)}} >
                                 X
                             </button>
                         </Row>

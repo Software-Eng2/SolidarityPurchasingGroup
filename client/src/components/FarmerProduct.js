@@ -68,6 +68,7 @@ function FarmerProduct(props) {
 													type="text" 
 													defaultValue={name} 
 													placeholder={name}
+													disabled={true}
 													onChange={(event) => {setNameProduct(event.target.value); handleChange();}}
 													/>
 									</Form.Group>
@@ -88,6 +89,7 @@ function FarmerProduct(props) {
 																			rows={3} 
 																			defaultValue={description} 
 																			placeholder={description}
+																			disabled={true}
 																			onChange={(event) => {setDescriptionProduct(event.target.value); handleChange();}}
 																			/>
 															</p>
@@ -96,6 +98,7 @@ function FarmerProduct(props) {
 																	<Form.Control 
 																			as="select"
 																			value={category}
+																			disabled={true}
 																			onChange={(event) => { setCategoryProduct(event.target.value); handleChange()}} 
 																	>
 																			<option default>{category}</option>
@@ -111,9 +114,10 @@ function FarmerProduct(props) {
 													<Col xs={6} md={6}>
 															<h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>Price</h3>
 													</Col>
+												{/*
 													<Col xs={6} md={6}>
 															<h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>Change confirmation</h3>
-													</Col>
+													</Col>*/}
 											</Row>
 											<Row align="center" style={{marginTop:"1rem", marginBottom:"1.2rem"}}>
 													<Col xs={6} md={6}>
@@ -121,16 +125,19 @@ function FarmerProduct(props) {
 																	type="text" 
 																	defaultValue={price} 
 																	placeholder={price}
+																	disabled={true}
 																	onChange={(event) => {setPriceProduct(event.target.value); handleChange();}}
 																	/>
 													</Col>
+												{/*
 													<Col xs={6} md={6}>
 														
 															<div data-testid="counter" className = "product-quantity">
 																	<Switch onChange={handleSwitch} checked={switched}/>
 															</div>
 
-													</Col>
+													</Col>*/}
+
 											</Row>
 									</Container>
 							</Modal.Body>

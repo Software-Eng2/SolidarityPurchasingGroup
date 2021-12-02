@@ -71,3 +71,16 @@ docker run -it -p 3000:3000 francescoplc/solidarity_purchasing_group_p05:release
 ```
 
 On your browser go to localhost:3000 page to navigate our app
+
+# Credentials
+farmer:
+- email: mariamarroni@gmail.com
+- password: mariamarroni
+
+shop employee:
+- email: mariorossi@gmail.com
+- password: mariorossi
+
+client: 
+- email: isabellaverdi@gmail.com
+- password: isabellaverdi
