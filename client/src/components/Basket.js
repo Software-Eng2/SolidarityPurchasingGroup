@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SlidingPane from 'react-sliding-pane';
 import{ Container, Row, Col, Form, Button} from "react-bootstrap";
 import 'react-sliding-pane/dist/react-sliding-pane.css';
@@ -10,6 +10,7 @@ import { Order } from '../Order';
 
 function Basket(props){
     const basket = props.basket;
+    const setBasket = props.setBasket;
     const qty = basket.length;
     const client = props.client;
     const currentClient = props.currentClient;
@@ -29,6 +30,10 @@ function Basket(props){
         return basket.reduce((a, b) => a + (b[key] || 0), 0);
     }
     const total = sum("total");
+    
+    const removeProduct = (p) =>{
+        setBasket(basket.filter(product => product!== p)); 
+    }
     
     const handleShop = () => {
         if ((client && client.amount < total) || (currentClient && currentClient.amount < total)) {
@@ -123,7 +128,7 @@ function Basket(props){
                     </Col>
                     <Col xs={2} md={2}>
                         <Row style={{marginTop:"8px"}}>
-                            <button className='cancel-basket'  >
+                            <button className='cancel-basket' onClick={()=>{removeProduct(product)}}>
                                 X
                             </button>
                         </Row>
