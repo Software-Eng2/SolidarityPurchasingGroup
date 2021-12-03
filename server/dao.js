@@ -474,3 +474,18 @@ exports.deleteAllProductForNextWeek = () => {
       });
   });
 }
+
+//retrieve all pending orders of a defined client
+exports.getClientPendingOrders = (client_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT ORDERS.id, ORDERS.creation_date, ORDERS.client_id, USERS.name, USERS.surname, ORDERS.total, ORDERS.status, ORDERS.pick_up, ORDERS.address, ORDERS.date, ORDERS.time FROM ORDERS INNER JOIN USERS ON ORDERS.client_id = USERS.id WHERE client_id = ? AND status = "PENDING" ORDER BY ORDERS.id DESC';
+    db.all(sql, [client_id], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      };
+      const orders = rows.map((o) => ({ id: o.id, creation_date: o.creation_date, client_id: o.client_id, name: o.name, surname: o.surname, total: o.total, status: o.status, pick_up: o.pick_up, address: o.address, date: o.date, time: o.time }));
+      resolve(orders);
+    });
+  })
+};

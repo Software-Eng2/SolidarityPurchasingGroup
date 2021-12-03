@@ -451,6 +451,7 @@ app.get('/api/orders/:id',
     .catch((err) => res.status(500).json({ error: "Error " + err }));
 });
 
+//delete a product by its id
 app.delete('/api/products/:id', 
   [
     check('id').isInt({min:0})
@@ -471,6 +472,7 @@ app.delete('/api/products/:id',
   }
 );
 
+//delete an order by its id
 app.delete('/api/orders/:id', 
   [
     check('id').isInt({min:0})
@@ -491,6 +493,7 @@ app.delete('/api/orders/:id',
   }
 );
 
+//delete a client and their wallet by client_id 
 app.delete('/api/clients/:id',
   [
     check('id').isInt({ min: 0 })
@@ -517,7 +520,6 @@ app.delete('/api/clients/:id',
 );
 
 //get a product for next week from an id_user
-
 app.get('/api/productsNW/:id_user',
   (req, res) => {
     const id = req.params.id_user;
@@ -627,3 +629,12 @@ app.delete('/api/allProductsNW',  async (req, res) => {
       res.status(503).json({ errors: `Database error during the deletion of the task.` });
   }
 });
+
+//get all client pending orders
+app.get('/api/pending/:client_id',
+  (req, res) => {
+    const client_id = req.params.client_id;
+    dao.getClientPendingOrders(client_id)
+      .then((orders) => { res.json(orders) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+  });
