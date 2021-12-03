@@ -10,7 +10,7 @@ function ClientOrders(props) {
         <div className="borders mb-3" >
             {
                 clientOrders.map((o) => (
-                    <Card key={o} className="text-center my-3 mx-5">
+                    <Card key={o} className="text-center my-3 mx-3">
                         {/* <Card.Header>Featured</Card.Header> */}
                         <Card.Body>
                             <Card.Title>Order #{o.id}</Card.Title>

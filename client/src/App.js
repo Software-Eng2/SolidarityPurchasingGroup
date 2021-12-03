@@ -15,6 +15,7 @@ import VirtualClock from './components/VirtualClock';
 import FarmerPlanning from './components/FarmerPlanning';
 import FarmerInterface from './components/FarmerInterface';
 import ClientPage from './components/ClientOrders/ClientPage';
+import FarmerOrders from './components/FarmerOrders';
 
 function App() {
 
@@ -178,7 +179,10 @@ function App() {
         </Route>
         <Route exact path= "/client">
           {loggedIn && userRole=='client' ? <ClientPage clientOrders={clientOrders}/> : <LoginForm doLogIn={doLogIn}/>}
-        </Route>                
+        </Route>
+        <Route exact path="/farmerOrders">
+          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} products={products} farmerProducts={farmerProducts}/> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>               
       </Switch>
     </Router>
   );

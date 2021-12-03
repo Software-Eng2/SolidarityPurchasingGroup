@@ -8,7 +8,7 @@ function ClientPage(props){
     return (
         <Container fluid className="page width-100 below-nav" >
             <Col>
-                <h1 className="font-italic text-left">Your Orders (CARD DA AGGIUSTARE :s)</h1>
+                <h1 className="font-italic text-left mb-3">Your Orders (CARD DA AGGIUSTARE, fanno cagareee :s)</h1>
             </Col>
             <Tabs variant="tabs" defaultActiveKey="Pending" id="uncontrolled-tab-example" className=" tabs">
                 <Tab eventKey="Pending" title="Pending">
