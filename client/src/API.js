@@ -497,6 +497,19 @@ function deleteAllProductNW() {
   });
 }
 
+async function getClientPendingOrders(client_id) {
+
+  const response = await fetch(BASEURL + '/pending/' + client_id);
+
+  const orders = await response.json();
+
+  if (response.ok) {
+    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.name, o.surname, o.total, o.date, o.time, o.pick_up, o.address, o.status));
+  } else {
+    return undefined;
+  }
+}
+
 
 const API = {
   getNotifications,
@@ -530,7 +543,8 @@ const API = {
   deleteProductNW,
   deleteAllUserProductNW,
   deleteAllProductNW,
-  changeProduct
+  changeProduct,
+  getClientPendingOrders
 
 }
 
