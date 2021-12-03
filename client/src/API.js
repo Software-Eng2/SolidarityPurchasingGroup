@@ -59,6 +59,20 @@ async function getAllProducts(){
         return undefined;
     }
 }
+//get ordered products by farmer
+async function getOrderedProductsByFarmer(farmer_id){
+
+  const response = await fetch(BASEURL + '/farmer/' + farmer_id);
+
+  const products = await response.json();
+
+  if (response.ok) {
+      return products;
+  } else {
+      return undefined;
+  }
+}
+
 
 async function createProduct(p) {
     try {
@@ -544,8 +558,8 @@ const API = {
   deleteAllUserProductNW,
   deleteAllProductNW,
   changeProduct,
-  getClientPendingOrders
-
+  getClientPendingOrders,
+  getOrderedProductsByFarmer
 }
 
 export default API;

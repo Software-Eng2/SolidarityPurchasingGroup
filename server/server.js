@@ -85,7 +85,16 @@ app.get('/api/clients/:id',
     dao.getClientById(client_id)
       .then((client) => { res.json(client) })
       .catch((err) => res.status(500).json({ error: "Error " + err }));
-  });
+});
+
+//get the quantity ordered of a products filtered by farmer id
+app.get('/api/farmer/:id',
+  (req, res) => {
+    const farmer_id = req.params.id;
+    dao.getOrderedProducts(farmer_id)
+      .then((orderedProducts) => { res.json(orderedProducts) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
 
 // add a new client 
 app.post('/api/users',

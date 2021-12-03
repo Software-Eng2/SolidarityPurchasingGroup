@@ -32,6 +32,7 @@ function App() {
   const [farmerProducts, setFarmerProducts] = useState([]);
   const [currentClient, setCurrentClient] = useState('');
   const [clientOrders, setClientOrders] = useState([]); 
+  const [orderedProducts, setOrderedProducts] = useState([]);
 
   useEffect(()=>{
     API.getAllProducts().then((p) => {
@@ -91,6 +92,9 @@ function App() {
       API.getProductsByFarmer(userid).then((products) => {
         setFarmerProducts(products);
     });
+    API.getOrderedProductsByFarmer(userid).then((products) => {
+      setOrderedProducts(products);
+  });
     }
   },[userid,userRole])
 
@@ -181,7 +185,7 @@ function App() {
           {loggedIn && userRole=='client' ? <ClientOrders clientOrders={clientOrders}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route> 
         <Route exact path="/farmerOrders">
-          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} products={products} farmerProducts={farmerProducts}/> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>               
       </Switch>
     </Router>

@@ -96,6 +96,21 @@ exports.updatedConfirmedProduct = (confirmed, id) => {
         });
     });
 };
+//get the quantity ordered of a products filtered by farmer id
+exports.getOrderedProducts = (farmer_id) => {
+  return new Promise((resolve,reject)=>{
+    const sql = 'SELECT product_id, name, sum(BASKETS.quantity) AS totalOrdered FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE PRODUCTS.farmer_id = ? GROUP BY product_id';
+    db.all(sql, [farmer_id], (err,rows) => {
+      if(err){
+        reject(err);
+        return;
+      }
+      const orderedProducts = rows.map((op)=>({id: op.id, name: op.name, amount: op.totalOrdered }));
+      resolve(orderedProducts);
+    });
+  });
+};
+
 //retrieve all orders
 exports.getAllOrders = () => {
   return new Promise((resolve, reject) => {
@@ -110,6 +125,8 @@ exports.getAllOrders = () => {
     });
   })
 };
+
+
 
 //add a new order in db
 exports.createOrder = (order) => {
