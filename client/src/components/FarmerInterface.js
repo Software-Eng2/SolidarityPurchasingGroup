@@ -5,10 +5,12 @@ import SideBar from './SideBar';
 import FarmerProduct from './FarmerProduct';
 import API from '../API';
 import { FaCalendarAlt, FaPlus} from "react-icons/fa";
+import {AiOutlineShoppingCart} from "react-icons/ai";
 import {ImSad } from "react-icons/im";
 import ProductForm from './ProductForm';
 import { Clock } from '../Clock';
 import dayjs from 'dayjs';
+import { BsFillPlusCircleFill } from "react-icons/bs";
 
 function FarmerInterface(props) {
     const { products, userid} = props;
@@ -102,23 +104,32 @@ function FarmerInterface(props) {
                             <hr style={{marginTop:0}}/>
                             <Row align='center' >
                                
-                                <Col xs={12} sm={12} md={6} >
+                                <Col xs={12} sm={12} md={4} >
                                     <Link to={{ pathname: '/farmerPlanning' }}>
                                         <div className="farmer-button">
                                             <button disabled={products.length == 0 ? true : false}>
                                                 <FaCalendarAlt/> Plan for next week
                                             </button>
-                                        
                                         </div>
                                     </Link>
                                 </Col>
                                
-                                <Col xs={12} sm={12} md={6}>
+                                <Col xs={12} sm={12} md={4}>
                                     <div className="farmer-button">
-                                        <button data-testid="new-product-button" onClick={handleShow}>
-                                            <FaPlus/> Add new product
+                                        <button data-testid="new-product-button">
+                                            <FaPlus className="mb-1"/> Confirm
                                         </button>
                                     </div>
+                                </Col>
+
+                                <Col xs={12} sm={12} md={4}>
+                                    <Link to={{ pathname: '/farmerOrders' }}>
+                                        <div className="farmer-button">
+                                            <button data-testid="view-orders-button">
+                                                <AiOutlineShoppingCart size={30}/> View your orders
+                                            </button>
+                                        </div>
+                                    </Link>
                                 </Col>
                             </Row>
                             <hr/>
@@ -152,7 +163,11 @@ function FarmerInterface(props) {
                         </Container>
                     </Col>
                 </Row>
+                <div className="fixed">
+                    <BsFillPlusCircleFill className="pointer" size={40} color="#28a745" onClick={handleShow}></BsFillPlusCircleFill>
+                </div>
             </Container>
+
             <ProductForm userid={userid} show={show} handleShow={handleShow} />
         </>
             
