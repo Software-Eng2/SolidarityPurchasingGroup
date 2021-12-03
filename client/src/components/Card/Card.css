@@ -31,7 +31,7 @@
 .card-title {
     color: black;
     font-weight: bold;
-    overflow: scroll;
+    overflow: hidden;
     height: 3rem;
     margin-top: 0.5rem;
 }
