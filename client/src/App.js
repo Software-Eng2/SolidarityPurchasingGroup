@@ -14,7 +14,7 @@ import API from './API';
 import VirtualClock from './components/VirtualClock';
 import FarmerPlanning from './components/FarmerPlanning';
 import FarmerInterface from './components/FarmerInterface';
-import ClientOrders from './components/ClientOrders';
+import ClientPage from './components/ClientOrders/ClientPage';
 import FarmerOrders from './components/FarmerOrders';
 
 function App() {
@@ -80,9 +80,9 @@ function App() {
             });
           }
         });
-        //TODO: aggiungere API per fetchare ordini pending
-        const fakePendingOrders = ['o1','o2', 'o3'];
-        setClientOrders(fakePendingOrders); //TODO: placeholder fake da sostituire con ordini fetchati
+        API.getClientPendingOrders(userid).then((orders) =>{
+            setClientOrders(orders)
+        })
       });
     }
   },[userid,userRole])
@@ -182,8 +182,8 @@ function App() {
           {loggedIn && userRole=='farmer' ? <FarmerPlanning userid={userid} products={products} farmerProducts={farmerProducts}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path= "/client">
-          {loggedIn && userRole=='client' ? <ClientOrders clientOrders={clientOrders}/> : <LoginForm doLogIn={doLogIn}/>}
-        </Route> 
+          {loggedIn && userRole=='client' ? <ClientPage clientOrders={clientOrders}/> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>
         <Route exact path="/farmerOrders">
           {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>               
