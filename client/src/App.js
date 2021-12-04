@@ -16,6 +16,7 @@ import FarmerPlanning from './components/FarmerPlanning';
 import FarmerInterface from './components/FarmerInterface';
 import ClientPage from './components/ClientOrders/ClientPage';
 import FarmerOrders from './components/FarmerOrders';
+import Manager from './components/Manager';
 
 function App() {
 
@@ -52,7 +53,7 @@ function App() {
 
     // Rehydrate clientsList & ordersList when user is logged in
     useEffect(()=>{
-      if(loggedIn && userRole === "shopemployee" && dirty){
+      if(loggedIn && (userRole === "shopemployee" || "manager") && dirty){
         API.getAllOrders().then((o) => {
           setOrders(o);
         });
@@ -122,6 +123,10 @@ function App() {
             routerHistory.push('/farmer');  
             window.location.reload(); 
             break;
+          case 'manager':
+            routerHistory.push('/warehouse');  
+            window.location.reload(); 
+            break;
           default:
             routerHistory.push('/');
 
@@ -186,6 +191,9 @@ function App() {
         </Route>
         <Route exact path="/farmerOrders">
           {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts}/> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>
+        <Route exact path="/warehouse">
+          {loggedIn && userRole=='manager' ? <Manager orders={orders} /> : <LoginForm doLogIn={doLogIn}/>}
         </Route>               
       </Switch>
     </Router>
