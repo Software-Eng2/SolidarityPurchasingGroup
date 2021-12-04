@@ -14,6 +14,8 @@ import API from './API';
 import VirtualClock from './components/VirtualClock';
 import FarmerPlanning from './components/FarmerPlanning';
 import FarmerInterface from './components/FarmerInterface';
+import ClientPage from './components/ClientOrders/ClientPage';
+import FarmerOrders from './components/FarmerOrders';
 
 function App() {
 
@@ -29,6 +31,8 @@ function App() {
   const [notificationFlag, setNotificationFlag] = useState(0); // 0 notification not showed yet, 1 notification showed
   const [farmerProducts, setFarmerProducts] = useState([]);
   const [currentClient, setCurrentClient] = useState('');
+  const [clientOrders, setClientOrders] = useState([]); 
+  const [orderedProducts, setOrderedProducts] = useState([]);
 
   useEffect(()=>{
     API.getAllProducts().then((p) => {
@@ -48,12 +52,12 @@ function App() {
 
     // Rehydrate clientsList & ordersList when user is logged in
     useEffect(()=>{
-      if(loggedIn && dirty){
+      if(loggedIn && userRole === "shopemployee" && dirty){
         API.getAllOrders().then((o) => {
           setOrders(o);
         });
       }
-     },[loggedIn, dirty]);
+     },[loggedIn, userRole, dirty]);
 
   useEffect (()=> {
     if(userRole === "client" && userid){
@@ -63,7 +67,7 @@ function App() {
           if(notification.length > 0){
             API.getCancellingOrdersByClientId(userid).then((orders) => {
               setCancelOrders(orders);
-              // fare questa procedura quando si devono marcare gli ordini marcare gli ordini come cancelling, non qui!!!
+              // fare questa procedura quando si devono marcare gli ordini come cancelling, non qui!!!
               /*
               let sum = 0;
               orders.map((o) => {sum += o.total;})
@@ -72,10 +76,13 @@ function App() {
               if(sum < client.amount){
                 setNotificationFlag(1);
               }*/
-
+              
             });
           }
         });
+        API.getClientPendingOrders(userid).then((orders) =>{
+            setClientOrders(orders)
+        })
       });
     }
   },[userid,userRole])
@@ -85,6 +92,9 @@ function App() {
       API.getProductsByFarmer(userid).then((products) => {
         setFarmerProducts(products);
     });
+    API.getOrderedProductsByFarmer(userid).then((products) => {
+      setOrderedProducts(products);
+  });
     }
   },[userid,userRole])
 
@@ -147,11 +157,11 @@ function App() {
                   cancelOrders={cancelOrders} setNotificationFlag={setNotificationFlag}/>
         </>
         }/>
-        <Route exact path="/orders">
-          {loggedIn ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}        
+        <Route exact path="/orders"> 
+          {loggedIn && userRole=='shopemployee' ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}        
         </Route>
         <Route exact path="/clientlist">
-          {loggedIn ? <ShopEmployeePage/> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='shopemployee' ? <ShopEmployeePage/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/registerform">
          <RegisterInterface userRole={userRole}/>
@@ -166,11 +176,17 @@ function App() {
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }
         <Route exact path="/farmer">
-          {loggedIn ? <FarmerInterface products={farmerProducts} userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}        
+          {loggedIn && userRole=='farmer' ? <FarmerInterface products={farmerProducts} userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}        
         </Route>
         <Route exact path="/farmerPlanning">
-          <FarmerPlanning userid={userid} products={products} farmerProducts={farmerProducts}/>
+          {loggedIn && userRole=='farmer' ? <FarmerPlanning userid={userid} products={products} farmerProducts={farmerProducts}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
+        <Route exact path= "/client">
+          {loggedIn && userRole=='client' ? <ClientPage clientOrders={clientOrders}/> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>
+        <Route exact path="/farmerOrders">
+          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts}/> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>               
       </Switch>
     </Router>
   );

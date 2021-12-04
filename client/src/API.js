@@ -59,6 +59,20 @@ async function getAllProducts(){
         return undefined;
     }
 }
+//get ordered products by farmer
+async function getOrderedProductsByFarmer(farmer_id){
+
+  const response = await fetch(BASEURL + '/farmer/' + farmer_id);
+
+  const products = await response.json();
+
+  if (response.ok) {
+      return products;
+  } else {
+      return undefined;
+  }
+}
+
 
 async function createProduct(p) {
     try {
@@ -497,6 +511,19 @@ function deleteAllProductNW() {
   });
 }
 
+async function getClientPendingOrders(client_id) {
+
+  const response = await fetch(BASEURL + '/pending/' + client_id);
+
+  const orders = await response.json();
+
+  if (response.ok) {
+    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.name, o.surname, o.total, o.date, o.time, o.pick_up, o.address, o.status));
+  } else {
+    return undefined;
+  }
+}
+
 
 const API = {
   getNotifications,
@@ -530,8 +557,9 @@ const API = {
   deleteProductNW,
   deleteAllUserProductNW,
   deleteAllProductNW,
-  changeProduct
-
+  changeProduct,
+  getClientPendingOrders,
+  getOrderedProductsByFarmer
 }
 
 export default API;
