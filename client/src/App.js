@@ -1,5 +1,5 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 import { BrowserRouter as Router,Switch, Route, useHistory} from 'react-router-dom';
 import { useState, useEffect} from 'react';
@@ -17,6 +17,7 @@ import FarmerInterface from './components/FarmerInterface';
 import ClientPage from './components/ClientOrders/ClientPage';
 import FarmerOrders from './components/FarmerOrders';
 import Manager from './components/Manager';
+import WarehouseEmployeePage from './components/WarehouseEmployeePage';
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
   const [notificationFlag, setNotificationFlag] = useState(0); // 0 notification not showed yet, 1 notification showed
   const [farmerProducts, setFarmerProducts] = useState([]);
   const [currentClient, setCurrentClient] = useState('');
-  const [clientOrders, setClientOrders] = useState([]); 
+  const [clientOrders, setClientOrders] = useState([]);
   const [orderedProducts, setOrderedProducts] = useState([]);
 
   useEffect(()=>{
@@ -40,7 +41,7 @@ function App() {
       setProducts(p);
     });
   },[]);
-  
+
   useEffect(()=>{
     API.getUserInfo().then((user) => {
       setUserEmail(user.email);
@@ -53,7 +54,7 @@ function App() {
 
     // Rehydrate clientsList & ordersList when user is logged in
     useEffect(()=>{
-      if(loggedIn && (userRole === "shopemployee" || "manager") && dirty){
+      if(loggedIn && (userRole === "shopemployee" || "manager" || "warehouseemployee") && dirty){
         API.getAllOrders().then((o) => {
           setOrders(o);
         });
@@ -77,7 +78,7 @@ function App() {
               if(sum < client.amount){
                 setNotificationFlag(1);
               }*/
-              
+
             });
           }
         });
@@ -102,36 +103,40 @@ function App() {
 
 
   const doLogIn = (email, password) => {
-    API.logIn(email, password).then(([e]) => {   
-      API.getUserInfo().then((user) => {      
+    API.logIn(email, password).then(([e]) => {
+      API.getUserInfo().then((user) => {
         setUserEmail(e);
         setUserid(user.id);
         setLoggedIn(true);
         setUserRole(user.role);
-        setDirty(true);  
+        setDirty(true);
         switch(user.role){
           case 'shopemployee':
-            routerHistory.push('/clientlist');  
+            routerHistory.push('/clientlist');
             window.location.reload();
             break;
           case 'client':
             console.log(userid);
-            routerHistory.push('/products');  
+            routerHistory.push('/products');
             window.location.reload();
             break;
           case 'farmer':
-            routerHistory.push('/farmer');  
-            window.location.reload(); 
+            routerHistory.push('/farmer');
+            window.location.reload();
             break;
           case 'manager':
-            routerHistory.push('/warehouse');  
-            window.location.reload(); 
+            routerHistory.push('/warehouse');
+            window.location.reload();
+            break;
+          case 'warehouseemployee':
+            routerHistory.push('/warehouseEmployee');
+            window.location.reload();
             break;
           default:
             routerHistory.push('/');
 
         }
-      }).catch((err) => console.log(err));   
+      }).catch((err) => console.log(err));
     }).catch((err) => {
       console.log(err);
     });
@@ -155,18 +160,21 @@ function App() {
         <Route exact path="/">
           <Homepage/>
         </Route>
-        <Route exact path='/products' render={({location}) => 
+        <Route exact path='/products' render={({location}) =>
         <>
           <Market products={products} userid={userid} userRole={userRole} currentClient={currentClient}
                   client={location.state ? location.state.client : ""} show={cancelOrders ? (cancelOrders.length > 0 && notificationFlag === 0) : false }
                   cancelOrders={cancelOrders} setNotificationFlag={setNotificationFlag}/>
         </>
         }/>
-        <Route exact path="/orders"> 
-          {loggedIn && userRole=='shopemployee' ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}        
+        <Route exact path="/orders">
+          {loggedIn && userRole=='shopemployee' ? <OrdersPage orders={orders} setOrders={setOrders} loggedIn={loggedIn}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/clientlist">
           {loggedIn && userRole=='shopemployee' ? <ShopEmployeePage/> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>
+        <Route exact path="/warehouseEmployee">
+          {loggedIn && userRole=='warehouseemployee' ? <WarehouseEmployeePage orders={orders}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/registerform">
          <RegisterInterface userRole={userRole}/>
@@ -181,7 +189,7 @@ function App() {
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }
         <Route exact path="/farmer">
-          {loggedIn && userRole=='farmer' ? <FarmerInterface products={farmerProducts} userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}        
+          {loggedIn && userRole=='farmer' ? <FarmerInterface products={farmerProducts} userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/farmerPlanning">
           {loggedIn && userRole=='farmer' ? <FarmerPlanning userid={userid} products={products} farmerProducts={farmerProducts}/> : <LoginForm doLogIn={doLogIn}/>}
@@ -194,7 +202,7 @@ function App() {
         </Route>
         <Route exact path="/warehouse">
           {loggedIn && userRole=='manager' ? <Manager orders={orders} /> : <LoginForm doLogIn={doLogIn}/>}
-        </Route>               
+        </Route>
       </Switch>
     </Router>
   );
