@@ -131,6 +131,7 @@ function SelectedOrder(props){
 
 
 export default ClientOrders;
+export {PendingList, AcceptedList}
 
 
  

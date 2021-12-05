@@ -108,7 +108,7 @@ test('p-updateConfirmed', () =>{
 /* ---------- ORDER ---------- */
 test('o-getAllOrders',()=>{
     API.logIn("mariorossi@gmail.com","mariorossi");
-    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(6)})
+    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(9)})
 });
 
 test('o-createOrder',()=>{
