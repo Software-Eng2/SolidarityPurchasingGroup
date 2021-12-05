@@ -36,6 +36,10 @@ $button-black: #5C6166;
   min-height: 100vh;
 }
 
+.pheight-100 {
+  height:100%;
+}
+
 .width-100 {
   min-width: 100%;
 }
@@ -324,3 +328,15 @@ th {
 .pointer {
   cursor: pointer;
 }
+
+.tabs{
+  background-color: #b4e6e2!important;
+}
+
+.borders{  
+  border-top: 1px dotted #b4e6e2;
+  border-bottom: 2px solid #b4e6e2;
+  border-right: 2px solid #b4e6e2;
+  border-left: 2px solid #b4e6e2;
+}
+

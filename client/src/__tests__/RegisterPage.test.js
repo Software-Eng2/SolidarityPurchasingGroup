@@ -26,6 +26,7 @@ afterEach(() => {
 });
 
 configure({ adapter: new Adapter() });
+const fakeUserRole= "";
 
 
 //avviene il render della pag?
@@ -33,9 +34,19 @@ configure({ adapter: new Adapter() });
 describe("Render", () => {
 
   it("Check registerpageRender", () => {
-    const page = shallow(<RegisterInterface />);
+    const page = shallow(<RegisterInterface userRole={fakeUserRole}/>);
     expect(page).toBeTruthy();
   });
+
+  
+
+  it("Check all components", () => {
+    const  wrapper = shallow(<RegisterInterface  userRole={fakeUserRole}/>);
+    expect(wrapper.find('Container').exists()).toBeTruthy();
+    expect(wrapper.find('Form').exists()).toBeTruthy();
+    expect(wrapper.find('Button')).toHaveLength(2);
+
+  })
 
 
 
@@ -58,7 +69,7 @@ describe("Render", () => {
     const wrapper = shallow(<RegisterInterface />)
     const btn = <Button
       className="mt-5"
-      data-testid="back-button"
+      data-testid="back-Button"
       style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} onClick={() => {
         
       }}>
@@ -93,7 +104,29 @@ describe("changeInput", () => {
     expect(onButtonClickMock).toHaveBeenCalledTimes(0);
 
   });
+
+
+  it('Button back', () => {
+    let onButtonClickMock = jest.fn();
+    render( 
+      <Button className="mt-5" 
+      data-testid="back-Button"  
+      style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} 
+      onClick={() => onButtonClickMock}>back</Button>
+
+    );
+    
+
+    fireEvent.click(screen.getByTestId('back-Button'));
+    expect(onButtonClickMock).toHaveBeenCalledTimes(0);
+
+  });
+
+
 });
+
+
+
 
 
 // it('includes link to clienlist', () => {
