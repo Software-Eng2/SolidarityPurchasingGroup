@@ -34,6 +34,7 @@ function App() {
   const [farmerProducts, setFarmerProducts] = useState([]);
   const [currentClient, setCurrentClient] = useState('');
   const [clientOrders, setClientOrders] = useState([]);
+  const [clientAcceptedOrders, setClientAcceptedOrders] = useState([]);
   const [orderedProducts, setOrderedProducts] = useState([]);
 
   useEffect(()=>{
@@ -70,6 +71,7 @@ function App() {
             API.getCancellingOrdersByClientId(userid).then((orders) => {
               setCancelOrders(orders);
               // fare questa procedura quando si devono marcare gli ordini come cancelling, non qui!!!
+              // non ho capito, in ogni caso mi dissocio
               /*
               let sum = 0;
               orders.map((o) => {sum += o.total;})
@@ -85,6 +87,9 @@ function App() {
         API.getClientPendingOrders(userid).then((orders) =>{
             setClientOrders(orders)
         })
+        API.getClientAcceptedOrders(userid).then((orders) =>{
+          setClientAcceptedOrders(orders)
+      })
       });
     }
   },[userid,userRole])
@@ -195,7 +200,7 @@ function App() {
           {loggedIn && userRole=='farmer' ? <FarmerPlanning userid={userid} products={products} farmerProducts={farmerProducts}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path= "/client">
-          {loggedIn && userRole=='client' ? <ClientPage clientOrders={clientOrders}/> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='client' ? <ClientPage clientOrders={clientOrders} clientAcceptedOrders={clientAcceptedOrders}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/farmerOrders">
           {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts}/> : <LoginForm doLogIn={doLogIn}/>}
