@@ -4,10 +4,11 @@ import {pickUpIcon, deliveryIcon} from "./Icons";
 import { useEffect, useState } from 'react';
 
 function WarehouseEmployeePage(props){
+    const {orders} = props;
 
     return(
         <Container fluid className="page below-nav table">
-            <OrderTable orders={props.orders}/>
+            <OrderTable orders={orders}/>
         </Container>
     );
 }
@@ -21,6 +22,7 @@ function OrderTable(props){
     useEffect(()=>{
         let ready = [];
         orders.map((o)=>{
+            console.log(o.id)
             if(o.status === "READY")
                 ready.push(o.id);
         })
@@ -69,6 +71,7 @@ function OrderTable(props){
                         <td>
                             <Form.Group>
                                 <Form.Check
+                                    data-testid = {`check-${o.id}`}
                                     type="checkbox"
                                     id={o.id}
                                     label={o.status === "READY" || checked.includes(o.id) ? "Confirmed" : "Check to confirm"}
@@ -87,3 +90,4 @@ function OrderTable(props){
 }
 
 export default WarehouseEmployeePage;
+export { OrderTable};
