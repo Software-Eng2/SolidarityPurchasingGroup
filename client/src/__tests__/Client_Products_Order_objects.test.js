@@ -133,3 +133,8 @@ test('o-changeDateTimeTrue',()=>{
         expect((API.changeDateTime(order_id,fakeDate,fakeTime))).toBeTruthy();
     });
 });
+
+test('f-getOrderedProducts', ()=>{
+    const id=4;
+    expect(API.getOrderedProductsByFarmer(id)).toBeTruthy();
+})

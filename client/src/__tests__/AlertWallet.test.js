@@ -56,14 +56,13 @@ test('top up alert', ()=>{
     history.push = jest.fn();
     const alertWalletShow = jest.fn();
     const setAlertWalletShow = jest.fn();
-    const topUp = jest.fn();
     const setTopUp = jest.fn();
     const client = new Client(5,'Luca','Neri','2012-10-24','lucaneri@gmail.com',1,0);
     const currentClient = new Client(5,'Luca','Neri','2012-10-24','lucaneri@gmail.com',1,0);
     
     render(
       <MemoryRouter history={history}>
-        <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient} userRole={"shopemployee"} />
+        <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={200} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient} userRole={"shopemployee"} />
       </MemoryRouter>
     );
     const topUpLater = screen.getByText('Top up later');
@@ -89,5 +88,6 @@ test('top up alert', ()=>{
     act(() => {
         fireEvent.click(screen.getByText('Top up now'));
     });
+    expect(fireEvent.click(screen.getByText('Top up now'))).toBeTruthy();
     
 })
