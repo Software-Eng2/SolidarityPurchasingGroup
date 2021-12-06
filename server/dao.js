@@ -99,13 +99,13 @@ exports.updatedConfirmedProduct = (confirmed, id) => {
 //get the quantity ordered of a products filtered by farmer id
 exports.getOrderedProducts = (farmer_id) => {
   return new Promise((resolve,reject)=>{
-    const sql = 'SELECT product_id, name, sum(BASKETS.quantity) AS totalOrdered FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE PRODUCTS.farmer_id = ? GROUP BY product_id';
+    const sql = 'SELECT product_id, name, PRODUCTS.quantity AS qty, PRODUCTS.price AS price, sum(BASKETS.quantity) AS totalOrdered FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE PRODUCTS.farmer_id = ? GROUP BY product_id';
     db.all(sql, [farmer_id], (err,rows) => {
       if(err){
         reject(err);
         return;
       }
-      const orderedProducts = rows.map((op)=>({id: op.id, name: op.name, amount: op.totalOrdered }));
+      const orderedProducts = rows.map((op)=>({id: op.product_id, name: op.name, estimated: op.qty, price: op.price, amount: op.totalOrdered }));
       resolve(orderedProducts);
     });
   });
