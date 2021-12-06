@@ -58,7 +58,7 @@ function FarmerOrderTable(props){
                             <td className="text-center"><strong >{p.estimated}</strong></td>
                             <td className="text-center"><strong >{p.amount}</strong></td>
                             <td className="text-center"><strong>
-                                <input type='number' name='quantity' value={confirmedProducts[index].quantity} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
+                                <input type='number' name='quantity' value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
                             <td className="text-center"><button className="dropdown dropdown-btn"> Confirm orders </button> </td>
                         </tr>
                     ))
