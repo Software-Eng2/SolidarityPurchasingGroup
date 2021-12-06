@@ -63,7 +63,7 @@ test('top up alert', ()=>{
     
     render(
       <MemoryRouter history={history}>
-        <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient} />
+        <AlertWallet show={alertWalletShow} setAlertWalletShow={setAlertWalletShow} topUp={topUp} setTopUp={setTopUp} onHide={() => {setAlertWalletShow(false); setTopUp(0)}} user={client} currentClient={currentClient} userRole={"shopemployee"} />
       </MemoryRouter>
     );
     const topUpLater = screen.getByText('Top up later');

@@ -66,7 +66,6 @@ it("renders farmer interface with no products", () => {
 it("renders farmer interface components without crashing", () => {
     const wrapper = shallow(<FarmerInterface products={fakeProducts} userid={fakeFarmer.id}/>);
     expect(wrapper.find('FaCalendarAlt').exists()).toBeTruthy();
-    expect(wrapper.find('FaPlus').exists()).toBeTruthy();
     expect(wrapper.find('Container').exists()).toBeTruthy();
     expect(wrapper.find('SideBar').exists()).toBeTruthy();
     expect(wrapper.find('FarmerProduct').exists()).toBeTruthy();
