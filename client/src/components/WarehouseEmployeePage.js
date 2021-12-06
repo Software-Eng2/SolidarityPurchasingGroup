@@ -1,6 +1,7 @@
 import{ Container, Table, Dropdown, ButtonGroup, Form} from "react-bootstrap";
 import API from '../API';
 import {pickUpIcon, deliveryIcon} from "./Icons";
+import { useEffect, useState } from 'react';
 
 function WarehouseEmployeePage(props){
 
@@ -15,6 +16,17 @@ function WarehouseEmployeePage(props){
 function OrderTable(props){
 
     const {orders} = props;
+    const [checked, setChecked] = useState([]);
+
+    useEffect(()=>{
+        let ready = [];
+        orders.map((o)=>{
+            if(o.status === "READY")
+                ready.push(o.id);
+        })
+        setChecked([...ready]);
+    },[orders]);
+
 
     //change status of the selected order
     const changeStatus = async (order_id, status) => {
@@ -22,7 +34,6 @@ function OrderTable(props){
             console.log("ok");
         });
     }
-
 
     return(
         <Table striped bordered hover responsive >
@@ -43,7 +54,7 @@ function OrderTable(props){
             </thead>
             <tbody>
             {
-                orders.filter((o) => o.date != "" && o.time != "").map((o) => (
+                orders.filter((o) => o.status === "ACCEPTED" || o.status === "READY").map((o) => (
                     <tr key={o.id} data-testid = {`tr-${o.id}`}>
                         <td>{o.id}</td>
                         <td>{o.creation_date}</td>
@@ -55,18 +66,17 @@ function OrderTable(props){
                         <td>{o.address}</td>
                         <td>{o.date}</td>
                         <td>{o.time}</td>
-                        <td className="text-center">
+                        <td>
                             <Form.Group>
                                 <Form.Check
                                     type="checkbox"
                                     id={o.id}
-                                    label={o.status === "READY" ? "Confirmed" : "Check to confirm"}
-                                    checked={o.status === "READY"}
-                                    disabled = {o.status === "READY"}
-                                    onClick={() => { o.status="READY"; changeStatus(o.id, "READY") }}
+                                    label={o.status === "READY" || checked.includes(o.id) ? "Confirmed" : "Check to confirm"}
+                                    disabled = {checked.includes(o.id)}
+                                    checked = {checked.includes(o.id)}
+                                    onClick={() => {changeStatus(o.id, "READY"); setChecked([...checked, o.id]) }}
                                 />
                             </Form.Group>
-
                         </td>
                     </tr>
                 ))

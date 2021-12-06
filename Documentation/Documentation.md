@@ -623,3 +623,8 @@
 #### client:
 - email: isabellaverdi@gmail.com
 - password: isabellaverdi
+
+#### warehouse worker:
+- email: lucaneri@gmail.com
+- password: lucaneri
+
