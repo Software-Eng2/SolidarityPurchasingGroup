@@ -101,12 +101,50 @@ function NavBar(props) {
             )
 
             break;
-
-/*         case 'farmer':
-
-            TODO: IMPLEMENTARE NAVBAR FARMER
-            
-            break; */
+        
+            case 'farmer':
+                return (
+                    <Navbar collapseOnSelect expand="lg"/*  bg="dark" variant="dark"  */ className="nav">
+                        <Navbar.Brand>
+                            <Link to={{ pathname: '/' }} className="font-weight-bold" style={{ color: "white", textDecoration: "none" }}>
+                                {shopIcon}
+                                {' '}
+                                SP⁵G
+                            </Link>
+                        </Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="mx-auto justify-content-around">
+                                <Col lg={8}>
+                                    <Link to={{ pathname: '/farmer' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }} /* className="mx-4" */>
+                                        My Products
+                                    </Link>
+                                </Col>
+                                <Col lg={8}>
+                                    <Link to={{ pathname: '/farmerOrders' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
+                                        My Orders
+                                    </Link>
+                                </Col>
+                            </Nav>
+                            <Nav className="d-flex justify-content-end">
+                                {
+                                    loggedIn ?
+                                        <Col>
+                                            <Link to={{ pathname: '/' }} onClick={doLogOut} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
+                                                Logout
+                                            </Link>
+                                        </Col>
+                                        :
+                                        <Link to={{ pathname: '/login' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
+                                            Login
+                                        </Link>
+                                }
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Navbar>
+                )
+    
+                break;
 
         default:
             return (

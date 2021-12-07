@@ -3,7 +3,7 @@ import ClientOrders from './ClientOrders';
 
 function ClientPage(props){
     
-    const {clientOrders} = props;
+    const {clientOrders, clientAcceptedOrders} = props;
 
     return (
         <Container fluid className="page width-100 below-nav" >
@@ -12,10 +12,10 @@ function ClientPage(props){
             </Col>
             <Tabs variant="tabs" defaultActiveKey="Pending" id="uncontrolled-tab-example" className=" tabs">
                 <Tab eventKey="Pending" title="Pending">
-                    <ClientOrders clientOrders={clientOrders} />
+                    <ClientOrders clientOrders={clientOrders} status={"pending"} />
                 </Tab>
-                <Tab eventKey="Accepted" title="Accepted" disabled>
-
+                <Tab eventKey="Accepted" title="Accepted">
+                    <ClientOrders clientOrders={clientAcceptedOrders} status={"accepted"} />
                 </Tab>
                 <Tab eventKey="Cancelling" title="Cancelling" disabled>
 

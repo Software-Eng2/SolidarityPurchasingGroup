@@ -29,7 +29,6 @@ function OrderModal(props) {
   useEffect(() => {
     if(selectedOrder){
       API.getBasket(selectedOrder.id).then((products) => {
-        console.log(products);
         setBasket(products);
       })
     }

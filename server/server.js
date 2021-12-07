@@ -647,3 +647,12 @@ app.get('/api/pending/:client_id',
       .then((orders) => { res.json(orders) })
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
+
+//get all client pending orders
+app.get('/api/accepted/:client_id',
+  (req, res) => {
+    const client_id = req.params.client_id;
+    dao.getClientAcceptedOrders(client_id)
+      .then((orders) => { res.json(orders) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+  });

@@ -1,14 +1,13 @@
 import { Modal, Container, Row, Col, Button, Form, Alert} from 'react-bootstrap';
 import {MdDoneOutline} from "react-icons/md";
 import { useState} from 'react';
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import API from '../API';
 
 function AlertWallet(props) {
 
   const [done, setDone] = useState(false);
   const [showLaterModal, setShowLaterModal] = useState(false);
-  let history = useHistory();
   const handleClose = () => {
     setShowLaterModal(false);
     window.location.reload();
