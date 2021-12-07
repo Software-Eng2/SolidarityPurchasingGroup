@@ -99,13 +99,13 @@ exports.updatedConfirmedProduct = (confirmed, id) => {
 //get the quantity ordered of a products filtered by farmer id
 exports.getOrderedProducts = (farmer_id) => {
   return new Promise((resolve,reject)=>{
-    const sql = 'SELECT product_id, name, sum(BASKETS.quantity) AS totalOrdered FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE PRODUCTS.farmer_id = ? GROUP BY product_id';
+    const sql = 'SELECT product_id, name, PRODUCTS.quantity AS qty, PRODUCTS.price AS price, sum(BASKETS.quantity) AS totalOrdered FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE PRODUCTS.farmer_id = ? GROUP BY product_id';
     db.all(sql, [farmer_id], (err,rows) => {
       if(err){
         reject(err);
         return;
       }
-      const orderedProducts = rows.map((op)=>({id: op.id, name: op.name, amount: op.totalOrdered }));
+      const orderedProducts = rows.map((op)=>({id: op.product_id, name: op.name, estimated: op.qty, price: op.price, amount: op.totalOrdered }));
       resolve(orderedProducts);
     });
   });
@@ -496,6 +496,21 @@ exports.deleteAllProductForNextWeek = () => {
 exports.getClientPendingOrders = (client_id) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT ORDERS.id, ORDERS.creation_date, ORDERS.client_id, USERS.name, USERS.surname, ORDERS.total, ORDERS.status, ORDERS.pick_up, ORDERS.address, ORDERS.date, ORDERS.time FROM ORDERS INNER JOIN USERS ON ORDERS.client_id = USERS.id WHERE client_id = ? AND status = "PENDING" ORDER BY ORDERS.id DESC';
+    db.all(sql, [client_id], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      };
+      const orders = rows.map((o) => ({ id: o.id, creation_date: o.creation_date, client_id: o.client_id, name: o.name, surname: o.surname, total: o.total, status: o.status, pick_up: o.pick_up, address: o.address, date: o.date, time: o.time }));
+      resolve(orders);
+    });
+  })
+};
+
+//retrieve all accepted orders of a defined client
+exports.getClientAcceptedOrders = (client_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT ORDERS.id, ORDERS.creation_date, ORDERS.client_id, USERS.name, USERS.surname, ORDERS.total, ORDERS.status, ORDERS.pick_up, ORDERS.address, ORDERS.date, ORDERS.time FROM ORDERS INNER JOIN USERS ON ORDERS.client_id = USERS.id WHERE client_id = ? AND status = "ACCEPTED" ORDER BY ORDERS.id DESC';
     db.all(sql, [client_id], (err, rows) => {
       if (err) {
         reject(err);
