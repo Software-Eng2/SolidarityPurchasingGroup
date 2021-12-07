@@ -162,6 +162,15 @@ app.get('/api/products',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
 
+//get all orders relative to a product ordered of a farmer ordered by date
+app.get('/api/farmer/orders/:id',
+  (req, res) => {
+    const product_id = req.params.id;
+    dao.getOrderedByFarmerByDate(product_id) 
+      .then((ordersByDate) => { res.json(ordersByDate) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
+
 // get all products from a farmer
 app.get('/api/farmer/:farmer_id/products',
   (req, res) => {
