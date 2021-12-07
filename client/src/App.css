@@ -346,3 +346,12 @@ th {
   border-right: 2px solid #b4e6e2;
   border-left: 2px solid #b4e6e2;
 }
+
+.quantity-modifier{
+  text-align: center;
+  font-size: 16px;
+  width: 4.5rem;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid #1d1d1d;
+}
