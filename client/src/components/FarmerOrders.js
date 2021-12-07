@@ -5,17 +5,24 @@ import API from '../API';
 function FarmerOrders(props){
     const {orderedProducts} = props;
     const [orders, setOrders] = useState([]); // set of orders with their respective quantity for each product
+    const [dirty, setDirty] = useState(false);
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
     // Do here the fetch between products and return of new query
-    
+
+
     useEffect(() => {
-        sendQuantities.forEach(product => {
-            let tempOrder = API.getOrderedByFarmerByDate(product.id);
-            console.log(tempOrder);
-            setOrders([...orders, tempOrder]);
-        })
-    });
-    console.log(orders);
+        let tempOrders = []
+        function fetchOrdersByFarmer() {
+         sendQuantities.forEach(async (product, index) => {
+             const tempOrder =  await API.getOrderedByFarmerByDate(product.id);
+             console.log(tempOrder);
+             tempOrders[index] = tempOrder;
+         })
+         }
+         console.log('tempOrders:' , tempOrders);
+         fetchOrdersByFarmer();
+    },);
+
     return (
         <Container fluid className="page width-100 below-nav table">
             <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} orders={orders}/>
@@ -28,10 +35,12 @@ function FarmerOrders(props){
 function FarmerOrderTable(props){
     const {products, quantities, orders } = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
-    
+    console.log('Orders: ', orders);
     useEffect(() => {
         setConfirmedProducts(quantities);
     }, [quantities]);
+
+  
     // TODO: Send quantities when confirm button is pressed and confirm orders 
     const updateFieldChanged = index => e => {
         let newArr = [...confirmedProducts]; 

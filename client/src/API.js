@@ -79,7 +79,7 @@ async function getOrderedProductsByFarmer(farmer_id){
 //get all orders relative to a product ordered of a farmer ordered by date
 async function getOrderedByFarmerByDate(product_id){
 
-  const response = await fetch(BASEURL + 'farmer/orders/' + product_id);
+  const response = await fetch(BASEURL + '/farmer/orders/' + product_id);
 
   const orders = await response.json();
 
