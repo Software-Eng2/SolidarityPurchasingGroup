@@ -128,6 +128,7 @@ function SelectedOrder(props){
 
     const [edit, setEdit] = useState(false);
     const [dirty, setDirty] = useState(true);
+    const [cancel, setCancel] = useState(false);
 
     const sum = (key1, key2) => {
         return basket.reduce((a, b) => a + (b[key1]*b[key2] || 0), 0);
@@ -136,13 +137,14 @@ function SelectedOrder(props){
     let total = sum("price", "quantity");
 
     useEffect(() => {
-        if(order){
+        if(order || cancel){
           API.getBasket(order.id).then((products) => {
             console.log(products);
             setBasket(products);
+            setCancel(false)
           })
         }
-    }, [order]);
+    }, [order, cancel]);
 
     useEffect(() => {
         if (dirty) {
@@ -212,7 +214,7 @@ function SelectedOrder(props){
             </Row> :
             <Row className="mt-3">
                 <Col className="text-center">
-                    <Button variant="outline-dark"  onClick={() => { setEdit(!edit) }}>{arrowLeftIcon}Cancel</Button>
+                    <Button variant="outline-dark"  onClick={() => { setEdit(!edit); setCancel(true) }}>{arrowLeftIcon}Cancel</Button>
                 </Col>
                 <Col className="text-center">
                     <Button variant="outline-success"
@@ -231,6 +233,7 @@ function SelectedOrder(props){
     );
 }
 
+//form to edit option of the selected order
 function OrderForm(props){
 
     const {delivery, setDelivery, address, setAddress, city, setCity, zip, setZip, date, setDate, time, setTime, isDisabled, setIsDisabled } = props;
@@ -338,36 +341,12 @@ function OrderForm(props){
     );
 }
 
-
+//selected order product list + quantity modifiers and delete button
 function ListIteam(props) {
 
     const {p, basket, setBasket, setDirty, edit, setEdit} = props;
     const [quantity, setQuantity] = useState(p.quantity);
 
-    const decreaseValue = (p) => {
-        if (quantity > 1) {
-            let value = quantity;
-            setQuantity(--value);
-            let isProduct = (product) => product == p;
-            let index = basket.findIndex(isProduct);
-            basket[index].quantity = value;
-            setBasket(basket);
-            setDirty(true);
-        }
-    }
-
-    const increaseValue = (p) => {
-        if (quantity < p.availability) {
-            let value = quantity;
-            setQuantity(++value);
-            let isProduct = (product) => product == p;
-            let index = basket.findIndex(isProduct);
-            basket[index].quantity = value;
-            setBasket(basket);
-            setDirty(true);
-            //setBasket(basket[index].quantity == value);
-        }
-    }
 
     const handleChange = (event, availability) => {
         if (event.target.value > 0 && event.target.value < availability) {
@@ -389,42 +368,34 @@ function ListIteam(props) {
                 <Col xs={2} className="text-left">
                     <img src={p.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />
                 </Col>
-                <Col xs={10} md={4} lg={4} className="text-left">
+                <Col xs={5} md={4} lg={4} className="text-left">
                     <strong>{p.name}</strong><br />
                     <small>ID: {p.id}</small><br />
                     Price/unity:<strong> € {p.price}</strong><br />
                 </Col>
-                <Col xs={8} md={3} lg={3} className="text-left">
+                <Col xs={3} md={3} lg={3} className="text-left">
                     {
                         !edit ?
-                            /* <div>
-                                Quantity: <strong className="text-right">{p.quantity}</strong><br />
-                                <small>Availability: {p.availability}</small>
-                            </div> */
                             <div className="text-center">
-                                Quantity:<br />
+                                <strong>Quantity:</strong><br />
                                 <ButtonGroup size="sm" aria-label="Basic example" >
-
-                                    <input type="number" id="number" min={p.quantity} max={p.availability} value={quantity} style={{ width: " 40px", height: "40px", textAlign: "center" }} disabled />
-
+                                    <input type="number" id="number" min="1" max={p.availability} value={p.quantity} className="quantity-modifier" disabled />
                                 </ButtonGroup><br />
                             </div>
                             :
                             <div className="text-center">
-                                Quantity:<br />
-                                <ButtonGroup size="sm" aria-label="Basic example" > {/* TODO: FIX INPUT */}
-                                    <Button variant="secondary" style={{ width: " 40px", height: "40px" }} onClick={()=>{decreaseValue(p)}}>-</Button> 
-                                    <input type="number" id="number" min={p.quantity} max={p.availability} value={quantity} onChange={(e)=>{handleChange(e, p.availability)}} style={{ width: " 40px", height: "40px", textAlign: "center" }} />
-                                    <Button variant="info" style={{ width: " 40px", height: "40px" }} onClick={()=>{increaseValue(p)}}>+</Button>
+                                <strong>Quantity:</strong><br />
+                                <ButtonGroup size="sm" aria-label="Basic example" >
+                                    <input type="number" id="number" min="1" max={p.availability} value={p.quantity} onChange={(e)=>{handleChange(e, p.availability)}} className="quantity-modifier"/>
                                 </ButtonGroup><br />
-                                <small>Availability: {p.availability}</small>
+                                <small>Available: {p.availability}</small>
                             </div>
                     }
 
                 </Col>
-                <Col xs={4} md={3} lg={3} className="text-right">
+                <Col xs={2} md={3} lg={3} className="justify-content-end d-flex flex-row align-items-start">
                     <ButtonGroup vertical aria-label="Basic example">
-                        {edit? <Button variant="light" onClick={() => { setBasket(basket.filter(product => product !== p)) }}>{iconCross}</Button> : ''}
+                        {edit? <Button variant="outline-light" onClick={() => { setBasket(basket.filter(product => product !== p)) }} size="sm">{iconCross}</Button> : ''}
                     </ButtonGroup>
                 </Col>
             </Row>
@@ -434,7 +405,7 @@ function ListIteam(props) {
 
 
 export default ClientOrders;
-export {PendingList, AcceptedList}
+export {PendingList, AcceptedList, SelectedOrder, OrderForm, ListIteam}
 
 
  
