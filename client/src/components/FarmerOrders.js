@@ -1,15 +1,24 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import{ Container, Table} from "react-bootstrap";
+import API from '../API';
 
 function FarmerOrders(props){
     const {orderedProducts} = props;
+    const [orders, setOrders] = useState([]); // set of orders with their respective quantity for each product
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
-  
+    // Do here the fetch between products and return of new query
     
+    useEffect(() => {
+        sendQuantities.forEach(product => {
+            let tempOrder = API.getOrderedByFarmerByDate(product.id);
+            console.log(tempOrder);
+            setOrders([...orders, tempOrder]);
+        })
+    });
+    console.log(orders);
     return (
         <Container fluid className="page width-100 below-nav table">
-            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities}/>
+            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} orders={orders}/>
         </Container>
 
     );
@@ -17,7 +26,7 @@ function FarmerOrders(props){
 }
 
 function FarmerOrderTable(props){
-    const {products, quantities } = props;
+    const {products, quantities, orders } = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
     
     useEffect(() => {

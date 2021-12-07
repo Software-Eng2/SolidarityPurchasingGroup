@@ -59,6 +59,9 @@ async function getAllProducts(){
         return undefined;
     }
 }
+
+
+
 //get ordered products by farmer
 async function getOrderedProductsByFarmer(farmer_id){
 
@@ -70,6 +73,20 @@ async function getOrderedProductsByFarmer(farmer_id){
       return products;
   } else {
       return undefined;
+  }
+}
+
+//get all orders relative to a product ordered of a farmer ordered by date
+async function getOrderedByFarmerByDate(product_id){
+
+  const response = await fetch(BASEURL + 'farmer/orders/' + product_id);
+
+  const orders = await response.json();
+
+  if (response.ok) {
+    return orders;
+  } else {
+    return undefined;
   }
 }
 
@@ -573,7 +590,8 @@ const API = {
   changeProduct,
   getClientPendingOrders,
   getClientAcceptedOrders,
-  getOrderedProductsByFarmer
+  getOrderedProductsByFarmer,
+  getOrderedByFarmerByDate
 }
 
 export default API;

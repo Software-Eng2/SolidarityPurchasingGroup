@@ -21,6 +21,21 @@ exports.getAllClients = () => {
     })
 };
 
+//get the orders of products by farmer ordered by date ascending
+ exports.getOrderedByFarmerByDate = (product_id) => {
+  return new Promise((resolve,reject)=>{
+    const sql = 'SELECT order_id, quantity FROM BASKETs INNER JOIN ORDERS ON BASKETs.order_id = ORDERS.id WHERE product_id = ? ORDER BY creation_date';
+    db.all(sql, [product_id], (err,rows) => {
+      if(err){
+        reject(err);
+        return;
+      }
+      const orderedProductsByDate = rows.map((op)=>({id: op.order_id, quantity: op.quantity}));
+      resolve(orderedProductsByDate);
+    });
+  });
+}; 
+
 // get specific client by id
 
 exports.getClientById = (client_id) => {
