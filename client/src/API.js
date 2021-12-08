@@ -554,6 +554,17 @@ async function getClientAcceptedOrders(client_id) {
   }
 }
 
+async function updateQuantityBasket(order_id, product_id, quantity){
+  const response = await fetch(BASEURL + '/basket/order' + order_id + '/product' + product_id, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        quantity: quantity,
+  })
+});
+console.log(response.ok);
+return response.ok;
+}
 
 const API = {
   getNotifications,
@@ -591,7 +602,8 @@ const API = {
   getClientPendingOrders,
   getClientAcceptedOrders,
   getOrderedProductsByFarmer,
-  getOrderedByFarmerByDate
+  getOrderedByFarmerByDate,
+  updateQuantityBasket
 }
 
 export default API;
