@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="15556193-1f1f-414c-8bb7-a12fe6b21fe1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Basket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Basket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ClientOrders/ClientOrders.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ClientOrders/ClientOrders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/FarmerInterface.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/FarmerInterface.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/FarmerPlanning.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/FarmerPlanning.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/FarmerProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/FarmerProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/PlanningModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/PlanningModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/WarehouseEmployeePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/WarehouseEmployeePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/test-report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/test-report.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/spg.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/server/spg.sqlite" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/client/src/components/FarmerInterface.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/AlertWallet.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/Manager.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/ClientOrders/ClientOrders.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/PlanningModal.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/FarmerPlanning.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/Basket.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/FarmerProduct.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/WarehouseEmployeePage.js" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="21kH3XcLTvWAuQq0cw8qKELXBoL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/__tests__" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/__tests__" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="15556193-1f1f-414c-8bb7-a12fe6b21fe1" name="Changes" comment="" />
+      <created>1638477974477</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638477974477</updated>
+      <workItem from="1638477979330" duration="564000" />
+      <workItem from="1638524315078" duration="3328000" />
+      <workItem from="1638548607043" duration="666000" />
+      <workItem from="1638631456043" duration="7246000" />
+      <workItem from="1638697239694" duration="6906000" />
+      <workItem from="1638721495225" duration="259000" />
+      <workItem from="1638728842003" duration="177000" />
+      <workItem from="1638736029496" duration="943000" />
+      <workItem from="1638778019531" duration="7409000" />
+      <workItem from="1638796314667" duration="251000" />
+      <workItem from="1638884565521" duration="1758000" />
+      <workItem from="1638903987794" duration="1944000" />
+      <workItem from="1638973036500" duration="3375000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

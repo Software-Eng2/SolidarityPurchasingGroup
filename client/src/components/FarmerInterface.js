@@ -8,8 +8,6 @@ import { FaCalendarAlt, FaCheck} from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { ImSad } from "react-icons/im";
 import ProductForm from './ProductForm';
-import { Clock } from '../Clock';
-import dayjs from 'dayjs';
 import { BsFillPlusCircleFill } from "react-icons/bs";
 
 function FarmerInterface(props) {
@@ -21,7 +19,6 @@ function FarmerInterface(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentFarmer, setCurrentFarmer] = useState('');
     const [show, setShow] = useState(false);
-    const clocK = new Clock();
 
 
 
@@ -87,7 +84,6 @@ function FarmerInterface(props) {
                                 collapsed={collapsed}
                                 width="13rem"
                                 searchCategory={(cat) => searchCategory(cat)}
-                                handleBasket={() => { }}
                                 userRole="farmer"
                             //client= {props.location.state}
                             />

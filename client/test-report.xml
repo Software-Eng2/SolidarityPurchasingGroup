@@ -26,6 +26,8 @@ Received has value: undefined
     at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
     at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
     </testCase>
+    <testCase name="accepts products and userid props" duration="3"/>
+    <testCase name="calls handleShow when clicking on button" duration="40"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Client_Products_Order_objects.test.js">
     <testCase name="c- addClient" duration="3"/>

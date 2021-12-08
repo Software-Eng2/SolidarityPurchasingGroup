@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import{ Container, Row, Col, Modal, Form, Alert, Button} from "react-bootstrap";
 import FarmerCard from '../components/FarmerCard/FarmerCard';
-import Switch from "react-switch";
 import API from '../API';
 
 
@@ -28,8 +27,8 @@ function FarmerProduct(props) {
 	const handleChange = () => {setDisabled(false)};
 	const handleConfirm = () => {
         const changedProduct= {
-            id: id, 
-            name: nameProduct, 
+            id: id,
+            name: nameProduct,
             description: descriptionProduct,
             category: categoryProduct,
             quantity: quantity,
@@ -40,7 +39,7 @@ function FarmerProduct(props) {
 				API.updateConfirmedProduct( changedProduct.confirmed, id);
 				window.location.reload();
         //DO THE API CALL WITH CHANGED VALUES
-		
+
 	}
 	const handleDeleteAlert = () => {setShowConfirmation(true)};
 	const onHide = () => {setShowConfirmation(false)};
@@ -56,7 +55,7 @@ function FarmerProduct(props) {
 	return (
 		<>
 			<Container onClick={handleShow} {...props}>
-				<FarmerCard confirmed={confirmed} title={name} body={description} img={img_path} subinfo={price} ></FarmerCard>		
+				<FarmerCard confirmed={confirmed} title={name} body={description} img={img_path} subinfo={price} ></FarmerCard>
 			</Container>
 			<Modal centered show={show} onHide={handleClose}>
 					<Form >
@@ -64,9 +63,9 @@ function FarmerProduct(props) {
 							<Modal.Title>
 									<Form.Group controlId="formGroupEmail">
 											<Form.Label>Name of product</Form.Label>
-											<Form.Control 
-													type="text" 
-													defaultValue={name} 
+											<Form.Control
+													type="text"
+													defaultValue={name}
 													placeholder={name}
 													disabled={true}
 													onChange={(event) => {setNameProduct(event.target.value); handleChange();}}
@@ -80,14 +79,14 @@ function FarmerProduct(props) {
 													<Col xs={12} md={6}>
 															<img src={img_path} alt={name} className="img-fluid" style={{height:"10rem", width:"10rem"}}/>
 													</Col>
-													
+
 													<Col xs={6} md={6}>
 															<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1rem", fontSize: "1.3rem"}}>Description</h3>
 															<p style={{margin: "0", padding: "0"}}>
-																	<Form.Control 
-																			as="textarea" 
-																			rows={3} 
-																			defaultValue={description} 
+																	<Form.Control
+																			as="textarea"
+																			rows={3}
+																			defaultValue={description}
 																			placeholder={description}
 																			disabled={true}
 																			onChange={(event) => {setDescriptionProduct(event.target.value); handleChange();}}
@@ -95,14 +94,14 @@ function FarmerProduct(props) {
 															</p>
 															<h3 style={{color: "#247D37", marginTop:"1rem", marginBottom:"1rem", fontSize: "1.3rem"}}>Category</h3>
 															<p style={{margin: "0", padding: "0"}}>
-																	<Form.Control 
+																	<Form.Control
 																			as="select"
 																			value={category}
 																			disabled={true}
-																			onChange={(event) => { setCategoryProduct(event.target.value); handleChange()}} 
+																			onChange={(event) => { setCategoryProduct(event.target.value); handleChange()}}
 																	>
 																			<option default>{category}</option>
-																			{categories.map(cat => cat != category ? 
+																			{categories.map(cat => cat != category ?
 																			<option key={cat} value={cat}>{cat} </option>
 																			: "" )}
 																	</Form.Control>
@@ -121,9 +120,9 @@ function FarmerProduct(props) {
 											</Row>
 											<Row align="center" style={{marginTop:"1rem", marginBottom:"1.2rem"}}>
 													<Col xs={6} md={6}>
-															<Form.Control 
-																	type="text" 
-																	defaultValue={price} 
+															<Form.Control
+																	type="text"
+																	defaultValue={price}
 																	placeholder={price}
 																	disabled={true}
 																	onChange={(event) => {setPriceProduct(event.target.value); handleChange();}}
@@ -131,7 +130,7 @@ function FarmerProduct(props) {
 													</Col>
 												{/*
 													<Col xs={6} md={6}>
-														
+
 															<div data-testid="counter" className = "product-quantity">
 																	<Switch onChange={handleSwitch} checked={switched}/>
 															</div>
@@ -143,23 +142,23 @@ function FarmerProduct(props) {
 							</Modal.Body>
 							<Modal.Footer>
 									<Row>
-											<Col xs={12} md={6}> 
+											<Col xs={12} md={6}>
 													<div className='farmer-card-button align-left'>
-															<input type='button' class='btn' style={{backgroundColor:"#dc3545", fontWeight:"bold"}} onClick={handleDeleteAlert} value="Delete"/>		
+															<input type='button' class='btn' style={{backgroundColor:"#dc3545", fontWeight:"bold"}} onClick={handleDeleteAlert} value="Delete"/>
 													</div>
 											</Col>
 											<Col xs={12} md={6}>
 													<div className='farmer-card-button align-left'>
 														<button disabled={disabled} style={{fontWeight:"bold"}} onClick={() => {handleConfirm(); handleClose();}}>
 															Confirm changes
-														</button>															
+														</button>
 													</div>
 											</Col>
 									</Row>
 							</Modal.Footer>
 					</Form>
 			</Modal>
-			<Modal 
+			<Modal
 							centered
 							show={showConfirmation}
 							onHide={onHide}
@@ -190,7 +189,7 @@ function FarmerProduct(props) {
 
 				</Modal>
 		</>
-		
+
 	);
 }
 
