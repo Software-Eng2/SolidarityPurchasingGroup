@@ -670,3 +670,21 @@ app.get('/api/accepted/:client_id',
       .then((orders) => { res.json(orders) })
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
+
+// update quantity in basket
+app.put('/api/basket/order/:order_id/product/:product_id',
+  [
+    check('order_id').isInt(),
+    check('product_id').isInt(),
+    check('quantity').isNumeric({min:0})
+  ],
+  (req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return res.status(422).json({errors:errors.array()})
+    }
+    dao.updateQuantityBasket(req.params.order_id, req.params.product_id, req.body.quantity)
+    .then((changed)=>res.status(201).json({changed:changed}))
+    .catch((err)=>{res.status(500).json({error: "Error" + err,})})
+  }
+);

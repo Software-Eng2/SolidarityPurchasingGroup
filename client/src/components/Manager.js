@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Table, Dropdown, ButtonGroup, Badge, Modal, ModalBody, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Table, Badge, Modal, ModalBody, Row, Col, Button, Form } from "react-bootstrap";
 import { pickUpIcon, deliveryIcon } from "./Icons";
 import API from "../API";
 
@@ -108,7 +108,7 @@ function OrderTable(props) {
 
 function OrderModal(props) {
     console.log("sono qui", props.basket);
-    
+
 
 
 
@@ -160,7 +160,7 @@ function OrderModal(props) {
                                 type="date"
                                 placeholder="date"
                                 value={props.date}
-                                
+
                             />
                         </Col>
                     </Row>

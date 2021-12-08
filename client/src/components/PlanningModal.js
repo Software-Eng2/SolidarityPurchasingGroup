@@ -11,10 +11,10 @@ function PlanningModal(props) {
 
     const updateProductNW = ( quantity) => {
         const up = async () => {
-            const result = await API.changeProductNW(props.id, quantity);
+            await API.changeProductNW(props.id, quantity);
             props.setDirty(true);
             props.onHide();
-            
+
         };
         up();
     }
@@ -77,14 +77,14 @@ function FormPlanning(props) {
     return (
         <>
             {props.update ?
-            
+
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row className="d-flex justify-content-center ">
                     { props.productNW.filter(f=> f.id == props.id)
                     .map(r=>
                     <h3 key={r.id} className="mr-5">{r.id_product} </h3>
                     )}
-                </Row>    
+                </Row>
                 <Row>
                 <Col className="d-flex justify-content-center">
                     <Form.Group as={Col} sm={5} className="mt-5" controlId="quantity" variant="outlined">
@@ -132,9 +132,9 @@ function FormPlanning(props) {
                                 >
                                 <option></option>
                                 {props.farmerProducts.filter(f => f.confirmed == 1)
-                                .map((r) =>( 
+                                .map((r) =>(
                                     <option>{r.name}</option>))}
-                                
+
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">
                                 Please choose a product.
@@ -171,8 +171,8 @@ function FormPlanning(props) {
                                     type="text"
                                     placeholder = {price}
                                     value={price}
-                                    
-                                    
+
+
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Please insert a price.
@@ -181,7 +181,7 @@ function FormPlanning(props) {
                         </Col>
 
                     </Row>
-                
+
 
                     <Row className="pb-4 mb-4 ml-4 pl-4">
                         <Col xs={5} sm={6} className="d-flex justify-content-start align-items-center">
@@ -197,7 +197,7 @@ function FormPlanning(props) {
 
                 </Form>
             }
-            
+
 
         </>
 

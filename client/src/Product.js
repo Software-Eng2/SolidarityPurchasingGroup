@@ -2,7 +2,7 @@ import API from "./API";
 
 /**
  * Product object
- * 
+ *
  * Params to pass to build the object:
  * @param {number} id - id of the product
  * @param {string} name - name of the product
@@ -12,7 +12,7 @@ import API from "./API";
  * @param {string} expire - expiration date if present in string "dd/mm/aaaa"
  * @param {number} farmer_id - id of the farmer who sells the product
  * @param {string} img_path - path of the image relative to the product
- * 
+ *
  */
 class Product{
     constructor(id, name, description, category, quantity, price, farmer_id, img_path, confirmed){
@@ -29,12 +29,12 @@ class Product{
 }
 
 /**
- * ProductsList object -- used to manage products of the shop 
+ * ProductsList object -- used to manage products of the shop
  * WARNING: object must be initialized with initialize() method
  * after being created
- * 
+ *
  * Methods of the class:
- * 
+ *
  * @param {Function} initialize - load data from DB
  * @param {Function} getProducts - return an array of Product objects
  * @param {Function} getProductsFromId - return an array with the Product object with the specified id
@@ -51,7 +51,7 @@ class ProductsList{
 
     /**
      * Retreive data from the database
-     * 
+     *
      * @return {boolean} return true if the productsList is correctly initialized with DB data, false otherwise
      */
     async initialize(){
@@ -68,7 +68,7 @@ class ProductsList{
 
     /**
      * Retreive all products
-     * 
+     *
      * @return {Array} array with Product type objects, returns undefined if the object as not correctly initialized
      */
     getProducts(){
@@ -82,7 +82,7 @@ class ProductsList{
 
     /**
      * Get a product with a specific ID
-     * 
+     *
      * @param {number} id - id of the product
      * @return {Array} return an array with the Product object with the specified id, undefined in case of non initialized object
      */
@@ -98,7 +98,7 @@ class ProductsList{
 
     /**
      * Get products belonging to the specified category
-     * 
+     *
      * @param {number} category - id of the product
      * @return {Array} return an array with the Products objects with the specified id, undefined in case of non initialized object
      */
@@ -113,7 +113,7 @@ class ProductsList{
 
     /**
      * Add a new product
-     * 
+     *
      * @param {string} name - name of the product
      * @param {string} description - description of the product
      * @param {number} price - price of the product
@@ -122,7 +122,7 @@ class ProductsList{
      * @param {number} quantity - quantity of the product
      * @param {string} img_path - path of the image to show in the UI
      * @param {number} farmer_id - id of the farmer who sells the product
-     * 
+     *
      * @return {boolean} return true if the product was added correctly in the DB, false otherwise
      */
     async addProduct(name, description, price, category, confirmed, quantity, img_path, farmer_id){
@@ -141,10 +141,10 @@ class ProductsList{
 
     /**
      * Update the confirmed field of the product specified
-     * 
+     *
      * @param {number} id - id of the product to update
      * @param {number} confirm_value - 0 if the product is not confirmed, 1 otherwise
-     * 
+     *
      * @return {boolean} return true if the product was correctly updated, false otherwise
      */
     async updateConfirm(id, confirm_value){
@@ -153,7 +153,7 @@ class ProductsList{
             return undefined;
         }
 
-        return await API.updateConfirmedProduct(confirm_value, id);;
+        return await API.updateConfirmedProduct(confirm_value, id);
     }
 
 }

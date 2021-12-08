@@ -110,7 +110,7 @@ class OrdersList {
 
         const status = 'PENDING';
     
-        return API.createOrder({ creation_date: creation_date, client_id: client_id, total: total, status: status, pick_up: pick_up, address: address, date: date, time: time });
+        return await API.createOrder({ creation_date: creation_date, client_id: client_id, total: total, status: status, pick_up: pick_up, address: address, date: date, time: time });
     }
 
     /**
@@ -124,7 +124,7 @@ class OrdersList {
     async changeStatus(order_id, status) {
 
         console.log(this.init);
-        return API.changeStatus(order_id, status);
+        return await API.changeStatus(order_id, status);
     }
 
     /**

@@ -550,3 +550,17 @@ exports.getClientAcceptedOrders = (client_id) => {
     });
   })
 };
+
+//update quantity in basket
+exports.updateQuantityBasket = (order_id, product_id, quantity) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE BASKETS SET quantity = ? WHERE order_id = ? AND product_id = ?';
+      db.run(sql, [quantity, order_id, product_id], function (err) {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(true);
+      });
+  });
+};

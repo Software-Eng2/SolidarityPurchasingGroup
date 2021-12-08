@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {Card, ButtonGroup, Button, Row, Col, ListGroup, ListGroupItem, Form} from 'react-bootstrap'
+import {Card, ButtonGroup, Button, Row, Col, ListGroup, Form} from 'react-bootstrap'
 import {pickUpIcon, deliveryIcon, arrowRightIcon, arrowLeftIcon, iconDelete, iconEdit, iconCross, iconConfirm} from "../Icons";
 import API from '../../API';
 import dayjs from 'dayjs';
@@ -45,7 +45,7 @@ function ClientOrders(props) {
                      !selected ? <AcceptedList acceptedOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> : <SelectedOrder editable={false} handleClick={handleClick} order={order}/>
                 }
             </div>);
-            
+
             default:
                 return(
                     <>
@@ -60,7 +60,7 @@ function PendingList(props){
     const {clientOrders, handleClick, setOrder} = props;
 
     return(
-        
+
             clientOrders.map((o) => (
                 <Card key={o} className="my-3 mx-3" >
                     {/* <Card.Header>Featured</Card.Header> */}
@@ -86,7 +86,7 @@ function PendingList(props){
                     <Card.Footer className="text-muted text-center"><small>Created: {o.creation_date}</small></Card.Footer>
                 </Card>
             ))
-              
+
     );
 }
 
@@ -97,7 +97,7 @@ function AcceptedList(props){
     const setOrder = props.setOrder;
 
     return(
-        
+
             orders.map((o) => (
                 <Card key={o} className="my-3 mx-3" >
                     <Card.Body>
@@ -126,7 +126,7 @@ function AcceptedList(props){
                     <Card.Footer className="text-muted text-center"><small>Created: {o.creation_date}</small></Card.Footer>
                 </Card>
             ))
-              
+
     );
 }
 
@@ -187,9 +187,9 @@ function SelectedOrder(props){
 
     return(
         <div className="my-3 mx-3">
-            <Row>  
-                <Col><h1>Order #{order.id}</h1></Col>          
-                <Col xs={5} className="text-right"><h1>€ {total.toFixed(2)}</h1></Col>                    
+            <Row>
+                <Col><h1>Order #{order.id}</h1></Col>
+                <Col xs={5} className="text-right"><h1>€ {total.toFixed(2)}</h1></Col>
             </Row>
             <hr/>
             <Row>
@@ -219,7 +219,7 @@ function SelectedOrder(props){
                             setIsDisabled={setIsDisabled}
                         />
                     }
-                    
+
                 </Col>
 
                 <Col xs={12} lg={8} style={{ borderLeft: "2px solid #b4e6e2" }} >
@@ -243,7 +243,7 @@ function SelectedOrder(props){
                         <Button variant="outline-dark" onClick={() => { setModalShow(true) }}>{iconDelete} Cancel</Button>
                     </Col>
                     <Col className="text-center">
-                            <Button variant="light"  onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button> 
+                            <Button variant="light"  onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button>
                     </Col>
                 </>
                 :
@@ -261,13 +261,13 @@ function SelectedOrder(props){
                       onClick={updateOrder} /* TODO: onclick API modifica ordine */
                     >
                         {iconConfirm} Confirm
-                    </Button> 
+                    </Button>
                 </Col>
             </Row>
-            
+
 
             }
-            
+
         </div>
     );
 }
@@ -383,14 +383,13 @@ function OrderForm(props){
 //selected order product list + quantity modifiers and delete button
 function ListIteam(props) {
 
-    const {p, basket, setBasket, setDirty, edit, setEdit} = props;
+    const {p, basket, setBasket, edit, setDirty} = props;
     const [quantity, setQuantity] = useState(p.quantity);
 
 
     const handleChange = (event, availability) => {
         if (event.target.value > 0 && event.target.value < availability) {
             setDirty(true);
-            //setQuantity(event.target.value);
             let value = event.target.value;
             setQuantity(value);
             let isProduct = (product) => product == p;
@@ -448,4 +447,3 @@ export default ClientOrders;
 export {PendingList, AcceptedList, SelectedOrder, OrderForm, ListIteam}
 
 
- 
