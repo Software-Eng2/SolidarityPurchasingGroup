@@ -683,7 +683,7 @@ app.put('/api/basket/order/:order_id/product/:product_id',
     if(!errors.isEmpty()){
       return res.status(422).json({errors:errors.array()})
     }
-    dao.updateQuantityBasket(req.params.order_id, req.parmas.product_id, req.body.quantity)
+    dao.updateQuantityBasket(req.params.order_id, req.params.product_id, req.body.quantity)
     .then((changed)=>res.status(201).json({changed:changed}))
     .catch((err)=>{res.status(500).json({error: "Error" + err,})})
   }
