@@ -365,6 +365,20 @@ exports.deleteOrder = (id) => {
   });
 };
 
+// delete a basket by order_id
+exports.deleteBasket = (order_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM BASKETS WHERE order_id = ?';
+    db.run(sql, [order_id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
 // delete a client by id
 exports.deleteWallet = (client_id) => {
   return new Promise((resolve, reject) => {
