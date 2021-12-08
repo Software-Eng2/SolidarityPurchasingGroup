@@ -12,6 +12,7 @@ function ClientOrders(props) {
     const {clientOrders} = props;
     const [selected, setSelected] = useState(false);
     const [order, setOrder] = useState();
+    const [basket, setBasket] = useState([]);
     const [modalShow, setModalShow] = useState(false);
 
     const handleClick = () =>{
@@ -28,12 +29,13 @@ function ClientOrders(props) {
                             <PendingList clientOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> 
                             :
                             <>  
-                                <SelectedOrder editable={true} handleClick={handleClick} order={order} setModalShow={setModalShow} />
+                                <SelectedOrder editable={true} handleClick={handleClick} order={order} basket={basket} setBasket={setBasket} setModalShow={setModalShow} />
                                 <DeleteModal
                                     show={modalShow}
                                     setModalShow={setModalShow}
                                     clientOrders={clientOrders}
                                     order_id={order.id}
+                                    basket={basket}
                                     onHide={() => { setModalShow(false)}}
                                 />
                             </>
@@ -42,7 +44,7 @@ function ClientOrders(props) {
             case "accepted":
                 return(<div className="borders mb-3" >
                 {
-                     !selected ? <AcceptedList acceptedOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> : <SelectedOrder editable={false} handleClick={handleClick} order={order}/>
+                     !selected ? <AcceptedList acceptedOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> : <SelectedOrder editable={false} handleClick={handleClick} order={order} basket={basket} setBasket={setBasket}/>
                 }
             </div>);
 
@@ -133,9 +135,9 @@ function AcceptedList(props){
 //detail of selected order
 function SelectedOrder(props){
 
-    const {handleClick, order, setModalShow} = props;
+    const {handleClick, order, setModalShow, basket, setBasket} = props;
 
-    const [basket, setBasket] = useState([]);
+ 
 
     const [delivery, setDelivery] = useState(order.pick_up);
     const [address, setAddress] = useState(`${order.address.split(',')[0]}, ${order.address.split(',')[1]}`);
@@ -147,7 +149,7 @@ function SelectedOrder(props){
 
     const [edit, setEdit] = useState(false);
     const [dirty, setDirty] = useState(true);
-    const [cancel, setCancel] = useState(false);
+    const [undo, setUndo] = useState(false);
 
     const sum = (key1, key2) => {
         return basket.reduce((a, b) => a + (b[key1]*b[key2] || 0), 0);
@@ -158,25 +160,50 @@ function SelectedOrder(props){
     const updateOrder = () =>{
 
         if(!basket.length){
-            console.log('basket is empty')
-            console.log(basket.length);
+            //basket is empty -> delete order
             setModalShow(true);
         }else{
-            console.log('basket not empty')
-            console.log(basket.length);
-            //TODO: API per modificare potenzialmente tutte info ordine + modificare basket + aggiornare availability dei prodotti
+            //basket not empty -> update order
+            order.total = total;
+            order.pick_up = delivery;
+            order.address = `${address}, ${city}, ${zip}`;
+            order.date = date;
+            order.time = time;
+            //update order info
+            API.updateOrder(order).then(
+                basket.map((product) => {
+                    const productBasket = {
+                        order_id: order.id,
+                        product_id: product.id,
+                        quantity: product.quantity,
+                        diffQuantity: (product.quantity - product.startingQuantity)
+                    };
+                    //update availability of the deleted basket products in db
+                    API.changeQuantity(productBasket.product_id, productBasket.diffQuantity).then(
+                        //update basket product quantities
+                        API.updateQuantityBasket(productBasket.order_id, productBasket.product_id, productBasket.quantity).then((res) => {
+                            if (!res) {
+                                console.log("Error inserting basket in db.");
+                            }      
+                            setEdit(!edit); 
+                            setUndo(true);
+                            return res;
+                        })
+                    )
+                })
+            );
         }
     }
 
     useEffect(() => {
-        if(order || cancel){
+        if(order || undo){
           API.getBasket(order.id).then((products) => {
-            console.log(products);
-            setBasket(products);
-            setCancel(false)
+            setBasket(products.map((p) => ({...p, startingQuantity: p.quantity})));
+            setUndo(false);
           })
         }
-    }, [order, cancel]);
+        console.log(basket);
+    }, [order, undo]);
 
     useEffect(() => {
         if (dirty) {
@@ -253,7 +280,7 @@ function SelectedOrder(props){
             </Row> :
             <Row className="mt-3">
                 <Col className="text-center">
-                    <Button variant="outline-dark"  onClick={() => { setEdit(!edit); setCancel(true) }}>{arrowLeftIcon}Cancel</Button>
+                    <Button variant="outline-dark"  onClick={() => { setEdit(!edit); setUndo(true) }}>{arrowLeftIcon}Undo</Button>
                 </Col>
                 <Col className="text-center">
                     <Button variant="outline-success"
@@ -386,9 +413,8 @@ function ListIteam(props) {
     const {p, basket, setBasket, edit, setDirty} = props;
     const [quantity, setQuantity] = useState(p.quantity);
 
-
-    const handleChange = (event, availability) => {
-        if (event.target.value > 0 && event.target.value < availability) {
+    const handleChange = (event, quantity, availability) => {
+        if (event.target.value > 0 && event.target.value <= (quantity + availability)) {
             setDirty(true);
             let value = event.target.value;
             setQuantity(value);
@@ -418,14 +444,14 @@ function ListIteam(props) {
                             <div className="text-center">
                                 <strong>Quantity:</strong><br />
                                 <ButtonGroup size="sm" aria-label="Basic example" >
-                                    <input type="number" id="number" min="1" max={p.availability} value={p.quantity} className="quantity-modifier" disabled />
+                                    <input type="number" id="number" min="1" max={p.startingQuantity + p.availability}  value={p.quantity} className="quantity-modifier" disabled />
                                 </ButtonGroup><br />
                             </div>
                             :
                             <div className="text-center">
                                 <strong>Quantity:</strong><br />
                                 <ButtonGroup size="sm" aria-label="Basic example" >
-                                    <input type="number" id="number" min="1" max={p.availability} value={p.quantity} onChange={(e)=>{handleChange(e, p.availability)}} className="quantity-modifier"/>
+                                    <input type="number" id="number" min="1" max={p.startingQuantity + p.availability} value={p.quantity} onChange={(e)=>{handleChange(e, p.startingQuantity, p.availability)}} className="quantity-modifier"/>
                                 </ButtonGroup><br />
                                 <small>Available: {p.availability}</small>
                             </div>

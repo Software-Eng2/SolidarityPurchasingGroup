@@ -566,6 +566,25 @@ console.log(response.ok);
 return response.ok;
 }
 
+async function updateOrder(order){
+  const response = await fetch(BASEURL + '/orders/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: order.id,
+      total: order.total,
+      pick_up: order.pick_up,
+      address: order.address,
+      date: order.date,
+      time: order.time,
+    }),
+});
+console.log(response.ok);
+return response.ok;
+}
+
 const API = {
   getNotifications,
   postNotification,
@@ -603,7 +622,8 @@ const API = {
   getClientAcceptedOrders,
   getOrderedProductsByFarmer,
   getOrderedByFarmerByDate,
-  updateQuantityBasket
+  updateQuantityBasket,
+  updateOrder
 }
 
 export default API;

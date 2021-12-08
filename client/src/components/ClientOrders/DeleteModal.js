@@ -6,12 +6,25 @@ import API from '../../API';
 
 function DeleteModal(props) {
 
-  const {order_id, setModalShow, clientOrders /* setBasket */ /* setDirty */} = props;  
+  const {order_id, setModalShow, clientOrders, basket /* setBasket */ /* setDirty */} = props;  
   const [done, setDone] = useState(false);
   
   const deleteOrder = () => {
+    //delete order and its basket 
     API.deleteOrder(order_id).then(() => {
-      
+        basket.map((product) => {
+            const productBasket = {
+                product_id: product.id,
+                diffQuantity: (- product.startingQuantity)
+            };
+            //update availability of the deleted basket products in db
+            API.changeQuantity(productBasket.product_id, productBasket.diffQuantity).then((res) => {
+                    if (!res) {
+                        console.log("Error inserting basket in db.");
+                    }                          
+                    return res;
+                })
+        })
       setDone(true);
       /* setDirty(true); */
       setTimeout(() => {

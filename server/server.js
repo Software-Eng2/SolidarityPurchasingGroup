@@ -328,7 +328,7 @@ app.put('/api/orders/datetime',
 app.put('/api/products/quantity',
   [
     check('product_id').isInt({ min: 0 }),
-    check('order_quantity').isInt({ min: 0 })
+    check('order_quantity').isInt()
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -688,3 +688,35 @@ app.put('/api/basket/order/:order_id/product/:product_id',
     .catch((err)=>{res.status(500).json({error: "Error" + err,})})
   }
 );
+
+//update order info
+app.put('/api/orders/update',
+  [
+    check('total').isFloat(),
+    check('pick_up').isInt({ min: 0, max: 1 }),
+    check('address').isString(),
+    check('date').isString(),
+    check('time').isString(),
+    check('id').isInt({ min: 0 })
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
+
+    const order = {
+      id: req.body.id,
+      total: req.body.total,
+      pick_up: req.body.pick_up,
+      address: req.body.address,
+      date: req.body.date,
+      time: req.body.time,
+    };
+
+    dao.updateOrder(order)
+      .then((changed) => res.status(201).json({ changed: changed }))
+      .catch((err) =>
+        res.status(500).json({error: "Error " + err,})
+      );
+  });

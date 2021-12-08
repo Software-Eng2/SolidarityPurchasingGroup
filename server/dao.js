@@ -564,3 +564,17 @@ exports.updateQuantityBasket = (order_id, product_id, quantity) => {
       });
   });
 };
+
+//update order info
+exports.updateOrder = (order) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE ORDERS SET total = ?, pick_up = ?, address = ?, date = ?, time = ? WHERE id = ?';
+      db.run(sql, [order.total, order.pick_up, order.address, order.date, order.time, order.id], function (err) {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(true);
+      });
+  });
+};
