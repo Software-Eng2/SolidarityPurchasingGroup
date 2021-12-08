@@ -365,6 +365,20 @@ exports.deleteOrder = (id) => {
   });
 };
 
+// delete a basket by order_id
+exports.deleteBasket = (order_id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM BASKETS WHERE order_id = ?';
+    db.run(sql, [order_id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
 // delete a client by id
 exports.deleteWallet = (client_id) => {
   return new Promise((resolve, reject) => {
@@ -535,4 +549,18 @@ exports.getClientAcceptedOrders = (client_id) => {
       resolve(orders);
     });
   })
+};
+
+//update quantity in basket
+exports.updateQuantityBasket = (order_id, product_id, quantity) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE BASKETS SET quantity = ? WHERE order_id = ? AND product_id = ?';
+      db.run(sql, [quantity, order_id, product_id], function (err) {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(true);
+      });
+  });
 };
