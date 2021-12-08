@@ -3,7 +3,8 @@ import {Card, ButtonGroup, Button, Row, Col, ListGroup, ListGroupItem, Form} fro
 import {pickUpIcon, deliveryIcon, arrowRightIcon, arrowLeftIcon, iconDelete, iconEdit, iconCross, iconConfirm} from "../Icons";
 import API from '../../API';
 import dayjs from 'dayjs';
-import gif from '../../img/preparation.gif'
+import gif from '../../img/preparation.gif';
+import DeleteModal from './DeleteModal';
 
 //area below table where are shown list of orders or the detail of one of them
 function ClientOrders(props) {
@@ -11,6 +12,7 @@ function ClientOrders(props) {
     const {clientOrders} = props;
     const [selected, setSelected] = useState(false);
     const [order, setOrder] = useState();
+    const [modalShow, setModalShow] = useState(false);
 
     const handleClick = () =>{
         if(selected)
@@ -22,7 +24,19 @@ function ClientOrders(props) {
             case "pending":
                 return(<div className="borders mb-3" >
                     {
-                        !selected ? <PendingList clientOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> : <SelectedOrder editable={true} handleClick={handleClick} order={order}/>                   
+                        !selected ? 
+                            <PendingList clientOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> 
+                            :
+                            <>  
+                                <SelectedOrder editable={true} handleClick={handleClick} order={order} setModalShow={setModalShow} />
+                                <DeleteModal
+                                    show={modalShow}
+                                    setModalShow={setModalShow}
+                                    clientOrders={clientOrders}
+                                    order_id={order.id}
+                                    onHide={() => { setModalShow(false)}}
+                                />
+                            </>
                     }
                 </div>);
             case "accepted":
@@ -119,7 +133,7 @@ function AcceptedList(props){
 //detail of selected order
 function SelectedOrder(props){
 
-    const {handleClick, order} = props;
+    const {handleClick, order, setModalShow} = props;
 
     const [basket, setBasket] = useState([]);
 
@@ -141,6 +155,19 @@ function SelectedOrder(props){
 
     let total = sum("price", "quantity");
 
+    const updateOrder = () =>{
+
+        if(!basket.length){
+            console.log('basket is empty')
+            console.log(basket.length);
+            setModalShow(true);
+        }else{
+            console.log('basket not empty')
+            console.log(basket.length);
+            //TODO: API per modificare potenzialmente tutte info ordine + modificare basket + aggiornare availability dei prodotti
+        }
+    }
+
     useEffect(() => {
         if(order || cancel){
           API.getBasket(order.id).then((products) => {
@@ -161,7 +188,7 @@ function SelectedOrder(props){
     return(
         <div className="my-3 mx-3">
             <Row>  
-                <Col><h1>Ordine #{order.id}</h1></Col>          
+                <Col><h1>Order #{order.id}</h1></Col>          
                 <Col xs={5} className="text-right"><h1>€ {total.toFixed(2)}</h1></Col>                    
             </Row>
             <hr/>
@@ -213,7 +240,7 @@ function SelectedOrder(props){
                 {(props.editable) ? //Per francesco: ho aggiunto una props 'editable', serve per distinguere quando mostrare i pulsanti edit o cancel. La setto nin clientOrders
                 <>
                     <Col className="text-center">
-                        <Button variant="outline-dark" onClick={() => {  } }>{iconDelete} Cancel</Button> {/*TODO: onclick-> API cancella ordine */}
+                        <Button variant="outline-dark" onClick={() => { setModalShow(true) }}>{iconDelete} Cancel</Button>
                     </Col>
                     <Col className="text-center">
                             <Button variant="light"  onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button> 
@@ -231,7 +258,7 @@ function SelectedOrder(props){
                 <Col className="text-center">
                     <Button variant="outline-success"
                       disabled={((delivery==='')||(address==='')||(city==='')||(zip==='')||(date==='')||(time==='')||(time<"09:00")||(time>"21:00"))? true : false}
-                      onClick={() => {  }} /* TODO: onclick API modifica ordine */
+                      onClick={updateOrder} /* TODO: onclick API modifica ordine */
                     >
                         {iconConfirm} Confirm
                     </Button> 
@@ -362,6 +389,7 @@ function ListIteam(props) {
 
     const handleChange = (event, availability) => {
         if (event.target.value > 0 && event.target.value < availability) {
+            setDirty(true);
             //setQuantity(event.target.value);
             let value = event.target.value;
             setQuantity(value);

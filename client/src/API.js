@@ -1,13 +1,13 @@
-import {Client} from './Client'
+import { Client } from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-import "jest-fetch-mock" //decommentare per il testing
-//const BASEURL = '/api';
 
-/*
-//TO UNCOMMENT IN CASE OF TESTING
-*/
-const BASEURL = 'http://localhost:3001/api';
+/*** Jest import + TEST URL (to uncomment for testing the app) ***/
+//import "jest-fetch-mock" 
+//const BASEURL = 'http://localhost:3001/api';
+
+/*** DEFAULT URL (to uncomment for running the app) ***/
+const BASEURL = '/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
