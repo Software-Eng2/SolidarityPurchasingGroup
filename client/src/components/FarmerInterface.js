@@ -100,7 +100,7 @@ function FarmerInterface(props) {
                             <hr style={{ marginTop: 0 }} />
                             <Row align='center' >
 
-                                <Col xs={12} sm={12} md={4} >
+                                <Col xs={12} sm={12} md={6} >
                                     <Link to={{ pathname: '/farmerPlanning' }}>
                                         <div className="farmer-button">
                                             <button disabled={products.length == 0 ? true : false}>
@@ -110,17 +110,7 @@ function FarmerInterface(props) {
                                     </Link>
                                 </Col>
 
-                                <Col xs={12} sm={12} md={4}>
-                                    <Link to={{ pathname: '/farmerOrders' }}>
-                                        <div className="farmer-button">
-                                            <button data-testid="new-product-button">
-                                                <FaCheck className="mb-1" /> Confirm Avaiability
-                                            </button>
-                                        </div>
-                                    </Link>
-                                </Col>
-
-                                <Col xs={12} sm={12} md={4}>
+                                <Col xs={12} sm={12} md={6}>
                                     <Link to={{ pathname: '/farmerOrders' }}>
                                         <div className="farmer-button">
                                             <button data-testid="view-orders-button">
