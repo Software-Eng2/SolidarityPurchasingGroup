@@ -106,23 +106,48 @@ test('p-updateConfirmed', () =>{
 /* ---------------------------------- */
 
 /* ---------- ORDER ---------- */
+
+//Testing functions when object is not initialized
+test('', async () => {
+    
+    expect(orders.getOrders()).toEqual(undefined);
+    expect(await orders.addOrder()).toEqual(undefined);
+    expect(orders.getOrderFromId()).toEqual(undefined);
+    expect(orders.getDeliverOrders()).toEqual(undefined);
+    expect(orders.getPickUpOrders()).toEqual(undefined);
+    expect(orders.getClientOrders()).toEqual(undefined);
+
+})
+
 test('o-getAllOrders',()=>{
     API.logIn("mariorossi@gmail.com","mariorossi");
     return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(10)})
 });
 
-test('o-createOrder',()=>{
+test('o-createOrder', async ()=>{
     const fakeOrder = new Order(38,'21/01/2021',2, 'testName', 'testSurname',10,'23/01/2021','16:00', 0, 'Via dei Test, 0, Test, 00000', 'PENDING');
-    expect(API.createOrder(fakeOrder)).toBeTruthy();
+    const result = await orders.addOrder(fakeOrder.creation_date, fakeOrder.client_id, fakeOrder.total,fakeOrder.pick_up, fakeOrder.address, fakeOrder.date, fakeOrder.time);
+    expect(result).toBeTruthy();
 });
 
-test('o-changeStatusTrue',()=>{
+test('o-changeStatusTrue', async ()=>{
     const fakeStatus = 'ACCEPTED';
-    return orders.initialize().then(()=>{
-        const order_id = orders.getOrderFromId(orders.ordersList[orders.getOrders().length-1].id)[0].id;
-        expect((API.changeStatus(order_id, fakeStatus))).toBeTruthy();
-    });
+    const order_id = orders.getOrderFromId(orders.ordersList[orders.getOrders().length-1].id)[0].id;
+    const result = await orders.changeStatus(order_id, fakeStatus);
+    expect(result).toBeTruthy();
 });
+
+test('o-getDeliverOrders', () => {
+    expect(orders.getDeliverOrders().length > 0).toEqual(true);
+})
+
+test('o-getPickUpOrders', () => {
+    expect(orders.getPickUpOrders().length > 0).toEqual(true);
+})
+
+test('o-getClientOrders', () => {
+    expect(orders.getClientOrders(2).length > 0).toEqual(true);
+})
 
 test('o-changeDateTimeTrue',()=>{
     const fakeDate = '30/01/2021';
