@@ -1,5 +1,5 @@
 import { Modal, Container, Row, Col, Button, Form, Alert} from 'react-bootstrap';
-import {arrowLeftIcon,iconConfirm} from "../Icons";
+import {arrowLeftIcon,iconConfirm, iconDanger} from "../Icons";
 import { useState, useEffect} from 'react';
 import {MdDoneOutline} from "react-icons/md";
 import API from '../../API';
@@ -46,17 +46,19 @@ function DeleteModal(props) {
       <>
         <Modal.Header  style={{borderColor: "#dedede"}} className="justify-content-center">
           <Modal.Title>
-            By confirming you are going to cancel this order. <strong>Do you wish to continue?</strong>
+            <Row className="justify-content-center mb-3">{iconDanger}</Row>
+            <Row className="text-center">By confirming you are going to cancel this order.</Row>
+            <Row className="justify-content-center"><strong>Are you sure?</strong></Row>
           </Modal.Title>
         </Modal.Header>
         <Modal.Footer style={{borderColor: "#dedede"}}>
           <Col className="text-left">
-          <Button data-testid="button-close"  variant='danger'onClick={props.onHide}>
+          <Button data-testid="button-close"  variant='secondary'onClick={props.onHide}>
               Undo
           </Button>
           </Col>
           <Col className="text-right" >
-          <Button data-testid="button-confirm" variant="success" onClick={deleteOrder}>
+          <Button data-testid="button-confirm" variant="danger" onClick={deleteOrder}>
               Confirm
          </Button>
          </Col>
