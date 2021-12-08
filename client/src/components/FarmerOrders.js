@@ -5,23 +5,9 @@ import API from '../API';
 function FarmerOrders(props){
     const {orderedProducts} = props;
     const [orders, setOrders] = useState([]); // set of orders with their respective quantity for each product
-    const [dirty, setDirty] = useState(false);
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
     // Do here the fetch between products and return of new query
-
-
-    useEffect(() => {
-        let tempOrders = []
-        function fetchOrdersByFarmer() {
-         sendQuantities.forEach(async (product, index) => {
-             const tempOrder =  await API.getOrderedByFarmerByDate(product.id);
-             console.log(tempOrder);
-             tempOrders[index] = tempOrder;
-         })
-         }
-         console.log('tempOrders:' , tempOrders);
-         fetchOrdersByFarmer();
-    },);
+    
 
     return (
         <Container fluid className="page width-100 below-nav table">
@@ -33,14 +19,42 @@ function FarmerOrders(props){
 }
 
 function FarmerOrderTable(props){
-    const {products, quantities, orders } = props;
+    const {products, quantities, orders} = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
+    const [tempOrders, setTempOrders] = useState([]);
     console.log('Orders: ', orders);
     useEffect(() => {
         setConfirmedProducts(quantities);
     }, [quantities]);
 
-  
+    let tO = [];
+    
+    function fetchOrdersByFarmer() {
+     quantities.forEach(async (product, index) => {
+         const tempOrder =  await API.getOrderedByFarmerByDate(product.id);
+         tO[index] = tempOrder;
+         setTempOrders(tO);
+     })
+     }
+
+    useEffect(() => {
+         fetchOrdersByFarmer();
+    },[]);
+
+     const updateConfirmation = (index) => {
+       let confirmed = confirmedProducts[index].quantity;
+       for(let i=0;i<tempOrders[index].length();i++){
+           if(confirmed - tempOrders[index][i].quantity >=0){
+              confirmed -= tempOrders[index][i].quantity;
+           } else if(Math.abs(confirmed-tempOrders[index][i].quantity) >= confirmed && confirmed >0) {
+                 //settare la quantità all'ordine i-esimo  mettere confirmed a 0 e il resto degli ordini vanno cancellati
+
+           } else if(confirmed > 0) {
+               //settare la quantità pari a confirmed caso (ne voglio 4 e ne ho 3 allora setta 3 e confirmed = 0)
+           }
+       }
+    } 
+    
     // TODO: Send quantities when confirm button is pressed and confirm orders 
     const updateFieldChanged = index => e => {
         let newArr = [...confirmedProducts]; 
@@ -77,7 +91,7 @@ function FarmerOrderTable(props){
                             <td className="text-center"><strong >{p.amount}</strong></td>
                             <td className="text-center"><strong>
                                 <input type='number' name='quantity' value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
-                            <td className="text-center"><button className="dropdown dropdown-btn"> Confirm orders </button> </td>
+                            <td className="text-center"><button className="dropdown dropdown-btn" onClick={()=>updateConfirmation(index)}> Confirm orders </button> </td>
                         </tr>
                     ))
                 }                
