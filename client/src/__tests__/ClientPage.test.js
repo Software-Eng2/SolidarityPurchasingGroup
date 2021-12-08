@@ -82,4 +82,15 @@ it('client page aaaaaq',async  () => {
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Pending')).toHaveClass('tab-pane');
     expect(await findByText(component.container, 'Order #29')).toBeVisible();
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Accepted')).toHaveClass('tab-pane active');
+
+    //Testing button for order details
+    const button2 = component.container.querySelector("#detailsButton");
+    fireEvent.click(button2);
+
+    expect(await findByText(component.container, 'Back')).toBeVisible();
+
+    const button3 = screen.getByText('Back');
+    fireEvent.click(button2);
+    expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Accepted')).toHaveClass('tab-pane active');
+
 })

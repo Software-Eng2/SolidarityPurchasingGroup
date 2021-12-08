@@ -105,7 +105,7 @@ function AcceptedList(props){
                             <img width={150} height={150} src={gif} alt="order in preparation..." />
                         </Col>
                         <Col xs={1}  className=" text-right">
-                            <Button variant="outline-info" className="pheight-100" onClick={()=>{handleClick(); setOrder(o) }}>{arrowRightIcon}</Button>
+                            <Button id="detailsButton" variant="outline-info" className="pheight-100" onClick={()=>{handleClick(); setOrder(o) }}>{arrowRightIcon}</Button>
                         </Col>
                         </Row>
                     </Card.Body>
