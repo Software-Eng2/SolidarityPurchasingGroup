@@ -97,3 +97,20 @@ test('', async () =>  {
     await API.deleteOrder(orderId.id);
 
 })
+
+/* ------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------- */
+
+/**
+ * Tested functions: getProductsByFarmer
+ */
+
+
+test('', async () => {
+
+    const productOfFarmer6 = await API.getProductsByFarmer(6);
+
+    expect( productOfFarmer6[0].id).toEqual(21);
+    expect( productOfFarmer6[1].id).toEqual(22);
+})
