@@ -56,9 +56,7 @@ function NavBar(props) {
                     </Navbar.Collapse>
                 </Navbar>
             )
-            break;
-
-        case 'client':
+          case 'client':
             return (
                 <Navbar collapseOnSelect expand="lg"/*  bg="dark" variant="dark"  */ className="nav">
                     <Navbar.Brand>
@@ -99,10 +97,7 @@ function NavBar(props) {
                     </Navbar.Collapse>
                 </Navbar>
             )
-
-            break;
-        
-            case 'farmer':
+             case 'farmer':
                 return (
                     <Navbar collapseOnSelect expand="lg"/*  bg="dark" variant="dark"  */ className="nav">
                         <Navbar.Brand>
@@ -143,9 +138,6 @@ function NavBar(props) {
                         </Navbar.Collapse>
                     </Navbar>
                 )
-    
-                break;
-
         default:
             return (
                 <Navbar collapseOnSelect expand="lg"/*  bg="dark" variant="dark"  */ className="nav">
@@ -191,8 +183,6 @@ function NavBar(props) {
                     </Navbar.Collapse>
                 </Navbar>
             )
-            break;
-
     }
 }
 

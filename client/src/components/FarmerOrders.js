@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import{ Container, Table} from "react-bootstrap";
 import API from '../API';
+import { Clock } from "../Clock";
 
 function FarmerOrders(props){
     const {orderedProducts} = props;
@@ -22,6 +23,8 @@ function FarmerOrderTable(props){
     const {products, quantities, orders} = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
     const [tempOrders, setTempOrders] = useState([]);
+    const timerEvent = new Clock();
+    const passedTime = timerEvent.checkProductsAvailabilityMilestone();
     console.log('Orders: ', orders);
     useEffect(() => {
         setConfirmedProducts(quantities);
@@ -94,8 +97,8 @@ function FarmerOrderTable(props){
                             <td className="text-center"><strong >{p.estimated}</strong></td>
                             <td className="text-center"><strong >{p.amount}</strong></td>
                             <td className="text-center"><strong>
-                                <input type='number' name='quantity' value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
-                            <td className="text-center"><button className="dropdown dropdown-btn" onClick={()=>updateConfirmation(index)}> Confirm orders </button> </td>
+                                <input type='number' name='quantity' disabled={passedTime} value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
+                            <td className="text-center">{passedTime ? 'You cannot confirm quantity now' : <button className="dropdown dropdown-btn" onClick={()=>updateConfirmation(index)}> Confirm orders </button>}</td>
                         </tr>
                     ))
                 }                
