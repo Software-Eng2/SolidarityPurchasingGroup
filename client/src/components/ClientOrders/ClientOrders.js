@@ -22,13 +22,13 @@ function ClientOrders(props) {
             case "pending":
                 return(<div className="borders mb-3" >
                     {
-                        !selected ? <PendingList clientOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> : <SelectedOrder handleClick={handleClick} order={order}/>                   
+                        !selected ? <PendingList clientOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> : <SelectedOrder editable={true} handleClick={handleClick} order={order}/>                   
                     }
                 </div>);
             case "accepted":
                 return(<div className="borders mb-3" >
                 {
-                    <AcceptedList acceptedOrders={clientOrders}/>                 
+                     !selected ? <AcceptedList acceptedOrders={clientOrders} handleClick={handleClick} setOrder={setOrder}/> : <SelectedOrder editable={false} handleClick={handleClick} order={order}/>
                 }
             </div>);
             
@@ -79,6 +79,8 @@ function PendingList(props){
 function AcceptedList(props){
 
     const orders = props.acceptedOrders;
+    const handleClick = props.handleClick;
+    const setOrder = props.setOrder;
 
     return(
         
@@ -92,15 +94,18 @@ function AcceptedList(props){
                             <strong> Total: <h2>€ {o.total}</h2></strong><br />
                         </Col>
                         <vr/>
-                        <Col xs={7} className="my-auto">
+                        <Col xs={5} className="my-auto">
                             <Row className="m-auto d-flex align-items-center"><h4 >Delivery method:&ensp; </h4> { o.pick_up ? pickUpIcon /* Pick-Up */ : deliveryIcon /* Delivery */}</Row>
                             <Row className="m-auto d-flex align-items-center"><h4>Address:&ensp; </h4>  {o.address}</Row>
                             <Row className="m-auto d-flex align-items-center"><h4>Date:&ensp; </h4> {o.date}</Row>
                             <Row className="m-auto d-flex align-items-center"><h4>Time:&ensp; </h4> {o.time}</Row>
                         </Col>
-                        <Col>
+                        <Col xs={3} className="my-auto" >
                             <h4>We are preparing your order!</h4>
                             <img width={150} height={150} src={gif} alt="order in preparation..." />
+                        </Col>
+                        <Col xs={1}  className=" text-right">
+                            <Button variant="outline-info" className="pheight-100" onClick={()=>{handleClick(); setOrder(o) }}>{arrowRightIcon}</Button>
                         </Col>
                         </Row>
                     </Card.Body>
@@ -205,12 +210,19 @@ function SelectedOrder(props){
                 <Col className="text-center">
                     <Button variant="light" onClick={handleClick}>{arrowLeftIcon}Back</Button>
                 </Col>
-                <Col className="text-center">
-                    <Button variant="outline-dark" onClick={() => {  } }>{iconDelete} Cancel</Button> {/*TODO: onclick-> API cancella ordine */}
-                </Col>
-                <Col className="text-center">
-                        <Button variant="light"  onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button> 
-                </Col>
+                {(props.editable) ? //Per francesco: ho aggiunto una props 'editable', serve per distinguere quando mostrare i pulsanti edit o cancel. La setto nin clientOrders
+                <>
+                    <Col className="text-center">
+                        <Button variant="outline-dark" onClick={() => {  } }>{iconDelete} Cancel</Button> {/*TODO: onclick-> API cancella ordine */}
+                    </Col>
+                    <Col className="text-center">
+                            <Button variant="light"  onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button> 
+                    </Col>
+                </>
+                :
+                <>
+                </>
+                }
             </Row> :
             <Row className="mt-3">
                 <Col className="text-center">
