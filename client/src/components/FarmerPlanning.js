@@ -1,4 +1,4 @@
-import { Container, Table,    Row, Col, Form, Button, Overlay, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Container, Table,    Row, Col, Form, Button} from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill, BsTrash, BsPencilSquare, BsFillInfoCircleFill } from "react-icons/bs";
 import PlanningModal from "./PlanningModal";
@@ -16,19 +16,19 @@ function FarmerPlanning(props) {
     const [disable,setDisable] = useState(false);
 
 
-    const deleteTask = (id) => {
+    const deleteTask = (ID) => {
         const del = async () => {
-          await API.deleteProductNW(id);
+          await API.deleteProductNW(ID);
           setDirty(true);
-          
+
         };
         del();
-    }    
+    }
 
     useEffect(() => {
-        
+
         const getProductNW = async () => {
-            
+
 
             const inProductNW = await API.getProductNW(props.userid);
             setProductNw(inProductNW);
@@ -37,16 +37,16 @@ function FarmerPlanning(props) {
 
         getProductNW();
 
-        
+
     }, [modalShow, dirty]);
 
-    
-    
+
+
     return (
-            
+
         <Container className="page below-nav table">
-            
-                    
+
+
             <FormTable farmerProducts={props.farmerProducts} userid={props.userid} productNW={productNW} products={props.products} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} setDisable={setDisable} disable={disable} />
             <div className="fixed">
                 <BsFillPlusCircleFill className="pointer" size={40} color="#28a745" onClick={() => { setModalShow(true) }} />
@@ -61,7 +61,7 @@ function FarmerPlanning(props) {
                     setDirty={setDirty}
                     id={id}
                     productNW={productNW}
-                    
+
                 />
             </div>
         </Container>
@@ -75,11 +75,11 @@ function FormTable(props) {
     const [view, setView] = useState("view"); //2 possible values: view for visualizing all clients, search for visualizing only search results
     const [search, setSearch] = useState(""); //value to search
     const [modal, setModal] = useState(false);
-    
+
 
     {/*const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-            ciao 
+            ciao
             <h6 className="font-italic "> 2. If you do not save the products by the expiration date, they will be deleted and not listed for sale.</h6>
         </Tooltip>
     );*/}
@@ -168,8 +168,8 @@ function FormTable(props) {
             </Table>
             <Row>
                 <Col xs={6} md={6} className="d-flex justify-content-start">
-                    <Link to={{ pathname: '/farmer' }}> 
-        
+                    <Link to={{ pathname: '/farmer' }}>
+
                         <Button size="lg" data-testid="back-Button" className="mt-5" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} >Back</Button>
                     </Link>
                 </Col>
@@ -185,7 +185,7 @@ function FormTable(props) {
                         disable={props.disable}
                         setDisable={props.setDisable}
                         farmerProducts={props.farmerProducts}
-                        
+
                     />
                 </Col>
             </Row>

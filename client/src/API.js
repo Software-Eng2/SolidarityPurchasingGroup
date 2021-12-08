@@ -1,13 +1,13 @@
 import {Client} from './Client'
 import { Order } from './Order';
 import { Product } from './Product';
-//import "jest-fetch-mock" //decommentare per il testing
-const BASEURL = '/api';
+import "jest-fetch-mock" //decommentare per il testing
+//const BASEURL = '/api';
 
 /*
 //TO UNCOMMENT IN CASE OF TESTING
 */
-//const BASEURL = 'http://localhost:3001/api';
+const BASEURL = 'http://localhost:3001/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -29,17 +29,17 @@ async function createUser(u) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
-          {role: u.role, name: u.name, surname: u.surname, birthdate: u.birthdate, 
+          {role: u.role, name: u.name, surname: u.surname, birthdate: u.birthdate,
             email: u.email, password: u.password, isConfirmed : u.isConfirmed }
           )
       })
       const newID = await response.json();
-  
+
       if (!response.ok) {
         console.log(response);
         throw response;
       }
-  
+
       return newID.id;
     }
     catch {
@@ -50,9 +50,9 @@ async function createUser(u) {
 async function getAllProducts(){
 
     const response = await fetch(BASEURL + '/products');
-  
+
     const products = await response.json();
-  
+
     if (response.ok) {
         return products.map((p) => new Product(p.id, p.name, p.description, p.category, p.quantity, p.price, p.farmer_id, p.img_path, p.confirmed));
     } else {
@@ -97,17 +97,17 @@ async function createProduct(p) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
-            { name: p.name, description: p.description, category: p.category, quantity: p.quantity, price: p.price , 
+            { name: p.name, description: p.description, category: p.category, quantity: p.quantity, price: p.price ,
               farmer_id: p.farmer_id, img_path: p.img_path, confirmed: p.confirmed}
         )
       })
       const newID = await response.json();
-  
+
       if (!response.ok) {
         console.log(response);
         throw response;
       }
-  
+
       return newID.id;
     }
     catch {
@@ -173,7 +173,7 @@ async function updateConfirmedProduct(confirmed, id) {
       });
     console.log(response);
     return response.ok;
-    
+
 }
 
 async function changeStatus(order_id, status) {
@@ -323,7 +323,7 @@ async function getClientById(client_id) {
 
 async function getNotifications(client_id){
   const response = await fetch(BASEURL + '/notifications/' + client_id);
-  return  await response.json();
+  return  response.json();
 }
 
 async function postNotification(client_id, description){
@@ -412,7 +412,7 @@ async function getProductNW(id_user) {
   const products = await response.json();
 
   if (response.ok) {
-    return products.map((p) =>{return { 
+    return products.map((p) =>{return {
       id:p.id,
       id_user: p.id_user,
       id_product: p.id_product,
@@ -426,7 +426,7 @@ async function getProductNW(id_user) {
 //insert Product for Next Week
 async function createProductNW(b) {
   console.log(b)
-  
+
   try {
     const response = await fetch(BASEURL + '/productNW', {
       method: 'POST',
@@ -487,7 +487,7 @@ function deleteProductNW(id) {
       }).then((response) => {
           if (response.ok) {
               resolve(null);
-          } else {             
+          } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
                   .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
@@ -503,7 +503,7 @@ function deleteAllUserProductNW(id_user) {
       }).then((response) => {
           if (response.ok) {
               resolve(null);
-          } else {             
+          } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
                   .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
@@ -519,7 +519,7 @@ function deleteAllProductNW() {
       }).then((response) => {
           if (response.ok) {
               resolve(null);
-          } else {             
+          } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
                   .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
