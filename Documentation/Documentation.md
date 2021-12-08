@@ -10,6 +10,7 @@
 - Route `/clientlist`: this page shows the list of clients registered to the system and allows the shop employee to top up the user's wallet and complete an order for the user.
 - Route `/farmer`: this page shows the homepage of a farmer. This page is composed by: the list of the products that he has already added, 2 buttons that allows him to plan the products for the next week and to add new products.
 - Route `/farmerPlanning`: this page shows the list of products available for the next week and allows the farmer to add, delete or modify some products.
+- Route `/farmerOrders`: this page shows the list of products ordered of the logged Farmer and allow they to modify and confirm the quantity of that product.
 - Route `/clientOrders`: 
 - Route `/clock`: allow the professor to use the virtual clock
 
@@ -408,6 +409,32 @@
       ]`
     - Response: 200 OK (success)
     - Error responses: generic error
+- GET `/api/farmer/orders/:id`
+    - Description: get all orders that contains a specific product ordered by date acquisition
+    - request parameters: id of the product
+    - response body content: list of orders ordered by date. Example with id = 3:
+      `[
+          {
+            "id": 32,
+            "quantity": 4
+          },
+          {
+            "id": 33,
+            "quantity": 2
+          },
+          {
+            "id": 36,
+            "quantity": 1
+          },
+          {
+            "id": 37,
+            "quantity": 1
+          },
+          {
+            "id": 38,
+            "quantity": 1
+          }
+        ]`
 
 - DELETE `/api/products/:id`
     - Description: Delete a product identified by its id
@@ -625,6 +652,6 @@
 - password: isabellaverdi
 
 #### warehouse worker:
-- email: lucaneri@gmail.com
-- password: lucaneri
+- email: giusepperossi@gmail.com
+- password: giusepperossi
 
