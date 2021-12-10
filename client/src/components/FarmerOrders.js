@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import{ Container, Table} from "react-bootstrap";
+import{ Container, Table, Modal, Button, Alert} from "react-bootstrap";
 import API from '../API';
 import { Clock } from "../Clock";
 
@@ -23,40 +23,48 @@ function FarmerOrderTable(props){
     const {products, quantities, orders} = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
     const [tempOrders, setTempOrders] = useState([]);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [actualIndex, setActualIndex] = useState(0);
     const timerEvent = new Clock();
     const passedTime = timerEvent.checkProductsAvailabilityMilestone();
-    console.log('Orders: ', orders);
     useEffect(() => {
         setConfirmedProducts(quantities);
     }, [quantities]);
 
-    let tO = [];
     
-    function fetchOrdersByFarmer() {
-     quantities.forEach(async (product, index) => {
-         const tempOrder =  await API.getOrderedByFarmerByDate(product.id);
-         tO[index] = tempOrder;
-         setTempOrders(tO);
-     })
-     }
+    const onHide = () => {setShowConfirmation(false)}
+    const handleConfirmAlert = (index) => {setActualIndex(index); setShowConfirmation(true)};
+
 
     useEffect(() => {
+        let tO = [];
+        function fetchOrdersByFarmer() {
+            quantities.forEach(async (product, index) => {
+                const tempOrder =  await API.getOrderedByFarmerByDate(product.id);
+                tO[index] = tempOrder;
+                setTempOrders(tO);
+            })
+            }
          fetchOrdersByFarmer();
-    },[]);
-    
-     const updateConfirmation = async (index) => { 
+    },[quantities]);
+    //TODO MODIFICARE TOTAL NELLA TABELLA ORDERS
+     const updateConfirmation = async (index) => {
        let confirmed = confirmedProducts[index].quantity;
        for(let i=0;i<tempOrders[index].length; i++){
            if(confirmed - tempOrders[index][i].quantity >=0){
               confirmed -= tempOrders[index][i].quantity;
+              await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, tempOrders[index][i].quantity, 1);
+              console.log("caso 1 ora confirmed diventa: "+confirmed);
            } else{
-                 //settare la quantità all'ordine i-esimo  mettere confirmed a 0 e il resto degli ordini vanno cancellati, in orders total = total - (notConfirmed*price)
-                 let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
-                 console.log("la diffenza in total è"+difference);
-                 await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
+                 //settare la quantità all'ordine i-esimo  mettere confirmed a 0 e il resto degli ordini vanno cancellati
+                 await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1);
+                 console.log("caso 2:   " +confirmed);
                  confirmed = 0;
            } 
        }
+       setShowConfirmation(false);
+       document.getElementById(`button-${index}`).disabled = true;
+       document.getElementById(`input-${index}`).disabled = true;
     } 
     
     // TODO: Send quantities when confirm button is pressed and confirm orders 
@@ -69,9 +77,11 @@ function FarmerOrderTable(props){
             newArr[index]['quantity'] = Number(e.target.value); // replace e.target.value with whatever you want to change it to
         }
         setConfirmedProducts(newArr);
+
       }
 
     return (
+        <>
         <Table striped bordered hover responsive >
             <thead>
                 <tr>
@@ -85,22 +95,54 @@ function FarmerOrderTable(props){
                 </tr>
             </thead>
             <tbody>
+                {console.log(products)}
                 {   
                     products.map((p, index) => (
-                        <tr key={p.id} data-testid = {`tr-${p.id}`}>
+                        <tr key={`tr-${p.id}`} data-testid = {`tr-${p.id}`}>
                             <td className="text-center">{p.id}</td>
                             <td className="text-center">{p.name}</td>
                             <td className="text-center"><strong>€ {p.price.toFixed(2)}</strong></td>
                             <td className="text-center"><strong >{p.estimated}</strong></td>
                             <td className="text-center"><strong >{p.amount}</strong></td>
                             <td className="text-center"><strong>
-                                <input type='number' name='quantity' disabled={passedTime} value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
-                            <td className="text-center">{passedTime ? 'You cannot confirm quantity now' : <button className="dropdown dropdown-btn" onClick={()=>updateConfirmation(index)}> Confirm orders </button>}</td>
+                                <input id={`input-${index}`}type='number' name='quantity' disabled={passedTime || (p.updated ? true: false) } value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
+                            <td className="text-center">{passedTime ? 'You cannot confirm quantity now' : <button id={`button-${index}`} disabled={p.updated ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button>}</td>
                         </tr>
                     ))
                 }                
             </tbody>
         </Table>
+        <Modal
+            centered
+            show={showConfirmation}
+            onHide={onHide}
+            size='sm'
+        >
+						<Modal.Header closeButton />
+
+						<Modal.Body style={{backgroundColor: "#fff3cd"}}>
+						<Alert variant="warning">
+								<Alert.Heading className="mt-2">
+									Confirmation
+								</Alert.Heading>
+								<p>
+									Are you sure you want to confirm this quantity?
+								</p>
+						</Alert>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"left"}} onClick={onHide}>
+								Close
+							</Button>
+							<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={()=>updateConfirmation(actualIndex)}>
+								Confirm
+						</Button>
+					</Modal.Footer>
+
+
+
+				</Modal>
+        </>
     );
 }
 

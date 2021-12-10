@@ -78,6 +78,10 @@ $button-black: #5C6166;
   background-color: #37BD55 !important;
 }
 
+.dropdown-btn:disabled {
+  background-color: #ABB2BA !important;
+}
+
 .nav {
   background-color: #247D37 !important;
 }
@@ -347,7 +351,7 @@ th {
   border-left: 2px solid #b4e6e2;
 }
 
-.quantity-modifier{
+.quantity-modifier {
   text-align: center;
   font-size: 16px;
   width: 4.5rem;

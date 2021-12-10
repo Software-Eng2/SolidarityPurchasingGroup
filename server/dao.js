@@ -114,13 +114,13 @@ exports.updatedConfirmedProduct = (confirmed, id) => {
 //get the quantity ordered of a products filtered by farmer id
 exports.getOrderedProducts = (farmer_id) => {
   return new Promise((resolve,reject)=>{
-    const sql = 'SELECT product_id, name, PRODUCTS.quantity AS qty, PRODUCTS.price AS price, sum(BASKETS.quantity) AS totalOrdered FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE PRODUCTS.farmer_id = ? GROUP BY product_id';
+    const sql = 'SELECT product_id, name, PRODUCTS.quantity AS qty, PRODUCTS.price AS price, sum(BASKETS.quantity) AS totalOrdered, sum(BASKETS.updated) AS updated FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE PRODUCTS.farmer_id = ? GROUP BY product_id';
     db.all(sql, [farmer_id], (err,rows) => {
       if(err){
         reject(err);
         return;
       }
-      const orderedProducts = rows.map((op)=>({id: op.product_id, name: op.name, estimated: op.qty, price: op.price, amount: op.totalOrdered }));
+      const orderedProducts = rows.map((op)=>({id: op.product_id, name: op.name, estimated: op.qty, price: op.price, amount: op.totalOrdered, updated: op.updated >= 1 ? 1 : 0}));
       resolve(orderedProducts);
     });
   });
@@ -219,9 +219,9 @@ exports.updateWallet = (value, client_id) => {
 // add a new basket
 exports.createBasket = (basket) => {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO BASKETS (order_id, product_id, quantity) VALUES(?,?,?)';
+    const sql = 'INSERT INTO BASKETS (order_id, product_id, quantity, updated) VALUES(?,?,?,?)';
     
-    db.run(sql, [basket.order_id, basket.product_id, basket.quantity], function (err) {
+    db.run(sql, [basket.order_id, basket.product_id, basket.quantity, basket.updated], function (err) {
       if (err) {
         reject(err);
         return;
@@ -552,10 +552,10 @@ exports.getClientAcceptedOrders = (client_id) => {
 };
 
 //update quantity in basket
-exports.updateQuantityBasket = (order_id, product_id, quantity) => {
+exports.updateQuantityBasket = (order_id, product_id, quantity, updated) => {
   return new Promise((resolve, reject) => {
-      const sql = 'UPDATE BASKETS SET quantity = ? WHERE order_id = ? AND product_id = ?';
-      db.run(sql, [quantity, order_id, product_id], function (err) {
+      const sql = 'UPDATE BASKETS SET quantity = ?, updated = ? WHERE order_id = ? AND product_id = ?';
+      db.run(sql, [quantity, updated, order_id, product_id], function (err) {
           if (err) {
               reject(err);
               return;

@@ -378,6 +378,7 @@ app.post('/api/basket',
       order_id: req.body.order_id,
       product_id: req.body.product_id,
       quantity: req.body.quantity,
+      updated: req.body.updated
     }
     dao.createBasket(basket).then((inserted) => res.status(201).json({ inserted: inserted }))
       .catch((err) =>
@@ -676,14 +677,15 @@ app.put('/api/basket/order/:order_id/product/:product_id',
   [
     check('order_id').isInt(),
     check('product_id').isInt(),
-    check('quantity').isNumeric({min:0})
+    check('quantity').isNumeric({min:0}),
+    check('updated').isInt()
   ],
   (req,res)=>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
       return res.status(422).json({errors:errors.array()})
     }
-    dao.updateQuantityBasket(req.params.order_id, req.params.product_id, req.body.quantity)
+    dao.updateQuantityBasket(req.params.order_id, req.params.product_id, req.body.quantity, req.body.updated)
     .then((changed)=>res.status(201).json({changed:changed}))
     .catch((err)=>{res.status(500).json({error: "Error" + err,})})
   }

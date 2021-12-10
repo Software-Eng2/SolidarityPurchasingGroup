@@ -277,7 +277,8 @@ async function createBasket(b) {
         {
           order_id: b.order_id,
           product_id: b.product_id,
-          quantity: b.quantity
+          quantity: b.quantity,
+          updated: b.updated,
         }
       )
     })
@@ -554,12 +555,13 @@ async function getClientAcceptedOrders(client_id) {
   }
 }
 
-async function updateQuantityBasket(order_id, product_id, quantity){
+async function updateQuantityBasket(order_id, product_id, quantity, updated){
   const response = await fetch(BASEURL + '/basket/order/' + order_id + '/product/' + product_id, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         quantity: quantity,
+        updated: updated
   })
 });
 console.log(response.ok);

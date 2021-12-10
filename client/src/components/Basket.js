@@ -61,7 +61,8 @@ function Basket(props){
                 const productBasket = {
                     order_id: response.id,
                     product_id: product.id,
-                    quantity: product.quantity
+                    quantity: product.quantity,
+                    updated: 0,
                 };
                 API.changeQuantity(productBasket.product_id, productBasket.quantity);
                 return API.createBasket(productBasket).then((res) => {

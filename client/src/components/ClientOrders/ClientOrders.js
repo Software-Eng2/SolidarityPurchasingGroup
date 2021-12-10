@@ -181,7 +181,7 @@ function SelectedOrder(props){
                     //update availability of the deleted basket products in db
                     API.changeQuantity(productBasket.product_id, productBasket.diffQuantity).then(
                         //update basket product quantities
-                        API.updateQuantityBasket(productBasket.order_id, productBasket.product_id, productBasket.quantity).then((res) => {
+                        API.updateQuantityBasket(productBasket.order_id, productBasket.product_id, productBasket.quantity, 0).then((res) => {
                             if (!res) {
                                 console.log("Error inserting basket in db.");
                             }      

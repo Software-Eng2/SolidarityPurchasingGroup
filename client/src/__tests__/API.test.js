@@ -78,7 +78,7 @@ test('', async () =>  {
     const orderId =  await API.createOrder(fakeOrder3);
 
     //Create basket
-    const basketCreated = await API.createBasket({order_id : orderId.id, product_id: 20, quantity: 5});
+    const basketCreated = await API.createBasket({order_id : orderId.id, product_id: 20, quantity: 5, updated: 0});
     expect(basketCreated.inserted).toEqual(true);
 
     const ordersOfProduct20 = await API.getOrderedByFarmerByDate(20);
