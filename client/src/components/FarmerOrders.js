@@ -55,11 +55,11 @@ function FarmerOrderTable(props){
               confirmed -= tempOrders[index][i].quantity;
               await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, tempOrders[index][i].quantity, 1);
               console.log("caso 1 ora confirmed diventa: "+confirmed);
-           } else{
-                 //settare la quantità all'ordine i-esimo  mettere confirmed a 0 e il resto degli ordini vanno cancellati
-                 await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1);
-                 console.log("caso 2:   " +confirmed);
-                 confirmed = 0;
+           } else{     
+                let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
+                console.log("la diffenza in total è"+difference);
+                await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
+                confirmed = 0;
            } 
        }
        setShowConfirmation(false);
