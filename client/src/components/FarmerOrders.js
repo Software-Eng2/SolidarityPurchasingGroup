@@ -43,21 +43,18 @@ function FarmerOrderTable(props){
     useEffect(() => {
          fetchOrdersByFarmer();
     },[]);
-    //TODO MODIFICARE TOTAL NELLA TABELLA ORDERS
-     const updateConfirmation = async (index) => {
+    
+     const updateConfirmation = async (index) => { 
        let confirmed = confirmedProducts[index].quantity;
        for(let i=0;i<tempOrders[index].length; i++){
            if(confirmed - tempOrders[index][i].quantity >=0){
-               console.log("caso 1:   "+confirmed);
               confirmed -= tempOrders[index][i].quantity;
-              console.log("caso 1 ora confirmed diventa: "+confirmed);
            } else{
-                 //settare la quantità all'ordine i-esimo  mettere confirmed a 0 e il resto degli ordini vanno cancellati
-                 await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed);
-                 console.log("caso 2:   " +confirmed);
+                 //settare la quantità all'ordine i-esimo  mettere confirmed a 0 e il resto degli ordini vanno cancellati, in orders total = total - (notConfirmed*price)
+                 let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
+                 console.log("la diffenza in total è"+difference);
+                 await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
                  confirmed = 0;
-                 console.log("caso 2 , confirmed dovrebbe essere 0: "+confirmed);
-
            } 
        }
     } 

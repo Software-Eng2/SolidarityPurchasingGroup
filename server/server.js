@@ -689,6 +689,23 @@ app.put('/api/basket/order/:order_id/product/:product_id',
   }
 );
 
+
+// update total in orders
+app.put('/api/orders/:order_id',
+  [
+    check('order_id').isInt(),
+  ],
+  (req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return res.status(422).json({errors:errors.array()})
+    }
+    dao.updateTotalOrders(req.params.order_id, req.body.difference)
+    .then((changed)=>res.status(201).json({changed:changed}))
+    .catch((err)=>{res.status(500).json({error: "Error" + err,})})
+  }
+);
+
 //update order info
 app.put('/api/orders/update',
   [

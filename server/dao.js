@@ -565,6 +565,21 @@ exports.updateQuantityBasket = (order_id, product_id, quantity) => {
   });
 };
 
+
+//update total in orders
+exports.updateTotalOrders = (order_id, difference) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE ORDERS SET total = total - ? WHERE id = ?';
+      db.run(sql, [difference, order_id], function (err) {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(true);
+      });
+  });
+};
+
 //update order info
 exports.updateOrder = (order) => {
   return new Promise((resolve, reject) => {

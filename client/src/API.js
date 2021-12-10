@@ -566,6 +566,18 @@ console.log(response.ok);
 return response.ok;
 }
 
+async function updateTotalInOrders(order_id,difference){
+  const response = await fetch(BASEURL + '/orders/' + order_id, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        difference: difference,
+  })
+});
+console.log(response.ok);
+return response.ok;
+}
+
 async function updateOrder(order){
   const response = await fetch(BASEURL + '/orders/update', {
     method: 'PUT',
@@ -623,7 +635,8 @@ const API = {
   getOrderedProductsByFarmer,
   getOrderedByFarmerByDate,
   updateQuantityBasket,
-  updateOrder
+  updateOrder,
+  updateTotalInOrders
 }
 
 export default API;
