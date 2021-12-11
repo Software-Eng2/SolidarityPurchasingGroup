@@ -34,7 +34,7 @@ function ClientOrders(props) {
                                     show={modalShow}
                                     setModalShow={setModalShow}
                                     clientOrders={clientOrders}
-                                    order_id={order.id}
+                                    order_id={order ? order.id : ''}
                                     basket={basket}
                                     onHide={() => { setModalShow(false)}}
                                 />
