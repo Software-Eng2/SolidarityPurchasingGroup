@@ -86,6 +86,7 @@
 
     constructor(){
         this.time = undefined;
+        this.stopped = false;
 
         /**
          * An object to keep track of the main
@@ -102,6 +103,39 @@
         //Checking events
         this.checkEvents();
 
+    }
+
+    start(){
+            
+        setInterval(() => {
+
+            if(!this.stopped){
+                this.time.setSeconds(this.time.getSeconds() + 1);
+
+                console.log(this.time.getDate() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
+            }
+
+            var seconds = this.time.getSeconds();
+            var minutes = this.time.getMinutes();
+            var hours = this.time.getHours();
+            var day = this.time.getDay();
+
+            if(day == 1 && hours == 9){
+                console.log('...');
+            }
+
+            if(day == 1 && hours == 20){
+                console.log('...');
+            }
+
+
+
+
+        }, 1000);
+    }
+
+    stop(){
+        this.stopped = true;
     }
 
     /* --------- EVENTS SETTING API --------- */
@@ -260,4 +294,4 @@
     
 }
 
-export {Clock}
+export {Clock};
