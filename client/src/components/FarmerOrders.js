@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import{ Container, Table, Modal, Button, Alert} from "react-bootstrap";
 import API from '../API';
-import { Clock } from "../Clock";
 
 function FarmerOrders(props){
-    const {orderedProducts} = props;
+    const {orderedProducts, clock} = props;
     const [orders, setOrders] = useState([]); // set of orders with their respective quantity for each product
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
     // Do here the fetch between products and return of new query
-    
+
 
     return (
         <Container fluid className="page width-100 below-nav table">
-            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} orders={orders}/>
+            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} orders={orders} clock={clock}/>
         </Container>
 
     );
@@ -20,18 +19,17 @@ function FarmerOrders(props){
 }
 
 function FarmerOrderTable(props){
-    const {products, quantities, orders} = props;
+    const {products, quantities, orders, clock} = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
     const [tempOrders, setTempOrders] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [actualIndex, setActualIndex] = useState(0);
-    const timerEvent = new Clock();
-    const passedTime = timerEvent.checkProductsAvailabilityMilestone();
+    const passedTime = clock.checkProductsAvailabilityMilestone();
     useEffect(() => {
         setConfirmedProducts(quantities);
     }, [quantities]);
 
-    
+
     const onHide = () => {setShowConfirmation(false)}
     const handleConfirmAlert = (index) => {setActualIndex(index); setShowConfirmation(true)};
 
@@ -55,21 +53,21 @@ function FarmerOrderTable(props){
               confirmed -= tempOrders[index][i].quantity;
               await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, tempOrders[index][i].quantity, 1);
               console.log("caso 1 ora confirmed diventa: "+confirmed);
-           } else{     
+           } else{
                 let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
                 console.log("la diffenza in total è"+difference);
                 await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
                 confirmed = 0;
-           } 
+           }
        }
        setShowConfirmation(false);
        document.getElementById(`button-${index}`).disabled = true;
        document.getElementById(`input-${index}`).disabled = true;
-    } 
-    
-    // TODO: Send quantities when confirm button is pressed and confirm orders 
+    }
+
+    // TODO: Send quantities when confirm button is pressed and confirm orders
     const updateFieldChanged = index => e => {
-        let newArr = [...confirmedProducts]; 
+        let newArr = [...confirmedProducts];
         const newNumber = Number(e.target.value);
         if (newNumber > products[index].amount){ // if quantity inserted is higher than maximum, insert maximum
             newArr[index]['quantity'] = products[index].amount;
@@ -96,7 +94,7 @@ function FarmerOrderTable(props){
             </thead>
             <tbody>
                 {console.log(products)}
-                {   
+                {
                     products.map((p, index) => (
                         <tr key={`tr-${p.id}`} data-testid = {`tr-${p.id}`}>
                             <td className="text-center">{p.id}</td>
@@ -109,7 +107,7 @@ function FarmerOrderTable(props){
                             <td className="text-center">{passedTime ? 'You cannot confirm quantity now' : <button id={`button-${index}`} disabled={p.updated ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button>}</td>
                         </tr>
                     ))
-                }                
+                }
             </tbody>
         </Table>
         <Modal

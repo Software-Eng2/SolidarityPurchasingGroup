@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import {BsFillArrowRightSquareFill, BsFillArrowLeftSquareFill} from 'react-icons/bs'
 import Calendar from 'react-calendar';
-import {Clock} from "../Clock.js";
 
-function VirtualClock(){
+function VirtualClock(props){
     const [hour, setHour] = useState(new Date());
     const [date, setDate] = useState(new Date());
 
@@ -13,27 +12,28 @@ function VirtualClock(){
     const [flagSunday, setFlagSunday] = useState(false);
     const [flagMonday9, setFlagMonday9] = useState(false);
     const [flagMonday20, setFlagMonday20] = useState(false);
-    const clock = new Clock();
-
+    const clock = props.clock;
 
     useEffect(() => {
         const interval = setInterval(
-            () => setHour(new Date()),
+            () => {setHour(new Date()); console.log(hour);},
             1000
         );
         return () => {
             clearInterval(interval);
         }
-    }, []);
+
+    }, [hour]);
 
     useEffect(() => {
+        console.log(props.clock);
         let day = new Date().getDay();
         // TODO: verificare anche l'orario
+        // fare le check qui per i flag bottoni
         switch(day) {
             case 6 :
                 clock.setFarmerEstimatesMilestone();
                 setFlagSaturday(true);
-                console.log('ok');
                 break;
             case 0 :
                 clock.setFarmerEstimatesMilestone();
@@ -69,6 +69,8 @@ function VirtualClock(){
         var ret = new Date(date || new Date());
         ret.setDate(ret.getDate() + (day_in_week - 1 - ret.getDay() + 7) % 7 + 1);
         console.log(ret);
+        console.log(ret);
+        // TODO: 20 November 2021
         clock.reset(ret);
         resetFlag();
         return ret;

@@ -18,6 +18,7 @@ import ClientPage from './components/ClientOrders/ClientPage';
 import FarmerOrders from './components/FarmerOrders';
 import Manager from './components/Manager';
 import WarehouseEmployeePage from './components/WarehouseEmployeePage';
+import {Clock} from "./Clock.js";
 
 function App() {
 
@@ -36,6 +37,15 @@ function App() {
   const [clientOrders, setClientOrders] = useState([]);
   const [clientAcceptedOrders, setClientAcceptedOrders] = useState([]);
   const [orderedProducts, setOrderedProducts] = useState([]);
+  const [initialized, setInitialized] = useState(false);
+  const [clock, setClock] = useState(null);
+
+  useEffect(()=>{
+    if(!initialized){
+      setClock(new Clock());
+      setInitialized(true);
+    }
+  },[initialized]);
 
   useEffect(()=>{
     API.getAllProducts().then((p) => {
@@ -185,7 +195,7 @@ function App() {
          <RegisterInterface userRole={userRole}/>
         </Route>
         <Route exact path="/clock">
-          <VirtualClock/>
+          {initialized && <VirtualClock clock={clock}/>}
         </Route>
 
         {loggedIn ? (
@@ -203,7 +213,7 @@ function App() {
           {loggedIn && userRole=='client' ? <ClientPage clientOrders={clientOrders} clientAcceptedOrders={clientAcceptedOrders}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/farmerOrders">
-          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts}/> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts} clock={clock}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/warehouse">
           {loggedIn && userRole=='manager' ? <Manager orders={orders} /> : <LoginForm doLogIn={doLogIn}/>}
