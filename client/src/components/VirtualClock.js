@@ -25,7 +25,45 @@ function VirtualClock(){
             clearInterval(interval);
         }
     }, []);
-    
+
+    useEffect(() => {
+        let day = new Date().getDay();
+        // TODO: verificare anche l'orario
+        switch(day) {
+            case 6 :
+                clock.setFarmerEstimatesMilestone();
+                setFlagSaturday(true);
+                console.log('ok');
+                break;
+            case 0 :
+                clock.setFarmerEstimatesMilestone();
+                clock.setOrdersAcceptedMilestone();
+                setFlagSaturday(true);
+                setFlagSunday(true);
+                break;
+            case 1 :
+                clock.setFarmerEstimatesMilestone();
+                clock.setOrdersAcceptedMilestone();
+                clock.setAvailabilityConfirmedMilestone();
+                setFlagSaturday(true);
+                setFlagSunday(true);
+                setFlagMonday9(true);
+                break;
+            case 2 :
+                clock.setFarmerEstimatesMilestone();
+                clock.setOrdersAcceptedMilestone();
+                clock.setAvailabilityConfirmedMilestone();
+                clock.setWalletOKMilestone();
+                setFlagSaturday(true);
+                setFlagSunday(true);
+                setFlagMonday9(true);
+                setFlagMonday20(true);
+                break;
+            default:
+                break;
+        }
+    }, []);
+
 
     function nextWeekdayDate(date, day_in_week) {
         var ret = new Date(date || new Date());
