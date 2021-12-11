@@ -38,7 +38,6 @@ function App() {
   const [clientAcceptedOrders, setClientAcceptedOrders] = useState([]);
   const [orderedProducts, setOrderedProducts] = useState([]);
   const [initialized, setInitialized] = useState(false);
-  const [started, setStarted] = useState(false);
   const [clock, setClock] = useState(null);
 
   useEffect(()=>{
@@ -47,11 +46,7 @@ function App() {
       setInitialized(true);
     }
 
-    if(initialized && !started){
-      clock.start();
-      setStarted(true);
-    }
-  },[initialized, started]);
+  },[initialized]);
 
   useEffect(()=>{
     API.getAllProducts().then((p) => {
@@ -201,7 +196,7 @@ function App() {
          <RegisterInterface userRole={userRole}/>
         </Route>
         <Route exact path="/clock">
-          {initialized && started && <VirtualClock clock={clock}/>}
+          {initialized &&  <VirtualClock clock={clock}/>}
         </Route>
 
         {loggedIn ? (

@@ -87,6 +87,8 @@
     constructor(){
         this.time = undefined;
         this.stopped = false;
+        this.hours = undefined;
+        this.day = undefined;
 
         /**
          * An object to keep track of the main
@@ -103,39 +105,46 @@
         //Checking events
         this.checkEvents();
 
+        this.start();
+
     }
 
     start(){
             
         setInterval(() => {
 
+
+
             if(!this.stopped){
                 this.time.setSeconds(this.time.getSeconds() + 1);
 
                 console.log(this.time.getDate() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
+
+                this.hours = this.time.getHours();
+                this.day = this.time.getDay();
+
+                if(this.day == 1 && this.hours >= 20){
+                    this.setAvailabilityConfirmedMilestone();
+                    this.setWalletOKMilestone();
+
+                    /* ADD FUNCTION FOR PAYMENTS HERE */
+                    
+                }else if(this.day == 1 && this.hours >= 9){
+                    this.setAvailabilityConfirmedMilestone();
+
+                    /* ADD FUNCTION FOR NOTIFICATIONS HERE */
+                }
             }
-
-            var seconds = this.time.getSeconds();
-            var minutes = this.time.getMinutes();
-            var hours = this.time.getHours();
-            var day = this.time.getDay();
-
-            if(day == 1 && hours == 9){
-                console.log('...');
-            }
-
-            if(day == 1 && hours == 20){
-                console.log('...');
-            }
-
-
-
 
         }, 1000);
     }
 
     stop(){
         this.stopped = true;
+    }
+
+    restart(){
+        this.stopped = false;
     }
 
     /* --------- EVENTS SETTING API --------- */
@@ -147,6 +156,8 @@
             return false;
         }
 
+        this.stop();
+
         let day = this.time.getDay();
 
         //Calculating the time difference from today
@@ -154,6 +165,8 @@
         let daysDifference = 6 - day;
         this.time.setDate(this.time.getDate() + daysDifference);
         this.time.setHours(9,0);
+
+        this.restart();
 
         return true;
     }
@@ -167,6 +180,8 @@
             return false;
         }
 
+        this.stop();
+
         //Today is Sunday
         if(day == 0){
             this.time.setHours(23,0)
@@ -179,6 +194,8 @@
         this.time.setDate(this.time.getDate() + daysDifference + 1);
         this.time.setHours(23,0);
 
+        this.restart();
+
         return true;
     }
 
@@ -189,6 +206,8 @@
         if(this.checkProductsAvailabilityMilestone(checkDate)){
             return false;
         }
+
+        this.stop();
 
         //Today is Monday
         if(day == 1){
@@ -208,6 +227,8 @@
         this.time.setDate(this.time.getDate() + daysDifference + 2);
         this.time.setHours(9,0);
 
+        this.restart();
+
         return true;
     }
 
@@ -218,6 +239,8 @@
         if(this.checkWalletsOkMilestone(checkDate)){
             return false;
         }
+
+        this.stop();
 
         //Today is Monday
         if(day == 1){
@@ -236,6 +259,8 @@
         let daysDifference = 6 - day;
         this.time.setDate(this.time.getDate() + daysDifference + 2);
         this.time.setHours(20,1);
+
+        this.restart();
 
         return true;
     }
