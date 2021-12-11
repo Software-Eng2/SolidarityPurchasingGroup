@@ -169,7 +169,6 @@ function FormTable(props) {
             <Row>
                 <Col xs={6} md={6} className="d-flex justify-content-start">
                     <Link to={{ pathname: '/farmer' }}>
-
                         <Button size="lg" data-testid="back-Button" className="mt-5" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} >Back</Button>
                     </Link>
                 </Col>
@@ -199,3 +198,4 @@ function FormTable(props) {
 
 
 export default FarmerPlanning;
+export {FormTable};

@@ -1,6 +1,9 @@
 import React from 'react';
 import { render, cleanup, findByTestId, getByTestId, fireEvent, getByText, screen } from "@testing-library/react";
 import { shallow, configure, mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import RegisterInterface from "../components/RegisterInterface";
 import Adapter from 'enzyme-adapter-react-16';
 import { useLocation, useHistory } from "react-router-dom";
@@ -10,6 +13,15 @@ import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
 
 
+
+const fakeClient = {
+  name: 'Lucio',
+  surname: "Inglese",
+  birthdate: "06/09/96",
+  email: "email@gmail.com",
+  password: "passwordprova"
+
+}
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -26,7 +38,7 @@ afterEach(() => {
 });
 
 configure({ adapter: new Adapter() });
-const fakeUserRole= "";
+const fakeUserRole = "";
 
 
 //avviene il render della pag?
@@ -34,14 +46,14 @@ const fakeUserRole= "";
 describe("Render", () => {
 
   it("Check registerpageRender", () => {
-    const page = shallow(<RegisterInterface userRole={fakeUserRole}/>);
+    const page = shallow(<RegisterInterface userRole={fakeUserRole} />);
     expect(page).toBeTruthy();
   });
 
-  
+
 
   it("Check all components", () => {
-    const  wrapper = shallow(<RegisterInterface  userRole={fakeUserRole}/>);
+    const wrapper = shallow(<RegisterInterface userRole={fakeUserRole} />);
     expect(wrapper.find('Container').exists()).toBeTruthy();
     expect(wrapper.find('Form').exists()).toBeTruthy();
     expect(wrapper.find('Button')).toHaveLength(2);
@@ -71,7 +83,7 @@ describe("Render", () => {
       className="mt-5"
       data-testid="back-Button"
       style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} onClick={() => {
-        
+
       }}>
       back
     </Button>
@@ -85,37 +97,37 @@ describe("Render", () => {
 describe("changeInput", () => {
   //Click bottone
   it('Button submit', () => {
-    let onButtonClickMock = jest.fn();
-    render( 
-     <Button
-      className="mt-5"
-      data-testid="submit-Button"
-      variant="success"
-      type="submit"
-      style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}
-      onSubmit={onButtonClickMock}
-    >
-      submit
-    </Button>
+    const onButtonClickMock = jest.fn();
+    render(
+      <Button
+        className="mt-5"
+        data-testid="submit-Button"
+        variant="success"
+        type="submit"
+        style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}
+        onSubmit={onButtonClickMock}
+      >
+        submit
+      </Button>
     );
-    
 
-    fireEvent.click(screen.getByTestId('submit-Button'));
-    expect(onButtonClickMock).toHaveBeenCalledTimes(0);
+
+    fireEvent.submit(screen.getByTestId('submit-Button'));
+    expect(onButtonClickMock).toHaveBeenCalledTimes(1);
 
   });
 
 
   it('Button back', () => {
     let onButtonClickMock = jest.fn();
-    render( 
-      <Button className="mt-5" 
-      data-testid="back-Button"  
-      style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} 
-      onClick={() => onButtonClickMock}>back</Button>
+    render(
+      <Button className="mt-5"
+        data-testid="back-Button"
+        style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}
+        onClick={() => onButtonClickMock}>back</Button>
 
     );
-    
+
     fireEvent.click(screen.getByTestId('back-Button'));
     expect(onButtonClickMock).toHaveBeenCalledTimes(0);
 
@@ -124,11 +136,59 @@ describe("changeInput", () => {
 
 });
 
+it('change data input', async () => {
+  const history = createMemoryHistory();
+  history.push = jest.fn();
+
+  render(
+    <MemoryRouter history={history}>
+      <RegisterInterface />
+    </MemoryRouter>
+  );
+
+
+  const name = screen.getByText('First name');
+  const surname = screen.getByText('Last name');
+  const birthday = screen.getByText('Birthday');
+  const email = screen.getByText('Email');
+  const password = screen.getByText('Password');
+  expect(name).toBeInTheDocument();
+  expect(surname).toBeInTheDocument();
+  expect(birthday).toBeInTheDocument();
+  expect(email).toBeInTheDocument();
+  expect(password).toBeInTheDocument();
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('firstname'), {
+      target: { value: fakeClient.name },
+    });
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('lastName'), {
+      target: { value: fakeClient.surname },
+    });
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('Birthday'), {
+      target: { value: fakeClient.birthdate },
+    });
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('Email'), {
+      target: { value: fakeClient.email },
+    });
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('Password'), {
+      target: { value: fakeClient.password },
+    });
+  });
+
+});
 
 
 
-
-// it('includes link to clienlist', () => {
-//   const wrapper = shallow(<RegisterInterface />);
-//   expect(wrapper.find(Link).at(0).props().to).toStrictEqual({ pathname: '/clientlist' });
-// });

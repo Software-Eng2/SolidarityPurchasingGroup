@@ -107,10 +107,6 @@ function OrderTable(props) {
 
 
 function OrderModal(props) {
-    console.log("sono qui", props.basket);
-
-
-
 
     return (
         <Modal
@@ -131,7 +127,7 @@ function OrderModal(props) {
                             {/* fetched from basket table in db */}
                         </Col>
                     </Row>
-                    {
+                    {props.basket?
                         props.basket.map((p) => (
                             <Row key={p.id}>
                                 <Col xs={2} >
@@ -147,7 +143,7 @@ function OrderModal(props) {
                                     x {p.quantity}
                                 </Col>
                             </Row>
-                        ))
+                        )) : <span></span>
                     }
                     <Row className="mt-3">
                         <Col xs={6}>
@@ -198,3 +194,4 @@ function OrderModal(props) {
 
 
 export default Manager;
+export {OrderModal, OrderTable};

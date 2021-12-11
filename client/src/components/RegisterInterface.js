@@ -8,7 +8,7 @@ import { useLocation, useHistory } from "react-router-dom";
 
 
 function RegisterInterface(props) {
-    const {userRole} = props;
+    const { userRole } = props;
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthday, setBirthday] = useState('');
@@ -42,7 +42,7 @@ function RegisterInterface(props) {
 
     const handleBack = () => {
         console.log(userRole);
-        if(userRole === 'shopemployee'){
+        if (userRole === 'shopemployee') {
             history.push('/clientlist')
         } else {
             history.push('/');
@@ -81,6 +81,8 @@ function RegisterInterface(props) {
                             <Form.Label>Last name</Form.Label>
                             <Form.Control
                                 required
+                                data-testid='lastName'
+
                                 type="text"
                                 placeholder="Last name"
                                 value={lastName}
@@ -96,6 +98,8 @@ function RegisterInterface(props) {
                             <Form.Label>Birthday</Form.Label>
                             <Form.Control
                                 required
+                                data-testid='Birthday'
+
                                 type="date"
                                 value={birthday}
                                 onChange={(event) => setBirthday(event.target.value)}
@@ -182,6 +186,8 @@ function RegisterInterface(props) {
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 required
+                                data-testid='Email'
+
                                 type="email"
                                 placeholder="Enter your email.."
                                 value={email}
@@ -196,6 +202,8 @@ function RegisterInterface(props) {
                             <Form.Label>Password</Form.Label>
                             <Form.Control
                                 required
+                                data-testid='Password'
+
                                 type="password"
                                 placeholder="Enter new password.."
                                 value={password}
@@ -212,11 +220,11 @@ function RegisterInterface(props) {
 
                     <Row className="pb-4 mb-4 ml-4 pl-4">
                         <Col xs={5} sm={6} className="d-flex justify-content-start align-items-center">
-                            <Button className="mt-5" data-testid="back-Button"  style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} onClick={() => handleBack}>back</Button>
+                            <Button className="mt-5" data-testid="back-Button" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} onClick={() => handleBack}>back</Button>
                         </Col>
-                        
+
                         <Col xs={4} sm={5} className="d-flex justify-content-end align-items-center">
-                            <Button className="mt-5" data-testid="submit-Button" variant="success" type="submit" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px'  }}>submit</Button>
+                            <Button className="mt-5" data-testid="submit-Button" variant="success" type="submit" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }}>submit</Button>
                         </Col>
                         <Col></Col>
 
