@@ -92,8 +92,8 @@ function OrderTable(props) {
                             <td onClick={() => { handleClick(o) }}  ><strong>€ {o.total.toFixed(2)}</strong></td>
                             {o.pick_up ? <td onClick={() => { handleClick(o) }} > {pickUpIcon} Pick-Up  </td> : <td onClick={() => { handleClick(o) }} > {deliveryIcon} Delivery </td>}
                             <td onClick={() => { handleClick(o) }}>{o.address}</td>
-                            <td onClick={() => { handleClick(o) }}>{o.date ? o.date : <strong>click to update</strong>}</td>
-                            <td onClick={() => { handleClick(o) }}>{o.time ? o.time : <strong>click to update</strong>}</td>
+                            <td onClick={() => { handleClick(o) }}>{o.date }</td>
+                            <td onClick={() => { handleClick(o) }}>{o.time }</td>
                             <td className="text-center">
                                 <Badge bg="success">CONFIRMED</Badge>
                             </td>
@@ -153,7 +153,7 @@ function OrderModal(props) {
                             <Form.Control
                                 disabled
                                 data-testid='date-picker'
-                                type="date"
+                                type="text"
                                 placeholder="date"
                                 value={props.date}
 
