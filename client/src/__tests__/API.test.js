@@ -114,3 +114,55 @@ test('', async () => {
     expect( productOfFarmer6[0].id).toEqual(21);
     expect( productOfFarmer6[1].id).toEqual(22);
 })
+
+
+
+/* ------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------- */
+
+/**
+ * Tested functions: createProductNW,
+  changeProductNW,
+  deleteProductNW,
+  deleteAllUserProductNW,
+  deleteAllProductNW,
+ */
+
+  test('', async () => {
+
+    await API.createProductNW({id_user:2, id_product:"prova", quantity:7,price:3});
+
+    let productNW = await API.getProductNW(2);
+
+    expect( productNW[0].id_user).toEqual(2);
+    expect( productNW[0].id_product).toEqual('prova');
+    expect( productNW[0].quantity).toEqual(7);
+    expect( productNW[0].price).toEqual(3);
+
+    await API.changeProductNW(1, 10);
+
+    productNW = await API.getProductNW(2);
+
+    expect( productNW[0].quantity).toEqual(10);
+
+    await API.deleteProductNW(1);
+
+    await API.createProductNW({id_user:2, id_product:"prova", quantity:7,price:3});
+    await API.createProductNW({id_user:2, id_product:"prova2", quantity:10 ,price:3});
+    await API.createProductNW({id_user:3, id_product:"prova3", quantity:15 ,price:5});
+
+
+    await API.deleteAllUserProductNW(2);
+
+    productNW = await API.getProductNW(2);
+
+    expect((productNW)).toEqual([]);
+
+    productNW = await API.getProductNW(3);
+    expect((productNW)).toEqual([{"id": 3, "id_product": "prova3", "id_user": 3, "price": 5, "quantity": 15}]);
+    await API.deleteAllUserProductNW(3);
+
+    
+
+});
