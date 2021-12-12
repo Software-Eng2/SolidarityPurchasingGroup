@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import API from "./API";
 
 /**
@@ -137,8 +136,7 @@ import API from "./API";
 
             if(!this.stopped){
                 this.time.setSeconds(this.time.getSeconds() + 1);
-
-                console.log(this.time.getDate() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
+                //console.log(this.time.getDate() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
 
                 this.hours = this.time.getHours();
                 this.day = this.time.getDay();
@@ -146,23 +144,15 @@ import API from "./API";
                 if(this.day == 1 && this.hours >= 20){
                     this.setAvailabilityConfirmedMilestone();
                     this.setWalletOKMilestone();
-
-                    /* ADD FUNCTION FOR PAYMENTS HERE */
-                    /* for(let i=0; i<ordersPC.length; i++){
-                        for(let j=0;j<wallets.length; j++){
-                            if(wallets[j].client_id === ordersPC[i].client_id && wallets[j].amount >= ordersPC[i].total && ordersPC[i].total !== 0){
-                                API.updateWallet(wallets[j].amount-ordersPC[i].total,wallets[j].client_id).then(API.changeStatus(ordersPC[i].id, "ACCEPTED"));
-                            } else if (wallets[j].amount < ordersPC[i].total || ordersPC[i].total === 0){
-                                API.changeStatus(ordersPC[i].id, "CANCELLED");
-                            }
-                        }
-                    } */
+                    //PAYMENTS
                     this.ordersPC.forEach(orders => {
                         const userWallet = this.wallets.filter(wallet => wallet.client_id === orders.client_id);
-                        if(userWallet.amount >= orders.total && orders.total !== 0){
-                            API.updateWallet(userWallet.amount-orders.total,userWallet.client_id).then(API.changeStatus(orders.id, "ACCEPTED"));
+                        if(userWallet[0].amount >= orders.total && orders.total !== 0){
+                            API.updateWallet(userWallet[0].amount-orders.total,userWallet[0].client_id).then(API.changeStatus(orders.id, "ACCEPTED"));
                         } else API.changeStatus(orders.id, "CANCELLED");
                     })
+                    console.log("done payments");
+                   
                     
                 }else if(this.day == 1 && this.hours >= 9){
                     this.setAvailabilityConfirmedMilestone();

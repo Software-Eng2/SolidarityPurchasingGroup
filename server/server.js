@@ -141,7 +141,7 @@ app.post('/api/users',
   });
 
 app.put('/api/wallets/',
-  [check('amount').isInt({ min: 0 }), check('id').isInt({ min: 0 })],
+  [check('id').isInt({ min: 0 })],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -284,7 +284,7 @@ app.post('/api/orders',
 //change status of an order
 app.put('/api/orders/status',
   [
-    check('status').isIn(['PENDING', 'ACCEPTED', 'CANCELLING', 'FAILED', 'READY', 'DELIVERED']),
+    check('status').isIn(['PENDING', 'ACCEPTED', 'CANCELLING', 'FAILED', 'READY', 'DELIVERED', 'CANCELLED']),
     check('order_id').isInt({ min: 0 })
   ],
   (req, res) => {
