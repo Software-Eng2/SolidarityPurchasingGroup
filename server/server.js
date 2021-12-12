@@ -663,7 +663,7 @@ app.get('/api/pending/:client_id',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
 
-//get all client pending orders
+//get all client accepted orders
 app.get('/api/accepted/:client_id',
   (req, res) => {
     const client_id = req.params.client_id;
@@ -672,6 +672,20 @@ app.get('/api/accepted/:client_id',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
 
+//get all pending and cancelling orders
+app.get('/api/pendingorcancelling',
+(req, res) => {
+  dao.getAllPendingOrCancellingOrders()
+    .then((orders) => { res.json(orders) })
+    .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
+//get all wallets
+app.get('/api/wallets',
+(req, res) => {
+  dao.getWallets()
+    .then((wallets) => { res.json(wallets) })
+    .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
 // update quantity in basket
 app.put('/api/basket/order/:order_id/product/:product_id',
   [

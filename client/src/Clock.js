@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import API from "./API";
 
 /**
  * Clock object
@@ -89,6 +91,8 @@
         this.stopped = false;
         this.hours = undefined;
         this.day = undefined;
+        this.ordersPC = [];
+        this.wallets = [];
 
         /**
          * An object to keep track of the main
@@ -109,8 +113,24 @@
 
     }
 
+    setOrdersPC(){
+        API.getPendingOrCancellingOrders().then((o) => {
+            this.ordersPC = o;
+          });
+    }
+    setWallets(){
+        API.getWallets().then((w) => {
+            this.wallets = w;
+        });
+    }
+
+
     start(){
-            
+
+        this.setOrdersPC();
+        this.setWallets();
+        
+
         setInterval(() => {
 
 
@@ -128,6 +148,21 @@
                     this.setWalletOKMilestone();
 
                     /* ADD FUNCTION FOR PAYMENTS HERE */
+                    /* for(let i=0; i<ordersPC.length; i++){
+                        for(let j=0;j<wallets.length; j++){
+                            if(wallets[j].client_id === ordersPC[i].client_id && wallets[j].amount >= ordersPC[i].total && ordersPC[i].total !== 0){
+                                API.updateWallet(wallets[j].amount-ordersPC[i].total,wallets[j].client_id).then(API.changeStatus(ordersPC[i].id, "ACCEPTED"));
+                            } else if (wallets[j].amount < ordersPC[i].total || ordersPC[i].total === 0){
+                                API.changeStatus(ordersPC[i].id, "CANCELLED");
+                            }
+                        }
+                    } */
+                    this.ordersPC.forEach(orders => {
+                        const userWallet = this.wallets.filter(wallet => wallet.client_id === orders.client_id);
+                        if(userWallet.amount >= orders.total && orders.total !== 0){
+                            API.updateWallet(userWallet.amount-orders.total,userWallet.client_id).then(API.changeStatus(orders.id, "ACCEPTED"));
+                        } else API.changeStatus(orders.id, "CANCELLED");
+                    })
                     
                 }else if(this.day == 1 && this.hours >= 9){
                     this.setAvailabilityConfirmedMilestone();

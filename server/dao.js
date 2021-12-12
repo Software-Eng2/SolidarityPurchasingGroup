@@ -593,3 +593,35 @@ exports.updateOrder = (order) => {
       });
   });
 };
+
+
+// get all pending or cancelling orders
+exports.getAllPendingOrCancellingOrders = () => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM ORDERS WHERE status = "PENDING" OR status = "CANCELLING"';
+      db.all(sql, [], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          const orders = rows.map((o) => ({ id: o.id, creation_date: o.creation_date,client_id: o.client_id, total: o.total, status: o.status, pick_up: o.pick_up, address: o.address, date: o.date, time: o.time }));
+          resolve(orders);
+      });
+  })
+};
+
+// get all wallets
+exports.getWallets = () => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM WALLETS';
+      db.all(sql, [], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          const wallets = rows.map((w) => ({ id: w.id, amount: w.amount, client_id: w.client_id }));
+          resolve(wallets);
+      });
+  })
+};
+
