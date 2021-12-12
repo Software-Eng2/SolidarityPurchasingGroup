@@ -136,7 +136,7 @@ import API from "./API";
 
             if(!this.stopped){
                 this.time.setSeconds(this.time.getSeconds() + 1);
-                //console.log(this.time.getDate() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
+                console.log(this.time.getDate() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
 
                 this.hours = this.time.getHours();
                 this.day = this.time.getDay();
