@@ -33,7 +33,9 @@ function VirtualClock(props){
                 }
                 break;
             case 1 :
+                console.log(clock.checkProductsAvailabilityMilestone())
                 if(clock.checkProductsAvailabilityMilestone){
+                    console.log('ciao');
                     clock.setAvailabilityConfirmedMilestone();
                     setFlagSaturday(true);
                     setFlagSunday(true);

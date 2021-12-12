@@ -90,6 +90,7 @@ import API from "./API";
         this.stopped = false;
         this.hours = undefined;
         this.day = undefined;
+        this.minutes = undefined;
         this.ordersPC = [];
         this.wallets = [];
 
@@ -136,12 +137,14 @@ import API from "./API";
 
             if(!this.stopped){
                 this.time.setSeconds(this.time.getSeconds() + 1);
-                console.log(this.time.getDate() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
+                console.log(this.time.getDate() + ' ' + this.time.getMonth() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
 
                 this.hours = this.time.getHours();
                 this.day = this.time.getDay();
+                this.minutes = this.time.getMinutes();
 
-                if(this.day == 1 && this.hours >= 20){
+
+                if(this.day == 1 && this.hours >= 20 && (this.minutes >= 0 && this.minutes <= 2) ){
                     this.setAvailabilityConfirmedMilestone();
                     this.setWalletOKMilestone();
                     //PAYMENTS
@@ -154,7 +157,7 @@ import API from "./API";
                     console.log("done payments");
                    
                     
-                }else if(this.day == 1 && this.hours >= 9){
+                }else if(this.day == 1 && this.hours >= 9 && (this.minutes >= 0 && this.minutes <= 2)){
                     this.setAvailabilityConfirmedMilestone();
 
                     /* ADD FUNCTION FOR NOTIFICATIONS HERE */
@@ -177,9 +180,11 @@ import API from "./API";
 
     setFarmerEstimatesMilestone(checkDate = true){
 
-        if(this.checkEstimatesMilestone(checkDate)){
+        if(this.eventsObject.estimates){
             return false;
         }
+
+        this.eventsObject.estimates = true;
 
         this.stop();
 
@@ -201,15 +206,21 @@ import API from "./API";
 
         let day = this.time.getDay();
         
-        if(this.checkOrdersAcceptedMilestone(checkDate)){
+        if(this.eventsObject.ordersAccepted){
             return false;
         }
+
+        this.eventsObject.ordersAccepted = true;
 
         this.stop();
 
         //Today is Sunday
         if(day == 0){
-            this.time.setHours(23,0)
+            this.time.setHours(23,0);
+
+            this.restart();
+
+            return true;
         }
 
         //Monday -- Saturday
@@ -226,24 +237,41 @@ import API from "./API";
 
     setAvailabilityConfirmedMilestone(checkDate = true){
 
+        console.log(this.eventsObject.availability);
+
         let day = this.time.getDay();
         
-        if(this.checkProductsAvailabilityMilestone(checkDate)){
+        if(this.eventsObject.availability){
+            console.log('boh')
             return false;
         }
+
+        this.eventsObject.availability = true;
 
         this.stop();
 
         //Today is Monday
         if(day == 1){
-            this.time.setHours(9,0)
+            this.time.setHours(9,0);
+            console.log('o3');
+
+            this.restart();
+
+            return true;
         }
 
         //Today is Sunday
         if(day == 0){
             this.time.setDate(this.time.getDate() + 1);
-            this.time.setHours(9,0)
+            this.time.setHours(9,0);
+            console.log('o2');
+
+            this.restart();
+
+            return true;
         }
+
+        console.log('o4')
 
         //Monday -- Saturday
         //calculating the time difference from today
@@ -261,21 +289,33 @@ import API from "./API";
 
         let day = this.time.getDay();
         
-        if(this.checkWalletsOkMilestone(checkDate)){
+        if(this.eventsObject.walletsOK){
             return false;
         }
+
+        this.eventsObject.walletsOK = true;
 
         this.stop();
 
         //Today is Monday
         if(day == 1){
-            this.time.setHours(20,1)
+            this.time.setHours(20,0);
+            console.log('ok2');
+
+            this.restart();
+
+            return true;
         }
 
         //Today is Sunday
         if(day == 0){
             this.time.setDate(this.time.getDate() + 1);
-            this.time.setHours(20,1)
+            this.time.setHours(20,0);
+            console.log('ok');
+
+            this.restart();
+
+            return true;
         }
 
         //Monday -- Saturday
