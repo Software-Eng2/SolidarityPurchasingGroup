@@ -5,8 +5,8 @@ import {BsFillArrowRightSquareFill, BsFillArrowLeftSquareFill} from 'react-icons
 import Calendar from 'react-calendar';
 
 function VirtualClock(props){
-    const [hour, setHour] = useState(new Date());
-    const [date, setDate] = useState(new Date());
+    const [hour, setHour] = useState();
+    const [date, setDate] = useState();
 
     const [flagSaturday, setFlagSaturday] = useState(false);
     const [flagSunday, setFlagSunday] = useState(false);
@@ -15,49 +15,39 @@ function VirtualClock(props){
     const clock = props.clock;
 
     useEffect(() => {
-        const interval = setInterval(
-            () => {setHour(new Date()); console.log(hour);},
-            1000
-        );
-        return () => {
-            clearInterval(interval);
-        }
-
-    }, [hour]);
-
-    useEffect(() => {
-        console.log(props.clock);
-        let day = new Date().getDay();
-        // TODO: verificare anche l'orario
-        // fare le check qui per i flag bottoni
+        setDate(props.clock.time);
+        setHour(props.clock.time.getHours());
+        let day = props.clock.time.getDay();
         switch(day) {
             case 6 :
-                clock.setFarmerEstimatesMilestone();
-                setFlagSaturday(true);
+                if(clock.checkEstimatesMilestone){
+                    clock.setFarmerEstimatesMilestone();
+                    setFlagSaturday(true);
+                }
                 break;
             case 0 :
-                clock.setFarmerEstimatesMilestone();
-                clock.setOrdersAcceptedMilestone();
-                setFlagSaturday(true);
-                setFlagSunday(true);
+                if(clock.checkOrdersAcceptedMilestone){
+                    clock.setOrdersAcceptedMilestone();
+                    setFlagSaturday(true);
+                    setFlagSunday(true);
+                }
                 break;
             case 1 :
-                clock.setFarmerEstimatesMilestone();
-                clock.setOrdersAcceptedMilestone();
-                clock.setAvailabilityConfirmedMilestone();
-                setFlagSaturday(true);
-                setFlagSunday(true);
-                setFlagMonday9(true);
+                if(clock.checkProductsAvailabilityMilestone){
+                    clock.setAvailabilityConfirmedMilestone();
+                    setFlagSaturday(true);
+                    setFlagSunday(true);
+                    setFlagMonday9(true);
+                }
                 break;
             case 2 :
-                clock.setFarmerEstimatesMilestone();
-                clock.setOrdersAcceptedMilestone();
-                clock.setAvailabilityConfirmedMilestone();
-                clock.setWalletOKMilestone();
-                setFlagSaturday(true);
-                setFlagSunday(true);
-                setFlagMonday9(true);
-                setFlagMonday20(true);
+                if(clock.checkWalletsOkMilestone){
+                    clock.setWalletOKMilestone();
+                    setFlagSaturday(true);
+                    setFlagSunday(true);
+                    setFlagMonday9(true);
+                    setFlagMonday20(true);
+                }
                 break;
             default:
                 break;
@@ -66,10 +56,8 @@ function VirtualClock(props){
 
 
     function nextWeekdayDate(date, day_in_week) {
-        var ret = new Date(date || new Date());
+        var ret = new Date(date);
         ret.setDate(ret.getDate() + (day_in_week - 1 - ret.getDay() + 7) % 7 + 1);
-        console.log(ret);
-        console.log(ret);
         // TODO: 20 November 2021
         clock.reset(ret);
         resetFlag();
