@@ -537,6 +537,14 @@
     - response body content: last id
     - Response: 200 OK (success)
     - Error responses: generic error
+
+- PUT `/api/orders/update`
+    - Description: Update an order information
+    - request parameters: None
+    - response body content: None
+    - Response: 201 OK (success)
+    - Error responses: generic error
+    
 ## Database Tables
 
 - Table `USERS` (contains the data of all the user in the system: client, shop employee, farmer, delivery person, warehouse manager, warehouse employee):
