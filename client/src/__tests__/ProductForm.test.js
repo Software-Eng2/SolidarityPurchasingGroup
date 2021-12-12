@@ -24,15 +24,21 @@ it("renders product form components without crashing", () => {
     expect(wrappedProduct.find('Col').exists()).toBeTruthy();
     expect(wrappedProduct.find('div').exists()).toBeTruthy();
     expect(wrappedProduct.find('button').exists()).toBeTruthy();
+    expect(wrappedProduct.find('Alert').exists()).toBeTruthy();
 });
 
 
 it("accepts props", () => {
     const handleShow = jest.fn();
     const wrappedProduct = shallow(<ProductForm userid={1} show={true} handleShow={handleShow} />);
-    expect(wrappedProduct.props().userid).toBe(1);
-    expect(wrappedProduct.props().show).toBeTruthy();
-    expect(wrappedProduct.props().handleShow).toBe(handleShow);
+    expect(wrappedProduct.childAt(0).props().userid).toBe(1);
+    expect(wrappedProduct.childAt(0).props().show).toBeTruthy();
+    expect(wrappedProduct.childAt(0).props().handleShow).toBe(handleShow);
+    expect(wrappedProduct.childAt(1).props().userid).toBe(1);
+    expect(wrappedProduct.childAt(1).props().show).toBeTruthy();
+    expect(wrappedProduct.childAt(1).props().handleShow).toBe(handleShow);
+
+    
 });
 
 it("renders button of form correctly", () => {
