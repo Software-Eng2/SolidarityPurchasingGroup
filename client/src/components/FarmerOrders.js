@@ -7,7 +7,7 @@ function FarmerOrders(props){
     const [orders, setOrders] = useState([]); // set of orders with their respective quantity for each product
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
     // Do here the fetch between products and return of new query
-
+    console.log('ordered: ', orderedProducts);
 
     return (
         <Container fluid className="page width-100 below-nav table">
@@ -48,17 +48,25 @@ function FarmerOrderTable(props){
     //TODO MODIFICARE TOTAL NELLA TABELLA ORDERS
      const updateConfirmation = async (index) => {
        let confirmed = confirmedProducts[index].quantity;
+       console.log('temp', tempOrders);
+       console.log('confirm:', confirmedProducts);
        for(let i=0;i<tempOrders[index].length; i++){
-           if(confirmed - tempOrders[index][i].quantity >=0){
-              confirmed -= tempOrders[index][i].quantity;
-              await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, tempOrders[index][i].quantity, 1);
-              console.log("caso 1 ora confirmed diventa: "+confirmed);
-           } else{
-                let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
-                console.log("la diffenza in total è"+difference);
-                await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
-                confirmed = 0;
-           }
+            if(confirmed - tempOrders[index][i].quantity >=0){
+                    confirmed -= tempOrders[index][i].quantity;
+                    await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, tempOrders[index][i].quantity, 1);
+                    console.log("caso 1 ora confirmed diventa: "+confirmed);
+                    console.log("Now we have to set to canelling depending on quantity");
+                    
+            } else{
+                    let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
+                    console.log("la diffenza in total è"+difference);
+                    await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
+                    confirmed = 0;
+            }
+            const changeStatus = await checkClientAmount(tempOrders[index][i].client_id, tempOrders[index][i].total);
+            if (changeStatus) {
+                API.changeStatus(tempOrders[index][i].id, 'CANCELLING');
+            }
        }
        setShowConfirmation(false);
        document.getElementById(`button-${index}`).disabled = true;
@@ -77,6 +85,18 @@ function FarmerOrderTable(props){
         setConfirmedProducts(newArr);
 
       }
+
+    const checkClientAmount = async (client_id, total) =>{
+        
+        const client = await API.getClientById(client_id);
+        
+        if (client.amount < total){
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
 
     return (
         <>
