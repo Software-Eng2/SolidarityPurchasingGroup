@@ -18,34 +18,30 @@ function VirtualClock(props){
         setDate(props.clock.time);
         setHour(props.clock.time.getHours());
         let day = props.clock.time.getDay();
+        console.log(day);
         switch(day) {
             case 6 :
-                if(clock.checkEstimatesMilestone){
+                if(clock.checkEstimatesMilestone()){
                     clock.setFarmerEstimatesMilestone();
                     setFlagSaturday(true);
                 }
                 break;
             case 0 :
-                if(clock.checkOrdersAcceptedMilestone){
+                setFlagSaturday(true);
+                if(clock.checkOrdersAcceptedMilestone()){
                     clock.setOrdersAcceptedMilestone();
-                    setFlagSaturday(true);
                     setFlagSunday(true);
                 }
                 break;
             case 1 :
-                if(clock.checkProductsAvailabilityMilestone){
+                setFlagSaturday(true);
+                setFlagSunday(true);
+                if(clock.checkProductsAvailabilityMilestone()){
                     clock.setAvailabilityConfirmedMilestone();
-                    setFlagSaturday(true);
-                    setFlagSunday(true);
                     setFlagMonday9(true);
                 }
-                break;
-            case 2 :
-                if(clock.checkWalletsOkMilestone){
+                if(clock.checkWalletsOkMilestone()){
                     clock.setWalletOKMilestone();
-                    setFlagSaturday(true);
-                    setFlagSunday(true);
-                    setFlagMonday9(true);
                     setFlagMonday20(true);
                 }
                 break;
