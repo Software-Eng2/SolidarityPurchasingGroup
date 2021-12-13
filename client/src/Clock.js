@@ -140,6 +140,7 @@ import API from "./API";
                 this.time.setSeconds(this.time.getSeconds() + 1);
                 console.log(this.time.getDate() + ' ' + this.time.getMonth() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
 
+
                 this.hours = this.time.getHours();
                 this.day = this.time.getDay();
                 this.minutes = this.time.getMinutes();
@@ -156,7 +157,6 @@ import API from "./API";
                                 API.updateWallet(userWallet[0].amount-orders.total,userWallet[0].client_id).then(API.changeStatus(orders.id, "ACCEPTED"));
                             } else API.changeStatus(orders.id, "CANCELLED");
                         })
-                        console.log("done payments");
                         this.flag= false;
                     }
                    
@@ -241,12 +241,9 @@ import API from "./API";
 
     setAvailabilityConfirmedMilestone(checkDate = true){
 
-        console.log(this.eventsObject.availability);
-
         let day = this.time.getDay();
         
         if(this.eventsObject.availability){
-            console.log('boh')
             return false;
         }
 
@@ -257,7 +254,6 @@ import API from "./API";
         //Today is Monday
         if(day == 1){
             this.time.setHours(9,0);
-            console.log('o3');
 
             this.restart();
 
@@ -268,14 +264,12 @@ import API from "./API";
         if(day == 0){
             this.time.setDate(this.time.getDate() + 1);
             this.time.setHours(9,0);
-            console.log('o2');
 
             this.restart();
 
             return true;
         }
 
-        console.log('o4')
 
         //Monday -- Saturday
         //calculating the time difference from today
@@ -304,7 +298,6 @@ import API from "./API";
         //Today is Monday
         if(day == 1){
             this.time.setHours(20,0);
-            console.log('ok2');
 
             this.restart();
 
@@ -315,7 +308,6 @@ import API from "./API";
         if(day == 0){
             this.time.setDate(this.time.getDate() + 1);
             this.time.setHours(20,0);
-            console.log('ok');
 
             this.restart();
 
