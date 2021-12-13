@@ -214,7 +214,7 @@ function App() {
           {loggedIn && userRole=='client' ? <ClientPage clientOrders={clientOrders} clientAcceptedOrders={clientAcceptedOrders}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/farmerOrders">
-          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts} clock={clock}/> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts} /> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/warehouse">
           {loggedIn && userRole=='manager' ? <Manager orders={orders} /> : <LoginForm doLogIn={doLogIn}/>}
