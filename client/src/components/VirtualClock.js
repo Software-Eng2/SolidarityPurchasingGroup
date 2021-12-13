@@ -18,7 +18,6 @@ function VirtualClock(props){
         setDate(props.clock.time);
         setHour(props.clock.time.getHours());
         let day = props.clock.time.getDay();
-        console.log(day);
         switch(day) {
             case 6 :
                 if(clock.checkEstimatesMilestone()){
