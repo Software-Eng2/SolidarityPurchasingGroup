@@ -599,6 +599,33 @@ console.log(response.ok);
 return response.ok;
 }
 
+async function getPendingOrCancellingOrders(){
+  const response = await fetch(BASEURL + '/pendingorcancelling');
+
+  const orders = await response.json();
+
+  if (response.ok) {
+    return orders.map((o) => new Order(o.id, o.creation_date, o.client_id, o.name, o.surname, o.total, o.date, o.time, o.pick_up, o.address, o.status));
+  } else {
+    return undefined;
+  }
+}
+
+async function getWallets(){
+  const response = await fetch(BASEURL + '/wallets');
+
+  const wallets = await response.json();
+
+  if (response.ok) {
+    return wallets.map((w) =>{return {
+      id:w.id,
+      amount:w.amount,
+      client_id:w.client_id}}) ;
+  } else {
+    return undefined;
+  }
+}
+
 const API = {
   getNotifications,
   postNotification,
@@ -638,7 +665,9 @@ const API = {
   getOrderedByFarmerByDate,
   updateQuantityBasket,
   updateOrder,
-  updateTotalInOrders
+  updateTotalInOrders,
+  getPendingOrCancellingOrders,
+  getWallets
 }
 
 export default API;

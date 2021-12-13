@@ -110,6 +110,7 @@ test('clock- set an event', () => {
     clock.time.setDate(21);
     clock.time.setHours(19);
     clock.time.setMinutes(0);
+    clock.checkEvents(false);
     expect(clock.setOrdersAcceptedMilestone(false)).toEqual(true);
 })
 
@@ -137,6 +138,7 @@ test('clock- set an event', () => {
     clock.time.setDate(22);
     clock.time.setHours(8);
     clock.time.setMinutes(0);
+    clock.checkEvents(false);
     expect(clock.setAvailabilityConfirmedMilestone(false)).toEqual(true);
 })
 
@@ -145,6 +147,7 @@ test('clock- set an event', () => {
     clock.time.setDate(21);
     clock.time.setHours(8);
     clock.time.setMinutes(0);
+    clock.checkEvents(false);
     expect(clock.setAvailabilityConfirmedMilestone(false)).toEqual(true);
 })
 
@@ -171,6 +174,7 @@ test('clock- set an event', () => {
     clock.time.setDate(22);
     clock.time.setHours(19);
     clock.time.setMinutes(0);
+    clock.checkEvents(false);
     expect(clock.setWalletOKMilestone(false)).toEqual(true);
 })
 
@@ -179,6 +183,7 @@ test('clock- set an event', () => {
     clock.time.setDate(21);
     clock.time.setHours(8);
     clock.time.setMinutes(0);
+    clock.checkEvents(false);
     expect(clock.setWalletOKMilestone(false)).toEqual(true);
 })
 

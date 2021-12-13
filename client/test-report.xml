@@ -1,24 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/FarmerPlanning.test.js">
-    <testCase name="Render Render Page" duration="6"/>
-    <testCase name="Render Check components" duration="9"/>
-    <testCase name="Render Check components FormTable" duration="9"/>
-    <testCase name="changeInput Button back" duration="42">
-      <failure message="Error: expect(received).toHaveBeenCalledTimes(expected)"><![CDATA[Error: expect(received).toHaveBeenCalledTimes(expected)
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Manager.test.js">
+    <testCase name="Render Render Page" duration="5"/>
+    <testCase name="Render Check components" duration="5"/>
+    <testCase name="Render renders button correctly" duration="29"/>
+    <testCase name="Render OrderTable Render Table" duration="2"/>
+    <testCase name="Render OrderTable Check components" duration="4"/>
+    <testCase name="Render OrderTable select an order from the list" duration="74"/>
+    <testCase name="Render OrderTable renders button correctly" duration="4"/>
+    <testCase name="OrderModal includes link to orders" duration="2"/>
+    <testCase name="OrderModal renders OrderModal components without crashing" duration="3"/>
+    <testCase name="OrderModal calls onHide when Close Button is clicked" duration="7"/>
+    <testCase name="renders OrderModal components without crashing" duration="73"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Client_Products_Order_objects.test.js">
+    <testCase name="c- addClient" duration="3"/>
+    <testCase name="c- getCLients" duration="0"/>
+    <testCase name="c- getClientFromId" duration="1"/>
+    <testCase name="c-getClients" duration="39"/>
+    <testCase name="c-addClient" duration="2"/>
+    <testCase name="c-getFromId" duration="1"/>
+    <testCase name="c-Client.updateWallet" duration="243"/>
+    <testCase name="p-getProducts" duration="1"/>
+    <testCase name="p-addProduct" duration="0"/>
+    <testCase name="p-getProductsFromCategory" duration="1"/>
+    <testCase name="p-updateConfirmed" duration="0"/>
+    <testCase name="p-getProducts" duration="120"/>
+    <testCase name="p-addProduct" duration="110"/>
+    <testCase name="p-getProductsFromCategory" duration="0"/>
+    <testCase name="p-updateConfirmed" duration="88"/>
+    <testCase name="" duration="10"/>
+    <testCase name="o-getAllOrders" duration="127">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
 
-Matcher error: received value must be a mock or spy function
-
-Received has value: undefined
-    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/FarmerPlanning.test.js:70:14)
-    at Promise.then.completed (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
-    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+Expected: 10
+Received: 11
+    at /home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Client_Products_Order_objects.test.js:124:76
     at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:5)
     at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
     at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
-    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:57:9)
+    at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
+    at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
+    at runTestInternal (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:380:16)
+    at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)]]></failure>
+    </testCase>
+    <testCase name="o-createOrder" duration="238"/>
+    <testCase name="o-changeStatusTrue" duration="146"/>
+    <testCase name="o-getDeliverOrders" duration="0"/>
+    <testCase name="o-getPickUpOrders" duration="0"/>
+    <testCase name="o-getClientOrders" duration="0"/>
+    <testCase name="o-changeDateTimeTrue" duration="133"/>
+    <testCase name="f-getOrderedProducts" duration="1"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ClientPage.test.js">
+    <testCase name="client page aaaaaq" duration="366"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/API.test.js">
+    <testCase name="" duration="1394">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+Expected: true
+Received: false
+    at Object.<anonymous> (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/API.test.js:58:42)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at _callCircusTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:5)
+    at _runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:63:9)
     at run (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:25:3)
     at runAndTransformResultsToJestFormat (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
     at jestAdapter (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
@@ -26,206 +75,174 @@ Received has value: undefined
     at runTest (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/runTest.js:472:34)
     at Object.worker (/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/node_modules/jest-runner/build/testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="accepts products and userid props" duration="3"/>
-    <testCase name="calls handleShow when clicking on button" duration="40"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Client_Products_Order_objects.test.js">
-    <testCase name="c- addClient" duration="3"/>
-    <testCase name="c- getCLients" duration="0"/>
-    <testCase name="c- getClientFromId" duration="0"/>
-    <testCase name="c-getClients" duration="24"/>
-    <testCase name="c-addClient" duration="2"/>
-    <testCase name="c-getFromId" duration="0"/>
-    <testCase name="c-Client.updateWallet" duration="221"/>
-    <testCase name="p-getProducts" duration="0"/>
-    <testCase name="p-addProduct" duration="1"/>
-    <testCase name="p-getProductsFromCategory" duration="1"/>
-    <testCase name="p-updateConfirmed" duration="0"/>
-    <testCase name="p-getProducts" duration="120"/>
-    <testCase name="p-addProduct" duration="133"/>
-    <testCase name="p-getProductsFromCategory" duration="0"/>
-    <testCase name="p-updateConfirmed" duration="56"/>
-    <testCase name="" duration="6"/>
-    <testCase name="o-getAllOrders" duration="10"/>
-    <testCase name="o-createOrder" duration="128"/>
-    <testCase name="o-changeStatusTrue" duration="112"/>
-    <testCase name="o-getDeliverOrders" duration="1"/>
-    <testCase name="o-getPickUpOrders" duration="0"/>
-    <testCase name="o-getClientOrders" duration="1"/>
-    <testCase name="o-changeDateTimeTrue" duration="4"/>
-    <testCase name="f-getOrderedProducts" duration="1"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/API.test.js">
-    <testCase name="" duration="1368"/>
-    <testCase name="" duration="530"/>
-    <testCase name="" duration="15"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ClientPage.test.js">
-    <testCase name="client page aaaaaq" duration="477"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertCancellingOrders.test.js">
-    <testCase name="renders button correctly" duration="5"/>
-    <testCase name="calls handleClose prop when clicked" duration="7"/>
-    <testCase name="close alert" duration="141"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/WarehouseEmployeePage.test.js">
-    <testCase name="renders WarehouseEmployeePage without crashing" duration="1"/>
-    <testCase name="renders WarehouseEmployeePage components without crashing" duration="4"/>
-    <testCase name="accept props correctly" duration="2"/>
-    <testCase name="render OrderTable components correctly" duration="11"/>
-    <testCase name="click on confirm checkbox" duration="116"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
-    <testCase name="renders button correctly" duration="40"/>
-    <testCase name="calls onClick prop when clicked" duration="18"/>
-    <testCase name="top up alert" duration="356"/>
+    <testCase name="" duration="519"/>
+    <testCase name="" duration="5"/>
+    <testCase name="" duration="1065"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
-    <testCase name="renders button correctly" duration="35"/>
-    <testCase name="includes link to products" duration="51"/>
-    <testCase name="includes link to registerform" duration="17"/>
-    <testCase name="renders container of the page correctly" duration="8"/>
-    <testCase name="renders video correctly" duration="2"/>
+    <testCase name="renders button correctly" duration="9"/>
+    <testCase name="includes link to products" duration="33"/>
+    <testCase name="includes link to registerform" duration="12"/>
+    <testCase name="renders container of the page correctly" duration="6"/>
+    <testCase name="renders video correctly" duration="1"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
+    <testCase name="renders button correctly" duration="31"/>
+    <testCase name="calls onClick prop when clicked" duration="11"/>
+    <testCase name="top up alert" duration="328"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/FarmerInterface.test.js">
     <testCase name="renders farmer interface without crashing" duration="2"/>
-    <testCase name="renders farmer interface with no products" duration="8"/>
-    <testCase name="renders farmer interface components without crashing" duration="58"/>
-    <testCase name="accepts products and userid props" duration="25"/>
-    <testCase name="calls handleShow when clicking on button" duration="28"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/FarmerProduct.test.js">
-    <testCase name="renders product without crashing" duration="8"/>
-    <testCase name="renders farmer product components without crashing" duration="20"/>
-    <testCase name="accepts props" duration="3"/>
-    <testCase name="clicking container works" duration="20"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js">
-    <testCase name="renders basket without crashing" duration="5"/>
-    <testCase name="renders basket components without crashing" duration="17"/>
-    <testCase name="accepts props" duration="4"/>
-    <testCase name="basket works with empty basket" duration="1"/>
-    <testCase name="state of open basket changes when calling onRequestChange prop" duration="2"/>
-    <testCase name="if basket is empty button shop now and form should not appear" duration="5"/>
-    <testCase name="Select pick up modality and date correctly" duration="156"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrdersList.test.js">
-    <testCase name="renders OrdersList without crashing" duration="1"/>
-    <testCase name="renders OrdersList components without crashing" duration="19"/>
-    <testCase name="accept props correctly" duration="2"/>
-    <testCase name="render OrderTable components correctly" duration="18"/>
-    <testCase name="render TableDropdown components correctly" duration="3"/>
-    <testCase name="render TableDropdown props correctly" duration="6"/>
-    <testCase name="select an order from the list" duration="82"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ProductForm.test.js">
-    <testCase name="renders product form without crashing" duration="3"/>
-    <testCase name="renders product form components without crashing" duration="16"/>
-    <testCase name="accepts props" duration="4"/>
-    <testCase name="renders button of form correctly" duration="2"/>
+    <testCase name="renders farmer interface with no products" duration="6"/>
+    <testCase name="renders farmer interface components without crashing" duration="7"/>
+    <testCase name="accepts products and userid props" duration="2"/>
+    <testCase name="calls handleShow when clicking on button" duration="10"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrderModal.test.js">
-    <testCase name="includes link to orders" duration="6"/>
-    <testCase name="renders button correctly" duration="7"/>
-    <testCase name="calls onClick prop when clicked" duration="5"/>
-    <testCase name="calls onHide when Close Button is clicked" duration="4"/>
-    <testCase name="renders OrderModal components without crashing" duration="5"/>
-    <testCase name="change time and date" duration="148"/>
+    <testCase name="includes link to orders" duration="11"/>
+    <testCase name="renders button correctly" duration="8"/>
+    <testCase name="calls onClick prop when clicked" duration="7"/>
+    <testCase name="calls onHide when Close Button is clicked" duration="6"/>
+    <testCase name="renders OrderModal components without crashing" duration="21"/>
+    <testCase name="change time and date" duration="165"/>
   </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Card.test.js">
-    <testCase name="renders card model correctly" duration="22"/>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/FarmerPlanning.test.js">
+    <testCase name="Render Render Page" duration="2"/>
+    <testCase name="Render Check components" duration="7"/>
+    <testCase name="Render Check  FormTable" duration="13"/>
+    <testCase name="changeInput Button back" duration="8"/>
+    <testCase name="includes  product" duration="5"/>
   </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js">
-    <testCase name="testing search of a client" duration="104"/>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js">
+    <testCase name="renders basket without crashing" duration="12"/>
+    <testCase name="renders basket components without crashing" duration="29"/>
+    <testCase name="accepts props" duration="7"/>
+    <testCase name="basket works with empty basket" duration="2"/>
+    <testCase name="state of open basket changes when calling onRequestChange prop" duration="4"/>
+    <testCase name="if basket is empty button shop now and form should not appear" duration="6"/>
+    <testCase name="Select pick up modality and date correctly" duration="241"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/RegisterPage.test.js">
-    <testCase name="Render Check registerpageRender" duration="4"/>
-    <testCase name="Render Check all components" duration="15"/>
+    <testCase name="Render Check registerpageRender" duration="3"/>
+    <testCase name="Render Check all components" duration="13"/>
     <testCase name="Render check button submit " duration="3"/>
     <testCase name="Render check button back " duration="2"/>
-    <testCase name="changeInput Button submit" duration="6"/>
+    <testCase name="changeInput Button submit" duration="9"/>
     <testCase name="changeInput Button back" duration="5"/>
+    <testCase name="change data input" duration="61"/>
   </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
-    <testCase name="renders market without crashing" duration="4"/>
-    <testCase name="renders market components without crashing" duration="10"/>
-    <testCase name="accepts products and client props" duration="3"/>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/WarehouseEmployeePage.test.js">
+    <testCase name="renders WarehouseEmployeePage without crashing" duration="2"/>
+    <testCase name="renders WarehouseEmployeePage components without crashing" duration="4"/>
+    <testCase name="accept props correctly" duration="2"/>
+    <testCase name="render OrderTable components correctly" duration="27"/>
+    <testCase name="click on confirm checkbox" duration="122"/>
   </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Manager.test.js">
-    <testCase name="Render Render Page" duration="2"/>
-    <testCase name="Render Check components" duration="5"/>
-    <testCase name="Render renders button correctly" duration="6"/>
-    <testCase name="OrderModal includes link to orders" duration="3"/>
-    <testCase name="OrderModal calls onHide when Close Button is clicked" duration="6"/>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/AlertCancellingOrders.test.js">
+    <testCase name="renders button correctly" duration="7"/>
+    <testCase name="calls handleClose prop when clicked" duration="6"/>
+    <testCase name="close alert" duration="105"/>
   </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/SideBar.test.js">
-    <testCase name="renders sidebar for client without crashing" duration="2"/>
-    <testCase name="renders sidebar for shop employee without crashing" duration="1"/>
-    <testCase name="renders sidebar for farmer without crashing" duration="0"/>
-    <testCase name="renders sidebar for farmer with all components" duration="6"/>
-    <testCase name="renders sidebar for shopemployee with all components" duration="5"/>
-    <testCase name="accepts products and userid props" duration="5"/>
-    <testCase name="calls handleShow when clicking on button" duration="17"/>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrdersList.test.js">
+    <testCase name="renders OrdersList without crashing" duration="2"/>
+    <testCase name="renders OrdersList components without crashing" duration="4"/>
+    <testCase name="accept props correctly" duration="2"/>
+    <testCase name="render OrderTable components correctly" duration="13"/>
+    <testCase name="render TableDropdown components correctly" duration="2"/>
+    <testCase name="render TableDropdown props correctly" duration="7"/>
+    <testCase name="select an order from the list" duration="102"/>
   </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ConfirmModal.test.js">
-    <testCase name="Render Render Page" duration="3"/>
-    <testCase name="Render Check components" duration="6"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
-    <testCase name="includes link to products" duration="2"/>
-    <testCase name="renders button correctly" duration="5"/>
-    <testCase name="calls onClick prop when clicked" duration="4"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/PlanningModal.test.js">
-    <testCase name="Render Render Page" duration="1"/>
-    <testCase name="Render Check components" duration="2"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Notifications.test.js">
-    <testCase name="n-addNotification" duration="179"/>
-    <testCase name="n-addNotification" duration="5"/>
-    <testCase name="n-getNotifications" duration="5"/>
-    <testCase name="n-getNotifications" duration="5"/>
-    <testCase name="n-deleteNotifications" duration="4"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/LoginForm.test.js">
-    <testCase name="Test LoginForm Test login components" duration="22"/>
-    <testCase name="Test LoginForm Test error LoginForm" duration="31"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrdersPage.test.js">
-    <testCase name="renders OrderPage component without crashing" duration="2"/>
-    <testCase name="renders OrdersPage components without crashing" duration="6"/>
-    <testCase name="accept props correctly" duration="3"/>
-  </file>
-  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js">
-    <testCase name="clock-object-initialization" duration="3"/>
-    <testCase name="clock-object-initialization" duration="2"/>
-    <testCase name="clock-object-initialization" duration="2"/>
-    <testCase name="clock-object-initialization" duration="2"/>
-    <testCase name="clock-object-initialization" duration="3"/>
-    <testCase name="clock-object-initialization" duration="1"/>
-    <testCase name="clock- set an event" duration="2"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="3"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="2"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock-reset" duration="1"/>
-    <testCase name="clock-reset" duration="1"/>
-    <testCase name="clock-reset" duration="0"/>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/FarmerProduct.test.js">
+    <testCase name="renders product without crashing" duration="4"/>
+    <testCase name="renders farmer product components without crashing" duration="16"/>
+    <testCase name="accepts props" duration="2"/>
+    <testCase name="clicking container works" duration="16"/>
   </file>
   <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Product.test.js">
     <testCase name="renders product without crashing" duration="3"/>
-    <testCase name="renders market components without crashing" duration="19"/>
-    <testCase name="accepts props" duration="2"/>
-    <testCase name="product renders  with empty basket" duration="2"/>
-    <testCase name="after click it will increase the quantity of product" duration="15"/>
-    <testCase name="after click it will decrease the quantity of product" duration="10"/>
+    <testCase name="renders market components without crashing" duration="9"/>
+    <testCase name="accepts props" duration="3"/>
+    <testCase name="product renders  with empty basket" duration="3"/>
+    <testCase name="after click it will increase the quantity of product" duration="11"/>
+    <testCase name="after click it will decrease the quantity of product" duration="12"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Card.test.js">
+    <testCase name="renders card model correctly" duration="21"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
+    <testCase name="renders market without crashing" duration="5"/>
+    <testCase name="renders market components without crashing" duration="12"/>
+    <testCase name="accepts products and client props" duration="4"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/PlanningModal.test.js">
+    <testCase name="Render Render Page" duration="2"/>
+    <testCase name="Render Check components" duration="4"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/SideBar.test.js">
+    <testCase name="renders sidebar for client without crashing" duration="1"/>
+    <testCase name="renders sidebar for shop employee without crashing" duration="1"/>
+    <testCase name="renders sidebar for farmer without crashing" duration="1"/>
+    <testCase name="renders sidebar for farmer with all components" duration="5"/>
+    <testCase name="renders sidebar for shopemployee with all components" duration="5"/>
+    <testCase name="accepts products and userid props" duration="5"/>
+    <testCase name="calls handleShow when clicking on button" duration="20"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/OrdersPage.test.js">
+    <testCase name="renders OrderPage component without crashing" duration="1"/>
+    <testCase name="renders OrdersPage components without crashing" duration="3"/>
+    <testCase name="accept props correctly" duration="2"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ConfirmModal.test.js">
+    <testCase name="Render Render Page" duration="2"/>
+    <testCase name="Render Check components" duration="5"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js">
+    <testCase name="testing search of a client" duration="161"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/ProductForm.test.js">
+    <testCase name="renders product form without crashing" duration="2"/>
+    <testCase name="renders product form components without crashing" duration="21"/>
+    <testCase name="accepts props" duration="7"/>
+    <testCase name="renders button of form correctly" duration="1"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Notifications.test.js">
+    <testCase name="n-addNotification" duration="132"/>
+    <testCase name="n-addNotification" duration="5"/>
+    <testCase name="n-getNotifications" duration="5"/>
+    <testCase name="n-getNotifications" duration="4"/>
+    <testCase name="n-deleteNotifications" duration="4"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js">
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock-object-initialization" duration="0"/>
+    <testCase name="clock-object-initialization" duration="0"/>
+    <testCase name="clock-object-initialization" duration="2"/>
+    <testCase name="clock-object-initialization" duration="1"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="2"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="1"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock- set an event" duration="0"/>
+    <testCase name="clock-reset" duration="1"/>
+    <testCase name="clock-reset" duration="0"/>
+    <testCase name="clock-reset" duration="0"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
+    <testCase name="includes link to products" duration="4"/>
+    <testCase name="renders button correctly" duration="7"/>
+    <testCase name="calls onClick prop when clicked" duration="7"/>
+  </file>
+  <file path="/home/andrea/Documenti/Magistrale/Software Engineering 2/SolidarityPurchasingGroup/client/src/__tests__/LoginForm.test.js">
+    <testCase name="Test LoginForm Test login components" duration="19"/>
+    <testCase name="Test LoginForm Test error LoginForm" duration="25"/>
   </file>
 </testExecutions>

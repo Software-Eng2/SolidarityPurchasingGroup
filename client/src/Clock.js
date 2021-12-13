@@ -1,3 +1,4 @@
+import API from "./API";
 
 /**
  * Clock object
@@ -89,6 +90,10 @@
         this.stopped = false;
         this.hours = undefined;
         this.day = undefined;
+        this.minutes = undefined;
+        this.ordersPC = [];
+        this.wallets = [];
+        this.flag = true;
 
         /**
          * An object to keep track of the main
@@ -109,27 +114,54 @@
 
     }
 
+    setOrdersPC(){
+        API.getPendingOrCancellingOrders().then((o) => {
+            this.ordersPC = o;
+          });
+    }
+    setWallets(){
+        API.getWallets().then((w) => {
+            this.wallets = w;
+        });
+    }
+
+
     start(){
-            
+
+        this.setOrdersPC();
+        this.setWallets();
+        
+
         setInterval(() => {
 
 
 
             if(!this.stopped){
                 this.time.setSeconds(this.time.getSeconds() + 1);
+                console.log(this.time.getDate() + ' ' + this.time.getMonth() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
 
-                console.log(this.time.getDate() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
 
                 this.hours = this.time.getHours();
                 this.day = this.time.getDay();
+                this.minutes = this.time.getMinutes();
 
-                if(this.day == 1 && this.hours >= 20){
+
+                if(this.day == 1 && this.hours >= 20 && (this.minutes >= 0 && this.minutes <= 2) ){
                     this.setAvailabilityConfirmedMilestone();
                     this.setWalletOKMilestone();
-
-                    /* ADD FUNCTION FOR PAYMENTS HERE */
+                    //PAYMENTS
+                    if(this.flag){
+                        this.ordersPC.forEach(orders => {
+                            const userWallet = this.wallets.filter(wallet => wallet.client_id === orders.client_id);
+                            if(userWallet[0].amount >= orders.total && orders.total !== 0){
+                                API.updateWallet(userWallet[0].amount-orders.total,userWallet[0].client_id).then(API.changeStatus(orders.id, "ACCEPTED"));
+                            } else API.changeStatus(orders.id, "CANCELLED");
+                        })
+                        this.flag= false;
+                    }
+                   
                     
-                }else if(this.day == 1 && this.hours >= 9){
+                }else if(this.day == 1 && this.hours >= 9 && (this.minutes >= 0 && this.minutes <= 2)){
                     this.setAvailabilityConfirmedMilestone();
 
                     /* ADD FUNCTION FOR NOTIFICATIONS HERE */
@@ -152,9 +184,11 @@
 
     setFarmerEstimatesMilestone(checkDate = true){
 
-        if(this.checkEstimatesMilestone(checkDate)){
+        if(this.eventsObject.estimates){
             return false;
         }
+
+        this.eventsObject.estimates = true;
 
         this.stop();
 
@@ -176,15 +210,21 @@
 
         let day = this.time.getDay();
         
-        if(this.checkOrdersAcceptedMilestone(checkDate)){
+        if(this.eventsObject.ordersAccepted){
             return false;
         }
+
+        this.eventsObject.ordersAccepted = true;
 
         this.stop();
 
         //Today is Sunday
         if(day == 0){
-            this.time.setHours(23,0)
+            this.time.setHours(23,0);
+
+            this.restart();
+
+            return true;
         }
 
         //Monday -- Saturday
@@ -203,22 +243,33 @@
 
         let day = this.time.getDay();
         
-        if(this.checkProductsAvailabilityMilestone(checkDate)){
+        if(this.eventsObject.availability){
             return false;
         }
+
+        this.eventsObject.availability = true;
 
         this.stop();
 
         //Today is Monday
         if(day == 1){
-            this.time.setHours(9,0)
+            this.time.setHours(9,0);
+
+            this.restart();
+
+            return true;
         }
 
         //Today is Sunday
         if(day == 0){
             this.time.setDate(this.time.getDate() + 1);
-            this.time.setHours(9,0)
+            this.time.setHours(9,0);
+
+            this.restart();
+
+            return true;
         }
+
 
         //Monday -- Saturday
         //calculating the time difference from today
@@ -236,21 +287,31 @@
 
         let day = this.time.getDay();
         
-        if(this.checkWalletsOkMilestone(checkDate)){
+        if(this.eventsObject.walletsOK){
             return false;
         }
+
+        this.eventsObject.walletsOK = true;
 
         this.stop();
 
         //Today is Monday
         if(day == 1){
-            this.time.setHours(20,1)
+            this.time.setHours(20,0);
+
+            this.restart();
+
+            return true;
         }
 
         //Today is Sunday
         if(day == 0){
             this.time.setDate(this.time.getDate() + 1);
-            this.time.setHours(20,1)
+            this.time.setHours(20,0);
+
+            this.restart();
+
+            return true;
         }
 
         //Monday -- Saturday

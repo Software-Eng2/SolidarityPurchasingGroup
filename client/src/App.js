@@ -180,7 +180,7 @@ function App() {
         <>
           <Market products={products} userid={userid} userRole={userRole} currentClient={currentClient}
                   client={location.state ? location.state.client : ""} show={cancelOrders ? (cancelOrders.length > 0 && notificationFlag === 0) : false }
-                  cancelOrders={cancelOrders} setNotificationFlag={setNotificationFlag}/>
+                  cancelOrders={cancelOrders} setNotificationFlag={setNotificationFlag} clock={clock}/>
         </>
         }/>
         <Route exact path="/orders">
@@ -205,7 +205,7 @@ function App() {
           <LoginForm doLogIn={doLogIn}/>
         </Route>) }
         <Route exact path="/farmer">
-          {loggedIn && userRole=='farmer' ? <FarmerInterface products={farmerProducts} userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='farmer' ? <FarmerInterface products={farmerProducts} userid={userid} clock={clock} /> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/farmerPlanning">
           {loggedIn && userRole=='farmer' ? <FarmerPlanning userid={userid} products={products} farmerProducts={farmerProducts}/> : <LoginForm doLogIn={doLogIn}/>}
@@ -214,7 +214,7 @@ function App() {
           {loggedIn && userRole=='client' ? <ClientPage clientOrders={clientOrders} clientAcceptedOrders={clientAcceptedOrders}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/farmerOrders">
-          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts} clock={clock}/> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts} /> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/warehouse">
           {loggedIn && userRole=='manager' ? <Manager orders={orders} /> : <LoginForm doLogIn={doLogIn}/>}

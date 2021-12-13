@@ -3,15 +3,15 @@ import{ Container, Table, Modal, Button, Alert} from "react-bootstrap";
 import API from '../API';
 
 function FarmerOrders(props){
-    const {orderedProducts, clock} = props;
+    const {orderedProducts} = props;
     const [orders, setOrders] = useState([]); // set of orders with their respective quantity for each product
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
     // Do here the fetch between products and return of new query
-
+    console.log('ordered: ', orderedProducts);
 
     return (
         <Container fluid className="page width-100 below-nav table">
-            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} orders={orders} clock={clock}/>
+            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} orders={orders}/>
         </Container>
 
     );
@@ -19,12 +19,12 @@ function FarmerOrders(props){
 }
 
 function FarmerOrderTable(props){
-    const {products, quantities, orders, clock} = props;
+    const {products, quantities, orders} = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
     const [tempOrders, setTempOrders] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [actualIndex, setActualIndex] = useState(0);
-    const passedTime = clock.checkProductsAvailabilityMilestone();
+
     useEffect(() => {
         setConfirmedProducts(quantities);
     }, [quantities]);
@@ -32,7 +32,7 @@ function FarmerOrderTable(props){
 
     const onHide = () => {setShowConfirmation(false)}
     const handleConfirmAlert = (index) => {setActualIndex(index); setShowConfirmation(true)};
-
+    
 
     useEffect(() => {
         let tO = [];
@@ -48,17 +48,25 @@ function FarmerOrderTable(props){
     //TODO MODIFICARE TOTAL NELLA TABELLA ORDERS
      const updateConfirmation = async (index) => {
        let confirmed = confirmedProducts[index].quantity;
+       console.log('temp', tempOrders);
+       console.log('confirm:', confirmedProducts);
        for(let i=0;i<tempOrders[index].length; i++){
-           if(confirmed - tempOrders[index][i].quantity >=0){
-              confirmed -= tempOrders[index][i].quantity;
-              await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, tempOrders[index][i].quantity, 1);
-              console.log("caso 1 ora confirmed diventa: "+confirmed);
-           } else{
-                let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
-                console.log("la diffenza in total è"+difference);
-                await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
-                confirmed = 0;
-           }
+            if(confirmed - tempOrders[index][i].quantity >=0){
+                    confirmed -= tempOrders[index][i].quantity;
+                    await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, tempOrders[index][i].quantity, 1);
+                    console.log("caso 1 ora confirmed diventa: "+confirmed);
+                    console.log("Now we have to set to canelling depending on quantity");
+                    
+            } else{
+                    let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
+                    console.log("la diffenza in total è"+difference);
+                    await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
+                    confirmed = 0;
+            }
+            const changeStatus = await checkClientAmount(tempOrders[index][i].client_id, tempOrders[index][i].total);
+            if (changeStatus) {
+                API.changeStatus(tempOrders[index][i].id, 'CANCELLING');
+            }
        }
        setShowConfirmation(false);
        document.getElementById(`button-${index}`).disabled = true;
@@ -77,6 +85,18 @@ function FarmerOrderTable(props){
         setConfirmedProducts(newArr);
 
       }
+
+    const checkClientAmount = async (client_id, total) =>{
+        
+        const client = await API.getClientById(client_id);
+        
+        if (client.amount < total){
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
 
     return (
         <>
@@ -103,8 +123,8 @@ function FarmerOrderTable(props){
                             <td className="text-center"><strong >{p.estimated}</strong></td>
                             <td className="text-center"><strong >{p.amount}</strong></td>
                             <td className="text-center"><strong>
-                                <input id={`input-${index}`}type='number' name='quantity' disabled={passedTime || (p.updated ? true: false) } value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
-                            <td className="text-center">{passedTime ? 'You cannot confirm quantity now' : <button id={`button-${index}`} disabled={p.updated ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button>}</td>
+                                <input id={`input-${index}`}type='number' name='quantity' disabled={p.updated ? true: false} value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
+                            <td className="text-center"><button id={`button-${index}`} disabled={p.updated ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button></td>
                         </tr>
                     ))
                 }

@@ -24,13 +24,13 @@ exports.getAllClients = () => {
 //get the orders of products by farmer ordered by date ascending
  exports.getOrderedByFarmerByDate = (product_id) => {
   return new Promise((resolve,reject)=>{
-    const sql = 'SELECT order_id, quantity FROM BASKETs INNER JOIN ORDERS ON BASKETs.order_id = ORDERS.id WHERE product_id = ? ORDER BY creation_date';
+    const sql = 'SELECT order_id, quantity, client_id, total FROM BASKETs INNER JOIN ORDERS ON BASKETs.order_id = ORDERS.id WHERE product_id = ? ORDER BY creation_date';
     db.all(sql, [product_id], (err,rows) => {
       if(err){
         reject(err);
         return;
       }
-      const orderedProductsByDate = rows.map((op)=>({id: op.order_id, quantity: op.quantity}));
+      const orderedProductsByDate = rows.map((op)=>({id: op.order_id, quantity: op.quantity, client_id: op.client_id, total: op.total}));
       resolve(orderedProductsByDate);
     });
   });
@@ -593,3 +593,35 @@ exports.updateOrder = (order) => {
       });
   });
 };
+
+
+// get all pending or cancelling orders
+exports.getAllPendingOrCancellingOrders = () => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM ORDERS WHERE status = "PENDING" OR status = "CANCELLING"';
+      db.all(sql, [], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          const orders = rows.map((o) => ({ id: o.id, creation_date: o.creation_date,client_id: o.client_id, total: o.total, status: o.status, pick_up: o.pick_up, address: o.address, date: o.date, time: o.time }));
+          resolve(orders);
+      });
+  })
+};
+
+// get all wallets
+exports.getWallets = () => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM WALLETS';
+      db.all(sql, [], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          const wallets = rows.map((w) => ({ id: w.id, amount: w.amount, client_id: w.client_id }));
+          resolve(wallets);
+      });
+  })
+};
+

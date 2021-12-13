@@ -141,7 +141,7 @@ app.post('/api/users',
   });
 
 app.put('/api/wallets/',
-  [check('amount').isInt({ min: 0 }), check('id').isInt({ min: 0 })],
+  [check('id').isInt({ min: 0 })],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -284,7 +284,7 @@ app.post('/api/orders',
 //change status of an order
 app.put('/api/orders/status',
   [
-    check('status').isIn(['PENDING', 'ACCEPTED', 'CANCELLING', 'FAILED', 'READY', 'DELIVERED']),
+    check('status').isIn(['PENDING', 'ACCEPTED', 'CANCELLING', 'FAILED', 'READY', 'DELIVERED', 'CANCELLED']),
     check('order_id').isInt({ min: 0 })
   ],
   (req, res) => {
@@ -663,7 +663,7 @@ app.get('/api/pending/:client_id',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
 
-//get all client pending orders
+//get all client accepted orders
 app.get('/api/accepted/:client_id',
   (req, res) => {
     const client_id = req.params.client_id;
@@ -672,6 +672,20 @@ app.get('/api/accepted/:client_id',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
 
+//get all pending and cancelling orders
+app.get('/api/pendingorcancelling',
+(req, res) => {
+  dao.getAllPendingOrCancellingOrders()
+    .then((orders) => { res.json(orders) })
+    .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
+//get all wallets
+app.get('/api/wallets',
+(req, res) => {
+  dao.getWallets()
+    .then((wallets) => { res.json(wallets) })
+    .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
 // update quantity in basket
 app.put('/api/basket/order/:order_id/product/:product_id',
   [
