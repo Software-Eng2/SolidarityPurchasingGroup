@@ -44,7 +44,7 @@ function VirtualClock(props){
                     clock.setWalletOKMilestone();
                     setFlagMonday20(true);
                 }
-                break;
+                break; 
             default:
                 break;
         }
