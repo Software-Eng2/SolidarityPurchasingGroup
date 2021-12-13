@@ -8,10 +8,9 @@ import AlertWallet from '../components/AlertWallet';
 import PropTypes from 'prop-types';
 import {MdDoneOutline} from "react-icons/md";
 import AlertCancellingOrders from '../components/AlertCancellingOrders';
-import { Clock } from '../Clock';
 
 function Market(props) {
-    const { products, client, userRole, currentClient} = props;
+    const { products, client, userRole, currentClient, clock} = props;
     const [collapsed, setCollapsed] = useState(false);
     const [size, setSize] = useState(0);
     const [category, setCategory] = useState('All');
@@ -20,8 +19,6 @@ function Market(props) {
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [showBasket, setShowBasket] = useState(false);
     const [show, setShow] = useState(false); //show order confirmation modal
-    const timerEvent = new Clock();
-    const passedTime = timerEvent.checkOrdersAcceptedMilestone();
       //state if the wallet is insufficient
     const [alertWalletShow, setAlertWalletShow] = useState(false);
     const [topUp, setTopUp] = useState(0); //how much to top up
@@ -71,7 +68,7 @@ function Market(props) {
     
 	return (
         <>
-        {userRole === "client" && passedTime ? 
+        {/* {userRole === "client" && passedTime ? 
         <Row align='center' style={{marginTop: '5rem'}}> 
             <Col xs={12} sm={12} md={12} lg={12}> 
                 <h3 style={{fontSize: "2.5rem", margin: "4", padding: "0", color: "#247D37"}}> 
@@ -81,7 +78,7 @@ function Market(props) {
         </Row>
         
         
-        :
+        : */}
         <>
         <Modal centered show={show} onHide={handleClose}>
         <Modal.Body style={{backgroundColor: "#d4edda"}}>
@@ -153,7 +150,7 @@ function Market(props) {
         
         
         
-        }
+       {/* } */} 
         
         </>
 	);

@@ -32,7 +32,7 @@ function FarmerOrderTable(props){
 
     const onHide = () => {setShowConfirmation(false)}
     const handleConfirmAlert = (index) => {setActualIndex(index); setShowConfirmation(true)};
-
+    
 
     useEffect(() => {
         let tO = [];
