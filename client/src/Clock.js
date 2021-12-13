@@ -93,6 +93,7 @@ import API from "./API";
         this.minutes = undefined;
         this.ordersPC = [];
         this.wallets = [];
+        this.flag = true;
 
         /**
          * An object to keep track of the main
@@ -148,13 +149,16 @@ import API from "./API";
                     this.setAvailabilityConfirmedMilestone();
                     this.setWalletOKMilestone();
                     //PAYMENTS
-                    this.ordersPC.forEach(orders => {
-                        const userWallet = this.wallets.filter(wallet => wallet.client_id === orders.client_id);
-                        if(userWallet[0].amount >= orders.total && orders.total !== 0){
-                            API.updateWallet(userWallet[0].amount-orders.total,userWallet[0].client_id).then(API.changeStatus(orders.id, "ACCEPTED"));
-                        } else API.changeStatus(orders.id, "CANCELLED");
-                    })
-                    console.log("done payments");
+                    if(this.flag){
+                        this.ordersPC.forEach(orders => {
+                            const userWallet = this.wallets.filter(wallet => wallet.client_id === orders.client_id);
+                            if(userWallet[0].amount >= orders.total && orders.total !== 0){
+                                API.updateWallet(userWallet[0].amount-orders.total,userWallet[0].client_id).then(API.changeStatus(orders.id, "ACCEPTED"));
+                            } else API.changeStatus(orders.id, "CANCELLED");
+                        })
+                        console.log("done payments");
+                        this.flag= false;
+                    }
                    
                     
                 }else if(this.day == 1 && this.hours >= 9 && (this.minutes >= 0 && this.minutes <= 2)){
