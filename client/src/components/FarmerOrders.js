@@ -4,14 +4,13 @@ import API from '../API';
 
 function FarmerOrders(props){
     const {orderedProducts} = props;
-    const [orders, setOrders] = useState([]); // set of orders with their respective quantity for each product
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
     // Do here the fetch between products and return of new query
     console.log('ordered: ', orderedProducts);
 
     return (
-        <Container fluid className="page width-100 below-nav table">
-            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} orders={orders}/>
+        <Container fluid className="page width-100 below-nav table" {...props}>
+            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} />
         </Container>
 
     );
@@ -19,7 +18,7 @@ function FarmerOrders(props){
 }
 
 function FarmerOrderTable(props){
-    const {products, quantities, orders} = props;
+    const {products, quantities} = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
     const [tempOrders, setTempOrders] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
@@ -100,7 +99,7 @@ function FarmerOrderTable(props){
 
     return (
         <>
-        <Table striped bordered hover responsive >
+        <Table striped bordered hover responsive {...props} >
             <thead>
                 <tr>
                     <th className="text-center">ID</th>
@@ -150,10 +149,10 @@ function FarmerOrderTable(props){
 					</Modal.Body>
 					<Modal.Footer>
 						<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"left"}} onClick={onHide}>
-								Close
-							</Button>
-							<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={()=>updateConfirmation(actualIndex)}>
-								Confirm
+							Close
+                        </Button>
+                        <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={()=>updateConfirmation(actualIndex)}>
+                            Confirm
 						</Button>
 					</Modal.Footer>
 
@@ -164,4 +163,4 @@ function FarmerOrderTable(props){
     );
 }
 
-export default FarmerOrders;
+export {FarmerOrders, FarmerOrderTable};

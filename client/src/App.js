@@ -15,7 +15,7 @@ import VirtualClock from './components/VirtualClock';
 import FarmerPlanning from './components/FarmerPlanning';
 import FarmerInterface from './components/FarmerInterface';
 import ClientPage from './components/ClientOrders/ClientPage';
-import FarmerOrders from './components/FarmerOrders';
+import { FarmerOrders } from './components/FarmerOrders';
 import Manager from './components/Manager';
 import WarehouseEmployeePage from './components/WarehouseEmployeePage';
 import {Clock} from "./Clock.js";
