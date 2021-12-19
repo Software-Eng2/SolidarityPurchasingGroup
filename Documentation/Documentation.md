@@ -659,7 +659,14 @@
 - email: isabellaverdi@gmail.com
 - password: isabellaverdi
 
-#### warehouse worker:
+#### warehouse manager:
 - email: giusepperossi@gmail.com
 - password: giusepperossi
 
+#### warehouse employee:
+- email: paolobianchi@gmail.com
+- password: paolobianchi
+
+#### manager:
+- email: francescobianco@gmail.com
+- password: francescobianco
