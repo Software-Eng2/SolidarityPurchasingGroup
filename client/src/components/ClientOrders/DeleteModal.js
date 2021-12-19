@@ -50,9 +50,9 @@ function DeleteModal(props) {
         {done ? 
             <Modal.Body style={{ backgroundColor: "#d4edda", height: "10rem", borderRadius:"5px"}}>
                 
-                <h3><MdDoneOutline size={30} className="mr-3" /> Order Canceled!</h3>
+                <h3><MdDoneOutline size={30} className="mr-3" /> Order Cancelled!</h3>
                 <p className="mt-3">
-                    Your Order has been successfully canceled.
+                    Your Order has been successfully cancelled.
                 </p>
             </Modal.Body>
           : 

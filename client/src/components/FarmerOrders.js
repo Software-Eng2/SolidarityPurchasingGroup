@@ -3,15 +3,14 @@ import{ Container, Table, Modal, Button, Alert} from "react-bootstrap";
 import API from '../API';
 
 function FarmerOrders(props){
-    const {orderedProducts, clock} = props;
-    const [orders, setOrders] = useState([]); // set of orders with their respective quantity for each product
+    const {orderedProducts} = props;
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
     // Do here the fetch between products and return of new query
     console.log('ordered: ', orderedProducts);
 
     return (
-        <Container fluid className="page width-100 below-nav table">
-            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} orders={orders} clock={clock}/>
+        <Container fluid className="page width-100 below-nav table" {...props}>
+            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} />
         </Container>
 
     );
@@ -19,12 +18,12 @@ function FarmerOrders(props){
 }
 
 function FarmerOrderTable(props){
-    const {products, quantities, orders, clock} = props;
+    const {products, quantities} = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
     const [tempOrders, setTempOrders] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [actualIndex, setActualIndex] = useState(0);
-    const passedTime = clock.checkProductsAvailabilityMilestone();
+
     useEffect(() => {
         setConfirmedProducts(quantities);
     }, [quantities]);
@@ -100,7 +99,7 @@ function FarmerOrderTable(props){
 
     return (
         <>
-        <Table striped bordered hover responsive >
+        <Table striped bordered hover responsive {...props} >
             <thead>
                 <tr>
                     <th className="text-center">ID</th>
@@ -123,8 +122,8 @@ function FarmerOrderTable(props){
                             <td className="text-center"><strong >{p.estimated}</strong></td>
                             <td className="text-center"><strong >{p.amount}</strong></td>
                             <td className="text-center"><strong>
-                                <input id={`input-${index}`}type='number' name='quantity' disabled={passedTime || (p.updated ? true: false) } value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
-                            <td className="text-center">{passedTime ? 'You cannot confirm quantity now' : <button id={`button-${index}`} disabled={p.updated ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button>}</td>
+                                <input id={`input-${index}`}type='number' name='quantity' disabled={p.updated ? true: false} value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
+                            <td className="text-center"><button id={`button-${index}`} disabled={p.updated ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button></td>
                         </tr>
                     ))
                 }
@@ -150,10 +149,10 @@ function FarmerOrderTable(props){
 					</Modal.Body>
 					<Modal.Footer>
 						<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"left"}} onClick={onHide}>
-								Close
-							</Button>
-							<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={()=>updateConfirmation(actualIndex)}>
-								Confirm
+							Close
+                        </Button>
+                        <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={()=>updateConfirmation(actualIndex)}>
+                            Confirm
 						</Button>
 					</Modal.Footer>
 
@@ -164,4 +163,4 @@ function FarmerOrderTable(props){
     );
 }
 
-export default FarmerOrders;
+export {FarmerOrders, FarmerOrderTable};

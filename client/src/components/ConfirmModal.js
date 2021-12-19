@@ -61,10 +61,10 @@ function ConfirmModal(props) {
 
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.onHide} >
+          <Button data-testid="close" variant="secondary" onClick={props.onHide} >
             Close
           </Button>
-          <Button style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'red' }} onClick={deleteUpdateProduct} >
+          <Button data-testid='list_product' style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'red' }} onClick={deleteUpdateProduct} >
             List Product
           </Button>
         </Modal.Footer>
@@ -82,7 +82,7 @@ function CardRiepilogo(props) {
         props.productNW.map(t =>
           props.farmerProducts.filter(f => f.name == t.id_product )
             .map(w =>
-              <Col key={w.id} className="d-flex justify-content-center">
+              <Col key={w.id} data-testid='col'className="d-flex justify-content-center">
                 <Card style={{ width: '20rem' }} className="mt-3">
                   <Card.Img className="center" variant="top" src={w.img_path} style={{ height: "80px", width: "80px" }} />
                   <Card.Body>
@@ -99,3 +99,4 @@ function CardRiepilogo(props) {
 }
 
 export default ConfirmModal;
+export {CardRiepilogo};

@@ -49,7 +49,7 @@ function FarmerPlanning(props) {
 
             <FormTable farmerProducts={props.farmerProducts} userid={props.userid} productNW={productNW} products={props.products} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} setDisable={setDisable} disable={disable} />
             <div className="fixed">
-                <BsFillPlusCircleFill className="pointer" size={40} color="#28a745" onClick={() => { setModalShow(true) }} />
+                <BsFillPlusCircleFill data-testid="BsFillPlusCircleFill" className="pointer" size={40} color="#28a745" onClick={() => { setModalShow(true) }} />
                 <PlanningModal
                     show={modalShow}
                     onHide={() => {setModalShow(false); setUpdate(false)}}
@@ -159,8 +159,8 @@ function FormTable(props) {
                                             <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
                                     <td>{r.price}</td>
-                                    <td><BsPencilSquare   className="pointer" onClick={()=> {props.setModalShow(true); props.setUpdate(true); props.setId(r.id);}}/></td>
-                                    <td><BsTrash  className="pointer" fill="red" onClick={() => { props.deleteTask(r.id); }}/></td>
+                                    <td><BsPencilSquare data-testid='BsPencilSquare'   className="pointer" onClick={()=> {props.setModalShow(true); props.setUpdate(true); props.setId(r.id);}}/></td>
+                                    <td><BsTrash data-testid='BsTrash' className="pointer" fill="red" onClick={() => { props.deleteTask(r.id); }}/></td>
                                 </tr>)
                             )
                     }
@@ -173,7 +173,7 @@ function FormTable(props) {
                     </Link>
                 </Col>
                 <Col xs={6} md={6} className="d-flex justify-content-end">
-                    <Button disabled={props.disable} style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'black' }} className="mt-5" onClick={() => { setModal(true) }}>Provide your estimation</Button>
+                    <Button disabled={props.disable} data-testid='estimation' style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'black' }} className="mt-5" onClick={() => { setModal(true) }}>Provide your estimation</Button>
                     <ConfirmModal
                         show={modal}
                         onHide={() => setModal(false)}
@@ -198,4 +198,4 @@ function FormTable(props) {
 
 
 export default FarmerPlanning;
-export {FormTable};
+export  {FormTable};

@@ -10,6 +10,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import Adapter from 'enzyme-adapter-react-16';
 import { screen, fireEvent, render, cleanup } from "@testing-library/react";
+import { act } from 'react-dom/test-utils';
+
 import { FaPlus } from "react-icons/fa";
 import { Button } from 'react-bootstrap';
 
@@ -131,6 +133,10 @@ describe("Render OrderTable", () => {
         expect(thD).toBeInTheDocument();
         expect(thT).toBeInTheDocument();
         expect(thS).toBeInTheDocument();
+
+        act(() => {
+            fireEvent.click(screen.getByTestId(`tr-${fakeOrders[1].id}`));
+        });
        
        
     

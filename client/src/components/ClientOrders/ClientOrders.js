@@ -71,7 +71,7 @@ function PendingList(props){
                         <Col xs={3} className="text-center my-auto">
                             <h4>Order #{o.id}</h4>
                             <hr/>
-                            <strong> Total: <h2>€ {o.total}</h2></strong><br />
+                            <strong> Total: <h2>€ {o.total.toFixed(2)}</h2></strong><br />
                         </Col>
                         <vr/>
                         <Col xs={7} className="my-auto">
@@ -107,7 +107,7 @@ function AcceptedList(props){
                         <Col xs={3} className="text-center my-auto">
                             <h4>Order #{o.id}</h4>
                             <hr/>
-                            <strong> Total: <h2>€ {o.total}</h2></strong><br />
+                            <strong> Total: <h2>€ {o.total.toFixed(2)}</h2></strong><br />
                         </Col>
                         <vr/>
                         <Col xs={5} className="my-auto">

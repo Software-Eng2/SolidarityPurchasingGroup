@@ -87,9 +87,10 @@ function FormPlanning(props) {
                 </Row>
                 <Row>
                 <Col className="d-flex justify-content-center">
-                    <Form.Group as={Col} sm={5} className="mt-5" controlId="quantity" variant="outlined">
-                        <Form.Label> Quantity  </Form.Label>
+                    <Form.Group  as={Col} sm={5} className="mt-5" controlId="quantity" variant="outlined">
+                        <Form.Label>Quantity</Form.Label>
                         <Form.Control
+                            data-testid='quantity'
                             required
                             type="text"
                             placeholder="0.0"
@@ -141,17 +142,13 @@ function FormPlanning(props) {
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Row>
-
-
-
-
-
                     <Row className="justify-content-center">
                         <Col className="d-flex justify-content-center">
                             <Form.Group as={Col} sm={5} className="mt-5" controlId="quantity" variant="outlined">
-                                <Form.Label>Quantity  </Form.Label>
+                                <Form.Label>Quantity</Form.Label>
                                 <Form.Control
                                     required
+                                    data-testid='quantity'
                                     type="text"
                                     placeholder="0.0"
                                     value={quantity}
@@ -164,7 +161,7 @@ function FormPlanning(props) {
                         </Col >
                         <Col className="d-flex justify-content-center">
                             <Form.Group as={Col} sm={5} className="mt-5" controlId="price" variant="outlined">
-                                <Form.Label>Price €  </Form.Label>
+                                <Form.Label>Price €</Form.Label>
                                 <Form.Control
                                     disabled
                                     required
@@ -185,7 +182,7 @@ function FormPlanning(props) {
 
                     <Row className="pb-4 mb-4 ml-4 pl-4">
                         <Col xs={5} sm={6} className="d-flex justify-content-start align-items-center">
-                            <Button className="mt-5" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} onClick={props.onHide}>Close</Button>
+                            <Button className="mt-5" data-testid="close-Button" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} onClick={props.onHide}>Close</Button>
                         </Col>
 
                         <Col xs={4} sm={5} className="d-flex justify-content-end align-items-center">
@@ -208,3 +205,4 @@ function FormPlanning(props) {
 }
 
 export default PlanningModal;
+export {FormPlanning};
