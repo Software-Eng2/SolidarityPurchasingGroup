@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import { BrowserRouter as Router,Switch, Route, useHistory} from 'react-router-dom';
+import { Router,Switch, Route, useHistory} from 'react-router-dom';
 import { useState, useEffect} from 'react';
 import NavBar from './components/NavBar';
 import OrdersPage from './components/OrdersPage';
@@ -116,42 +116,14 @@ function App() {
     }
   },[userid,userRole])
 
-
-
   const doLogIn = (email, password) => {
-    API.logIn(email, password).then(([e]) => {
+    API.logIn(email, password, routerHistory).then(([e]) => {
       API.getUserInfo().then((user) => {
         setUserEmail(e);
         setUserid(user.id);
         setLoggedIn(true);
         setUserRole(user.role);
         setDirty(true);
-        switch(user.role){
-          case 'shopemployee':
-            routerHistory.push('/clientlist');
-            window.location.reload();
-            break;
-          case 'client':
-            console.log(userid);
-            routerHistory.push('/products');
-            window.location.reload();
-            break;
-          case 'farmer':
-            routerHistory.push('/farmer');
-            window.location.reload();
-            break;
-          case 'manager':
-            routerHistory.push('/warehouse');
-            window.location.reload();
-            break;
-          case 'warehouseemployee':
-            routerHistory.push('/warehouseEmployee');
-            window.location.reload();
-            break;
-          default:
-            routerHistory.push('/');
-
-        }
       }).catch((err) => console.log(err));
     }).catch((err) => {
       console.log(err);
@@ -170,7 +142,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router history={routerHistory}>
         <NavBar loggedIn={loggedIn} doLogOut={doLogOut} userRole={userRole}/>
       <Switch>
         <Route exact path="/">

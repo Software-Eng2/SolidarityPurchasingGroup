@@ -231,7 +231,8 @@ async function updateWallet(amount, clientID){
   return response.ok;
 }
 
-function logIn(username, password) {
+function logIn(username, password, history) {
+  let userRole;
   return new Promise((resolve, reject) => {
     fetch(BASEURL+'/sessions', {
       method: 'POST',
@@ -240,7 +241,32 @@ function logIn(username, password) {
     }).then((response) => {
       if (response.ok) {
         response.json().then((user) => {
-          resolve([user.name,user.id]);
+          resolve([user.role,user.name,user.id])
+          userRole = user.role;
+        }).finally(()=>{
+          if(userRole){
+            console.log(userRole);
+            switch(userRole){
+              case 'shopemployee':
+                history.push({pathname: '/clientlist'});
+                break;
+              case 'client':
+                history.push('/products');
+                break;
+              case 'farmer':
+                history.push('/farmer');
+                break;
+              case 'manager':
+                history.push('/warehouse');
+                break;
+              case 'warehouseemployee':
+                history.push('/warehouseEmployee');
+                break;
+              default:
+                history.push('/');
+              break;
+            }
+          }  
         }).catch((err) => reject(err));
       } else {
         reject();
