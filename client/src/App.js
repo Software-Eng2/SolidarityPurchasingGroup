@@ -66,7 +66,7 @@ function App() {
 
     // Rehydrate clientsList & ordersList when user is logged in
     useEffect(()=>{
-      if(loggedIn && (userRole === "shopemployee" || "manager" || "warehouseemployee") && dirty){
+      if(loggedIn && (userRole === "shopemployee" || "warehousemanager" || "warehouseemployee") && dirty){
         API.getAllOrders().then((o) => {
           setOrders(o);
         });
@@ -189,7 +189,7 @@ function App() {
           {loggedIn && userRole=='farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts} /> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/warehouse">
-          {loggedIn && userRole=='manager' ? <Manager orders={orders} /> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='warehousemanager' ? <Manager orders={orders} /> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
       </Switch>
     </Router>
