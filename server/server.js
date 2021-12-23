@@ -10,13 +10,33 @@ const passport = require('passport'); // auth middleware
 const dayjs = require('dayjs');
 const bcrypt = require('bcrypt');
 
+const TelegramBot = require('node-telegram-bot-api');
+
+// replace the value below with the Telegram token you receive from @BotFather
+const token = '5029808901:AAHC4U2JZS_B6-04SqEiAyWAuFCEF_jJx48';
+
+// Create a bot that uses 'polling' to fetch new updates
+const bot = new TelegramBot(token, {polling: true});
+
 // init express
 const app = new express();
 const port = 3001;
 
+
 /* Set-up the middlewares */
 app.use(express.json());
 app.use(express.static("./client/build"));
+
+// Listen for any kind of message. There are different kinds of
+// messages.
+bot.on('message', async (msg) => {
+  const chatId = msg.chat.id;
+
+  //const product= await dao.getAllProducts().then((products) => { JSON.stringify(products) });
+
+  // send a message to the chat acknowledging receipt of their message
+  bot.sendMessage(chatId, 'ehi i prodotti sono pronti puoi listarli!').catch(e => console.log( e) );
+});
 
 // set up the session
 app.use(session({

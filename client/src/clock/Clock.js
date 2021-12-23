@@ -1,4 +1,4 @@
-import API from "./API";
+var API = require('../API');
 
 /**
  * Clock object
@@ -110,7 +110,6 @@ import API from "./API";
         //Checking events
         this.checkEvents();
 
-        console.log('ok')
         this.start();
 
     }
@@ -359,26 +358,24 @@ import API from "./API";
     /* ---------------------------------------- */
 
     checkEstimatesMilestone(checkDate = true){
-        //this.checkEvents(checkDate);
+        this.checkEvents(checkDate);
         return this.eventsObject.estimates;
     }
 
     checkOrdersAcceptedMilestone(checkDate = true){
-        //this.checkEvents(checkDate);
+        this.checkEvents(checkDate);
         return this.eventsObject.ordersAccepted;
     }
 
     checkProductsAvailabilityMilestone(checkDate = true){
-        //this.checkEvents(checkDate);
+        this.checkEvents(checkDate);
         return this.eventsObject.availability;
     }
 
     checkWalletsOkMilestone(checkDate = true){
-        //this.checkEvents(checkDate);
+        this.checkEvents(checkDate);
         return this.eventsObject.walletsOK;
     }
 
     
 }
-
-export {Clock};
