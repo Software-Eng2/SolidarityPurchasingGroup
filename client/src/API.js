@@ -651,6 +651,47 @@ async function getWallets(){
     return undefined;
   }
 }
+async function getAllTelegramUsers(){
+  const response = await fetch(BASEURL + '/telegramUsers');
+
+  const users = await response.json();
+
+  if (response.ok) {
+    return users.map((u) =>{return {
+      id:u.id,
+      first_name:u.first_name}}) ;
+  } else {
+    return undefined;
+  }
+}
+async function sendTelegramMessage(chat_id, text){
+  try {
+    const response = await fetch(BASEURL + '/telegramMsg', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          chat_id: chat_id,
+          text: text
+        }
+      )
+    })
+    console.log(chat_id);
+    console.log(text);
+    const inserted = await response.json();
+
+    if (!response.ok) {
+      throw response;
+    }
+
+    return inserted;
+  }
+  catch {
+    return false;
+  }
+
+}
+
 
 const API = {
   getNotifications,
@@ -693,7 +734,9 @@ const API = {
   updateOrder,
   updateTotalInOrders,
   getPendingOrCancellingOrders,
-  getWallets
+  getWallets,
+  getAllTelegramUsers,
+  sendTelegramMessage
 }
 
 export default API;

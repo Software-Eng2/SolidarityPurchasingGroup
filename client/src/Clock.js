@@ -93,7 +93,9 @@ import API from "./API";
         this.minutes = undefined;
         this.ordersPC = [];
         this.wallets = [];
+        this.tlgrmusrs = [];
         this.flag = true;
+        this.flagMsg = true;
 
         /**
          * An object to keep track of the main
@@ -125,31 +127,49 @@ import API from "./API";
             this.wallets = w;
         });
     }
+    setTelegramUsers(){
+        API.getAllTelegramUsers().then((tu)=>{
+            this.tlgrmusrs = tu;
+        })
+    }
 
 
     start(){
 
         this.setOrdersPC();
         this.setWallets();
-        
+        this.setTelegramUsers();
 
         setInterval(() => {
 
 
-
+            //console.log(this.tlgrmusrs);
             if(!this.stopped){
                 this.time.setSeconds(this.time.getSeconds() + 1);
-                console.log(this.time.getDate() + ' ' + this.time.getMonth() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
+                //console.log(this.time.getDate() + ' ' + this.time.getMonth() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
 
 
                 this.hours = this.time.getHours();
                 this.day = this.time.getDay();
                 this.minutes = this.time.getMinutes();
 
-
-                if(this.day == 1 && this.hours >= 20 && (this.minutes >= 0 && this.minutes <= 2) ){
+                if(this.day == 6 && this.hours >= 9 && (this.minutes >= 0 && this.minutes <= 2) ){
+                   //insert here milestones
+                   this.setFarmerEstimatesMilestone();
+                   this.flag = true;
+                   if(this.flagMsg){
+                    this.tlgrmusrs.forEach((tU)=>{
+                        let msg = `Hi ${tU.first_name}! We are happy to announce that our market is ready to get orders. Please check our products at http://localhost:3000/products ${String.fromCodePoint(0x1F60D)}`;
+                        console.log(tU.id);
+                        API.sendTelegramMessage(tU.id,msg);
+                    })
+                   }
+                   this.flagMsg = false; 
+                }
+                else if(this.day == 1 && this.hours >= 20 && (this.minutes >= 0 && this.minutes <= 2) ){
                     this.setAvailabilityConfirmedMilestone();
                     this.setWalletOKMilestone();
+                    this.flagMsg = true;
                     //PAYMENTS
                     if(this.flag){
                         this.ordersPC.forEach(orders => {

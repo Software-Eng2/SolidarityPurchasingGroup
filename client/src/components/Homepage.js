@@ -8,7 +8,7 @@ function Homepage() {
     return (
         <div>
             <div style={{ overflowX: "hidden", position: "relative", maxHeight: "100vh", overflowY: "hidden", justifyContent: "center" }}>
-                <video style={{ maxHeight: "122vh", width: "100vw",marginLeft:"0rem",marginRight:"0rem" }} data-testid="vidMyVideo" autoPlay loop muted>
+                <video style={{ maxHeight: "122vh", width: "100vw", marginLeft: "0rem", marginRight: "0rem" }} data-testid="vidMyVideo" autoPlay loop muted>
                     <source src={backgroundimg} type='video/mp4' />
                 </video>
                 <div className="overlay">
@@ -35,11 +35,9 @@ function Homepage() {
                             <h4 style={{ marginTop: "7vh" }}>
                                 It's local. It's fair. It's for our planet.
                             </h4>
-                            <Button size="lg" variant="success" href="products" style={{ backgroundColor: "#247D37", marginTop: "7vh" }} >
-                                <Link to={{ pathname: '/products' }} data-testid="linktoproducts" className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
-                                    Discover our products
-                                </Link>
-                            </Button>
+                            <Link to={{ pathname: '/products' }} data-testid="linktoproducts" className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
+                                <Button size="lg" variant="success" href="products" style={{ backgroundColor: "#247D37", marginTop: "7vh" }} > Discover our products </Button>
+                            </Link>
                         </Col>
                     </Row>
                 </Container>
@@ -53,8 +51,8 @@ function Homepage() {
                     </Row>
                     <Row style={{ marginTop: "2rem" }} xs={1} sm={1} md={1} lg={3} xl={3} xxl={3} className="g-4">
                         <Col>
-                            <Card style={{ marginBottom: "2rem"}}>
-                                <Card.Img variant="top" style={{objectFit: "cover", maxHeight:"30vh"}}  src="https://images.pexels.com/photos/3962283/pexels-photo-3962283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                            <Card style={{ marginBottom: "2rem" }}>
+                                <Card.Img variant="top" style={{ objectFit: "cover", maxHeight: "30vh" }} src="https://images.pexels.com/photos/3962283/pexels-photo-3962283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <Card.Body>
                                     <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Why buying in SPG?</Card.Title>
                                     <Card.Text>
@@ -64,7 +62,7 @@ function Homepage() {
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer className="text-center">
-                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop:"0.5rem",marginBottom:"0.5rem" }} >
+                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop: "0.5rem", marginBottom: "0.5rem" }} >
                                         <Link to={{ pathname: '/registerform' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Client
                                         </Link>
@@ -73,8 +71,8 @@ function Homepage() {
                             </Card>
                         </Col>
                         <Col>
-                            <Card style={{marginBottom: "2rem"}} >
-                                <Card.Img variant="top" style={{objectFit: "cover", maxHeight:"30vh"}} src="https://www.altromercato.it/wp-content/uploads/2021/09/produttore_Hualtaco_Peru_AgrofairEurope-scaled-e1632143818906-800x582.jpg" />
+                            <Card style={{ marginBottom: "2rem" }} >
+                                <Card.Img variant="top" style={{ objectFit: "cover", maxHeight: "30vh" }} src="https://www.altromercato.it/wp-content/uploads/2021/09/produttore_Hualtaco_Peru_AgrofairEurope-scaled-e1632143818906-800x582.jpg" />
                                 <Card.Body>
                                     <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Why selling in SPG?</Card.Title>
                                     <Card.Text>
@@ -82,7 +80,7 @@ function Homepage() {
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer className="text-center">
-                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop:"0.5rem",marginBottom:"0.5rem" }} >
+                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop: "0.5rem", marginBottom: "0.5rem" }} >
                                         <Link to={{ pathname: '/' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Supplier
                                         </Link>
@@ -91,8 +89,8 @@ function Homepage() {
                             </Card>
                         </Col>
                         <Col>
-                            <Card style={{marginBottom: "2rem"}}>
-                                <Card.Img variant="top" style={{objectFit: "cover", maxHeight:"30vh"}} src="https://images.pexels.com/photos/7844008/pexels-photo-7844008.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                            <Card style={{ marginBottom: "2rem" }}>
+                                <Card.Img variant="top" style={{ objectFit: "cover", maxHeight: "30vh" }} src="https://images.pexels.com/photos/7844008/pexels-photo-7844008.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <Card.Body>
                                     <Card.Title style={{ overflowX: "hidden", overflowY: "hidden", textAlign: "center" }}>Work with us!</Card.Title>
                                     <Card.Text>
@@ -104,7 +102,7 @@ function Homepage() {
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer className="text-center">
-                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop:"0.5rem",marginBottom:"0.5rem" }} >
+                                    <Button size="lg" variant="success" style={{ backgroundColor: "#247D37", marginTop: "0.5rem", marginBottom: "0.5rem" }} >
                                         <Link to={{ pathname: '/' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                                             Become our Delivery person
                                         </Link>

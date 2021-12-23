@@ -4,19 +4,14 @@ const express = require('express');
 const dao = require('./dao');
 const { check, validationResult, body } = require('express-validator');
 const userDao = require('./user-dao'); // module for accessing the users in the DB
+const telegramDao = require('./telegram-dao'); //module for accessing telegram users
 const session = require('express-session'); // enable sessions
 const passportLocal = require('passport-local'); // username and password for login
 const passport = require('passport'); // auth middleware
-const dayjs = require('dayjs');
 const bcrypt = require('bcrypt');
-
 const TelegramBot = require('node-telegram-bot-api');
-
-// replace the value below with the Telegram token you receive from @BotFather
-const token = '5029808901:AAHC4U2JZS_B6-04SqEiAyWAuFCEF_jJx48';
-
-// Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(token, {polling: true});
+const token = '5029808901:AAHC4U2JZS_B6-04SqEiAyWAuFCEF_jJx48'; // replace the value below with the Telegram token you receive from @BotFather
+const bot = new TelegramBot(token, {polling: true});// Create a bot that uses 'polling' to fetch new updates
 
 // init express
 const app = new express();
@@ -27,16 +22,7 @@ const port = 3001;
 app.use(express.json());
 app.use(express.static("./client/build"));
 
-// Listen for any kind of message. There are different kinds of
-// messages.
-bot.on('message', async (msg) => {
-  const chatId = msg.chat.id;
 
-  //const product= await dao.getAllProducts().then((products) => { JSON.stringify(products) });
-
-  // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, 'ehi i prodotti sono pronti puoi listarli!').catch(e => console.log( e) );
-});
 
 // set up the session
 app.use(session({
@@ -773,3 +759,40 @@ app.put('/api/orders/update',
         res.status(500).json({error: "Error " + err,})
       );
   });
+
+  /****TELEGRAM *****/
+
+// Switch on the bot 
+bot.on('message', async (msg) => {
+  let chatId = msg.chat.id;
+
+  //bot.sendMessage(chatId, 'ehi i prodotti sono pronti puoi listarli!').catch(e => console.log( e) );
+  console.log(msg.chat.id);
+  console.log(msg.chat.first_name);
+  console.log(msg.text)
+  if(msg.text === '/start'){
+    telegramDao.newTelegramUser(msg.chat.id,msg.chat.first_name)
+  }
+  
+});
+
+//get all telegram users
+app.get('/api/telegramUsers',
+  (req, res) => {
+    telegramDao.getAllTelegramUsers()
+      .then((users) => { res.json(users) })
+      .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
+app.post('/api/telegramMsg',
+  (req, res) => {
+    const msg = {
+      chat_id: req.body.chat_id,
+      text: req.body.text
+    }
+    bot.sendMessage(msg.chat_id,msg.text).then((id) => res.status(201).json({ id: id })).catch((err) =>
+    res.status(500).json({
+      error: "Error " + err,
+    })
+  );
+  });
+/*END TELEGRAM*/
