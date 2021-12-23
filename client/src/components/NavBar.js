@@ -1,6 +1,7 @@
 import { Col, Navbar, Nav} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { shopIcon } from './Icons'
+import { virtualClock } from './Icons';
 
 function NavBar(props) {
 
@@ -40,7 +41,7 @@ function NavBar(props) {
                             </Col>
                         </Nav>
                         <Nav className='d-flex justify-content-end' style={{marginRight : "0.5rem"}}>
-                            <Link to={{pathname: '/clock'}} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>Virtual Clock</Link>
+                            <Link to={{pathname: '/clock'}} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>{virtualClock}</Link>
                         </Nav>
                         <Nav className="d-flex justify-content-end">
                             {
@@ -84,7 +85,7 @@ function NavBar(props) {
                             </Col>
                         </Nav>
                         <Nav className='d-flex justify-content-end' style={{marginRight : "0.5rem"}}>
-                            <Link to={{pathname: '/clock'}} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>Virtual Clock</Link>
+                            <Link to={{pathname: '/clock'}} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>{virtualClock}</Link>
                         </Nav>
                         <Nav className="d-flex justify-content-end">
                             {
@@ -128,7 +129,7 @@ function NavBar(props) {
                                 </Col>
                             </Nav>
                             <Nav className='d-flex justify-content-end' style={{marginRight : "0.5rem"}}>
-                                <Link to={{pathname: '/clock'}} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>Virtual Clock</Link>
+                                <Link to={{pathname: '/clock'}} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>{virtualClock}</Link>
                             </Nav>
                             <Nav className="d-flex justify-content-end">
                                 {
@@ -176,7 +177,7 @@ function NavBar(props) {
                             }
                         </Nav>
                         <Nav className='d-flex justify-content-end' style={{marginRight : "0.5rem"}}>
-                            <Link to={{pathname: '/clock'}} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>Virtual Clock</Link>
+                            <Link to={{pathname: '/clock'}} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>{virtualClock}</Link>
                         </Nav>
                         <Nav className="d-flex justify-content-end">
                             {

@@ -1,10 +1,27 @@
 import { Card, CardGroup, Container, Row, Col, Button } from 'react-bootstrap';
 import backgroundimg from '../img/finale.mp4';
-import { arrowIcon } from './Icons';
+import { arrowIcon, telegramIcon } from './Icons';
 import { Link } from 'react-router-dom';
 
 function Homepage() {
+    var style = {
+        backgroundColor: "#000000",
+        borderTop: "1px solid #E7E7E7",
+        color: "#ffffff",
+        textAlign: "center",
+        padding: "20px",
+        left: "0",
+        bottom: "0",
+        height: "60px",
+        width: "100%",
+    }
 
+    var phantom = {
+        display: 'block',
+        padding: '20px',
+        height: '60px',
+        width: '100%',
+    }
     return (
         <div>
             <div style={{ overflowX: "hidden", position: "relative", maxHeight: "100vh", overflowY: "hidden", justifyContent: "center" }}>
@@ -112,6 +129,11 @@ function Homepage() {
                         </Col>
                     </Row>
                 </Container>
+            </div>
+            <div>
+                <div style={style}>
+                     Stay up to date by joining our telegram bot: <a href={'https://t.me/spg05_bot'}>{telegramIcon}</a>
+                </div>
             </div>
         </div>
 
