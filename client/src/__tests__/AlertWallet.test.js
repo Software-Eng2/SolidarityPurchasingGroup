@@ -88,6 +88,10 @@ test('top up alert', ()=>{
     act(() => {
         fireEvent.click(screen.getByText('Top up now'));
     });
-    expect(fireEvent.click(screen.getByText('Top up now'))).toBeTruthy();
-    
+      jest.useFakeTimers();
+      jest.runAllTimers();
+      const setDone = jest.fn();
+      setTimeout(() => {
+        expect(screen.getByText('Top Up Success')).toBeTruthy();
+      }, 3000);
 })

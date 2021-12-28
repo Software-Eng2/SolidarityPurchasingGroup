@@ -12,8 +12,8 @@ function AlertWallet(props) {
     setShowLaterModal(false);
     window.location.reload();
 }
-  const updateWallet = () => {
-    API.updateWallet(parseInt(props.topUp) + parseInt(props.user.amount ? props.user.amount : props.currentClient.amount), props.user.id ? props.user.id : props.currentClient.id).then(() => {
+  const updateWallet = async () => {
+    await API.updateWallet(parseInt(props.topUp) + parseInt(props.user.amount ? props.user.amount : props.currentClient.amount), props.user.id ? props.user.id : props.currentClient.id);
       if(props.user.amount){
         props.user.amount = parseInt(props.topUp)+parseInt(props.user.amount);
       } else props.currentClient.amount = parseInt(props.topUp)+parseInt(props.currentClient.amount);
@@ -24,8 +24,7 @@ function AlertWallet(props) {
         setDone(false);
         props.setTopUp(0);
         window.location.reload();
-      }, 3000)
-    }).catch((err) => console.log(err));
+      }, 3000);
   }
     return (
       <>

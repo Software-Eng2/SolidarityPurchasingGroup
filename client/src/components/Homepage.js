@@ -16,12 +16,6 @@ function Homepage() {
         width: "100%",
     }
 
-    var phantom = {
-        display: 'block',
-        padding: '20px',
-        height: '60px',
-        width: '100%',
-    }
     return (
         <div>
             <div style={{ overflowX: "hidden", position: "relative", maxHeight: "100vh", overflowY: "hidden", justifyContent: "center" }}>
