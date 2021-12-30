@@ -81,7 +81,7 @@ function PendingList(props){
                             <Row className="m-auto d-flex align-items-center"><h4>Time:&ensp; </h4> {o.time}</Row>
                         </Col>
                         <Col xs={2}  className=" text-right">
-                            <Button variant="outline-info" className="pheight-100" onClick={()=>{handleClick(); setOrder(o) }}>{arrowRightIcon}</Button>
+                            <Button id="selectButton" variant="outline-info" className="pheight-100" onClick={()=>{handleClick(); setOrder(o) }}>{arrowRightIcon}</Button>
                         </Col>
                         </Row>
                     </Card.Body>
@@ -136,8 +136,6 @@ function AcceptedList(props){
 function SelectedOrder(props){
 
     const {handleClick, order, setModalShow, basket, setBasket} = props;
-
- 
 
     const [delivery, setDelivery] = useState(order.pick_up);
     const [address, setAddress] = useState(`${order.address.split(',')[0]}, ${order.address.split(',')[1]}`);
@@ -262,7 +260,7 @@ function SelectedOrder(props){
             {!edit?
             <Row className="mt-3">
                 <Col className="text-center">
-                    <Button variant="light" onClick={handleClick}>{arrowLeftIcon}Back</Button>
+                    <Button id="backPendingList" variant="light" onClick={handleClick}>{arrowLeftIcon}Back</Button>
                 </Col>
                 {(props.editable) ? //Per francesco: ho aggiunto una props 'editable', serve per distinguere quando mostrare i pulsanti edit o cancel. La setto nin clientOrders
                 <>

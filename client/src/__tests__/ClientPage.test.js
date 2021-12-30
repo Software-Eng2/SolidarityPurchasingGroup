@@ -7,7 +7,7 @@ import { render, cleanup,  findByText, getByText, fireEvent, screen} from "@test
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import {PendingList, AcceptedList} from '../components/ClientOrders/ClientOrders'
-
+import {pickUpIcon, deliveryIcon, arrowRightIcon, arrowLeftIcon, iconDelete, iconEdit, iconCross, iconConfirm} from "../components/Icons";
 import ClientPage from '../components/ClientOrders/ClientPage';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -27,8 +27,8 @@ const fakeOrders = [
         client_name: 'Marco',
         client_surname: 'Bianchi',
         total: 0.75,
-        date: '',
-        time: '',
+        date: '2021-11-30',
+        time: '14:00',
         pick_up: 1,
         address: 'Corso Duca degli Abruzzi, 24',
         status: 'PENDING'
@@ -74,9 +74,23 @@ it('client page aaaaaq',async  () => {
     expect(await findByText(component.container, 'Order #24')).toBeVisible();
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Accepted')).toHaveClass('tab-pane');
 
+    //Click on detail button of Order #28
+    const selectButton = component.container.querySelector("#selectButton:first-child");
+    fireEvent.click(selectButton);
+    expect(await findByText(component.container, 'Order #28')).toBeVisible();
+    expect(await findByText(component.container, '€ 0.00')).toBeVisible();    
+/*     expect(await findByText(component.container, 'pickUpIcon')).toBeVisible(); */
+    expect(await findByText(component.container, 'Corso Duca degli Abruzzi, 24')).toBeVisible();
+    expect(await findByText(component.container, '2021-11-30')).toBeVisible();
+    expect(await findByText(component.container, '14:00')).toBeVisible();
+
+    //Return to the Pending Orders list
+    const backPendingList = component.container.querySelector('#backPendingList')
+    fireEvent.click(backPendingList);
+
     //Click on 'Accepted' tab
-    const button = screen.getByText('Accepted');
-    fireEvent.click(button);
+    const button1 = screen.getByText('Accepted');
+    fireEvent.click(button1);
 
     //Accepted view --> only order 29 should be visible
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Pending')).toHaveClass('tab-pane');
