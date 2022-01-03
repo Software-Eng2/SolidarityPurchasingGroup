@@ -1,16 +1,30 @@
 import { useState, useEffect } from "react";
 import{ Container, Table, Modal, Button, Alert} from "react-bootstrap";
+import {BsClockHistory} from "react-icons/bs";
 import API from '../API';
 
 function FarmerOrders(props){
-    const {orderedProducts} = props;
+    const {orderedProducts, clock } = props;
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
+    const passedTime = clock.checkProductsAvailabilityMilestone();
     // Do here the fetch between products and return of new query
     console.log('ordered: ', orderedProducts);
+    console.log('passed: ', clock.checkProductsAvailabilityMilestone());
 
     return (
         <Container fluid className="page width-100 below-nav table" {...props}>
-            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} />
+            {passedTime ? '' : 
+                <Alert show={passedTime} variant="warning">
+                    <Alert.Heading className="mt-2">
+                    <BsClockHistory size={25} className="mr-3"/>
+                        Confirmation not available
+                    </Alert.Heading>
+                    <p>
+                    Confirmation time has passed, you have to wait unitl next Monday. 
+                    </p>
+                </Alert>
+            }
+            <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} passedTime={passedTime}/>
         </Container>
 
     );
@@ -18,13 +32,13 @@ function FarmerOrders(props){
 }
 
 function FarmerOrderTable(props){
-    const {products, quantities} = props;
+    const {products, quantities, passedTime} = props;
     const [confirmedProducts, setConfirmedProducts] = useState([]);
     const [tempOrders, setTempOrders] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [actualIndex, setActualIndex] = useState(0);
 
-    useEffect(() => {
+    useEffect(() => {
         setConfirmedProducts(quantities);
     }, [quantities]);
 
@@ -122,8 +136,8 @@ function FarmerOrderTable(props){
                             <td className="text-center"><strong >{p.estimated}</strong></td>
                             <td className="text-center"><strong >{p.amount}</strong></td>
                             <td className="text-center"><strong>
-                                <input id={`input-${index}`}type='number' name='quantity' disabled={p.updated ? true: false} value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
-                            <td className="text-center"><button id={`button-${index}`} disabled={p.updated ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button></td>
+                                <input id={`input-${index}`}type='number' name='quantity' disabled={(p.updated || passedTime) ? true: false} value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
+                            <td className="text-center"><button id={`button-${index}`} disabled={(p.updated || passedTime) ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button></td>
                         </tr>
                     ))
                 }
