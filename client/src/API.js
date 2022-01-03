@@ -676,8 +676,6 @@ async function sendTelegramMessage(chat_id, text){
         }
       )
     })
-    console.log(chat_id);
-    console.log(text);
     const inserted = await response.json();
 
     if (!response.ok) {

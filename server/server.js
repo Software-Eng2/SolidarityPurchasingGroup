@@ -764,12 +764,6 @@ app.put('/api/orders/update',
 
 // Switch on the bot 
 bot.on('message', async (msg) => {
-  let chatId = msg.chat.id;
-
-  //bot.sendMessage(chatId, 'ehi i prodotti sono pronti puoi listarli!').catch(e => console.log( e) );
-  console.log(msg.chat.id);
-  console.log(msg.chat.first_name);
-  console.log(msg.text)
   if(msg.text === '/start'){
     telegramDao.newTelegramUser(msg.chat.id,msg.chat.first_name)
   }
