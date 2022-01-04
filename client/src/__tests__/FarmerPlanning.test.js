@@ -10,6 +10,8 @@ import { screen, fireEvent, render } from "@testing-library/react";
 import { FaPlus } from "react-icons/fa";
 import { Button } from 'react-bootstrap';
 import { MdSecurityUpdate } from 'react-icons/md';
+import { BsFillPlusCircleFill, BsTrash, BsPencilSquare, BsFillInfoCircleFill } from "react-icons/bs";
+
 
 
 
@@ -126,5 +128,45 @@ it('includes  product', () => {
   expect(wrapper.props().productNW).toBe(productNW);
 
 });
+
+it('delete BsTrash', () => {
+  const  deleteTask= jest.fn();
+  render(
+    <BsTrash data-testid='BsTrash' className="pointer" fill="red" 
+    onClick={deleteTask}/>);
+
+  
+  
+    fireEvent.click(screen.getByTestId(/BsTrash/i));
+    expect(deleteTask).toHaveBeenCalledTimes(1);
+
+});
+
+it('update pencil', () => {
+  const  setModalShow= jest.fn();
+  
+
+  render(
+    <BsPencilSquare data-testid='BsPencilSquare'   className="pointer" 
+    onClick={ setModalShow}/>);
+  
+    fireEvent.click(screen.getByTestId(/BsPencilSquare/i));
+    expect(setModalShow).toHaveBeenCalledTimes(1);
+    
+
+});
+
+it('try', () => {
+  const  shallow= shallow(<FarmerPlanning />);
+  
+  component.instance().handleChange('someName')({target: { value }});
+  expect(component.state('someName')).toEqual(value);
+  
+
+    
+
+});
+
+
 
 

@@ -1,8 +1,8 @@
-import { Container, Table,    Row, Col, Form, Button} from "react-bootstrap";
+import { Container, Table, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill, BsTrash, BsPencilSquare, BsFillInfoCircleFill } from "react-icons/bs";
 import PlanningModal from "./PlanningModal";
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ConfirmModal from "./ConfirmModal";
 import API from "../API";
 
@@ -11,15 +11,15 @@ function FarmerPlanning(props) {
     const [modalShow, setModalShow] = useState(false);
     const [productNW, setProductNw] = useState([]);
     const [dirty, setDirty] = useState(false);
-    const [update,setUpdate] = useState(false);
-    const [id,setId]= useState(0);
-    const [disable,setDisable] = useState(false);
+    const [update, setUpdate] = useState(false);
+    const [id, setId] = useState(0);
+
 
 
     const deleteTask = (ID) => {
         const del = async () => {
-          await API.deleteProductNW(ID);
-          setDirty(true);
+            await API.deleteProductNW(ID);
+            setDirty(true);
 
         };
         del();
@@ -47,12 +47,12 @@ function FarmerPlanning(props) {
         <Container className="page below-nav table">
 
 
-            <FormTable farmerProducts={props.farmerProducts} userid={props.userid} productNW={productNW} products={props.products} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} setDisable={setDisable} disable={disable} />
+            <FormTable farmerProducts={props.farmerProducts} userid={props.userid} productNW={productNW} products={props.products} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} />
             <div className="fixed">
                 <BsFillPlusCircleFill data-testid="BsFillPlusCircleFill" className="pointer" size={40} color="#28a745" onClick={() => { setModalShow(true) }} />
                 <PlanningModal
                     show={modalShow}
-                    onHide={() => {setModalShow(false); setUpdate(false)}}
+                    onHide={() => { setModalShow(false); setUpdate(false) }}
                     products={props.products}
                     farmerProducts={props.farmerProducts}
                     userid={props.userid}
@@ -75,6 +75,7 @@ function FormTable(props) {
     const [view, setView] = useState("view"); //2 possible values: view for visualizing all clients, search for visualizing only search results
     const [search, setSearch] = useState(""); //value to search
     const [modal, setModal] = useState(false);
+    const [disable, setDisable] = useState(false);
 
 
     {/*const renderTooltip = (props) => (
@@ -83,6 +84,8 @@ function FormTable(props) {
             <h6 className="font-italic "> 2. If you do not save the products by the expiration date, they will be deleted and not listed for sale.</h6>
         </Tooltip>
     );*/}
+   
+
 
 
 
@@ -92,14 +95,14 @@ function FormTable(props) {
                 <Col xs={10} md={6}>
                     <h1 className="font-italic mt-3">Your Planning
 
-                    {/*<OverlayTrigger
+                        {/*<OverlayTrigger
                         placement="right"
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
                     >
                         <BsFillInfoCircleFill className="justify-content-start align-items-center ml-4" fill="green" style={{ height: "30px", width: "30px" }} />
                     </OverlayTrigger>*/}
-                     <BsFillInfoCircleFill className="justify-content-start align-items-center ml-4" fill="green" style={{ height: "30px", width: "30px" }}/>
+                        <BsFillInfoCircleFill className="justify-content-start align-items-center ml-4" fill="green" style={{ height: "30px", width: "30px" }} />
                     </h1>
                 </Col>
 
@@ -137,30 +140,30 @@ function FormTable(props) {
                 </thead>
                 <tbody>
                     {(view === "view") ?
-                        props.productNW.filter(p => p.id_user == props.userid)
+                        props.productNW.filter(p => p.farmer_id == props.userid)
                             .map(r => (
                                 <tr key={r.id} className="p-0" >
-                                    <td>{r.id_product} {props.farmerProducts.filter(f => f.name == r.id_product )
+                                    <td>{r.id} {props.farmerProducts.filter(f => f.name == r.name)
                                         .map(c =>
                                             <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
                                     <td>{r.price}</td>
-                                    <td><BsPencilSquare size={30} className="pointer" onClick={()=> {props.setModalShow(true); props.setUpdate(true); props.setId(r.id);}}/></td>
-                                    <td><BsTrash size={30} className="pointer" fill="red" onClick={() => { props.deleteTask(r.id); }}/></td>
+                                    <td><BsPencilSquare data-testid='pencil' size={30} className="pointer" onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }} /></td>
+                                    <td><BsTrash data-testid='trash' size={30} className="pointer" fill="red" onClick={() => { props.deleteTask(r.id); }} /></td>
                                 </tr>)
                             )
                         :
-                        props.productNW.filter(p => p.id_user == props.userid)
-                            .filter((t) => t.id_product.includes(search) )
+                        props.productNW.filter(p => p.farmer_id == props.userid)
+                            .filter((t) => t.name.includes(search))
                             .map(r => (
                                 <tr key={r.id} className="p-0" >
-                                    <td>{r.id_product} {props.farmerProducts.filter(f => f.name == r.id_product )
+                                    <td>{r.id} {props.farmerProducts.filter(f => f.name == r.name)
                                         .map(c =>
                                             <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
                                     <td>{r.price}</td>
-                                    <td><BsPencilSquare data-testid='BsPencilSquare'   className="pointer" onClick={()=> {props.setModalShow(true); props.setUpdate(true); props.setId(r.id);}}/></td>
-                                    <td><BsTrash data-testid='BsTrash' className="pointer" fill="red" onClick={() => { props.deleteTask(r.id); }}/></td>
+                                    <td><BsPencilSquare data-testid='BsPencilSquare' className="pointer" onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }} /></td>
+                                    <td><BsTrash data-testid='BsTrash' className="pointer" fill="red" onClick={() => { props.deleteTask(r.id); }} /></td>
                                 </tr>)
                             )
                     }
@@ -173,7 +176,7 @@ function FormTable(props) {
                     </Link>
                 </Col>
                 <Col xs={6} md={6} className="d-flex justify-content-end">
-                    <Button disabled={props.disable} data-testid='estimation' style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'black' }} className="mt-5" onClick={() => { setModal(true) }}>Provide your estimation</Button>
+                    <Button disabled={disable} data-testid='estimation' style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'black' }} className="mt-5" onClick={() => { setModal(true) }}>Provide your estimation</Button>
                     <ConfirmModal
                         show={modal}
                         onHide={() => setModal(false)}
@@ -181,8 +184,6 @@ function FormTable(props) {
                         products={props.products}
                         userid={props.userid}
                         setDirty={props.setDirty}
-                        disable={props.disable}
-                        setDisable={props.setDisable}
                         farmerProducts={props.farmerProducts}
 
                     />
@@ -198,4 +199,4 @@ function FormTable(props) {
 
 
 export default FarmerPlanning;
-export  {FormTable};
+export { FormTable };

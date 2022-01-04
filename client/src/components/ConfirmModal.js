@@ -14,23 +14,19 @@ function ConfirmModal(props) {
 
 
     const del = async () => {
-      await API.deleteAllUserProductNW(props.userid).then(props.onHide);
+      await API.deleteAllProductNW().then(props.onHide);
       props.setDirty(true);
     }
 
     const up = async () => {
-      props.productNW.map(r =>{
-        
-        API.changeProduct({ farmer_id: r.id_user, name: r.id_product, quantity: r.quantity });
+        let farmer_id = props.userid;
+        API.changeProductNWConfirm( farmer_id).then(props.onHide);
         props.setDirty(true);
-        
-       })
-      
     }
 
    
   up();
-  del();
+  //del();
     
   }
 
@@ -80,13 +76,13 @@ function CardRiepilogo(props) {
     <>
       {
         props.productNW.map(t =>
-          props.farmerProducts.filter(f => f.name == t.id_product )
+          props.farmerProducts.filter(f => f.name == t.name )
             .map(w =>
               <Col key={w.id} data-testid='col'className="d-flex justify-content-center">
                 <Card style={{ width: '20rem' }} className="mt-3">
                   <Card.Img className="center" variant="top" src={w.img_path} style={{ height: "80px", width: "80px" }} />
                   <Card.Body>
-                    <h5>Product: {t.id_product}</h5>
+                    <h5>Product: {t.name}</h5>
                     <h5>Quantity: {t.quantity}</h5>
                     <h5>Price: {t.price}</h5>
                   </Card.Body>

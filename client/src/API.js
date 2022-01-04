@@ -432,38 +432,47 @@ async function deleteClient(client_id){
   return response.ok;
 }
 
-async function getProductNW(id_user) {
+async function getProductNW(farmer_id) {
 
-  const response = await fetch(BASEURL + '/productsNW/' + id_user);
+  const response = await fetch(BASEURL + '/productsNW/' + farmer_id);
 
   const products = await response.json();
 
   if (response.ok) {
     return products.map((p) =>{return {
       id:p.id,
-      id_user: p.id_user,
       id_product: p.id_product,
       quantity: p.quantity,
-      price: p.price}}) ;
+      price: p.price,
+      name:p.name, 
+      description:p.description,
+      category:p.category,
+      farmer_id:p.farmer_id,
+      img_path:p.img_path,
+      confirmed_by_farmer:p.confirmed_by_farmer
+    }}) ;
   } else {
     return undefined;
   }
 }
 
 //insert Product for Next Week
-async function createProductNW(b) {
-  console.log(b)
-
+async function createProductNW(p) {
+  console.log(p);
   try {
     const response = await fetch(BASEURL + '/productNW', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
         {
-          id_user: b.id_user,
-          id_product: b.id_product,
-          quantity: b.quantity,
-          price: b.price
+      quantity: p.quantity,
+      price: p.price,
+      name:p.name, 
+      description:p.description,
+      category:p.category,
+      farmer_id: p.farmer_id,
+      img_path:p.img_path,
+      confirmed_by_farmer:p.confirmed_by_farmer
         }
       )
     })
@@ -493,8 +502,17 @@ async function changeProductNW(id, quantity){
 return response.ok;
 }
 
+async function changeProductNWConfirm(farmer_id){
+  const response = await fetch(BASEURL + '/productsNW/confirm', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        farmer_id: farmer_id    
+  })
+});
+return response.ok;
+}
 async function changeProduct(b){
-  console.log(b);
   const response = await fetch(BASEURL + '/product/quantity', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -523,21 +541,7 @@ function deleteProductNW(id) {
   });
 }
 
-function deleteAllUserProductNW(id_user) {
-  return new Promise((resolve, reject) => {
-      fetch(BASEURL + '/allproductsNW/' + id_user, {
-          method: 'DELETE',
-      }).then((response) => {
-          if (response.ok) {
-              resolve(null);
-          } else {
-              response.json()
-                  .then((obj) => { reject(obj); }) // error msg in the response body
-                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
-          }
-      }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
-  });
-}
+
 
 function deleteAllProductNW() {
   return new Promise((resolve, reject) => {
@@ -734,7 +738,7 @@ const API = {
   createProductNW,
   changeProductNW,
   deleteProductNW,
-  deleteAllUserProductNW,
+  changeProductNWConfirm,
   deleteAllProductNW,
   changeProduct,
   getClientPendingOrders,

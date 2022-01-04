@@ -550,9 +550,9 @@ app.delete('/api/clients/:id',
 );
 
 //get a product for next week from an id_user
-app.get('/api/productsNW/:id_user',
+app.get('/api/productsNW/:farmer_id',
   (req, res) => {
-    const id = req.params.id_user;
+    const id = req.params.farmer_id;
     dao.getProductsForNextWeek(id)
       .then((products) => { res.json(products)})
       .catch((err) => res.status(500).json({ error: "Error " + err }));
@@ -561,9 +561,13 @@ app.get('/api/productsNW/:id_user',
 //insert Product for Next Week
 app.post('/api/productNW',
   [
-    check('id_user').isInt(),
-    check('id_product').isString(),
     check('quantity').isNumeric(),
+    check('price').isNumeric(),
+    check('name').isString(),
+    check('description').isString(),
+    check('category').isString(),
+    check('farmer_id').isInt(),
+    check('confirmed_by_farmer').isInt(),
     
   ],
   (req, res) => {
@@ -573,10 +577,14 @@ app.post('/api/productNW',
       return res.status(422).json({ errors: errors.array() })
     }
     const product = {
-      id_user: req.body.id_user,
-      id_product: req.body.id_product,
       quantity: req.body.quantity,
-      price: req.body.price
+      price: req.body.price,
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      farmer_id: req.body.farmer_id,
+      img_path:req.body.img_path,
+      confirmed_by_farmer: req.body.confirmed_by_farmer
       
     }
     
@@ -599,6 +607,21 @@ app.post('/api/productNW',
       return res.status(422).json({errors:errors.array()})
     }
     dao.updateProductForNextWeek(req.body.id, req.body.quantity)
+    .then((id)=>res.status(201).json({id:id}))
+    .catch((err)=>{res.status(500).json({error: "Error" + err,})})
+  }
+);
+
+app.put('/api/productsNW/confirm',
+  [
+    check('farmer_id').isInt(),
+  ],
+  (req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return res.status(422).json({errors:errors.array()})
+    }
+    dao.updateProductForNextWeekConfirmed(req.body.farmer_id)
     .then((id)=>res.status(201).json({id:id}))
     .catch((err)=>{res.status(500).json({error: "Error" + err,})})
   }
@@ -634,18 +657,8 @@ app.put('/api/product/quantity',
     }
 });
 
-//delete all products for a user
-app.delete('/api/allProductsNW/:id_user',  async (req, res) => {
-  try {
-      const result = await dao.deleteUserProductForNextWeek(req.params.id_user);
-      if (result && result.errors)
-          res.status(404).json(result);
-      else
-          res.status(204).end();
-  } catch (err) {
-      res.status(503).json({ errors: `Database error during the deletion of the task.` });
-  }
-});
+
+
 
 //delete all products
 app.delete('/api/allProductsNW',  async (req, res) => {

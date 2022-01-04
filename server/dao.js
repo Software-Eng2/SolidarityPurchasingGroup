@@ -410,13 +410,13 @@ exports.deleteClient = (id) => {
 //get all product for next week
 exports.getProductsForNextWeek = (id) => {
   return new Promise((resolve, reject) => {
-      const sql = 'SELECT * FROM PRODUCTS_NEXT_WEEK WHERE id_user = ?';
+      const sql = 'SELECT * FROM PRODUCTS_NEXT_WEEK WHERE farmer_id = ?';
       db.all(sql, [id], (err, rows) => {
           if (err) {
               reject(err);
               return;
           }
-          const products = rows.map((p) => ({ id: p.id, id_user: p.id_user, id_product: p.id_product, quantity: p.quantity, price: p.price}));
+          const products = rows.map((p) => ({ id: p.id, quantity: p.quantity, price: p.price, name:p.name, description:p.description, category:p.category,farmer_id:p.farmer_id,img_path:p.img_path,confirmed_by_farmer:p.confirmed_by_farmer}));
           resolve(products);
       });
   })
@@ -425,15 +425,31 @@ exports.getProductsForNextWeek = (id) => {
 //add a new product for next week
 exports.createProductForNextWeek = (product) => {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO PRODUCTS_NEXT_WEEK (id_user, id_product, quantity, price) VALUES(?,?,?,?)';
+    const sql = 'INSERT INTO PRODUCTS_NEXT_WEEK (quantity, price, name, description,category,farmer_id,img_path,confirmed_by_farmer) VALUES(?,?,?,?,?,?,?,?)';
     
-    db.run(sql, [product.id_user, product.id_product, product.quantity, product.price], function (err) {
+    db.run(sql, [product.quantity, product.price, product.name, product.description, product.category, product.farmer_id,product.img_path, product.confirmed_by_farmer], function (err) {
       if (err) {
         reject(err);
         return;
       }
       resolve(true);
     });
+  });
+};
+
+//Update quantity for next week
+exports.updateProductForNextWeekConfirmed = (farmer_id) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE PRODUCTS_NEXT_WEEK SET confirmed_by_farmer = 1  WHERE farmer_id = ?';
+
+      db.run(sql, [ farmer_id], function (err) {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(this.lastID);
+      });
+
   });
 };
 
@@ -487,22 +503,7 @@ exports.deleteProductForNextWeek = (id) => {
   });
 }
 
-exports.deleteUserProductForNextWeek = (id_user) => {
-  return new Promise((resolve, reject) => {
-      const sql = 'DELETE FROM PRODUCTS_NEXT_WEEK WHERE id_user = ? ';
-      db.run(sql, [id_user], function (err) {
-          if (err) {
-              reject(err);
-              return;
-          } else {
-              if (this.changes === 0) {
-                  resolve({ errors: 'Product not found.' });
-              }
-              resolve(null);
-          }
-      });
-  });
-}
+
 
 exports.deleteAllProductForNextWeek = () => {
   return new Promise((resolve, reject) => {
@@ -628,7 +629,7 @@ exports.getWallets = () => {
 // get this week the products
 exports.getWeekProducts = () => {
   return new Promise((resolve, reject) => {
-      const sql = 'SELECT * FROM PRODUCTS_NEXT_WEEK';
+      const sql = 'SELECT * FROM PRODUCTS_NEXT_WEEK WHERE confirmed_by_farmer = 1 ';
       db.all(sql, [], (err, rows) => {
           if (err) {
               reject(err);

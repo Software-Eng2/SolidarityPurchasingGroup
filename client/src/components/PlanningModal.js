@@ -9,7 +9,7 @@ import API from '../API';
 function PlanningModal(props) {
     const { show, ...rest } = props;
 
-    const updateProductNW = ( quantity) => {
+    const updateProductNW = (quantity) => {
         const up = async () => {
             await API.changeProductNW(props.id, quantity);
             props.setDirty(true);
@@ -31,11 +31,11 @@ function PlanningModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    {props.update?"Update":"Add Product"}
+                    {props.update ? "Update" : "Add Product"}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <FormPlanning onHide={rest.onHide} products={rest.products} userid={rest.userid} id={props.id} update={props.update} updateProductNW={updateProductNW} productNW={props.productNW} farmerProducts={props.farmerProducts}  />
+                <FormPlanning onHide={rest.onHide} products={rest.products} userid={rest.userid} id={props.id} update={props.update} updateProductNW={updateProductNW} productNW={props.productNW} farmerProducts={props.farmerProducts} />
             </Modal.Body>
 
 
@@ -48,6 +48,9 @@ function FormPlanning(props) {
     const [product, setProduct] = useState('');
     const [quantity, setQuantity] = useState('');
     const [price, setPrice] = useState("");
+    const [category, setCategory] = useState("");
+    const [description, setDescription] = useState("");
+    const [path, setPath] = useState("");
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
@@ -58,14 +61,14 @@ function FormPlanning(props) {
         if (form.checkValidity() === false) {
             event.stopPropagation();
 
-        } else if(!props.update) {
-            console.log(props.userid);
-
-            const result = API.createProductNW(({ id_user: props.userid, id_product: product, quantity: quantity, price: price  })).then(props.onHide);
+        } else if (!props.update) {
 
 
-        }else {
-            props.updateProductNW( quantity);
+            const result = API.createProductNW(({ quantity: quantity, price: price, name: product, description: description, category: category, farmer_id: props.userid, img_path: path, confirmed_by_farmer: 0 })).then(props.onHide);
+
+
+        } else {
+            props.updateProductNW(quantity);
 
         }
 
@@ -78,33 +81,33 @@ function FormPlanning(props) {
         <>
             {props.update ?
 
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Row className="d-flex justify-content-center ">
-                    { props.productNW.filter(f=> f.id == props.id)
-                    .map(r=>
-                    <h3 key={r.id} className="mr-5">{r.id_product} </h3>
-                    )}
-                </Row>
-                <Row>
-                <Col className="d-flex justify-content-center">
-                    <Form.Group  as={Col} sm={5} className="mt-5" controlId="quantity" variant="outlined">
-                        <Form.Label>Quantity</Form.Label>
-                        <Form.Control
-                            data-testid='quantity'
-                            required
-                            type="text"
-                            placeholder="0.0"
-                            value={quantity}
-                            onChange={(event) => setQuantity(event.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please insert a quantity.
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                </Col >
-                </Row>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Row className="d-flex justify-content-center ">
+                        {props.productNW.filter(f => f.id == props.id)
+                            .map(r =>
+                                <h3 key={r.id} className="mr-5">{r.id_product} </h3>
+                            )}
+                    </Row>
+                    <Row>
+                        <Col className="d-flex justify-content-center">
+                            <Form.Group as={Col} sm={5} className="mt-5" controlId="quantity" variant="outlined">
+                                <Form.Label>Quantity</Form.Label>
+                                <Form.Control
+                                    data-testid='quantity'
+                                    required
+                                    type="text"
+                                    placeholder="0.0"
+                                    value={quantity}
+                                    onChange={(event) => setQuantity(event.target.value)}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please insert a quantity.
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                        </Col >
+                    </Row>
 
-                <Row className="pb-4 mb-4 ml-4 pl-4">
+                    <Row className="pb-4 mb-4 ml-4 pl-4">
                         <Col xs={5} sm={6} className="d-flex justify-content-start align-items-center">
                             <Button className="mt-5" style={{ backgroundColor: '#247D37', border: '0px', borderRadius: '4px' }} onClick={props.onHide}>Close</Button>
                         </Col>
@@ -129,12 +132,19 @@ function FormPlanning(props) {
                                 required
                                 as="select"
                                 value={product}
-                                onChange={(event) => {setProduct(event.target.value);setPrice(props.farmerProducts.filter(r => r.name == event.target.value)[0].price) }}
-                                >
+                                onChange={(event) => {
+                                    setProduct(event.target.value);
+                                    setPrice(props.farmerProducts.filter(r => r.name == event.target.value)[0].price);
+                                    setCategory(props.farmerProducts.filter(r => r.name == event.target.value)[0].category);
+                                    setDescription(props.farmerProducts.filter(r => r.name == event.target.value)[0].description);
+                                    setPath(props.farmerProducts.filter(r => r.name == event.target.value)[0].img_path)
+                                }}
+                            >
                                 <option></option>
                                 {props.farmerProducts.filter(f => f.confirmed == 1)
-                                .map((r) =>(
-                                    <option>{r.name}</option>))}
+                                    .map((r) => (
+                                      
+                                        <option>{r.name}</option>))}
 
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">
@@ -166,7 +176,7 @@ function FormPlanning(props) {
                                     disabled
                                     required
                                     type="text"
-                                    placeholder = {price}
+                                    placeholder={price}
                                     value={price}
 
 
@@ -205,4 +215,4 @@ function FormPlanning(props) {
 }
 
 export default PlanningModal;
-export {FormPlanning};
+export { FormPlanning };

@@ -51,6 +51,7 @@ function App() {
   useEffect(()=>{
     API.getWeekProducts().then((p) => {
       setProducts(p);
+      
     });
   },[]);
 
