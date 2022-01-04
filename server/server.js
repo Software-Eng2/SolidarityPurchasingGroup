@@ -760,6 +760,14 @@ app.put('/api/orders/update',
       );
   });
 
+  //get this week products
+app.get('/api/products/week',
+(req, res) => {
+  dao.getWeekProducts()
+    .then((products) => { res.json(products) })
+    .catch((err) => res.status(500).json({ error: "Error " + err }));
+});
+
   /****TELEGRAM *****/
 
 // Switch on the bot 

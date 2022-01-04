@@ -625,3 +625,17 @@ exports.getWallets = () => {
   })
 };
 
+// get this week the products
+exports.getWeekProducts = () => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM PRODUCTS_NEXT_WEEK';
+      db.all(sql, [], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          const products = rows.map((p) => ({ id: p.id, name: p.name,description: p.description, category: p.category, quantity: p.quantity, price: p.price, farmer_id: p.farmer_id, img_path: p.img_path, confirmed_by_farmer: p.confirmed_by_farmer }));
+          resolve(products);
+      });
+  })
+};

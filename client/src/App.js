@@ -49,7 +49,7 @@ function App() {
   },[initialized]);
 
   useEffect(()=>{
-    API.getAllProducts().then((p) => {
+    API.getWeekProducts().then((p) => {
       setProducts(p);
     });
   },[]);

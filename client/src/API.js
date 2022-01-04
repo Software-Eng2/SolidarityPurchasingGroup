@@ -690,6 +690,19 @@ async function sendTelegramMessage(chat_id, text){
 
 }
 
+async function getWeekProducts(){
+
+  const response = await fetch(BASEURL + '/products/week');
+
+  const products = await response.json();
+
+  if (response.ok) {
+      return products.map((p) => new Product(p.id, p.name, p.description, p.category, p.quantity, p.price, p.farmer_id, p.img_path, p.confirmed_by_farmer));
+  } else {
+      return undefined;
+  }
+}
+
 
 const API = {
   getNotifications,
@@ -734,7 +747,8 @@ const API = {
   getPendingOrCancellingOrders,
   getWallets,
   getAllTelegramUsers,
-  sendTelegramMessage
+  sendTelegramMessage,
+  getWeekProducts
 }
 
 export default API;
