@@ -55,8 +55,11 @@ function VirtualClock(props){
     function nextWeekdayDate(date, day_in_week) {
         var ret = new Date(date);
         ret.setDate(ret.getDate() + (day_in_week - 1 - ret.getDay() + 7) % 7 + 1);
-        // TODO: 20 November 2021
-        clock.reset(ret);
+        let data = ret.toString().split(" ")
+        let day = data[2]
+        let month = data[1]
+        let year = data[3]
+        clock.reset(day + " " + month + " " + year);
         resetFlag();
         return ret;
     }
@@ -102,6 +105,7 @@ function VirtualClock(props){
         if(!flagMonday9){
             clock.setAvailabilityConfirmedMilestone();
         }
+        console.log(flagSaturday)
         clock.setWalletOKMilestone();
         setFlagMonday20(true);
     }

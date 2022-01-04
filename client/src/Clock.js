@@ -146,7 +146,7 @@ import API from "./API";
             //console.log(this.tlgrmusrs);
             if(!this.stopped){
                 this.time.setSeconds(this.time.getSeconds() + 1);
-                //console.log(this.time.getDate() + ' ' + this.time.getMonth() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
+                console.log(this.time.getDate() + ' ' + this.time.getMonth() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
 
 
                 this.hours = this.time.getHours();
@@ -369,6 +369,11 @@ import API from "./API";
         if(newTime.getDay() != 2){
             return false;
         }
+
+        this.eventsObject.availability = false;
+        this.eventsObject.estimates = false;
+        this.eventsObject.ordersAccepted = false;
+        this.eventsObject.walletsOK = false;
 
         this.time = newTime;
 
