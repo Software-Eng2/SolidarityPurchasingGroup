@@ -13,20 +13,16 @@ function ConfirmModal(props) {
   
 
 
-    const del = async () => {
-      await API.deleteAllProductNW().then(props.onHide);
-      props.setDirty(true);
-    }
-
     const up = async () => {
         let farmer_id = props.userid;
         API.changeProductNWConfirm( farmer_id).then(props.onHide);
         props.setDirty(true);
+        props.setShowPopUp(true);
     }
 
    
   up();
-  //del();
+  
     
   }
 

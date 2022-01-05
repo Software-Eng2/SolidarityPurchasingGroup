@@ -9,6 +9,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { ImSad } from "react-icons/im";
 import ProductForm from './ProductForm';
 import { BsFillPlusCircleFill } from "react-icons/bs";
+import { Clock } from '../Clock';
 
 function FarmerInterface(props) {
     const { products, userid } = props;
@@ -19,6 +20,13 @@ function FarmerInterface(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentFarmer, setCurrentFarmer] = useState('');
     const [show, setShow] = useState(false);
+    
+
+    
+    console.log(props.clock.checkEstimatesMilestone())
+      
+
+
 
 
 
@@ -103,7 +111,7 @@ function FarmerInterface(props) {
                                 <Col xs={12} sm={12} md={6} >
                                     <Link to={{ pathname: '/farmerPlanning' }}>
                                         <div className="farmer-button">
-                                            <button disabled={products.length == 0 ? true : false}>
+                                            <button disabled={products.length == 0  ? true : false}>
                                                 <FaCalendarAlt /> Plan for next week
                                             </button>
                                         </div>

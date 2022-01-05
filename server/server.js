@@ -648,13 +648,26 @@ app.put('/api/product/quantity',
   app.delete('/api/productsNW/:id',  async (req, res) => {
     try {
         const result = await dao.deleteProductForNextWeek(req.params.id);
-        if (result && result.errors)
+        if (result  && result.errors)
             res.status(404).json(result);
         else
             res.status(204).end();
     } catch (err) {
         res.status(503).json({ errors: `Database error during the deletion of the task.` });
     }
+});
+
+app.delete('/api/productsNWNotConfirmed',  async (req, res) => {
+  try {
+      const result = await dao.deleteProductForNextWeekNotConfirmed();
+      console.log(result);
+      if (result != 'Product not found.' && result.errors)
+          res.status(404).json(result);
+      else
+          res.status(204).end();
+  } catch (err) {
+      res.status(503).json({ errors: `Database error during the deletion of the task.` });
+  }
 });
 
 
@@ -664,7 +677,7 @@ app.put('/api/product/quantity',
 app.delete('/api/allProductsNW',  async (req, res) => {
   try {
       const result = await dao.deleteAllProductForNextWeek();
-      if (result && result.errors)
+      if (result  && result.errors)
           res.status(404).json(result);
       else
           res.status(204).end();

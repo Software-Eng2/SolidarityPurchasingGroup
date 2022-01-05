@@ -541,11 +541,25 @@ function deleteProductNW(id) {
   });
 }
 
-
+function deleteAllProductNWNotConfirmed() {
+  return new Promise((resolve, reject) => {
+      fetch(BASEURL + '/productsNWNotConfirmed', {
+          method: 'DELETE',
+      }).then((response) => {
+          if (response.ok) {
+              resolve(null);
+          } else {
+              response.json()
+                  .then((obj) => { reject(obj); }) // error msg in the response body
+                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+          }
+      }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  });
+}
 
 function deleteAllProductNW() {
   return new Promise((resolve, reject) => {
-      fetch(BASEURL + '/productsNW', {
+      fetch(BASEURL + '/allProductsNW', {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
@@ -752,7 +766,8 @@ const API = {
   getWallets,
   getAllTelegramUsers,
   sendTelegramMessage,
-  getWeekProducts
+  getWeekProducts,
+  deleteAllProductNWNotConfirmed
 }
 
 export default API;

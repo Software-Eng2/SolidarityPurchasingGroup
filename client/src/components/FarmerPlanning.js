@@ -1,4 +1,4 @@
-import { Container, Table, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Table, Row, Col, Form, Button, Modal, Alert } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill, BsTrash, BsPencilSquare, BsFillInfoCircleFill } from "react-icons/bs";
 import PlanningModal from "./PlanningModal";
@@ -13,6 +13,8 @@ function FarmerPlanning(props) {
     const [dirty, setDirty] = useState(false);
     const [update, setUpdate] = useState(false);
     const [id, setId] = useState(0);
+    const [showPopUp, setShowPopUp] = useState(false);
+    const [disable, setDisable] = useState(false);
 
 
 
@@ -27,18 +29,71 @@ function FarmerPlanning(props) {
 
     useEffect(() => {
 
+
         const getProductNW = async () => {
 
-
-            const inProductNW = await API.getProductNW(props.userid);
-            setProductNw(inProductNW);
-            setDirty(false);
+            try {
+                const inProductNW = await API.getProductNW(props.userid);
+                setProductNw(inProductNW);
+                setDirty(false);
+                if (inProductNW.filter(p => p.farmer_id == props.userid && p.confirmed_by_farmer == 1).length > 0) {
+                    setDisable(true);
+                }
+            } catch (e) {
+                console.log(e);
+            }
         };
+
 
         getProductNW();
 
 
+
+
     }, [modalShow, dirty]);
+
+
+
+    useEffect(() => {
+        const controlUno = async () => {
+            if (props.clock.checkProductsAvailabilityMilestone()) {
+                
+                    try {
+                        await API.deleteAllProductNW();
+                    } catch (e) {
+                        console.log(e);
+                    }
+                
+            }
+        }
+
+        const controlDue = async () => {
+            if ((props.clock.time.getDay() == (0 || 1 || 2)) || props.clock.checkEstimatesMilestone() || (props.clock.time.getDay() == 3 && (props.clock.time.getHours() <= 9))) {
+                    try {
+                        await API.deleteAllProductNWNotConfirmed();
+
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    setDisable(true);
+            }
+
+        }
+
+        const controlTre = () => {
+            if((props.clock.time.getDay()==(4 || 5)) || (props.clock.time.getDay() == 3 && (props.clock.time.getHours() >= 9)) || (props.clock.time.getDay() == 6 && (props.clock.time.getHours() < 9))){
+                setDisable(false);
+            }
+
+        }
+        
+        controlDue();
+        controlUno();
+        controlTre();
+
+    }, []);
+
+    const closePopUp = () => { setShowPopUp(false); window.location.reload(); };
 
 
 
@@ -47,9 +102,9 @@ function FarmerPlanning(props) {
         <Container className="page below-nav table">
 
 
-            <FormTable farmerProducts={props.farmerProducts} userid={props.userid} productNW={productNW} products={props.products} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} />
+            <FormTable disable={disable} clock={props.clock} setShowPopUp={setShowPopUp} farmerProducts={props.farmerProducts} userid={props.userid} productNW={productNW} products={props.products} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} />
             <div className="fixed">
-                <BsFillPlusCircleFill data-testid="BsFillPlusCircleFill" className="pointer" size={40} color="#28a745" onClick={() => { setModalShow(true) }} />
+                <Button variant="light" disabled={disable} onClick={() => { setModalShow(true) }}><BsFillPlusCircleFill data-testid="BsFillPlusCircleFill" className={disable ? '' : 'pointer'} size={40} color="#28a745" /></Button>
                 <PlanningModal
                     show={modalShow}
                     onHide={() => { setModalShow(false); setUpdate(false) }}
@@ -64,6 +119,32 @@ function FarmerPlanning(props) {
 
                 />
             </div>
+            <Modal
+                centered
+                show={showPopUp}
+                onHide={closePopUp}
+                size='sm' {...props}
+            >
+                <Modal.Header closeButton />
+                <Modal.Body style={{ backgroundColor: "#fff3cd" }}>
+                    <Alert variant="success">
+                        <Alert.Heading className="mt-2">
+                            Success
+                        </Alert.Heading>
+                        <p>
+                            The products was inserted
+                        </p>
+                        <p>
+                            You can't add new products
+                        </p>
+                    </Alert>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37", position: "left" }} onClick={closePopUp}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
 
 
@@ -75,7 +156,7 @@ function FormTable(props) {
     const [view, setView] = useState("view"); //2 possible values: view for visualizing all clients, search for visualizing only search results
     const [search, setSearch] = useState(""); //value to search
     const [modal, setModal] = useState(false);
-    const [disable, setDisable] = useState(false);
+
 
 
     {/*const renderTooltip = (props) => (
@@ -84,7 +165,7 @@ function FormTable(props) {
             <h6 className="font-italic "> 2. If you do not save the products by the expiration date, they will be deleted and not listed for sale.</h6>
         </Tooltip>
     );*/}
-   
+
 
 
 
@@ -148,8 +229,8 @@ function FormTable(props) {
                                             <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
                                     <td>{r.price}</td>
-                                    <td><BsPencilSquare data-testid='pencil' size={30} className="pointer" onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }} /></td>
-                                    <td><BsTrash data-testid='trash' size={30} className="pointer" fill="red" onClick={() => { props.deleteTask(r.id); }} /></td>
+                                    <td><Button variant="light" disabled={props.disable} onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }}><BsPencilSquare data-testid='pencil' size={30} className={props.disable ? '' : 'pointer'} /></Button></td>
+                                    <td><Button variant="light" disabled={props.disable} onClick={() => { props.deleteTask(r.id); }}><BsTrash data-testid='trash' size={30} className={props.disable ? '' : 'pointer'} fill="red" /></Button></td>
                                 </tr>)
                             )
                         :
@@ -162,8 +243,8 @@ function FormTable(props) {
                                             <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
                                     <td>{r.price}</td>
-                                    <td><BsPencilSquare data-testid='BsPencilSquare' className="pointer" onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }} /></td>
-                                    <td><BsTrash data-testid='BsTrash' className="pointer" fill="red" onClick={() => { props.deleteTask(r.id); }} /></td>
+                                    <td><Button variant="light" disabled={props.disable} onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }}><BsPencilSquare data-testid='BsPencilSquare' className={props.disable ? '' : 'pointer'} /> </Button></td>
+                                    <td><Button variant="light" disabled={props.disable} onClick={() => { props.deleteTask(r.id); }}><BsTrash data-testid='BsTrash' className={props.disable ? '' : 'pointer'} fill="red" /> </Button></td>
                                 </tr>)
                             )
                     }
@@ -176,8 +257,9 @@ function FormTable(props) {
                     </Link>
                 </Col>
                 <Col xs={6} md={6} className="d-flex justify-content-end">
-                    <Button disabled={disable} data-testid='estimation' style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'black' }} className="mt-5" onClick={() => { setModal(true) }}>Provide your estimation</Button>
+                    <Button disabled={props.disable} data-testid='estimation' style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'black' }} className="mt-5" onClick={() => { setModal(true) }}>Provide your estimation</Button>
                     <ConfirmModal
+                        setShowPopUp={props.setShowPopUp}
                         show={modal}
                         onHide={() => setModal(false)}
                         productNW={props.productNW}

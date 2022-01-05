@@ -503,6 +503,22 @@ exports.deleteProductForNextWeek = (id) => {
   });
 }
 
+exports.deleteProductForNextWeekNotConfirmed = () => {
+  return new Promise((resolve, reject) => {
+      const sql = 'DELETE FROM PRODUCTS_NEXT_WEEK WHERE confirmed_by_farmer = 0 ';
+      db.run(sql, [], function (err) {
+          if (err) {
+              reject(err);
+              return;
+          } else {
+              if (this.changes === 0) {
+                  resolve({ errors: 'Product not found.' });
+              }
+              resolve(null);
+          }
+      });
+  });
+}
 
 
 exports.deleteAllProductForNextWeek = () => {
