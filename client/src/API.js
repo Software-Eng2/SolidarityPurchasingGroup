@@ -432,47 +432,38 @@ async function deleteClient(client_id){
   return response.ok;
 }
 
-async function getProductNW(farmer_id) {
+async function getProductNW(id_user) {
 
-  const response = await fetch(BASEURL + '/productsNW/' + farmer_id);
+  const response = await fetch(BASEURL + '/productsNW/' + id_user);
 
   const products = await response.json();
 
   if (response.ok) {
     return products.map((p) =>{return {
       id:p.id,
+      id_user: p.id_user,
       id_product: p.id_product,
       quantity: p.quantity,
-      price: p.price,
-      name:p.name, 
-      description:p.description,
-      category:p.category,
-      farmer_id:p.farmer_id,
-      img_path:p.img_path,
-      confirmed_by_farmer:p.confirmed_by_farmer
-    }}) ;
+      price: p.price}}) ;
   } else {
     return undefined;
   }
 }
 
 //insert Product for Next Week
-async function createProductNW(p) {
-  console.log(p);
+async function createProductNW(b) {
+  console.log(b)
+
   try {
     const response = await fetch(BASEURL + '/productNW', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
         {
-      quantity: p.quantity,
-      price: p.price,
-      name:p.name, 
-      description:p.description,
-      category:p.category,
-      farmer_id: p.farmer_id,
-      img_path:p.img_path,
-      confirmed_by_farmer:p.confirmed_by_farmer
+          id_user: b.id_user,
+          id_product: b.id_product,
+          quantity: b.quantity,
+          price: b.price
         }
       )
     })
@@ -502,17 +493,8 @@ async function changeProductNW(id, quantity){
 return response.ok;
 }
 
-async function changeProductNWConfirm(farmer_id){
-  const response = await fetch(BASEURL + '/productsNW/confirm', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        farmer_id: farmer_id    
-  })
-});
-return response.ok;
-}
 async function changeProduct(b){
+  console.log(b);
   const response = await fetch(BASEURL + '/product/quantity', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -541,9 +523,9 @@ function deleteProductNW(id) {
   });
 }
 
-function deleteAllProductNWNotConfirmed() {
+function deleteAllUserProductNW(id_user) {
   return new Promise((resolve, reject) => {
-      fetch(BASEURL + '/productsNWNotConfirmed', {
+      fetch(BASEURL + '/allproductsNW/' + id_user, {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
@@ -559,7 +541,7 @@ function deleteAllProductNWNotConfirmed() {
 
 function deleteAllProductNW() {
   return new Promise((resolve, reject) => {
-      fetch(BASEURL + '/allProductsNW', {
+      fetch(BASEURL + '/productsNW', {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
@@ -752,7 +734,7 @@ const API = {
   createProductNW,
   changeProductNW,
   deleteProductNW,
-  changeProductNWConfirm,
+  deleteAllUserProductNW,
   deleteAllProductNW,
   changeProduct,
   getClientPendingOrders,
@@ -766,8 +748,7 @@ const API = {
   getWallets,
   getAllTelegramUsers,
   sendTelegramMessage,
-  getWeekProducts,
-  deleteAllProductNWNotConfirmed
+  getWeekProducts
 }
 
 export default API;

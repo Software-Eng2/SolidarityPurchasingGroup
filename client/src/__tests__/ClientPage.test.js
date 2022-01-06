@@ -144,4 +144,20 @@ it('client page aaaaaq',async  () => {
 
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Accepted')).toHaveClass('tab-pane active');
 
+
+    //Click on 'Pending' tab
+    const button4 = screen.getByText('Pending');
+    fireEvent.click(button4);
+    expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Pending')).toHaveClass('tab-pane active');
+
+    fireEvent.click(component.container.querySelector("#selectButton"));
+
+    //Editing order
+    const edit = component.container.querySelector("#edit");
+    fireEvent.click(edit);
+    expect(await findByText(component.container, 'Confirm')).toBeVisible();
+
+    const confirm = screen.getByText('Confirm');
+    fireEvent.click(confirm);
+
 })

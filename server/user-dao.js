@@ -44,9 +44,6 @@ exports.getUserById = (id) => new Promise((resolve, reject) => {
     });
   });
 
-
-  //TODO: da vedere se serve// get role by id
-
 exports.getRoleById = (id) => new Promise((resolve, reject) => {
     const sql = 'SELECT role FROM USERS WHERE id = ?';
     db.get(sql, [id], (err, row) => {

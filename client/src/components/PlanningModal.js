@@ -64,7 +64,7 @@ function FormPlanning(props) {
         } else if (!props.update) {
 
 
-            const result = API.createProductNW(({ quantity: quantity, price: price, name: product, description: description, category: category, farmer_id: props.userid, img_path: path, confirmed_by_farmer: 0 })).then(props.onHide);
+             API.createProductNW(({ quantity: quantity, price: price, name: product, description: description, category: category, farmer_id: props.userid, img_path: path, confirmed_by_farmer: 0 })).then(props.onHide);
 
 
         } else {

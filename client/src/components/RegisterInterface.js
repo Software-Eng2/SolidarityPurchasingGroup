@@ -12,11 +12,6 @@ function RegisterInterface(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthday, setBirthday] = useState('');
-    /*const [address, setAddress] = useState('');
-    const [number, setNumber] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [postalCode, setPostalCode] = useState('');*/
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
