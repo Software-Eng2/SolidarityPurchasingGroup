@@ -19,8 +19,7 @@ function Market(props) {
     const [basket, setBasket] = useState([]); //total of products ordered by a client
     const [showBasket, setShowBasket] = useState(false);
     const [show, setShow] = useState(false); //show order confirmation modal
-      //state if the wallet is insufficient
-    const [alertWalletShow, setAlertWalletShow] = useState(false);
+    const [alertWalletShow, setAlertWalletShow] = useState(false); //state if the wallet is insufficient
     const [topUp, setTopUp] = useState(0); //how much to top up
 
     const handleBasket = () => {setCollapsed((s) => !s); setShowBasket((s) => !s)};
@@ -72,7 +71,7 @@ function Market(props) {
         <Row align='center' style={{marginTop: '5rem'}}> 
             <Col xs={12} sm={12} md={12} lg={12}> 
                 <h3 style={{fontSize: "2.5rem", margin: "4", padding: "0", color: "#247D37"}}> 
-                    We're sorry, the orders starts at 9:00am on Saturday. Check our telegram bot to stay up to date!
+                    We're sorry, the orders start at 9:00 am on Saturday. Stay up to date by joining  our  <a href={'https://t.me/spg05_bot'}>telegram bot!</a>
                 </h3>
             </Col>
         </Row>
@@ -105,7 +104,7 @@ function Market(props) {
                         <SideBar 
                         collapsed={collapsed}
                         width="13rem"
-                        style={{minHeight: "100vh"}}
+                        style={{minHeight: "95vh"}}
                         searchCategory={(cat) => searchCategory(cat)}
                         handleBasket={handleBasket}
                         userRole={userRole}

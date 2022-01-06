@@ -9,6 +9,7 @@ import {
 } from 'react-pro-sidebar';
 import { FaAppleAlt, FaCarrot, FaSeedling, FaFish, FaProductHunt ,FaShoppingCart } from 'react-icons/fa';
 import {GiMilkCarton, GiSheep} from 'react-icons/gi';
+import { Link } from 'react-router-dom';
 
 
 const SideBar = (props) => {
@@ -83,32 +84,20 @@ const SideBar = (props) => {
                         <MenuItem value="Meat" onClick={() => { searchCategory("Meat") }} icon={<GiSheep />}>Meat</MenuItem>
                         <MenuItem value="Plants" onClick={() => { searchCategory("Plants") }} icon={<FaSeedling/>}>Plants</MenuItem>
                         <MenuItem value="Fish" onClick={() => { searchCategory("Fish") }} icon={<FaFish/>}>Fish</MenuItem>
-                        {/* <SubMenu title="Farmers" icon={<FaHeart />}>
-                        <MenuItem>Farmer 1</MenuItem>
-                        <MenuItem>Farmer 2</MenuItem>
-                        <MenuItem>Farmer 3</MenuItem>
-                        <MenuItem>Farmer 4</MenuItem>
-                        <MenuItem>Farmer 5</MenuItem>
-                        </SubMenu> */}
                     </Menu>
                 </SidebarContent>
-                {userRole === "client" || userRole === "farmer" ? <SidebarFooter style={{ textAlign: 'center' }}>
+                {userRole === "client" || userRole === "farmer" || userRole === "" ? <SidebarFooter style={{ textAlign: 'center' }}>
                     <div
                     className="sidebar-btn-wrapper"
                     style={{
                         padding: '20px 24px',
                     }}
                     >
-                     <a
-                        href="/"
-                        className="sidebar-btn"
-                        rel="noopener noreferrer"
-                    >
-                    
+                    <Link to={{ pathname: '/' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                          <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                         Go back to Home
                         </span>
-                    </a>
+                    </Link>
                     </div>
                 </SidebarFooter> : <SidebarFooter style={{ textAlign: 'center' }}>
                     <div
@@ -117,16 +106,11 @@ const SideBar = (props) => {
                         padding: '20px 24px',
                     }}
                     >
-                     <a
-                        href="/clientlist"
-                        className="sidebar-btn"
-                        rel="noopener noreferrer"
-                    >
-                    
+                    <Link to={{ pathname: '/clientlist' }} className="font-weight-light" style={{ color: "white", textDecoration: "none" }}>
                          <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                         Go back to clients
                         </span>
-                    </a>
+                    </Link>
                     </div>
                 </SidebarFooter>}
             </ProSidebar>
