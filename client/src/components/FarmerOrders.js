@@ -58,7 +58,7 @@ function FarmerOrderTable(props){
             }
          fetchOrdersByFarmer();
     },[quantities]);
-    //TODO MODIFICARE TOTAL NELLA TABELLA ORDERS
+    
      const updateConfirmation = async (index) => {
        let confirmed = confirmedProducts[index].quantity;
        console.log('temp', tempOrders);
@@ -67,12 +67,9 @@ function FarmerOrderTable(props){
             if(confirmed - tempOrders[index][i].quantity >=0){
                     confirmed -= tempOrders[index][i].quantity;
                     await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, tempOrders[index][i].quantity, 1);
-                    console.log("caso 1 ora confirmed diventa: "+confirmed);
-                    console.log("Now we have to set to canelling depending on quantity");
                     
             } else{
                     let difference = (tempOrders[index][i].quantity - confirmed)*products[index].price;
-                    console.log("la diffenza in total è"+difference);
                     await  API.updateQuantityBasket(tempOrders[index][i].id,confirmedProducts[index].id, confirmed, 1).then(API.updateTotalInOrders(tempOrders[index][i].id, difference));
                     confirmed = 0;
             }

@@ -1,8 +1,7 @@
 import {Modal, Row, Col, Button} from 'react-bootstrap';
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function AlertCancellingOrders(props) {
-  let history = useHistory();
 
   const handleClose = () => {
       props.setNotificationFlag(1);
