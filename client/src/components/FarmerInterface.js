@@ -20,15 +20,6 @@ function FarmerInterface(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentFarmer, setCurrentFarmer] = useState('');
     const [show, setShow] = useState(false);
-    
-
-    
-    console.log(props.clock.checkEstimatesMilestone())
-      
-
-
-
-
 
     useEffect(() => {
         if (userid) {

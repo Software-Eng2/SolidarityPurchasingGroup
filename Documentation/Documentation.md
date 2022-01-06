@@ -12,7 +12,11 @@
 - Route `/farmerPlanning`: this page shows the list of products available for the next week and allows the farmer to add, delete or modify some products.
 - Route `/farmerOrders`: this page shows the list of products ordered of the logged Farmer and allow they to modify and confirm the quantity of that product.
 - Route `/clientOrders`: 
+- Route `/client`: this page shows the list of orders of the logged client. They are divided by state and the client can modify a "pending" order.
+- Route `/warehouseEmployee`: this page allows the warehouse employee to confirm the preparation of the bags of confirmed order.
 - Route `/clock`: allow the professor to use the virtual clock
+
+//TODO WAREHOUSE MANAGER
 
 ## API Server
 
@@ -544,6 +548,27 @@
     - response body content: None
     - Response: 201 OK (success)
     - Error responses: generic error
+- GET `/api/telegramUsers`
+    - Description: get all users that pressed /start in the telegram bot.
+    - response body content: list of telegram users. 
+      `[
+          {
+            "id": 11111111,
+            "first_name": Cristian
+          },
+          {
+            "id": 22222222,
+            "first_name": Andrea
+          }
+        ]`
+- POST `/api/telegramMsg`
+    - Description: Send at 9:00 am on Friday a message that informs the user that they can see all avaiable products.
+    - request body content: description of message
+      `{chat_id: 11111111,
+       text: "Hi Cristian! We are happy to announce that our market is ready to get orders. Please check our products at http://localhost:3000/products 😍"
+      }`
+    - Response: 201 OK (success)
+    - Error responses: 500 generic error
     
 ## Database Tables
 
@@ -626,6 +651,10 @@
       FOREIGN KEY("delivery_person_id") REFERENCES "USERS"("id")
       FOREIGN KEY("order_id") REFERENCES "ORDERS"("id")
       PRIMARY KEY("id")
+- Table `TELEGRAM_USERS_BOT`(contains the data about the telegram bot users):
+    * "id" INTEGER NOT NULL
+    * "first_name" Text NOT NULL
+      PRIMARY KEY("id")
 
 
 ## Main React Components
@@ -645,6 +674,7 @@
   * the component `ProductForm` (in `ProductForm.js`) to allow the farmer to insert a new product
 - `RegisterInterface` (in `RegisterInterface.js`):component that allow a user to log in.
 - `NavBar` (in `NavBar.js`):component that represents the navbar of the application. It shows the name of the application some buttons that allow each user to sign in and login to the system and see the products.
+- `VirtualClock` (in `VirtualClock.js`): component that simulate the clock in the app.
 
 ## Credentials
 #### farmer:
