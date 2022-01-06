@@ -1,6 +1,6 @@
-import { Modal, Container, Row, Col, Button, Form, Alert} from 'react-bootstrap';
-import {arrowLeftIcon,iconConfirm, iconDanger} from "../Icons";
-import { useState, useEffect} from 'react';
+import { Modal, Row, Col, Button} from 'react-bootstrap';
+import {iconDanger} from "../Icons";
+import { useState} from 'react';
 import {MdDoneOutline} from "react-icons/md";
 import API from '../../API';
 
@@ -26,7 +26,6 @@ function DeleteModal(props) {
                 })
         })
       setDone(true);
-      /* setDirty(true); */
       setTimeout(() => {
         // After 3 seconds set the done false 
         setModalShow(false); 
@@ -36,14 +35,6 @@ function DeleteModal(props) {
       }, 3000)
     }).catch((err) => console.log(err));
   };
-
-/*   useEffect(() => {
-    if(order){
-      API.getBasket(order.id).then((products) => {
-        setBasket(products);
-      })
-    }
-}, [order]); */
 
     return (
       <Modal {...props} backdrop="static" keyboard={false}  centered data-testid="order-modal" >

@@ -4,12 +4,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import SideBar from './SideBar';
 import FarmerProduct from './FarmerProduct';
 import API from '../API';
-import { FaCalendarAlt, FaCheck} from "react-icons/fa";
+import { FaCalendarAlt} from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { ImSad } from "react-icons/im";
 import ProductForm from './ProductForm';
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import { Clock } from '../Clock';
 
 function FarmerInterface(props) {
     const { products, userid } = props;

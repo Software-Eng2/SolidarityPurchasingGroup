@@ -1,7 +1,6 @@
 import { Col, Navbar, Nav} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { shopIcon } from './Icons'
-import { virtualClock } from './Icons';
+import { shopIcon, virtualClock } from './Icons'
 
 function NavBar(props) {
 

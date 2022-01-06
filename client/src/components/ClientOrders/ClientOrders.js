@@ -282,8 +282,8 @@ function SelectedOrder(props){
                 </Col>
                 <Col className="text-center">
                     <Button variant="outline-success"
-                      disabled={((delivery==='')||(address==='')||(city==='')||(zip==='')||(date==='')||(time==='')||(time<"09:00")||(time>"21:00"))? true : false}
-                      onClick={updateOrder} /* TODO: onclick API modifica ordine */
+                      disabled={((delivery==='')||(address==='')||(city==='')||(zip.toString()==='')||(date==='')||(time==='')||(time<"09:00")||(time>"21:00"))? true : false}
+                      onClick={updateOrder}
                     >
                         {iconConfirm} Confirm
                     </Button>
