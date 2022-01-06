@@ -2,7 +2,7 @@ import React, {
     useState as useStateMock
  } from 'react';
 import "@testing-library/jest-dom/extend-expect";
-import { shallow, configure } from 'enzyme';
+import { shallow, configure, mount} from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Adapter from 'enzyme-adapter-react-16';
 import { screen, fireEvent, render } from "@testing-library/react";
@@ -41,6 +41,10 @@ it("renders FarmerOrders components without crashing", () => {
   expect(wrapper.find('Container').exists()).toBeTruthy();
   expect(wrapper.find('FarmerOrderTable').exists()).toBeTruthy();
   expect(wrapper.find('Container').exists()).toBeTruthy();
+  expect(wrapper.find('Alert').exists()).toBeTruthy();
+  expect(wrapper.find('BsClockHistory').exists()).toBeTruthy();
+  expect(wrapper.find('p').exists()).toBeTruthy();
+
 });
 
 it("renders farmer orde table", () => {
@@ -118,18 +122,113 @@ it("calls the function onHide  when clicking close on modal", () => {
     fireEvent.click(screen.getByText(/Close/i));
     expect(onHide).toHaveBeenCalledTimes(1);
 });
+describe("confirm orders button", () => {
+  it("calls the confirm orders button when not disabled", () => {
+    const handleConfirmAlert = jest.fn();
+    // data-testid
+      render( <button id={`button-1`} 
+      data-testid="confirm_button"
+      disabled={(0 || 0) ? true: false} 
+      className="dropdown dropdown-btn" 
+      onClick={handleConfirmAlert}>Confirm orders</button> 
+  
+      );
+      fireEvent.click(screen.getByTestId('confirm_button'));
+      expect(handleConfirmAlert).toHaveBeenCalledTimes(1);
+  });
 
-// test('Farmer confirms quantity', () => {
-//     const history = createMemoryHistory();
-//     history.push = jest.fn();
-//     API.logIn("andreabruno@gmail.com","andreabruno");
-//     render(
-//       <MemoryRouter history={history}>
-//        <FarmerOrders userid={4} orderedProducts={fakeProducts} clock={clock}/>
-//       </MemoryRouter>
-//     );
-//     act(() => {
-//         fireEvent.click(screen.getByText('Confirm orders'));
-//       });
-//     expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
-// });
+  it("calls the confirm orders button when disabled", () => {
+    const handleConfirmAlert = jest.fn();
+    // data-testid
+      render( <button id={`button-1`} 
+      data-testid="confirm_button"
+      disabled={(0 || 1) ? true: false} 
+      className="dropdown dropdown-btn" 
+      onClick={handleConfirmAlert}>Confirm orders</button> 
+  
+      );
+      fireEvent.click(screen.getByTestId('confirm_button'));
+      expect(handleConfirmAlert).toHaveBeenCalledTimes(0);
+  });
+
+  it("calls the confirm orders button when disabled 2", () => {
+    const handleConfirmAlert = jest.fn();
+    // data-testid
+      render( <button id={`button-1`} 
+      data-testid="confirm_button"
+      disabled={(1 || 0) ? true: false} 
+      className="dropdown dropdown-btn" 
+      onClick={handleConfirmAlert}>Confirm orders</button> 
+  
+      );
+      fireEvent.click(screen.getByTestId('confirm_button'));
+      expect(handleConfirmAlert).toHaveBeenCalledTimes(0);
+  });
+
+  it("calls the confirm orders button when disabled 3", () => {
+    const handleConfirmAlert = jest.fn();
+    // data-testid
+      render( <button id={`button-1`} 
+      data-testid="confirm_button"
+      disabled={(1 || 1) ? true: false} 
+      className="dropdown dropdown-btn" 
+      onClick={handleConfirmAlert}>Confirm orders</button> 
+  
+      );
+      fireEvent.click(screen.getByTestId('confirm_button'));
+      expect(handleConfirmAlert).toHaveBeenCalledTimes(0);
+  });
+})
+
+
+it("calls the fetchordersbyfarmer function", () => {
+  const props = {
+    fetchOrdersByFarmer: jest.fn(),
+    products: ({id: 0 , name: 'test', price: 100 , estimated: 10, amount: 10, updated: 0},
+    {id: 1 , name: 'test1', price: 100 , estimated: 10, amount: 10, updated: 0}),
+    quantities: ({id: 0, quantity: 10}, {id:1, quantity:10})
+  }
+
+  const control = shallow(<FarmerOrderTable {...props} />);
+
+  expect(props.fetchOrdersByFarmer).toHaveBeenCalledTimes(1);
+  control.find('button').simulate("click");
+  expect(props.fetchOrdersByFarmer).toHaveBeenCalledTimes(2);
+});
+
+test('Farmer confirms quantity', () => {
+    const history = createMemoryHistory();
+    history.push = jest.fn();
+    API.logIn("andreabruno@gmail.com","andreabruno");
+    render(
+      <MemoryRouter history={history}>
+       <FarmerOrders userid={4} orderedProducts={fakeProducts} clock={clock}/>
+      </MemoryRouter>
+    );
+    act(() => {
+        fireEvent.click(screen.getByText('Confirm orders'));
+      });
+    act(() => {
+        fireEvent.click(screen.getByText('Confirm'));
+      });
+    expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
+});
+
+test('Farmer cancels confirm', () => {
+  const history = createMemoryHistory();
+  history.push = jest.fn();
+  API.logIn("andreabruno@gmail.com","andreabruno");
+  render(
+    <MemoryRouter history={history}>
+     <FarmerOrders userid={4} orderedProducts={fakeProducts} clock={clock}/>
+    </MemoryRouter>
+  );
+  act(() => {
+      fireEvent.click(screen.getByText('Confirm orders'));
+    });
+  act(() => {
+      fireEvent.click(screen.getByText('Close'));
+    });
+  expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
+});
+

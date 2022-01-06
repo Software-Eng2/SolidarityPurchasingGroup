@@ -1,372 +1,466 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Client_Products_Order_objects.test.js">
-    <testCase name="c- addClient" duration="3"/>
-    <testCase name="c- getCLients" duration="0"/>
-    <testCase name="c- getClientFromId" duration="1"/>
-    <testCase name="c-getClients" duration="57"/>
-    <testCase name="c-addClient" duration="2"/>
-    <testCase name="c-getFromId" duration="1"/>
-    <testCase name="c-Client.updateWallet" duration="116"/>
-    <testCase name="p-getProducts" duration="1"/>
-    <testCase name="p-addProduct" duration="1"/>
-    <testCase name="p-getProductsFromCategory" duration="0"/>
-    <testCase name="p-updateConfirmed" duration="0"/>
-    <testCase name="p-getProducts" duration="17">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/FarmerPlanning.test.js">
+    <testCase name="Render Render Page" duration="13" />
+    <testCase name="Render Check components" duration="14" />
+    <testCase name="Render Check  FormTable" duration="21" />
+    <testCase name="changeInput Button back" duration="60" />
+    <testCase name="includes  product" duration="12" />
+    <testCase name="delete BsTrash" duration="20" />
+    <testCase name="update pencil" duration="7" />
+    <testCase name="try" duration="1">
+      <failure message="ReferenceError: shallow is not defined">
+        <![CDATA[ReferenceError: shallow is not defined
+    at Object.<anonymous>.it (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/FarmerPlanning.test.js:160:19)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+  </file>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js">
+    <testCase name="renders market without crashing" duration="9">
+      <failure message="TypeError: Cannot read property &apos;checkEstimatesMilestone&apos; of undefined">
+        <![CDATA[TypeError: Cannot read property 'checkEstimatesMilestone' of undefined
+    at Market (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/views/Market.js:70:17)
+    at ReactShallowRenderer.render (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:829:32)
+    at renderElement (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:643:26)
+    at fn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:707:46)
+    at withSetStateAllowed (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-utils/src/Utils.js:100:18)
+    at Object.render (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:707:20)
+    at new ShallowWrapper (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme/src/ShallowWrapper.js:411:22)
+    at shallow (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme/src/shallow.js:10:10)
+    at Object.<anonymous>.it (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js:49:5)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="renders market components without crashing" duration="1">
+      <failure message="TypeError: Cannot read property &apos;checkEstimatesMilestone&apos; of undefined">
+        <![CDATA[TypeError: Cannot read property 'checkEstimatesMilestone' of undefined
+    at Market (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/views/Market.js:70:17)
+    at ReactShallowRenderer.render (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:829:32)
+    at renderElement (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:643:26)
+    at fn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:707:46)
+    at withSetStateAllowed (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-utils/src/Utils.js:100:18)
+    at Object.render (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:707:20)
+    at new ShallowWrapper (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme/src/ShallowWrapper.js:411:22)
+    at shallow (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme/src/shallow.js:10:10)
+    at Object.<anonymous>.it (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js:53:27)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="accepts products and client props" duration="0">
+      <failure message="TypeError: Cannot read property &apos;checkEstimatesMilestone&apos; of undefined">
+        <![CDATA[TypeError: Cannot read property 'checkEstimatesMilestone' of undefined
+    at Market (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/views/Market.js:70:17)
+    at ReactShallowRenderer.render (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:829:32)
+    at renderElement (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:643:26)
+    at fn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:707:46)
+    at withSetStateAllowed (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-utils/src/Utils.js:100:18)
+    at Object.render (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:707:20)
+    at new ShallowWrapper (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme/src/ShallowWrapper.js:411:22)
+    at shallow (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme/src/shallow.js:10:10)
+    at Object.<anonymous>.it (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Market.test.js:65:27)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+  </file>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js">
+    <testCase name="clock-object-initialization" duration="6">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+Expected: true
+Received: false
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js:14:50)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="clock-object-initialization" duration="1">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+Expected: true
+Received: false
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js:25:50)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="clock-object-initialization" duration="1">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+Expected: true
+Received: false
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js:36:50)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="clock-object-initialization" duration="0">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+Expected: true
+Received: false
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js:46:50)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="clock-object-initialization" duration="1">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+Expected: true
+Received: false
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js:58:50)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="clock-object-initialization" duration="2" />
+    <testCase name="clock- set an event" duration="3" />
+    <testCase name="clock- set an event" duration="1" />
+    <testCase name="clock- set an event" duration="2" />
+    <testCase name="clock- set an event" duration="1" />
+    <testCase name="clock- set an event" duration="0" />
+    <testCase name="clock- set an event" duration="2" />
+    <testCase name="clock- set an event" duration="1" />
+    <testCase name="clock- set an event" duration="0" />
+    <testCase name="clock- set an event" duration="0" />
+    <testCase name="clock- set an event" duration="1">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+Expected: true
+Received: false
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Clock.test.js:167:55)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="clock- set an event" duration="1" />
+    <testCase name="clock- set an event" duration="1" />
+    <testCase name="clock- set an event" duration="0" />
+    <testCase name="clock-reset" duration="12" />
+    <testCase name="clock-reset" duration="1" />
+    <testCase name="clock-reset" duration="0" />
+  </file>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Client_Products_Order_objects.test.js">
+    <testCase name="c- addClient" duration="3" />
+    <testCase name="c- getCLients" duration="2" />
+    <testCase name="c- getClientFromId" duration="1" />
+    <testCase name="c-getClients" duration="59" />
+    <testCase name="c-addClient" duration="4" />
+    <testCase name="c-getFromId" duration="1" />
+    <testCase name="c-Client.updateWallet" duration="100" />
+    <testCase name="p-getProducts" duration="1" />
+    <testCase name="p-addProduct" duration="1" />
+    <testCase name="p-getProductsFromCategory" duration="0" />
+    <testCase name="p-updateConfirmed" duration="1" />
+    <testCase name="p-getProducts" duration="10">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
 
 Expected: 22
 Received: 24
-    at C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Client_Products_Order_objects.test.js:88:93
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)]]></failure>
+    at productObject.initialize.then (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Client_Products_Order_objects.test.js:88:93)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
     </testCase>
-    <testCase name="p-addProduct" duration="21">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
+    <testCase name="p-addProduct" duration="10">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
 
 Expected: 23
 Received: 25
-    at C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Client_Products_Order_objects.test.js:94:48
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)]]></failure>
+    at productObject.addProduct.then (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Client_Products_Order_objects.test.js:94:48)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
     </testCase>
     <testCase name="p-getProductsFromCategory" duration="1">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
+      <failure message="Error: expect(received).toEqual(expected) // deep equality">
+        <![CDATA[Error: expect(received).toEqual(expected) // deep equality
 
 Expected: 6
 Received: 7
-    at Object.<anonymous> (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Client_Products_Order_objects.test.js:98:75)
-    at Promise.then.completed (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Client_Products_Order_objects.test.js:98:75)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)]]></failure>
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
     </testCase>
-    <testCase name="p-updateConfirmed" duration="77"/>
-    <testCase name="" duration="2"/>
-    <testCase name="o-getAllOrders" duration="8"/>
-    <testCase name="o-createOrder" duration="28"/>
-    <testCase name="o-changeStatusTrue" duration="31"/>
-    <testCase name="o-getDeliverOrders" duration="0"/>
-    <testCase name="o-getPickUpOrders" duration="0"/>
-    <testCase name="o-getClientOrders" duration="1"/>
-    <testCase name="o-changeDateTimeTrue" duration="5"/>
-    <testCase name="f-getOrderedProducts" duration="0"/>
+    <testCase name="p-updateConfirmed" duration="153" />
+    <testCase name="" duration="2" />
+    <testCase name="o-getAllOrders" duration="14" />
+    <testCase name="o-createOrder" duration="8" />
+    <testCase name="o-changeStatusTrue" duration="69" />
+    <testCase name="o-getDeliverOrders" duration="0" />
+    <testCase name="o-getPickUpOrders" duration="1" />
+    <testCase name="o-getClientOrders" duration="0" />
+    <testCase name="o-changeDateTimeTrue" duration="8" />
+    <testCase name="f-getOrderedProducts" duration="1" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Clock.test.js">
-    <testCase name="clock-object-initialization" duration="6">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/API.test.js">
+    <testCase name="" duration="64" />
+    <testCase name="" duration="32" />
+    <testCase name="" duration="5" />
+    <testCase name="" duration="64">
+      <failure message="TypeError: Cannot read property &apos;id_user&apos; of undefined">
+        <![CDATA[TypeError: Cannot read property 'id_user' of undefined
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/API.test.js:138:26)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+  </file>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/FarmerOrders.test.js">
+    <testCase name="renders farmer orders" duration="280" />
+    <testCase name="renders FarmerOrders components without crashing" duration="29" />
+    <testCase name="renders farmer orde table" duration="7" />
+    <testCase name="renders FarmerOrdersTable components without crashing" duration="33" />
+    <testCase name="accepts props - FarmerOrders" duration="6" />
+    <testCase name="accepts props - FarmerOrderTable" duration="10" />
+    <testCase name="calls the function handle confirm alert when clicking confirm" duration="134" />
+    <testCase name="calls the function update confirmation when clicking confirm" duration="21" />
+    <testCase name="calls the function onHide  when clicking close on modal" duration="9" />
+    <testCase name="confirm orders button calls the confirm orders button when not disabled" duration="21" />
+    <testCase name="confirm orders button calls the confirm orders button when disabled" duration="15" />
+    <testCase name="confirm orders button calls the confirm orders button when disabled 2" duration="7" />
+    <testCase name="confirm orders button calls the confirm orders button when disabled 3" duration="7" />
+    <testCase name="calls the fetchordersbyfarmer function" duration="4">
+      <failure message="TypeError: products.map is not a function">
+        <![CDATA[TypeError: products.map is not a function
+    at FarmerOrderTable (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/components/FarmerOrders.js:129:30)
+    at ReactShallowRenderer.render (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:829:32)
+    at renderElement (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:643:26)
+    at fn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:707:46)
+    at withSetStateAllowed (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-utils/src/Utils.js:100:18)
+    at Object.render (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:707:20)
+    at new ShallowWrapper (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme/src/ShallowWrapper.js:411:22)
+    at shallow (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/enzyme/src/shallow.js:10:10)
+    at Object.<anonymous>.it (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/FarmerOrders.test.js:192:19)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
+    </testCase>
+    <testCase name="Farmer confirms quantity" duration="288">
+      <failure message="Error: expect(element).toHaveAttribute(&quot;disabled&quot;) // element.hasAttribute(&quot;disabled&quot;)">
+        <![CDATA[Error: expect(element).toHaveAttribute("disabled") // element.hasAttribute("disabled")
 
-Expected: true
-Received: false
-    at Object.<anonymous> (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Clock.test.js:14:50)
-    at Promise.then.completed (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
+Expected the element to have attribute:
+  disabled
+Received:
+  null
+    at Object.<anonymous>.test (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/FarmerOrders.test.js:214:48)
+    at Promise (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:276:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
-    at Object.worker (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at callAsyncCircusFn (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/node_modules/jest-circus/build/run.js:212:40)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]>
+      </failure>
     </testCase>
-    <testCase name="clock-object-initialization" duration="1">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
-
-Expected: true
-Received: false
-    at Object.<anonymous> (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Clock.test.js:25:50)
-    at Promise.then.completed (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
-    at Object.worker (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="clock-object-initialization" duration="1">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
-
-Expected: true
-Received: false
-    at Object.<anonymous> (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Clock.test.js:36:50)
-    at Promise.then.completed (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
-    at Object.worker (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="clock-object-initialization" duration="1">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
-
-Expected: true
-Received: false
-    at Object.<anonymous> (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Clock.test.js:46:50)
-    at Promise.then.completed (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
-    at Object.worker (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="clock-object-initialization" duration="1">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
-
-Expected: true
-Received: false
-    at Object.<anonymous> (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Clock.test.js:58:50)
-    at Promise.then.completed (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
-    at Object.worker (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="clock-object-initialization" duration="2"/>
-    <testCase name="clock- set an event" duration="3"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="3"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="3"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="2">
-      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
-
-Expected: true
-Received: false
-    at Object.<anonymous> (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Clock.test.js:167:55)
-    at Promise.then.completed (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at _runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
-    at Object.worker (C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock- set an event" duration="0"/>
-    <testCase name="clock- set an event" duration="1"/>
-    <testCase name="clock-reset" duration="0"/>
-    <testCase name="clock-reset" duration="0"/>
-    <testCase name="clock-reset" duration="0"/>
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\API.test.js">
-    <testCase name="" duration="165"/>
-    <testCase name="" duration="47"/>
-    <testCase name="" duration="6"/>
-    <testCase name="" duration="264"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/PlanningModal.test.js">
+    <testCase name="Render Render Page" duration="4" />
+    <testCase name="Render Check components" duration="8" />
+    <testCase name="Render FormPlanning Render Page" duration="1" />
+    <testCase name="Render FormPlanning Check components" duration="197" />
+    <testCase name="Check  behaviors FormPlanning Check " duration="14" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\ListOfClients.test.js">
-    <testCase name="testing search of a client" duration="255"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/ClientPage.test.js">
+    <testCase name="client page aaaaaq" duration="824" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Notifications.test.js">
-    <testCase name="n-addNotification" duration="17"/>
-    <testCase name="n-addNotification" duration="5"/>
-    <testCase name="n-getNotifications" duration="8"/>
-    <testCase name="n-getNotifications" duration="4"/>
-    <testCase name="n-deleteNotifications" duration="4"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Homepage.test.js">
+    <testCase name="renders button correctly" duration="16" />
+    <testCase name="includes link to products" duration="46" />
+    <testCase name="includes link to registerform" duration="32" />
+    <testCase name="renders container of the page correctly" duration="8" />
+    <testCase name="renders video correctly" duration="3" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Basket.test.js">
-    <testCase name="renders basket without crashing" duration="8"/>
-    <testCase name="renders basket components without crashing" duration="27"/>
-    <testCase name="accepts props" duration="9"/>
-    <testCase name="basket works with empty basket" duration="4"/>
-    <testCase name="state of open basket changes when calling onRequestChange prop" duration="4"/>
-    <testCase name="if basket is empty button shop now and form should not appear" duration="5"/>
-    <testCase name="Select pick up modality and date correctly" duration="209"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Card.test.js">
+    <testCase name="renders card model correctly" duration="24" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\ClientPage.test.js">
-    <testCase name="client page aaaaaq" duration="528"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/ListOfClients.test.js">
+    <testCase name="testing search of a client" duration="143" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Market.test.js">
-    <testCase name="renders market without crashing" duration="22"/>
-    <testCase name="renders market components without crashing" duration="22"/>
-    <testCase name="accepts products and client props" duration="7"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/AlertCancellingOrders.test.js">
+    <testCase name="renders button correctly" duration="37" />
+    <testCase name="calls handleClose prop when clicked" duration="18" />
+    <testCase name="close alert" duration="324" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Homepage.test.js">
-    <testCase name="renders button correctly" duration="35"/>
-    <testCase name="includes link to products" duration="35"/>
-    <testCase name="includes link to registerform" duration="12"/>
-    <testCase name="renders container of the page correctly" duration="8"/>
-    <testCase name="renders video correctly" duration="2"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Manager.test.js">
+    <testCase name="Render Render Page" duration="2" />
+    <testCase name="Render Check components" duration="10" />
+    <testCase name="Render renders button correctly" duration="12" />
+    <testCase name="Render OrderTable Render Table" duration="2" />
+    <testCase name="Render OrderTable Check components" duration="13" />
+    <testCase name="Render OrderTable select an order from the list" duration="67" />
+    <testCase name="Render OrderTable renders button correctly" duration="8" />
+    <testCase name="OrderModal includes link to orders" duration="3" />
+    <testCase name="OrderModal renders OrderModal components without crashing" duration="7" />
+    <testCase name="OrderModal calls onHide when Close Button is clicked" duration="14" />
+    <testCase name="renders OrderModal components without crashing" duration="99" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\AlertWallet.test.js">
-    <testCase name="renders button correctly" duration="7"/>
-    <testCase name="calls onClick prop when clicked" duration="5"/>
-    <testCase name="top up alert" duration="231"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/OrderModal.test.js">
+    <testCase name="includes link to orders" duration="10" />
+    <testCase name="renders button correctly" duration="12" />
+    <testCase name="calls onClick prop when clicked" duration="8" />
+    <testCase name="calls onHide when Close Button is clicked" duration="4" />
+    <testCase name="renders OrderModal components without crashing" duration="21" />
+    <testCase name="change time and date" duration="213" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\FarmerOrders.test.js">
-    <testCase name="renders farmer orders" duration="31"/>
-    <testCase name="renders FarmerOrders components without crashing" duration="16"/>
-    <testCase name="renders farmer orde table" duration="5"/>
-    <testCase name="renders FarmerOrdersTable components without crashing" duration="21"/>
-    <testCase name="accepts props - FarmerOrders" duration="2"/>
-    <testCase name="accepts props - FarmerOrderTable" duration="8"/>
-    <testCase name="calls the function handle confirm alert when clicking confirm" duration="30"/>
-    <testCase name="calls the function update confirmation when clicking confirm" duration="19"/>
-    <testCase name="calls the function onHide  when clicking close on modal" duration="7"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/AlertWallet.test.js">
+    <testCase name="renders button correctly" duration="8" />
+    <testCase name="calls onClick prop when clicked" duration="10" />
+    <testCase name="top up alert" duration="295" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\OrderModal.test.js">
-    <testCase name="includes link to orders" duration="8"/>
-    <testCase name="renders button correctly" duration="64"/>
-    <testCase name="calls onClick prop when clicked" duration="18"/>
-    <testCase name="calls onHide when Close Button is clicked" duration="9"/>
-    <testCase name="renders OrderModal components without crashing" duration="9"/>
-    <testCase name="change time and date" duration="231"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Basket.test.js">
+    <testCase name="renders basket without crashing" duration="9" />
+    <testCase name="renders basket components without crashing" duration="80" />
+    <testCase name="accepts props" duration="10" />
+    <testCase name="basket works with empty basket" duration="5" />
+    <testCase name="state of open basket changes when calling onRequestChange prop" duration="11" />
+    <testCase name="if basket is empty button shop now and form should not appear" duration="5" />
+    <testCase name="Select pick up modality and date correctly" duration="178" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\FarmerInterface.test.js">
-    <testCase name="renders farmer interface without crashing" duration="6"/>
-    <testCase name="renders farmer interface with no products" duration="17"/>
-    <testCase name="renders farmer interface components without crashing" duration="9"/>
-    <testCase name="accepts products and userid props" duration="3"/>
-    <testCase name="calls handleShow when clicking on button" duration="41"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/FarmerInterface.test.js">
+    <testCase name="renders farmer interface without crashing" duration="8" />
+    <testCase name="renders farmer interface with no products" duration="41" />
+    <testCase name="renders farmer interface components without crashing" duration="20" />
+    <testCase name="accepts products and userid props" duration="8" />
+    <testCase name="calls handleShow when clicking on button" duration="18" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\AlertCancellingOrders.test.js">
-    <testCase name="renders button correctly" duration="10"/>
-    <testCase name="calls handleClose prop when clicked" duration="8"/>
-    <testCase name="close alert" duration="115"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/WarehouseEmployeePage.test.js">
+    <testCase name="renders WarehouseEmployeePage without crashing" duration="2" />
+    <testCase name="renders WarehouseEmployeePage components without crashing" duration="5" />
+    <testCase name="accept props correctly" duration="2" />
+    <testCase name="render OrderTable components correctly" duration="23" />
+    <testCase name="click on confirm checkbox" duration="153" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\PlanningModal.test.js">
-    <testCase name="Render Render Page" duration="2"/>
-    <testCase name="Render Check components" duration="4"/>
-    <testCase name="Render FormPlanning Render Page" duration="1"/>
-    <testCase name="Render FormPlanning Check components" duration="134"/>
-    <testCase name="Check  behaviors FormPlanning Check " duration="41"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/OrdersList.test.js">
+    <testCase name="renders OrdersList without crashing" duration="1" />
+    <testCase name="renders OrdersList components without crashing" duration="7" />
+    <testCase name="accept props correctly" duration="2" />
+    <testCase name="render OrderTable components correctly" duration="26" />
+    <testCase name="render TableDropdown components correctly" duration="3" />
+    <testCase name="render TableDropdown props correctly" duration="28" />
+    <testCase name="select an order from the list" duration="105" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\WarehouseEmployeePage.test.js">
-    <testCase name="renders WarehouseEmployeePage without crashing" duration="1"/>
-    <testCase name="renders WarehouseEmployeePage components without crashing" duration="3"/>
-    <testCase name="accept props correctly" duration="2"/>
-    <testCase name="render OrderTable components correctly" duration="8"/>
-    <testCase name="click on confirm checkbox" duration="116"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/ProductForm.test.js">
+    <testCase name="renders product form without crashing" duration="5" />
+    <testCase name="renders product form components without crashing" duration="56" />
+    <testCase name="accepts props" duration="6" />
+    <testCase name="renders button of form correctly" duration="4" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\FarmerPlanning.test.js">
-    <testCase name="Render Render Page" duration="3"/>
-    <testCase name="Render Check components" duration="9"/>
-    <testCase name="Render Check  FormTable" duration="11"/>
-    <testCase name="changeInput Button back" duration="7"/>
-    <testCase name="includes  product" duration="8"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/FarmerProduct.test.js">
+    <testCase name="Render Render Page" duration="2" />
+    <testCase name="Render Check components" duration="4" />
+    <testCase name="Render renders button correctly" duration="9" />
+    <testCase name="Render OrderTable Render Table" duration="3" />
+    <testCase name="Render OrderTable Check components" duration="8" />
+    <testCase name="Render OrderTable select an order from the list" duration="54" />
+    <testCase name="Render OrderTable renders button correctly" duration="5" />
+    <testCase name="OrderModal includes link to orders" duration="3" />
+    <testCase name="OrderModal renders OrderModal components without crashing" duration="6" />
+    <testCase name="OrderModal calls onHide when Close Button is clicked" duration="4" />
+    <testCase name="renders OrderModal components without crashing" duration="82" />
+    <testCase name="renders product without crashing" duration="6" />
+    <testCase name="renders farmer product components without crashing" duration="39" />
+    <testCase name="accepts props" duration="3" />
+    <testCase name="clicking container works" duration="17" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\ConfirmModal.test.js">
-    <testCase name="Render Render Page" duration="1"/>
-    <testCase name="Render Check components" duration="4"/>
-    <testCase name="Render Check CardRiepilogo" duration="33"/>
-    <testCase name="behaviour list Product" duration="6"/>
-    <testCase name="behaviour Close" duration="5"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Product.test.js">
+    <testCase name="renders product without crashing" duration="5" />
+    <testCase name="renders market components without crashing" duration="98" />
+    <testCase name="accepts props" duration="4" />
+    <testCase name="product renders  with empty basket" duration="3" />
+    <testCase name="after click it will increase the quantity of product" duration="18" />
+    <testCase name="after click it will decrease the quantity of product" duration="14" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\WarehouseManagerPage.test.js">
-    <testCase name="Render Render Page" duration="2"/>
-    <testCase name="Render Check components" duration="4"/>
-    <testCase name="Render renders button correctly" duration="9"/>
-    <testCase name="Render OrderTable Render Table" duration="3"/>
-    <testCase name="Render OrderTable Check components" duration="8"/>
-    <testCase name="Render OrderTable select an order from the list" duration="54"/>
-    <testCase name="Render OrderTable renders button correctly" duration="5"/>
-    <testCase name="OrderModal includes link to orders" duration="3"/>
-    <testCase name="OrderModal renders OrderModal components without crashing" duration="6"/>
-    <testCase name="OrderModal calls onHide when Close Button is clicked" duration="4"/>
-    <testCase name="renders OrderModal components without crashing" duration="82"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/RegisterPage.test.js">
+    <testCase name="Render Check registerpageRender" duration="5" />
+    <testCase name="Render Check all components" duration="13" />
+    <testCase name="Render check button submit " duration="9" />
+    <testCase name="Render check button back " duration="4" />
+    <testCase name="changeInput Button submit" duration="14" />
+    <testCase name="changeInput Button back" duration="48" />
+    <testCase name="change data input" duration="116" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\ProductForm.test.js">
-    <testCase name="renders product form without crashing" duration="3"/>
-    <testCase name="renders product form components without crashing" duration="16"/>
-    <testCase name="accepts props" duration="9"/>
-    <testCase name="renders button of form correctly" duration="2"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/SideBar.test.js">
+    <testCase name="renders sidebar for client without crashing" duration="4" />
+    <testCase name="renders sidebar for shop employee without crashing" duration="2" />
+    <testCase name="renders sidebar for farmer without crashing" duration="1" />
+    <testCase name="renders sidebar for farmer with all components" duration="7" />
+    <testCase name="renders sidebar for shopemployee with all components" duration="9" />
+    <testCase name="accepts products and userid props" duration="8" />
+    <testCase name="calls handleShow when clicking on button" duration="22" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Wallet.test.js">
-    <testCase name="includes link to products" duration="3"/>
-    <testCase name="renders button correctly" duration="5"/>
-    <testCase name="calls onClick prop when clicked" duration="6"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/OrdersPage.test.js">
+    <testCase name="renders OrderPage component without crashing" duration="3" />
+    <testCase name="renders OrdersPage components without crashing" duration="15" />
+    <testCase name="accept props correctly" duration="2" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\OrdersList.test.js">
-    <testCase name="renders OrdersList without crashing" duration="1"/>
-    <testCase name="renders OrdersList components without crashing" duration="3"/>
-    <testCase name="accept props correctly" duration="1"/>
-    <testCase name="render OrderTable components correctly" duration="8"/>
-    <testCase name="render TableDropdown components correctly" duration="2"/>
-    <testCase name="render TableDropdown props correctly" duration="8"/>
-    <testCase name="select an order from the list" duration="75"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/ConfirmModal.test.js">
+    <testCase name="Render Render Page" duration="4" />
+    <testCase name="Render Check components" duration="9" />
+    <testCase name="Render Check CardRiepilogo" duration="29" />
+    <testCase name="behaviour list Product" duration="14" />
+    <testCase name="behaviour Close" duration="6" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\OrdersPage.test.js">
-    <testCase name="renders OrderPage component without crashing" duration="1"/>
-    <testCase name="renders OrdersPage components without crashing" duration="3"/>
-    <testCase name="accept props correctly" duration="2"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Notifications.test.js">
+    <testCase name="n-addNotification" duration="8" />
+    <testCase name="n-addNotification" duration="5" />
+    <testCase name="n-getNotifications" duration="8" />
+    <testCase name="n-getNotifications" duration="5" />
+    <testCase name="n-deleteNotifications" duration="28" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\RegisterPage.test.js">
-    <testCase name="Render Check registerpageRender" duration="5"/>
-    <testCase name="Render Check all components" duration="11"/>
-    <testCase name="Render check button submit " duration="6"/>
-    <testCase name="Render check button back " duration="3"/>
-    <testCase name="changeInput Button submit" duration="9"/>
-    <testCase name="changeInput Button back" duration="5"/>
-    <testCase name="change data input" duration="68"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/LoginForm.test.js">
+    <testCase name="Test LoginForm Test login components" duration="21" />
+    <testCase name="Test LoginForm Test error LoginForm" duration="28" />
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\FarmerProduct.test.js">
-    <testCase name="renders product without crashing" duration="2"/>
-    <testCase name="renders farmer product components without crashing" duration="19"/>
-    <testCase name="accepts props" duration="2"/>
-    <testCase name="clicking container works" duration="14"/>
-  </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Card.test.js">
-    <testCase name="renders card model correctly" duration="15"/>
+  <file path="/Users/pablo/Documents/Ingenieria/Doble Titulo/Courses/Secondo semestre/Soft Eng II/Project1/SPG/SolidarityPurchasingGroup/client/src/__tests__/Wallet.test.js">
+    <testCase name="includes link to products" duration="4" />
+    <testCase name="renders button correctly" duration="8" />
+    <testCase name="calls onClick prop when clicked" duration="5" />
   </file>
 </testExecutions>

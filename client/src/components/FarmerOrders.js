@@ -134,7 +134,7 @@ function FarmerOrderTable(props){
                             <td className="text-center"><strong >{p.amount}</strong></td>
                             <td className="text-center"><strong>
                                 <input id={`input-${index}`}type='number' name='quantity' disabled={(p.updated || passedTime) ? true: false} value={confirmedProducts.length > 0 ? confirmedProducts[index].quantity : ''} className = "display-amount" max={p.amount} min={0} onChange={updateFieldChanged(index)}/>  </strong></td>
-                            <td className="text-center"><button id={`button-${index}`} disabled={(p.updated || passedTime) ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button></td>
+                            <td className="text-center"><button data-testid="confirm_button" id={`button-${index}`} disabled={(p.updated || passedTime) ? true: false} className="dropdown dropdown-btn" onClick={() => handleConfirmAlert(index)}> Confirm orders </button></td>
                         </tr>
                     ))
                 }
