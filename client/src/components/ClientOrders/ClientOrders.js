@@ -151,7 +151,7 @@ function SelectedOrder(props){
 
     const sum = (key1, key2) => {
         return basket.reduce((a, b) => a + (b[key1]*b[key2] || 0), 0);
-    }
+    };
 
     let total = sum("price", "quantity");
 
@@ -248,7 +248,7 @@ function SelectedOrder(props){
                 </Col>
 
                 <Col xs={12} lg={8} style={{ borderLeft: "2px solid #b4e6e2" }} >
-                    <ListGroup as="ul" className="mb-3">
+                    <ListGroup as="ul" className="mb-3" id="basketList">
                         {
                             basket.map((p) => (
                                 <ListIteam basket={basket} setBasket={setBasket} p={p} setDirty={setDirty} edit={edit} setEdit={setEdit} />
@@ -265,10 +265,10 @@ function SelectedOrder(props){
                 {(props.editable) ? //Per francesco: ho aggiunto una props 'editable', serve per distinguere quando mostrare i pulsanti edit o cancel. La setto nin clientOrders
                 <>
                     <Col className="text-center">
-                        <Button variant="outline-dark" onClick={() => { setModalShow(true) }}>{iconDelete} Cancel</Button>
+                        <Button id="deleteButton" variant="outline-dark" onClick={() => { setModalShow(true) }}>{iconDelete} Cancel</Button>
                     </Col>
                     <Col className="text-center">
-                            <Button id="edit" variant="light"  onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button>
+                            <Button id="editButton" variant="light" onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button>
                     </Col>
                 </>
                 :
@@ -278,7 +278,7 @@ function SelectedOrder(props){
             </Row> :
             <Row className="mt-3">
                 <Col className="text-center">
-                    <Button variant="outline-dark"  onClick={() => { setEdit(!edit); setUndo(true) }}>{arrowLeftIcon}Undo</Button>
+                    <Button id="undoButton" variant="outline-dark"  onClick={() => { setEdit(!edit); setUndo(true) }}>{arrowLeftIcon}Undo</Button>
                 </Col>
                 <Col className="text-center">
                     <Button variant="outline-success"
@@ -305,7 +305,7 @@ function OrderForm(props){
     return (
         <div xs={12} md={4} lg={4}>
             <h6 className="text-center"><strong>Select a delivery method:</strong></h6>
-            <Form>
+            <Form id='editForm'>
                 <Row className='justify-content-center mb-3'>
                     <Col xs={6} md={6}>
                         <div key="default-radio" className="text-left">
@@ -426,7 +426,7 @@ function ListIteam(props) {
     console.log(basket);
 
     return (
-        <ListGroup.Item as="li" key={p.id}>
+        <ListGroup.Item as="li" key={p.id} id="basketItem">
             <Row>
                 <Col xs={2} className="text-left">
                     <img src={p.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />

@@ -13,6 +13,8 @@ import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
+import { act } from 'react-dom/test-utils';
+import DeleteModal from '../components/ClientOrders/DeleteModal';
 
 afterEach(() => {
     cleanup();
@@ -75,22 +77,52 @@ it('client page aaaaaq',async  () => {
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Accepted')).toHaveClass('tab-pane');
 
     //Click on detail button of Order #28
-    const selectButton = component.container.querySelector("#selectButton:first-child");
-    fireEvent.click(selectButton);
+    act(() => {
+        const selectButton = component.container.querySelector("#selectButton:first-child");
+        fireEvent.click(selectButton);
+    });   
+
     expect(await findByText(component.container, 'Order #28')).toBeVisible();
-    expect(await findByText(component.container, '€ 0.00')).toBeVisible();    
-/*     expect(await findByText(component.container, 'pickUpIcon')).toBeVisible(); */
+    expect(await findByText(component.container, '€ 0.00')).toBeVisible();
+    /*     expect(await findByText(component.container, 'pickUpIcon')).toBeVisible(); */
     expect(await findByText(component.container, 'Corso Duca degli Abruzzi, 24')).toBeVisible();
     expect(await findByText(component.container, '2021-11-30')).toBeVisible();
     expect(await findByText(component.container, '14:00')).toBeVisible();
 
+    expect(component.container.querySelector('#basketList')).toHaveClass('mb-3 list-group');
+
+    //click on edit button
+    act(() => {
+        const editButton = component.container.querySelector('#editButton');
+        fireEvent.click(editButton);
+    });
+
+    expect(component.container.querySelector('#editForm')).toBeVisible();
+
+    //click on undo button
+    act(() => {
+        const undoButton = component.container.querySelector('#undoButton');
+        fireEvent.click(undoButton);
+    });
+
+
+/*     //show delete order modal
+    act(() => {
+        const deleteButton = component.container.querySelector('#deleteButton');
+        fireEvent.click(deleteButton);
+    }); */
+
     //Return to the Pending Orders list
-    const backPendingList = component.container.querySelector('#backPendingList')
-    fireEvent.click(backPendingList);
+    act(() => {
+        const backPendingList = component.container.querySelector('#backPendingList')
+        fireEvent.click(backPendingList);
+    });   
 
     //Click on 'Accepted' tab
-    const button1 = screen.getByText('Accepted');
-    fireEvent.click(button1);
+    act(() => {
+        const button1 = screen.getByText('Accepted');
+        fireEvent.click(button1);
+    });   
 
     //Accepted view --> only order 29 should be visible
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Pending')).toHaveClass('tab-pane');
@@ -98,13 +130,18 @@ it('client page aaaaaq',async  () => {
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Accepted')).toHaveClass('tab-pane active');
 
     //Testing button for order details
-    const button2 = component.container.querySelector("#detailsButton");
-    fireEvent.click(button2);
-
+    act(() => {
+        const button2 = component.container.querySelector("#detailsButton");
+        fireEvent.click(button2);
+    });   
+    
     expect(await findByText(component.container, 'Back')).toBeVisible();
 
-    const button3 = screen.getByText('Back');
-    fireEvent.click(button2);
+    act(() => {
+        const button3 = screen.getByText('Back');
+        fireEvent.click(button3);
+    }); 
+
     expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Accepted')).toHaveClass('tab-pane active');
 
 
