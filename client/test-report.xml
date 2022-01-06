@@ -313,7 +313,7 @@ Received: false
     <testCase name="behaviour list Product" duration="6"/>
     <testCase name="behaviour Close" duration="5"/>
   </file>
-  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\Manager.test.js">
+  <file path="C:\Users\crist\Documents\GitHub\SolidarityPurchasingGroup\client\src\__tests__\WarehouseManagerPage.test.js">
     <testCase name="Render Render Page" duration="2"/>
     <testCase name="Render Check components" duration="4"/>
     <testCase name="Render renders button correctly" duration="9"/>

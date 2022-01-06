@@ -3,7 +3,7 @@ import { Order } from './Order';
 import { Product } from './Product';
 
 /*** Jest import + TEST URL (to uncomment for testing the app) ***/
-//import "jest-fetch-mock" 
+//import "jest-fetch-mock"
 //const BASEURL = 'http://localhost:3001/api';
 
 /*** DEFAULT URL (to uncomment for running the app) ***/
@@ -257,16 +257,19 @@ function logIn(username, password, history) {
                 history.push('/farmer');
                 break;
               case 'manager':
-                history.push('/warehouse');
+                history.push('/manager');
                 break;
               case 'warehouseemployee':
                 history.push('/warehouseEmployee');
+                break;
+            case 'warehousemanager':
+                history.push('/warehousemanager');
                 break;
               default:
                 history.push('/');
               break;
             }
-          }  
+          }
         }).catch((err) => reject(err));
       } else {
         reject();
@@ -327,7 +330,6 @@ async function getBasket(order_id) {
   const response = await fetch(BASEURL + '/basket/' + order_id);
 
   const products = await response.json();
-
   if (response.ok) {
     return products/* .map((p) =>{new Product(p.id, p.name,'' ,'' ,p.quantity, p.price,'','','')}) */;
   } else {

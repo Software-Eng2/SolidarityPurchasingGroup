@@ -698,5 +698,5 @@
 - password: paolobianchi
 
 #### manager:
-- email: francescobianco@gmail.com
-- password: francescobianco
+- email: francesconero@gmail.com
+- password: francesconero

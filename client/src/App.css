@@ -344,6 +344,15 @@ th {
   background-color: #b4e6e2 !important;
 }
 
+.months{
+  background-color: #FFFFFF !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
 .borders {
   border-top: 1px dotted #b4e6e2;
   border-bottom: 2px solid #b4e6e2;

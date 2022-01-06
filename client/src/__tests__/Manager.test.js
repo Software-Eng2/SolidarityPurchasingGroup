@@ -4,8 +4,8 @@ import React, {
 import '@testing-library/jest-dom';
 import "@testing-library/jest-dom/extend-expect";
 import { shallow, configure } from 'enzyme';
-import Manager from '../components/Manager';
-import { OrderModal, OrderTable } from '../components/Manager';
+import WarehouseManagerPage from '../components/WarehouseManagerPage';
+import { OrderModal, OrderTable } from '../components/WarehouseManagerPage';
 import { MemoryRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import Adapter from 'enzyme-adapter-react-16';
@@ -54,12 +54,12 @@ const fakeOrders = [
 describe("Render", () => {
 
     it('Render Page', () => {
-        const page = shallow(<Manager />);
+        const page = shallow(<WarehouseManagerPage />);
         expect(page).toBeTruthy();
     })
 
     it("Check components", () => {
-        const wrapper = shallow(<Manager />);
+        const wrapper = shallow(<WarehouseManagerPage />);
         expect(wrapper.find('Container').exists()).toBeTruthy();
         expect(wrapper.find('OrderTable').exists()).toBeTruthy();
         expect(wrapper.find('OrderModal').exists()).toBeTruthy();
@@ -84,7 +84,7 @@ describe("Render OrderTable", () => {
     it('Render Table', () => {
         const page = shallow(<OrderTable orders={fakeOrders}/>);
         expect(page).toBeTruthy();
-        
+
 
     })
 
@@ -105,7 +105,7 @@ describe("Render OrderTable", () => {
         const setDirty = jest.fn();
         const setDate = jest.fn();
         const setTime = jest.fn();
-    
+
         render(
             <MemoryRouter history={history}>
                 <OrderTable orders={fakeOrders} setSelectedOrder={''} setModalShow={false} setDate={''} setTime={''}/>
@@ -137,9 +137,9 @@ describe("Render OrderTable", () => {
         act(() => {
             fireEvent.click(screen.getByTestId(`tr-${fakeOrders[1].id}`));
         });
-       
-       
-    
+
+
+
     });
 
     it("renders button correctly", () => {
@@ -158,7 +158,7 @@ describe("OrderModal", () => {
     it('includes link to orders', () => {
         const order = { id: 28, creation_date: '2021-11-16', client_id: 2, client_name: 'Marco', client_surname: 'Bianchi', total: 0.75, pick_up: 1, address: 'Corso Duca degli Abruzzi, 24', date: '', time: '' }
         const basket = { id: 28, name: "nome", quantity: 10, price: 5 };
-        const page = shallow(<Manager />)
+        const page = shallow(<WarehouseManagerPage />)
         const wrapper = page.find('OrderModal').children();
         const prova = shallow(<wrapper
             show={true}

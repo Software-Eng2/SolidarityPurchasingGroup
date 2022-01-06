@@ -6,7 +6,7 @@ import API from "../API";
 
 
 
-function Manager(props) {
+function WarehouseManagerPage(props) {
     const [modalShow, setModalShow] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(''); //current order selected for top up
     const [date, setDate] = useState('');
@@ -193,5 +193,5 @@ function OrderModal(props) {
 }
 
 
-export default Manager;
+export default WarehouseManagerPage;
 export {OrderModal, OrderTable};

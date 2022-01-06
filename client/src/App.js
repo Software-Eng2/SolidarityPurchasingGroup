@@ -16,9 +16,12 @@ import FarmerPlanning from './components/FarmerPlanning';
 import FarmerInterface from './components/FarmerInterface';
 import ClientPage from './components/ClientOrders/ClientPage';
 import { FarmerOrders } from './components/FarmerOrders';
-import Manager from './components/Manager';
+import WarehouseManagerPage from './components/WarehouseManagerPage';
 import WarehouseEmployeePage from './components/WarehouseEmployeePage';
-import { Clock } from "./Clock.js";
+import ManagerPage from './components/ManagerPage';
+import WeeklyReports from "./components/WeeklyReports";
+import MonthlyReports from "./components/MonthlyReports";
+import {Clock} from "./Clock.js";
 
 function App() {
 
@@ -55,7 +58,7 @@ function App() {
     });
   }, []);
 
-  
+
 
   useEffect(() => {
     API.getUserInfo().then((user) => {
@@ -191,8 +194,17 @@ function App() {
         <Route exact path="/farmerOrders">
           {loggedIn && userRole == 'farmer' ? <FarmerOrders userid={userid} orderedProducts={orderedProducts} clock={clock} /> : <LoginForm doLogIn={doLogIn} />}
         </Route>
-        <Route exact path="/warehouse">
-          {loggedIn && userRole == 'warehousemanager' ? <Manager orders={orders} /> : <LoginForm doLogIn={doLogIn} />}
+        <Route exact path="/warehousemanager">
+          {loggedIn && userRole=='warehousemanager' ? <WarehouseManagerPage orders={orders} /> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>
+        <Route exact path="/manager">
+          {loggedIn && userRole=='manager' ? <ManagerPage userid={userid} /> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>
+        <Route exact path="/weeklyReports">
+          {loggedIn && userRole=='manager' ? <WeeklyReports clock={clock}/> : <LoginForm doLogIn={doLogIn}/>}
+        </Route>
+        <Route exact path="/monthlyReports">
+          {loggedIn && userRole=='manager' ? <MonthlyReports clock={clock}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
       </Switch>
     </Router>
