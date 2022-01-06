@@ -68,17 +68,15 @@ function Market(props) {
     
 	return (
         <>
-        {/* {userRole === "client" && passedTime ? 
+        {!clock.checkEstimatesMilestone() ? 
         <Row align='center' style={{marginTop: '5rem'}}> 
             <Col xs={12} sm={12} md={12} lg={12}> 
                 <h3 style={{fontSize: "2.5rem", margin: "4", padding: "0", color: "#247D37"}}> 
-                    We're sorry, the time for making orders has passed, wait until next time.
+                    We're sorry, the orders starts at 9:00am on Saturday. Check our telegram bot to stay up to date!
                 </h3>
             </Col>
         </Row>
-        
-        
-        : */}
+        : 
         <>
         <Modal centered show={show} onHide={handleClose}>
         <Modal.Body style={{backgroundColor: "#d4edda"}}>
@@ -107,10 +105,10 @@ function Market(props) {
                         <SideBar 
                         collapsed={collapsed}
                         width="13rem"
+                        style={{minHeight: "100vh"}}
                         searchCategory={(cat) => searchCategory(cat)}
                         handleBasket={handleBasket}
                         userRole={userRole}
-                        //client= {props.location.state}
                         />
                     </div>
 
@@ -146,11 +144,8 @@ function Market(props) {
 
 
         </Container>
-        </>
-        
-        
-        
-       {/* } */} 
+        </> 
+        }
         
         </>
 	);
