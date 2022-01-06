@@ -268,7 +268,7 @@ function SelectedOrder(props){
                         <Button variant="outline-dark" onClick={() => { setModalShow(true) }}>{iconDelete} Cancel</Button>
                     </Col>
                     <Col className="text-center">
-                            <Button variant="light"  onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button>
+                            <Button id="edit" variant="light"  onClick={() => { setEdit(!edit) }}>{iconEdit} Edit</Button>
                     </Col>
                 </>
                 :
