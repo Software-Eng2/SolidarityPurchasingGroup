@@ -1,4 +1,4 @@
-import { Form, Container, Col, Row, Modal, Button, Alert} from 'react-bootstrap';
+import { Form, Container, Col, Row, Modal} from 'react-bootstrap';
 import { useState } from 'react';
 import API from '../API';
 import { Product } from '../Product';
@@ -8,7 +8,6 @@ import { Product } from '../Product';
 
 function ProductForm(props) {
 	const {userid, show, handleShow, handlePopUpShow} = props;
-	console.log("show:", show);
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [category, setCategory] = useState('');
