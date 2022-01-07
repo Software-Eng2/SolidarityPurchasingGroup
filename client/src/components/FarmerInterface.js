@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Modal, Alert, Button } from "react-bootstrap";
 import SideBar from './SideBar';
 import FarmerProduct from './FarmerProduct';
 import API from '../API';
@@ -19,6 +19,7 @@ function FarmerInterface(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentFarmer, setCurrentFarmer] = useState('');
     const [show, setShow] = useState(false);
+	const [showPopUp, setShowPopUp] = useState(false);
 
     useEffect(() => {
         if (userid) {
@@ -35,6 +36,7 @@ function FarmerInterface(props) {
         setCategory(c);
 
     };
+    const handlePopUpShow = () => {setShowPopUp(true)};
 
     useEffect(() => {
         if (category === "All") {
@@ -68,7 +70,7 @@ function FarmerInterface(props) {
         }
     }, [size])
 
-    const handleShow = () => { setShow(!show) };
+    const handleShow = () => { setShow(!show); };
 
     return (
         <>
@@ -152,9 +154,31 @@ function FarmerInterface(props) {
                 <div className="fixed">
                     <BsFillPlusCircleFill className="pointer" size={40} color="#28a745" onClick={handleShow}></BsFillPlusCircleFill>
                 </div>
-            </Container>
-
-            <ProductForm userid={userid} show={show} handleShow={handleShow} />
+            </Container>             
+            <ProductForm userid={userid} show={show} handleShow={handleShow} handlePopUpShow={handlePopUpShow} />
+            <Modal
+            centered
+            show={showPopUp}
+            onHide={() => {window.location.reload()}}
+            size='sm' {...props}
+        	>
+					<Modal.Header closeButton />
+					<Modal.Body style={{backgroundColor: "#fff3cd"}}>
+					<Alert variant="success">
+							<Alert.Heading className="mt-2">
+								Success
+							</Alert.Heading>
+							<p>
+								The products was inserted 
+							</p>
+					</Alert>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"left"}} onClick={() => {window.location.reload()}}>
+							Close
+						</Button>
+				</Modal.Footer>
+			</Modal>
         </>
 
     );

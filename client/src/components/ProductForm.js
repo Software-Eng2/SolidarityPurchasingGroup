@@ -7,7 +7,8 @@ import { Product } from '../Product';
 
 
 function ProductForm(props) {
-	const {userid, show, handleShow} = props
+	const {userid, show, handleShow, handlePopUpShow} = props;
+	console.log("show:", show);
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [category, setCategory] = useState('');
@@ -15,7 +16,6 @@ function ProductForm(props) {
 	const [img_path, setImgPath] = useState('');
 	const [quantity, setQuantity] = useState(0);
 	const [validated, setValidated] = useState(false);
-	const [showPopUp, setShowPopUp] = useState(false);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -28,12 +28,12 @@ function ProductForm(props) {
 		} else {
 				API.createProduct(new Product(0, name, description, category, quantity, price, userid, img_path, 0));
 		}
-
+		
 		setValidated(true);
-		setShowPopUp(true);
+		handleShow();
+		handlePopUpShow();
 	}
 
-	const closePopUp = () => {setShowPopUp(false); window.location.reload();};
 
 	return (
 		<>
@@ -203,29 +203,7 @@ function ProductForm(props) {
 					</Modal.Footer>
 				</Form>
 			</Modal>
-			<Modal
-            centered
-            show={showPopUp}
-            onHide={closePopUp}
-            size='sm' {...props}
-        >
-						<Modal.Header closeButton />
-						<Modal.Body style={{backgroundColor: "#fff3cd"}}>
-						<Alert variant="success">
-								<Alert.Heading className="mt-2">
-									Success
-								</Alert.Heading>
-								<p>
-									The products was inserted 
-								</p>
-						</Alert>
-					</Modal.Body>
-					<Modal.Footer>
-						<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"left"}} onClick={closePopUp}>
-								Close
-							</Button>
-					</Modal.Footer>
-				</Modal>
+			
 		</>
 
     );
