@@ -7,6 +7,7 @@ import Basket from '../components/Basket';
 import AlertWallet from '../components/AlertWallet';
 import PropTypes from 'prop-types';
 import {MdDoneOutline} from "react-icons/md";
+import {BsClockHistory} from "react-icons/bs";
 import AlertCancellingOrders from '../components/AlertCancellingOrders';
 
 function Market(props) {
@@ -68,11 +69,21 @@ function Market(props) {
 	return (
         <>
         {!clock.checkEstimatesMilestone() ? 
-        <Row align='center' style={{marginTop: '5rem'}}> 
+        <Row align='center' style={{marginTop: '6.5rem', marginLeft: '3rem', marginRight: '3rem'}}> 
             <Col xs={12} sm={12} md={12} lg={12}> 
-                <h3 style={{fontSize: "2.5rem", margin: "4", padding: "0", color: "#247D37"}}> 
+
+                <Alert show={!clock.checkEstimatesMilestone()} variant="warning">
+                    <Alert.Heading className="mt-2" style={{fontSize: "2.5rem"}}>
+                    <BsClockHistory size={38} className="mr-3"/>
+                        Market not available
+                    </Alert.Heading>
+                    <p style={{fontSize: "2rem", margin: "4", padding: "0"}}>
                     We're sorry, the orders start at 9:00 am on Saturday. Stay up to date by joining  our  <a href={'https://t.me/spg05_bot'}>telegram bot!</a>
-                </h3>
+                    </p>
+                </Alert>
+                {/* <h3 style={{fontSize: "2.5rem", margin: "4", padding: "0", color: "#247D37"}}> 
+                    We're sorry, the orders start at 9:00 am on Saturday. Stay up to date by joining  our  <a href={'https://t.me/spg05_bot'}>telegram bot!</a>
+                </h3> */}
             </Col>
         </Row>
         : 
