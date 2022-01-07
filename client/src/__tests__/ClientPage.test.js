@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-import { render, cleanup,  findByText, getByText, fireEvent, screen} from "@testing-library/react";
+import { render, cleanup, findByText, getByText, fireEvent, screen} from "@testing-library/react";
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import {PendingList, AcceptedList} from '../components/ClientOrders/ClientOrders'
@@ -15,6 +15,7 @@ import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
 import { act } from 'react-dom/test-utils';
 import DeleteModal from '../components/ClientOrders/DeleteModal';
+import dayjs from 'dayjs';
 
 afterEach(() => {
     cleanup();
@@ -84,7 +85,6 @@ it('client page aaaaaq',async  () => {
 
     expect(await findByText(component.container, 'Order #28')).toBeVisible();
     expect(await findByText(component.container, '€ 0.00')).toBeVisible();
-    /*     expect(await findByText(component.container, 'pickUpIcon')).toBeVisible(); */
     expect(await findByText(component.container, 'Corso Duca degli Abruzzi, 24')).toBeVisible();
     expect(await findByText(component.container, '2021-11-30')).toBeVisible();
     expect(await findByText(component.container, '14:00')).toBeVisible();
@@ -152,12 +152,61 @@ it('client page aaaaaq',async  () => {
 
     fireEvent.click(component.container.querySelector("#selectButton"));
 
-    //Editing order
-    const edit = component.container.querySelector("#edit");
-    fireEvent.click(edit);
+    //click on edit button
+    act(() => {
+        const editButton = component.container.querySelector('#editButton');
+        fireEvent.click(editButton);
+    });
+
+
+    expect(component.container.querySelector('#editForm')).toBeVisible();
+
+    //Fill out Form Fields
+    act(() => {
+        const pickUpRadio = component.container.querySelector('#inline-radio-1');
+        fireEvent.click(pickUpRadio);
+    })
+
+    act(() =>{
+        const deliveryRadio = component.container.querySelector('#inline-radio-2');
+        fireEvent.click(deliveryRadio);
+    })
+
+    act(() => {
+        fireEvent.change(screen.getByPlaceholderText('1234 Main St'), {
+            target: { value: 'Via dei Test 0' },
+        });
+    });
+
+    act(() => {
+        fireEvent.change(screen.getByPlaceholderText('City'), {
+            target: { value: 'Testopoli' },
+        });
+    });
+
+    act(() => {
+        fireEvent.change(screen.getByPlaceholderText('ZIP'), {
+            target: { value: '01001' },
+        });
+    });
+
+    act(() => {
+        fireEvent.change(screen.getByPlaceholderText('date'), {
+            target: { value: dayjs().add(1, "w").day(4).format("YYYY-MM-DD") },
+        });
+    });
+
+    act(() => {
+        fireEvent.change(screen.getByPlaceholderText('time'), {
+            target: { value: '10:00' },
+        });
+    });
     expect(await findByText(component.container, 'Confirm')).toBeVisible();
 
-    const confirm = screen.getByText('Confirm');
-    fireEvent.click(confirm);
+    //click on confirm button
+    act(() => {
+        const confirm = screen.getByText('Confirm');
+        fireEvent.click(confirm);
+    })
 
 })
