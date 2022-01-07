@@ -204,7 +204,7 @@ function App() {
           {loggedIn && userRole=='manager' ? <WeeklyReports clock={clock}/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
         <Route exact path="/monthlyReports">
-          {loggedIn && userRole=='manager' ? <MonthlyReports clock={clock}/> : <LoginForm doLogIn={doLogIn}/>}
+          {loggedIn && userRole=='manager' ? <MonthlyReports/> : <LoginForm doLogIn={doLogIn}/>}
         </Route>
       </Switch>
     </Router>
