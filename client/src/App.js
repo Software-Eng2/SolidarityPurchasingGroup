@@ -56,7 +56,7 @@ function App() {
       setProducts(p);
 
     });
-  }, []);
+  }, [products]);
 
 
 
@@ -87,17 +87,6 @@ function App() {
           if (notification.length > 0) {
             API.getCancellingOrdersByClientId(userid).then((orders) => {
               setCancelOrders(orders);
-              // fare questa procedura quando si devono marcare gli ordini come cancelling, non qui!!!
-              // non ho capito, in ogni caso mi dissocio
-              /*
-              let sum = 0;
-              orders.map((o) => {sum += o.total;})
-              console.log(sum);
-              console.log(client.amount);
-              if(sum < client.amount){
-                setNotificationFlag(1);
-              }*/
-
             });
           }
         });

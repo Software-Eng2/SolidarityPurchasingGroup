@@ -178,6 +178,7 @@ import API from "./API";
                                 API.updateWallet(userWallet[0].amount-orders.total,userWallet[0].client_id).then(API.changeStatus(orders.id, "ACCEPTED"));
                             } else API.changeStatus(orders.id, "CANCELLED");
                         })
+                        API.deleteAllProductNW();
                         this.flag= false;
                     }
                    

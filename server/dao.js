@@ -523,7 +523,7 @@ exports.deleteProductForNextWeekNotConfirmed = () => {
 
 exports.deleteAllProductForNextWeek = () => {
   return new Promise((resolve, reject) => {
-      const sql = 'DELETE FROM PRODUCTS_NEXT_WEEK  ';
+      const sql = 'DELETE FROM PRODUCTS_NEXT_WEEK';
       db.run(sql, [], function (err) {
           if (err) {
               reject(err);

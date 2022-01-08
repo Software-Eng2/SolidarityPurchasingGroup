@@ -3,7 +3,7 @@ import { Order } from './Order';
 import { Product } from './Product';
 
 /*** Jest import + TEST URL (to uncomment for testing the app) ***/
-//import "jest-fetch-mock"
+//import "jest-fetch-mock" 
 //const BASEURL = 'http://localhost:3001/api';
 
 /*** DEFAULT URL (to uncomment for running the app) ***/
@@ -257,19 +257,16 @@ function logIn(username, password, history) {
                 history.push('/farmer');
                 break;
               case 'manager':
-                history.push('/manager');
+                history.push('/warehouse');
                 break;
               case 'warehouseemployee':
                 history.push('/warehouseEmployee');
-                break;
-            case 'warehousemanager':
-                history.push('/warehousemanager');
                 break;
               default:
                 history.push('/');
               break;
             }
-          }
+          }  
         }).catch((err) => reject(err));
       } else {
         reject();
@@ -330,6 +327,7 @@ async function getBasket(order_id) {
   const response = await fetch(BASEURL + '/basket/' + order_id);
 
   const products = await response.json();
+
   if (response.ok) {
     return products/* .map((p) =>{new Product(p.id, p.name,'' ,'' ,p.quantity, p.price,'','','')}) */;
   } else {
@@ -434,38 +432,47 @@ async function deleteClient(client_id){
   return response.ok;
 }
 
-async function getProductNW(id_user) {
+async function getProductNW(farmer_id) {
 
-  const response = await fetch(BASEURL + '/productsNW/' + id_user);
+  const response = await fetch(BASEURL + '/productsNW/' + farmer_id);
 
   const products = await response.json();
 
   if (response.ok) {
     return products.map((p) =>{return {
       id:p.id,
-      id_user: p.id_user,
       id_product: p.id_product,
       quantity: p.quantity,
-      price: p.price}}) ;
+      price: p.price,
+      name:p.name, 
+      description:p.description,
+      category:p.category,
+      farmer_id:p.farmer_id,
+      img_path:p.img_path,
+      confirmed_by_farmer:p.confirmed_by_farmer
+    }}) ;
   } else {
     return undefined;
   }
 }
 
 //insert Product for Next Week
-async function createProductNW(b) {
-  console.log(b)
-
+async function createProductNW(p) {
+  console.log(p);
   try {
     const response = await fetch(BASEURL + '/productNW', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
         {
-          id_user: b.id_user,
-          id_product: b.id_product,
-          quantity: b.quantity,
-          price: b.price
+      quantity: p.quantity,
+      price: p.price,
+      name:p.name, 
+      description:p.description,
+      category:p.category,
+      farmer_id: p.farmer_id,
+      img_path:p.img_path,
+      confirmed_by_farmer:p.confirmed_by_farmer
         }
       )
     })
@@ -495,8 +502,17 @@ async function changeProductNW(id, quantity){
 return response.ok;
 }
 
+async function changeProductNWConfirm(farmer_id){
+  const response = await fetch(BASEURL + '/productsNW/confirm', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        farmer_id: farmer_id    
+  })
+});
+return response.ok;
+}
 async function changeProduct(b){
-  console.log(b);
   const response = await fetch(BASEURL + '/product/quantity', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -525,9 +541,9 @@ function deleteProductNW(id) {
   });
 }
 
-function deleteAllUserProductNW(id_user) {
+function deleteAllProductNWNotConfirmed() {
   return new Promise((resolve, reject) => {
-      fetch(BASEURL + '/allproductsNW/' + id_user, {
+      fetch(BASEURL + '/productsNWNotConfirmed', {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
@@ -543,10 +559,11 @@ function deleteAllUserProductNW(id_user) {
 
 function deleteAllProductNW() {
   return new Promise((resolve, reject) => {
-      fetch(BASEURL + '/productsNW', {
+      fetch(BASEURL + '/allProductsNW', {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
+              console.log('delete done');
               resolve(null);
           } else {
               response.json()
@@ -736,7 +753,7 @@ const API = {
   createProductNW,
   changeProductNW,
   deleteProductNW,
-  deleteAllUserProductNW,
+  changeProductNWConfirm,
   deleteAllProductNW,
   changeProduct,
   getClientPendingOrders,
@@ -750,7 +767,8 @@ const API = {
   getWallets,
   getAllTelegramUsers,
   sendTelegramMessage,
-  getWeekProducts
+  getWeekProducts,
+  deleteAllProductNWNotConfirmed
 }
 
 export default API;
