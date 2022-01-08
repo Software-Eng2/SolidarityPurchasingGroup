@@ -3,7 +3,7 @@ import { Order } from './Order';
 import { Product } from './Product';
 
 /*** Jest import + TEST URL (to uncomment for testing the app) ***/
-//import "jest-fetch-mock" 
+//import "jest-fetch-mock"
 //const BASEURL = 'http://localhost:3001/api';
 
 /*** DEFAULT URL (to uncomment for running the app) ***/
@@ -257,7 +257,10 @@ function logIn(username, password, history) {
                 history.push('/farmer');
                 break;
               case 'manager':
-                history.push('/warehouse');
+                history.push('/manager');
+                break;
+            case 'warehousemanager':
+                history.push('/warehousemanager');
                 break;
               case 'warehouseemployee':
                 history.push('/warehouseEmployee');
@@ -266,7 +269,7 @@ function logIn(username, password, history) {
                 history.push('/');
               break;
             }
-          }  
+          }
         }).catch((err) => reject(err));
       } else {
         reject();
@@ -444,7 +447,7 @@ async function getProductNW(farmer_id) {
       id_product: p.id_product,
       quantity: p.quantity,
       price: p.price,
-      name:p.name, 
+      name:p.name,
       description:p.description,
       category:p.category,
       farmer_id:p.farmer_id,
@@ -467,7 +470,7 @@ async function createProductNW(p) {
         {
       quantity: p.quantity,
       price: p.price,
-      name:p.name, 
+      name:p.name,
       description:p.description,
       category:p.category,
       farmer_id: p.farmer_id,
@@ -507,7 +510,7 @@ async function changeProductNWConfirm(farmer_id){
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        farmer_id: farmer_id    
+        farmer_id: farmer_id
   })
 });
 return response.ok;
