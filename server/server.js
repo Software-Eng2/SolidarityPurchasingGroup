@@ -13,6 +13,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const token = '5029808901:AAHC4U2JZS_B6-04SqEiAyWAuFCEF_jJx48'; // replace the value below with the Telegram token you receive from @BotFather
 const bot = new TelegramBot(token, {polling: true});// Create a bot that uses 'polling' to fetch new updates
 
+
 // init express
 const app = new express();
 const port = 3001;
@@ -817,7 +818,7 @@ app.post('/api/telegramMsg',
       chat_id: req.body.chat_id,
       text: req.body.text
     }
-    bot.sendMessage(msg.chat_id,msg.text).then((id) => res.status(201).json({ id: id })).catch((err) =>
+    bot.sendMessage(msg.chat_id, msg.text, {parse_mode: 'HTML'}).then((id) => res.status(201).json({ id: id })).catch((err) =>
     res.status(500).json({
       error: "Error " + err,
     })
