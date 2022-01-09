@@ -7,6 +7,7 @@ import API from "../API";
 import {Link} from "react-router-dom";
 
 function WeeklyReports(props) {
+    const {ciao} = props;
     const [monday, setMonday] = useState('');
     const [sunday, setSunday] = useState('');
     const [orders, setOrders] = useState([]);
@@ -16,7 +17,9 @@ function WeeklyReports(props) {
     const [unretrievedFood, setUnretrievedFood] = useState([]);
 
     useEffect(()=>{
+        console.log(ciao);
         API.getAllOrders().then((o) => {
+            console.log(o);
             setOrders(o);
             let d = props.clock.time;
             let m = getCurrentMonday(d);
@@ -166,8 +169,9 @@ function WeeklyReports(props) {
     }
 
     return (
-        <>
-             <Row className="mt-5" align='center'>
+
+          <div className="page">
+          <Row className="mt-5" align='center'>
                 <Col xs={12} sm={12} md={6} >
                     <Button size="lg" className="mt-1 mb-5" onClick={() => setData( getPreviousMonday(monday), getPreviousSunday(sunday), orders, products)}>Go to the previous week</Button>
                 </Col>
@@ -269,8 +273,8 @@ function WeeklyReports(props) {
                     </Link>
                 </Col>
             </Row>
+          </div>
 
-        </>
     );
 }
 
