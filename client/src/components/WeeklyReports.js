@@ -7,39 +7,31 @@ import API from "../API";
 import {Link} from "react-router-dom";
 
 function WeeklyReports(props) {
+    const {orders} = props;
     const [monday, setMonday] = useState('');
     const [sunday, setSunday] = useState('');
-    const [orders, setOrders] = useState([]);
     const [filteredOrders, setFilteredOrders] = useState([]);
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [unretrievedFood, setUnretrievedFood] = useState([]);
-
     useEffect(()=>{
-        API.getAllOrders().then((o) => {
-            setOrders(o);
             let d = props.clock.time;
             let m = getCurrentMonday(d);
             setMonday(new Date(d.setDate(m)));
             setSunday(new Date(d.setDate(m + 6)));
-
             let products = [];
             let count = 0;
-            o.map(order =>{
-                API.getBasket(order.id).then((prod) => {
+            orders.map(order =>{
+                API.getReportBasket(order.id).then((prod) => {
                     prod.map(p => products.push({...p, order_id: order.id }) )
 
                     count ++;
-                    if(count === o.length){
-                        setData(new Date(d.setDate(m)), new Date(d.setDate(m + 6)), o, products)
-
+                    if(count === orders.length){
+                        setData(new Date(d.setDate(m)), new Date(d.setDate(m + 6)), orders, products)
                     }
                 })
             })
             setProducts(products);
-
-
-        });
     },[]);
 
     function getCurrentMonday(today){
@@ -70,13 +62,13 @@ function WeeklyReports(props) {
         let end = new Date(sunday).toISOString().slice(0,10);
         let arrayOrders = [0,0,0,0,0,0,0];
         let arrayFood = [0,0,0,0,0,0,0];
-
-        orders.filter(o => o.status = 'FAILED' && o.creation_date >= start && o.creation_date <= end)
+        orders.filter(o => o.status === 'FAILED' && o.creation_date >= start && o.creation_date <= end)
             .map(o => {
                 switch(new Date(o.creation_date).getDay()){
                     case 1 :
                         products.map(p => {
                             if(p.order_id === o.id){
+
                                 arrayFood[1] += 1;
                             }
                         })
@@ -136,7 +128,7 @@ function WeeklyReports(props) {
             })
 
         let filter = [];
-        let filteredO = orders.filter(o => o.status = 'FAILED' && o.creation_date >= start && o.creation_date <= end);
+        let filteredO = orders.filter(o => o.status === 'FAILED' && o.creation_date >= start && o.creation_date <= end);
         products.map(p => {
             for(let o of filteredO)
                 if(o.id === p.order_id)
@@ -166,8 +158,9 @@ function WeeklyReports(props) {
     }
 
     return (
-        <>
-             <Row className="mt-5" align='center'>
+
+          <div className="page">
+          <Row className="mt-5" align='center'>
                 <Col xs={12} sm={12} md={6} >
                     <Button size="lg" className="mt-1 mb-5" onClick={() => setData( getPreviousMonday(monday), getPreviousSunday(sunday), orders, products)}>Go to the previous week</Button>
                 </Col>
@@ -269,8 +262,8 @@ function WeeklyReports(props) {
                     </Link>
                 </Col>
             </Row>
+          </div>
 
-        </>
     );
 }
 

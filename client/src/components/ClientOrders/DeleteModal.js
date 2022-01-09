@@ -39,7 +39,7 @@ function DeleteModal(props) {
     return (
       <Modal {...props} backdrop="static" keyboard={false}  centered data-testid="order-modal" >
         {done ? 
-            <Modal.Body style={{ backgroundColor: "#d4edda", height: "10rem", borderRadius:"5px"}}>
+            <Modal.Body id="succesModal" style={{ backgroundColor: "#d4edda", height: "10rem", borderRadius:"5px"}}>
                 
                 <h3><MdDoneOutline size={30} className="mr-3" /> Order Cancelled!</h3>
                 <p className="mt-3">
@@ -57,12 +57,12 @@ function DeleteModal(props) {
         </Modal.Header>
         <Modal.Footer style={{borderColor: "#dedede"}}>
           <Col className="text-left">
-          <Button data-testid="button-close"  variant='secondary'onClick={props.onHide}>
+          <Button data-testid="undoButton"  variant='secondary'onClick={props.onHide}>
               Undo
           </Button>
           </Col>
           <Col className="text-right" >
-          <Button data-testid="button-confirm" variant="danger" onClick={deleteOrder}>
+          <Button data-testid="confirmButton" variant="danger" onClick={deleteOrder}>
               Confirm
          </Button>
          </Col>

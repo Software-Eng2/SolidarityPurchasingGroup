@@ -106,11 +106,11 @@ it('client page aaaaaq',async  () => {
     });
 
 
-/*     //show delete order modal
+    //show delete order modal
     act(() => {
         const deleteButton = component.container.querySelector('#deleteButton');
         fireEvent.click(deleteButton);
-    }); */
+    });
 
     //Return to the Pending Orders list
     act(() => {
@@ -146,11 +146,16 @@ it('client page aaaaaq',async  () => {
 
 
     //Click on 'Pending' tab
-    const button4 = screen.getByText('Pending');
-    fireEvent.click(button4);
-    expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Pending')).toHaveClass('tab-pane active');
+    act(() => {
+        const button4 = screen.getByText('Pending');
+        fireEvent.click(button4);
+    })
 
-    fireEvent.click(component.container.querySelector("#selectButton"));
+    expect(component.container.querySelector('#uncontrolled-tab-example-tabpane-Pending')).toHaveClass('tab-pane active');
+    
+    act(() => {
+        fireEvent.click(component.container.querySelector("#selectButton"));
+    })
 
     //click on edit button
     act(() => {
@@ -201,11 +206,12 @@ it('client page aaaaaq',async  () => {
             target: { value: '10:00' },
         });
     });
+
     expect(await findByText(component.container, 'Confirm')).toBeVisible();
 
     //click on confirm button
     act(() => {
-        const confirm = screen.getByText('Confirm');
+        const confirm = component.container.querySelector('#confirmButton');
         fireEvent.click(confirm);
     })
 

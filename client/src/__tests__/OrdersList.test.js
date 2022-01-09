@@ -29,8 +29,8 @@ const fakeOrders = [
         client_name: 'Marco',
         client_surname: 'Bianchi',
         total: 0.75,
-        date: '',
-        time: '',
+        date: '2021-11-30',
+        time: '10:00',
         pick_up: 1,
         address: 'Corso Duca degli Abruzzi, 24',
         status: 'PENDING'
@@ -42,10 +42,10 @@ const fakeOrders = [
         client_name: 'Luca',
         client_surname: 'Neri',
         total: 3.40,
-        date: '2021-11-30',
-        time: '10:00',
-        pick_up: 1,
-        address: 'Corso Duca degli Abruzzi, 24',
+        date: '',
+        time: '',
+        pick_up: 0,
+        address: 'Via dei Test, 0',
         status: 'ACCEPTED'
     }
 ];
@@ -94,17 +94,19 @@ it("render TableDropdown props correctly", () =>{
     expect(wrapper.find('TableDropdown').at(1).props().status).toBe(fakeOrders[1].status);
 });
 
-test('select an order from the list', ()=>{
+test('select an order from the list', async()=>{
     const history = createMemoryHistory();
     history.push = jest.fn();
     const setSelectedOrder = jest.fn();
     const setDirty = jest.fn();
     const setDate = jest.fn();
     const setTime = jest.fn();
+    const setOrders = jest.fn();
+    const setModalShow = jest.fn();
 
     render(
         <MemoryRouter history={history}>
-            <OrdersList orders={fakeOrders} setOrders={''} loggedIn={true} dirty={true} setDirty={setDirty} setSelectedOrder={setSelectedOrder} setModalShow={false} setDate={setDate} setTime={setTime}/>
+            <OrdersList orders={fakeOrders} setOrders={setOrders} loggedIn={true} dirty={true} setDirty={setDirty} setSelectedOrder={setSelectedOrder} setModalShow={setModalShow} setDate={setDate} setTime={setTime}/>
         </MemoryRouter>
     );
     const thID = screen.getByText(`ID`);
@@ -132,6 +134,65 @@ test('select an order from the list', ()=>{
    
     act(() => {
         fireEvent.click(screen.getByTestId(`tr-${fakeOrders[0].id}`));
+    });
+
+    //click on order details (to open orderModal)
+    await act( async() =>{
+        const orderId = await screen.findByText('28');
+        fireEvent.click(orderId);
+        const creation = await screen.findByText('2021-11-16');
+        fireEvent.click(creation);
+        const clientId = await screen.findByText('2');
+        fireEvent.click(clientId);
+        const name = await screen.findByText('Marco');
+        fireEvent.click(name);
+        const surname = await screen.findByText('Bianchi');
+        fireEvent.click(surname);
+        const price = await screen.findByText('€ 0.75');
+        fireEvent.click(price);
+        const delivery = await screen.findByText('Pick-Up');
+        fireEvent.click(delivery);
+        const address = await screen.findByText('Corso Duca degli Abruzzi, 24');
+        fireEvent.click(address);
+        const date = await screen.findByText('2021-11-30');
+        fireEvent.click(date);
+        const time = await screen.findByText('10:00');
+        fireEvent.click(time);
+    });
+
+    //open dropdown
+    await act( async() =>{
+
+        const statusDropdown = await screen.findByText('PENDING');
+        fireEvent.click(statusDropdown);
+
+        //find all status and click on them(even if they are disabled) 
+        expect(await screen.findByTestId('ACCEPTED')).toBeInTheDocument();
+/*         const accepted = await screen.findByTestId('ACCEPTED');
+        fireEvent.click(accepted); */
+
+        expect(await screen.findByTestId('CANCELLING')).toBeInTheDocument();
+/*         const cancelling = await screen.findByTestId('CANCELLING');
+        fireEvent.click(cancelling); */
+
+        expect(await screen.findByTestId('FAILED')).toBeInTheDocument();
+/*         const failed = await screen.findByTestId('FAILED');
+        fireEvent.click(failed); */
+
+        expect(await screen.findByTestId('READY')).toBeInTheDocument();
+/*         const ready = await screen.findByTestId('READY');
+        fireEvent.click(ready); */
+        
+        //select pending status
+        const pending = await screen.findByTestId('PENDING');
+        fireEvent.click(pending);
+
+        //open dropdown again
+        fireEvent.click(statusDropdown);
+
+        //change order status selecting delivered status
+        const delivered = await screen.findByTestId('DELIVERED');
+        fireEvent.click(delivered);
     });
 
 });

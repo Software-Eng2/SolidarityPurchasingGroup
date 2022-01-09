@@ -159,7 +159,7 @@ import API from "./API";
                    this.flag = true;
                    if(this.flagMsg){
                     this.tlgrmusrs.forEach((tU)=>{
-                        let msg = `Hi ${tU.first_name}! We are happy to announce that our market is ready to get orders. Please check our products at http://localhost:3000/products ${String.fromCodePoint(0x1F60D)}`;
+                        let msg = `Hi ${tU.first_name}! We are happy to announce that our market is ready to get orders. Please check our products at <u>http://localhost:3000/products</u> 🌻`;
                         console.log(tU.id);
                         API.sendTelegramMessage(tU.id,msg);
                     })

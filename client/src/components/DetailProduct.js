@@ -10,14 +10,14 @@ function DetailProduct(props) {
         <>
             <Modal show={isOpen} onHide={() => setOpen(false)}>
             <Modal.Header closeButton>
-            <Modal.Title>{name}</Modal.Title>
+            <Modal.Title data-testid="modalTitle">{name}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>{description}</Modal.Body>
+            <Modal.Body data-testid="modalDescription">{description}</Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={() => setOpen(false)}>
+            <Button variant="secondary" data-testid="btnclose" onClick={() => setOpen(false)}>
                 Close
             </Button>
-            <Button variant="primary" onClick={() => setOpen(false)}>
+            <Button variant="primary" data-testid="btnSave" onClick={() => setOpen(false)}>
                 Save Changes
             </Button>
             </Modal.Footer>

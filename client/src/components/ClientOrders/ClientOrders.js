@@ -281,7 +281,7 @@ function SelectedOrder(props){
                     <Button id="undoButton" variant="outline-dark"  onClick={() => { setEdit(!edit); setUndo(true) }}>{arrowLeftIcon}Undo</Button>
                 </Col>
                 <Col className="text-center">
-                    <Button variant="outline-success"
+                    <Button variant="outline-success" id="confirmButton"
                       disabled={((delivery==='')||(address==='')||(city==='')||(zip.toString()==='')||(date==='')||(time==='')||(time<"09:00")||(time>"21:00"))? true : false}
                       onClick={updateOrder}
                     >
