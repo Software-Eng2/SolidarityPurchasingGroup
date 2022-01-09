@@ -15,25 +15,23 @@ function WeeklyReports(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [unretrievedFood, setUnretrievedFood] = useState([]);
     useEffect(()=>{
-        console.log(orders)
             let d = props.clock.time;
             let m = getCurrentMonday(d);
             setMonday(new Date(d.setDate(m)));
             setSunday(new Date(d.setDate(m + 6)));
-            let products = [];
+            let finalP = [];
             let count = 0;
             orders.map(order =>{
                 API.getBasket(order.id).then((prod) => {
-                    prod.map(p => products.push({...p, order_id: order.id }) )
+                    prod.map(p => finalP.push({...p, order_id: order.id }) )
 
                     count ++;
                     if(count === orders.length){
-                        setData(new Date(d.setDate(m)), new Date(d.setDate(m + 6)), orders, products)
-
+                        setData(new Date(d.setDate(m)), new Date(d.setDate(m + 6)), orders, finalP)
                     }
                 })
             })
-            setProducts(products);
+            setProducts(finalP);
     },[]);
 
     function getCurrentMonday(today){
@@ -56,7 +54,7 @@ function WeeklyReports(props) {
         return new Date (new Date(currentSunday).setDate(new Date(currentSunday).getDate() + 7));
     }
 
-    function setData(monday, sunday, orders, products){
+    function setData(monday, sunday, orders, finalP){
         setMonday(monday);
         setSunday(sunday);
 
@@ -64,20 +62,21 @@ function WeeklyReports(props) {
         let end = new Date(sunday).toISOString().slice(0,10);
         let arrayOrders = [0,0,0,0,0,0,0];
         let arrayFood = [0,0,0,0,0,0,0];
-
         orders.filter(o => o.status === 'FAILED' && o.creation_date >= start && o.creation_date <= end)
             .map(o => {
                 switch(new Date(o.creation_date).getDay()){
                     case 1 :
-                        products.map(p => {
+                        console.log("ciao")
+                        finalP.map(p => {
                             if(p.order_id === o.id){
+
                                 arrayFood[1] += 1;
                             }
                         })
                         arrayOrders[1] += 1;
                         break;
                     case 2 :
-                        products.map(p => {
+                        finalP.map(p => {
                             if(p.order_id === o.id){
                                 arrayFood[2] += 1;
                             }
@@ -85,7 +84,7 @@ function WeeklyReports(props) {
                         arrayOrders[2] += 1;
                         break;
                     case 3 :
-                        products.map(p => {
+                        finalP.map(p => {
                             if(p.order_id === o.id){
                                 arrayFood[3] += 1;
                             }
@@ -93,7 +92,7 @@ function WeeklyReports(props) {
                         arrayOrders[3] += 1;
                         break;
                     case 4 :
-                        products.map(p => {
+                        finalP.map(p => {
                             if(p.order_id === o.id){
                                 arrayFood[4] += 1;
                             }
@@ -101,7 +100,7 @@ function WeeklyReports(props) {
                         arrayOrders[4] += 1;
                         break;
                     case 5 :
-                        products.map(p => {
+                        finalP.map(p => {
                             if(p.order_id === o.id){
                                 arrayFood[5] += 1;
                             }
@@ -109,7 +108,7 @@ function WeeklyReports(props) {
                         arrayOrders[5] += 1;
                         break;
                     case 6 :
-                        products.map(p => {
+                        finalP.map(p => {
                             if(p.order_id === o.id){
                                 arrayFood[6] += 1;
                             }
@@ -117,7 +116,7 @@ function WeeklyReports(props) {
                         arrayOrders[6] += 1;
                         break;
                     case 0 :
-                        products.map(p => {
+                        finalP.map(p => {
                             if(p.order_id === o.id){
                                 arrayFood[0] += 1;
                             }
@@ -131,7 +130,7 @@ function WeeklyReports(props) {
 
         let filter = [];
         let filteredO = orders.filter(o => o.status === 'FAILED' && o.creation_date >= start && o.creation_date <= end);
-        products.map(p => {
+        finalP.map(p => {
             for(let o of filteredO)
                 if(o.id === p.order_id)
                     filter.push(p);
