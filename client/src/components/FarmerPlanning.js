@@ -15,9 +15,7 @@ function FarmerPlanning(props) {
     const [id, setId] = useState(0);
     const [showPopUp, setShowPopUp] = useState(false);
     const [disable, setDisable] = useState(false);
-
-
-
+    
     const deleteTask = (ID) => {
         const del = async () => {
             await API.deleteProductNW(ID);
@@ -157,32 +155,11 @@ function FormTable(props) {
     const [search, setSearch] = useState(""); //value to search
     const [modal, setModal] = useState(false);
 
-
-
-    {/*const renderTooltip = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            ciao
-            <h6 className="font-italic "> 2. If you do not save the products by the expiration date, they will be deleted and not listed for sale.</h6>
-        </Tooltip>
-    );*/}
-
-
-
-
-
     return (
         <>
             <Row className="justify-content-start align-items-center mb-2">
                 <Col xs={10} md={6}>
                     <h1 className="font-italic mt-3">Your Planning
-
-                        {/*<OverlayTrigger
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip}
-                    >
-                        <BsFillInfoCircleFill className="justify-content-start align-items-center ml-4" fill="green" style={{ height: "30px", width: "30px" }} />
-                    </OverlayTrigger>*/}
                         <BsFillInfoCircleFill className="justify-content-start align-items-center ml-4" fill="green" style={{ height: "30px", width: "30px" }} />
                     </h1>
                 </Col>

@@ -20,10 +20,6 @@ function FarmerProduct(props) {
 	const handleClose = () => setShow(false);
 	const categories = ["Dairies", "Fruits", "Vegetables", "Plants", "Fish", "Meat"];
 
-	const handleSwitch = () => {
-		  handleChange();
-			setSwitch(!switched);
-		}
 	const handleChange = () => {setDisabled(false)};
 	const handleConfirm = () => {
         const changedProduct= {
@@ -113,10 +109,6 @@ function FarmerProduct(props) {
 													<Col xs={6} md={6}>
 															<h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>Price</h3>
 													</Col>
-												{/*
-													<Col xs={6} md={6}>
-															<h3 style={{fontSize: "1.3rem", margin: "0", padding: "0"}}>Change confirmation</h3>
-													</Col>*/}
 											</Row>
 											<Row align="center" style={{marginTop:"1rem", marginBottom:"1.2rem"}}>
 													<Col xs={6} md={6}>
@@ -128,15 +120,6 @@ function FarmerProduct(props) {
 																	onChange={(event) => {setPriceProduct(event.target.value); handleChange();}}
 																	/>
 													</Col>
-												{/*
-													<Col xs={6} md={6}>
-
-															<div data-testid="counter" className = "product-quantity">
-																	<Switch onChange={handleSwitch} checked={switched}/>
-															</div>
-
-													</Col>*/}
-
 											</Row>
 									</Container>
 							</Modal.Body>
@@ -184,9 +167,6 @@ function FarmerProduct(props) {
 								Confirm
 						</Button>
 					</Modal.Footer>
-
-
-
 				</Modal>
 		</>
 
