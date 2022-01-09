@@ -234,7 +234,7 @@ exports.createBasket = (basket) => {
 // retrieve a basket from a order id
 exports.getBasket = (order_id) => {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT BASKETS.product_id, PRODUCTS.name, PRODUCTS.price, BASKETS.quantity, PRODUCTS.img_path, PRODUCTS.quantity AS availability FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE BASKETS.order_id = ?';
+    const sql = 'SELECT BASKETS.product_id, PRODUCTS.name, PRODUCTS.price, BASKETS.quantity, PRODUCTS.img_path, PRODUCTS_NEXT_WEEK.quantity AS availability FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id INNER JOIN PRODUCTS_NEXT_WEEK ON PRODUCTS.id = PRODUCTS_NEXT_WEEK.id WHERE BASKETS.order_id = ?';
     db.all(sql, [order_id], (err, rows) => {
       if (err) {
         reject(err);
