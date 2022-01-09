@@ -457,7 +457,6 @@ async function getProductNW(farmer_id) {
   if (response.ok) {
     return products.map((p) =>{return {
       id:p.id,
-      id_product: p.id_product,
       quantity: p.quantity,
       price: p.price,
       name:p.name,
@@ -547,7 +546,7 @@ function deleteProductNW(id) {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
-              resolve(null);
+              resolve(true);
           } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
@@ -563,7 +562,7 @@ function deleteAllProductNWNotConfirmed() {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
-              resolve(null);
+            resolve(true);
           } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
@@ -580,7 +579,7 @@ function deleteAllProductNW() {
       }).then((response) => {
           if (response.ok) {
               console.log('delete done');
-              resolve(null);
+              resolve(true);
           } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
