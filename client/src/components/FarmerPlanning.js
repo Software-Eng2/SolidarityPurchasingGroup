@@ -226,11 +226,11 @@ function FormTable(props) {
                                 <tr key={r.id} className="p-0" >
                                     <td>{r.id} {props.farmerProducts.filter(f => f.name == r.name)
                                         .map(c =>
-                                            <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
+                                            <img data-testid='img'  key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
                                     <td>{r.price}</td>
-                                    <td><Button variant="light" disabled={props.disable} onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }}><BsPencilSquare data-testid='pencil' size={30} className={props.disable ? '' : 'pointer'} /></Button></td>
-                                    <td><Button variant="light" disabled={props.disable} onClick={() => { props.deleteTask(r.id); }}><BsTrash data-testid='trash' size={30} className={props.disable ? '' : 'pointer'} fill="red" /></Button></td>
+                                    <td><Button data-testid='BsPencilSquare' variant="light" disabled={props.disable} onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }}><BsPencilSquare  size={30} className={props.disable ? '' : 'pointer'} /></Button></td>
+                                    <td data-testid='tdd'><Button data-testid='BsTrash' variant="light" disabled={props.disable} onClick={() => { props.deleteTask(r.id); }}><BsTrash  size={30} className={props.disable ? '' : 'pointer'} fill="red" /></Button></td>
                                 </tr>)
                             )
                         :
@@ -240,11 +240,11 @@ function FormTable(props) {
                                 <tr key={r.id} className="p-0" >
                                     <td>{r.id} {props.farmerProducts.filter(f => f.name == r.name)
                                         .map(c =>
-                                            <img key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
+                                            <img data-testid='img' key={c.id} src={c.img_path} className="img-fluid" style={{ height: "50px", width: "50px" }} />)} </td>
                                     <td>{r.quantity}</td>
                                     <td>{r.price}</td>
-                                    <td><Button variant="light" disabled={props.disable} onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }}><BsPencilSquare data-testid='BsPencilSquare' className={props.disable ? '' : 'pointer'} /> </Button></td>
-                                    <td><Button variant="light" disabled={props.disable} onClick={() => { props.deleteTask(r.id); }}><BsTrash data-testid='BsTrash' className={props.disable ? '' : 'pointer'} fill="red" /> </Button></td>
+                                    <td><Button data-testid='BsPencilSquare' variant="light" disabled={props.disable} onClick={() => { props.setModalShow(true); props.setUpdate(true); props.setId(r.id); }}><BsPencilSquare  className={props.disable ? '' : 'pointer'} /> </Button></td>
+                                    <td><Button data-testid='BsTrash' variant="light" disabled={props.disable} onClick={() => { props.deleteTask(r.id); }}><BsTrash data-testid='BsTrash' className={props.disable ? '' : 'pointer'} fill="red" /> </Button></td>
                                 </tr>)
                             )
                     }
