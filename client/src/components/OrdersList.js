@@ -46,7 +46,7 @@ function OrderTable(props){
 
 
     return(
-        <Table striped bordered hover responsive >
+        <Table striped bordered hover responsive id="ordersTable">
             <thead>
                 <tr>
                     <th>ID</th>
