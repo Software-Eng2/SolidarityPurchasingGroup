@@ -3,12 +3,11 @@ import { Order } from './Order';
 import { Product } from './Product';
 
 /*** Jest import + TEST URL (to uncomment for testing the app) ***/
-import "jest-fetch-mock"
-import { GiTruce } from 'react-icons/gi';
-const BASEURL = 'http://localhost:3001/api';
+//import "jest-fetch-mock"
+//const BASEURL = 'http://localhost:3001/api';
 
 /*** DEFAULT URL (to uncomment for running the app) ***/
-//const BASEURL = '/api';
+const BASEURL = '/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
