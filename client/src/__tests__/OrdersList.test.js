@@ -136,6 +136,7 @@ test('select an order from the list', async()=>{
         fireEvent.click(screen.getByTestId(`tr-${fakeOrders[0].id}`));
     });
 
+    //click on order details (to open orderModal)
     await act( async() =>{
         const orderId = await screen.findByText('28');
         fireEvent.click(orderId);
@@ -157,7 +158,41 @@ test('select an order from the list', async()=>{
         fireEvent.click(date);
         const time = await screen.findByText('10:00');
         fireEvent.click(time);
+    });
 
+    //open dropdown
+    await act( async() =>{
+
+        const statusDropdown = await screen.findByText('PENDING');
+        fireEvent.click(statusDropdown);
+
+        //find all status and click on them(even if they are disabled) 
+        expect(await screen.findByTestId('ACCEPTED')).toBeInTheDocument();
+/*         const accepted = await screen.findByTestId('ACCEPTED');
+        fireEvent.click(accepted); */
+
+        expect(await screen.findByTestId('CANCELLING')).toBeInTheDocument();
+/*         const cancelling = await screen.findByTestId('CANCELLING');
+        fireEvent.click(cancelling); */
+
+        expect(await screen.findByTestId('FAILED')).toBeInTheDocument();
+/*         const failed = await screen.findByTestId('FAILED');
+        fireEvent.click(failed); */
+
+        expect(await screen.findByTestId('READY')).toBeInTheDocument();
+/*         const ready = await screen.findByTestId('READY');
+        fireEvent.click(ready); */
+        
+        //select pending status
+        const pending = await screen.findByTestId('PENDING');
+        fireEvent.click(pending);
+
+        //open dropdown again
+        fireEvent.click(statusDropdown);
+
+        //change order status selecting delivered status
+        const delivered = await screen.findByTestId('DELIVERED');
+        fireEvent.click(delivered);
     });
 
 });

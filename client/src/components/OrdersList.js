@@ -96,12 +96,12 @@ function TableDropdown(props) {
                 {status}
             </Dropdown.Toggle>
             <Dropdown.Menu >
-                <Dropdown.Item id="PENDING" onClick={(e) => { changeStatus(id, e.target.id) }}>PENDING</Dropdown.Item><Dropdown.Divider />
-                <Dropdown.Item disabled id="ACCEPTED" onClick={(e) => { changeStatus(id, e.target.id) }}>ACCEPTED</Dropdown.Item><Dropdown.Divider />
-                <Dropdown.Item disabled id="CANCELLING" onClick={(e) => { changeStatus(id, e.target.id) }}>CANCELLING</Dropdown.Item><Dropdown.Divider />
-                <Dropdown.Item disabled id="FAILED" onClick={(e) => { changeStatus(id, e.target.id) }}>FAILED</Dropdown.Item><Dropdown.Divider />
-                <Dropdown.Item disabled id="READY" onClick={(e) => { changeStatus(id, e.target.id) }}>READY</Dropdown.Item><Dropdown.Divider />
-                <Dropdown.Item id="DELIVERED" onClick={(e) => { changeStatus(id, e.target.id) }}>DELIVERED</Dropdown.Item>
+                <Dropdown.Item data-testid="PENDING" id="PENDING" onClick={(e) => { changeStatus(id, e.target.id) }}>PENDING</Dropdown.Item><Dropdown.Divider />
+                <Dropdown.Item disabled data-testid="ACCEPTED" id="ACCEPTED" onClick={(e) => { changeStatus(id, e.target.id) }}>ACCEPTED</Dropdown.Item><Dropdown.Divider />
+                <Dropdown.Item disabled data-testid="CANCELLING" id="CANCELLING" onClick={(e) => { changeStatus(id, e.target.id) }}>CANCELLING</Dropdown.Item><Dropdown.Divider />
+                <Dropdown.Item disabled data-testid="FAILED" id="FAILED" onClick={(e) => { changeStatus(id, e.target.id) }}>FAILED</Dropdown.Item><Dropdown.Divider />
+                <Dropdown.Item disabled data-testid="READY" id="READY" onClick={(e) => { changeStatus(id, e.target.id) }}>READY</Dropdown.Item><Dropdown.Divider />
+                <Dropdown.Item data-testid="DELIVERED" id="DELIVERED" onClick={(e) => { changeStatus(id, e.target.id) }}>DELIVERED</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
     );
