@@ -29,9 +29,9 @@ const farmerProduct = [{
 }];
 
 const productNW=[
-{id_user:2, id_product:"prova", quantity:7,price:3},
-{id_user:2, id_product:"prova2", quantity:10 ,price:3},
-{id_user:3, id_product:"prova3", quantity:15 ,price:5}];
+{ quantity:7,price:3, name: 'name1', description: "description1", category: "category1", farmer_id: 4, img_path: 'some-img-path-1', confirmed_by_farmer: 0},
+{quantity:10 ,price:4, name: 'name2', description: "description2", category: "category2", farmer_id: 5, img_path: 'some-img-path-2', confirmed_by_farmer: 1},
+{quantity:20,price:3, name: 'name3', description: "description3", category: "category3", farmer_id: 5, img_path: 'some-img-path-3', confirmed_by_farmer: 1}];
 
 
     describe("Render", () => {

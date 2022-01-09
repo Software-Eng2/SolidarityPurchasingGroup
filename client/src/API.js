@@ -3,11 +3,12 @@ import { Order } from './Order';
 import { Product } from './Product';
 
 /*** Jest import + TEST URL (to uncomment for testing the app) ***/
-//import "jest-fetch-mock"
-//const BASEURL = 'http://localhost:3001/api';
+import "jest-fetch-mock"
+import { GiTruce } from 'react-icons/gi';
+const BASEURL = 'http://localhost:3001/api';
 
 /*** DEFAULT URL (to uncomment for running the app) ***/
-const BASEURL = '/api';
+//const BASEURL = '/api';
 
 function getAllClients(){
     return new Promise((resolve,reject) => {
@@ -457,7 +458,6 @@ async function getProductNW(farmer_id) {
   if (response.ok) {
     return products.map((p) =>{return {
       id:p.id,
-      id_product: p.id_product,
       quantity: p.quantity,
       price: p.price,
       name:p.name,
@@ -547,7 +547,7 @@ function deleteProductNW(id) {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
-              resolve(null);
+              resolve(true);
           } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
@@ -563,7 +563,7 @@ function deleteAllProductNWNotConfirmed() {
           method: 'DELETE',
       }).then((response) => {
           if (response.ok) {
-              resolve(null);
+            resolve(true);
           } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
@@ -580,7 +580,7 @@ function deleteAllProductNW() {
       }).then((response) => {
           if (response.ok) {
               console.log('delete done');
-              resolve(null);
+              resolve(true);
           } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body

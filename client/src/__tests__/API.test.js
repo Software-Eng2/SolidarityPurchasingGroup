@@ -143,37 +143,43 @@ test('', async () => {
 
   test('', async () => {
 
-    await API.createProductNW({id_user:2, id_product:"prova", quantity:7,price:3});
+    await API.createProductNW({ quantity:7,price:3, name: 'name1', description: "description1", category: "category1", farmer_id: 4, img_path: 'some-img-path-1', confirmed_by_farmer: 0});
 
-    let productNW = await API.getProductNW(2);
+    let productNW = await API.getProductNW(4);
 
-    expect( productNW[0].id_user).toEqual(2);
-    expect( productNW[0].id_product).toEqual('prova');
+   
     expect( productNW[0].quantity).toEqual(7);
-    expect( productNW[0].price).toEqual(3);
+    expect( productNW[0].name).toEqual('name1');
+    expect( productNW[0].description).toEqual('description1');
+    expect( productNW[0].category).toEqual('category1');
+    expect( productNW[0].farmer_id).toEqual(4);
+    expect( productNW[0].img_path).toEqual('some-img-path-1');
+    expect( productNW[0].confirmed_by_farmer).toEqual(0);
+
+
 
     await API.changeProductNW(1, 10);
 
-    productNW = await API.getProductNW(2);
+    productNW = await API.getProductNW(4);
 
     expect( productNW[0].quantity).toEqual(10);
 
     await API.deleteProductNW(1);
 
-    await API.createProductNW({id_user:2, id_product:"prova", quantity:7,price:3});
-    await API.createProductNW({id_user:2, id_product:"prova2", quantity:10 ,price:3});
-    await API.createProductNW({id_user:3, id_product:"prova3", quantity:15 ,price:5});
+    await API.createProductNW({ quantity:7,price:3, name: 'name1', description: "description1", category: "category1", farmer_id: 4, img_path: 'some-img-path-1', confirmed_by_farmer: 0});
+    await API.createProductNW({ quantity:10 ,price:4, name: 'name2', description: "description2", category: "category2", farmer_id: 5, img_path: 'some-img-path-2', confirmed_by_farmer: 1});
+    await API.createProductNW({ quantity:20,price:3, name: 'name3', description: "description3", category: "category3", farmer_id: 5, img_path: 'some-img-path-3', confirmed_by_farmer: 1});
 
 
-    await API.deleteAllUserProductNW(2);
+    await API.deleteAllProductNWNotConfirmed();
 
-    productNW = await API.getProductNW(2);
+    productNW = await API.getProductNW(4);
 
     expect((productNW)).toEqual([]);
 
-    productNW = await API.getProductNW(3);
-    expect((productNW)).toEqual([{"id": 3, "id_product": "prova3", "id_user": 3, "price": 5, "quantity": 15}]);
-    await API.deleteAllUserProductNW(3);
+    productNW = await API.getProductNW(5);
+    expect((productNW[0])).toEqual({'id':2, 'quantity':10 ,'price':4, 'name': 'name2', 'description': "description2", 'category': "category2", 'farmer_id': 5, 'img_path': 'some-img-path-2', 'confirmed_by_farmer': 1});
+    await API.deleteAllProductNW();
 
     
 

@@ -672,7 +672,7 @@ app.delete('/api/productsNWNotConfirmed',  async (req, res) => {
   try {
       const result = await dao.deleteProductForNextWeekNotConfirmed();
       console.log(result);
-      if (result != 'Product not found.' && result.errors)
+      if (result  && result.errors)
           res.status(404).json(result);
       else
           res.status(204).end();
