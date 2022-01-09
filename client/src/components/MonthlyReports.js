@@ -39,7 +39,7 @@ function MonthlyReports() {
         let arrayOrders = [0,0,0,0,0,0,0,0,0,0,0,0];
         let arrayFood = [0,0,0,0,0,0,0,0,0,0,0,0];
 
-        orders.filter(o => o.status = 'FAILED' && o.creation_date.substring(0,4) === year)
+        orders.filter(o => o.status === 'FAILED' && o.creation_date.substring(0,4) === year)
             .map(o => {
                 switch(o.creation_date.substring(5,7)){
                     case '01' :
@@ -175,7 +175,7 @@ function MonthlyReport(props){
 
     function filterProducts(month, year){
         let filter = [];
-        let filteredO = props.orders.filter(o => o.status = 'FAILED' && o.creation_date.substring(5,7) === month && o.creation_date.substring(0,4) === year) ;
+        let filteredO = props.orders.filter(o => o.status === 'FAILED' && o.creation_date.substring(5,7) === month && o.creation_date.substring(0,4) === year) ;
         props.products.map(p => {
             for(let o of filteredO)
                 if(o.id === p.order_id)
