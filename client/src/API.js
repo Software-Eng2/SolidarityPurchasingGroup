@@ -338,6 +338,19 @@ async function getBasket(order_id) {
   }
 }
 
+async function getReportBasket(order_id) {
+
+    const response = await fetch(BASEURL + '/report/basket/' + order_id);
+
+    const products = await response.json();
+
+    if (response.ok) {
+        return products/* .map((p) =>{new Product(p.id, p.name,'' ,'' ,p.quantity, p.price,'','','')}) */;
+    } else {
+        return undefined;
+    }
+}
+
 async function getClientById(client_id) {
 
   const response = await fetch(BASEURL + '/clients/' + client_id);
@@ -771,7 +784,8 @@ const API = {
   getAllTelegramUsers,
   sendTelegramMessage,
   getWeekProducts,
-  deleteAllProductNWNotConfirmed
+  deleteAllProductNWNotConfirmed,
+  getReportBasket
 }
 
 export default API;

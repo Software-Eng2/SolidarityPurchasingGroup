@@ -20,7 +20,7 @@ function MonthlyReports() {
             let products = [];
             let count = 0;
             o.map(order => {
-                API.getBasket(order.id).then((prod) => {
+                API.getReportBasket(order.id).then((prod) => {
                     prod.map(p => products.push({...p, order_id: order.id, creation_date:o.creation_date }) );
                     count ++;
                     if(count === o.length){

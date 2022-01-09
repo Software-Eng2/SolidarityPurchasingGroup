@@ -103,7 +103,7 @@ app.get('/api/farmer/:id',
       .catch((err) => res.status(500).json({ error: "Error " + err }));
 });
 
-// add a new client 
+// add a new client
 app.post('/api/users',
   [
     check('role').isIn(['client', 'farmer', 'rider']),
@@ -173,7 +173,7 @@ app.get('/api/products',
 app.get('/api/farmer/orders/:id',
   (req, res) => {
     const product_id = req.params.id;
-    dao.getOrderedByFarmerByDate(product_id) 
+    dao.getOrderedByFarmerByDate(product_id)
       .then((ordersByDate) => { res.json(ordersByDate) })
       .catch((err) => res.status(500).json({ error: "Error " + err }));
 });
@@ -351,11 +351,11 @@ app.put('/api/products/quantity',
 
 
 
-// Login --> POST /sessions 
+// Login --> POST /sessions
 app.post('/api/sessions', passport.authenticate('local'), (req, res) => {
   res.json(req.user);
 });
-// Logout --> DELETE /sessions/current 
+// Logout --> DELETE /sessions/current
 app.delete('/api/sessions/current', isLoggedIn, (req, res) => {
   req.logout();
   res.end();
@@ -403,6 +403,16 @@ app.get('/api/basket/:order_id',
       .then((products) => { res.json(products) })
       .catch((err) => res.status(500).json({ error: "Error " + err }));
   });
+
+
+//get a basket from an order_id
+app.get('/api/report/basket/:order_id',
+    (req, res) => {
+        const order_id = req.params.order_id;
+        dao.getReportBasket(order_id)
+            .then((products) => { res.json(products) })
+            .catch((err) => res.status(500).json({ error: "Error " + err }));
+    });
 /*** End APIs ***/
 
 
@@ -448,7 +458,7 @@ app.post('/api/notifications/',
       );
   });
 
-  app.delete('/api/notifications/:id', 
+  app.delete('/api/notifications/:id',
     [
       check('id').isInt({min:0})
     ],
@@ -478,7 +488,7 @@ app.get('/api/orders/:id',
 });
 
 //delete a product by its id
-app.delete('/api/products/:id', 
+app.delete('/api/products/:id',
   [
     check('id').isInt({min:0})
   ],
@@ -499,7 +509,7 @@ app.delete('/api/products/:id',
 );
 
 //delete an order by its id
-app.delete('/api/orders/:id', 
+app.delete('/api/orders/:id',
   [
     check('id').isInt({min:0})
   ],
@@ -524,7 +534,7 @@ app.delete('/api/orders/:id',
   }
 );
 
-//delete a client and their wallet by client_id 
+//delete a client and their wallet by client_id
 app.delete('/api/clients/:id',
   [
     check('id').isInt({ min: 0 })
@@ -569,7 +579,7 @@ app.post('/api/productNW',
     check('category').isString(),
     check('farmer_id').isInt(),
     check('confirmed_by_farmer').isInt(),
-    
+
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -586,9 +596,9 @@ app.post('/api/productNW',
       farmer_id: req.body.farmer_id,
       img_path:req.body.img_path,
       confirmed_by_farmer: req.body.confirmed_by_farmer
-      
+
     }
-    
+
     dao.createProductForNextWeek(product).then((id) => res.status(201).json({ id: id }))
       .catch((err) =>
         res.status(500).json({
@@ -639,7 +649,7 @@ app.put('/api/product/quantity',
     if(!errors.isEmpty()){
       return res.status(422).json({errors:errors.array()})
     }
-    
+
     dao.updateProduct(req.body.farmer_id, req.body.name, req.body.quantity)
     .then((id)=>res.status(201).json({id:id}))
     .catch((err)=>{res.status(500).json({error: "Error" + err,})})
@@ -797,12 +807,12 @@ app.get('/api/products/week',
 
   /****TELEGRAM *****/
 
-// Switch on the bot 
+// Switch on the bot
 bot.on('message', async (msg) => {
   if(msg.text === '/start'){
     telegramDao.newTelegramUser(msg.chat.id,msg.chat.first_name)
   }
-  
+
 });
 
 //get all telegram users

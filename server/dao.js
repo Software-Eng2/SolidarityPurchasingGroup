@@ -34,7 +34,7 @@ exports.getAllClients = () => {
       resolve(orderedProductsByDate);
     });
   });
-}; 
+};
 
 // get specific client by id
 
@@ -57,7 +57,7 @@ exports.getClientById = (client_id) => {
  exports.createUser = (user) => {
     return new Promise((resolve, reject) => {
       const sql = 'INSERT INTO USERS (role,name,surname,birthdate,email,password,isConfirmed) VALUES(?,?,?,?,?,?,?)';
-      
+
       db.run(sql, [user.role, user.name, user.surname, user.birthdate, user.email, user.password, user.isConfirmed], function (err) {
         if (err) {
           reject(err);
@@ -66,7 +66,7 @@ exports.getClientById = (client_id) => {
         resolve(this.lastID);
       });
     });
-  }; 
+  };
 
 // get all the products
 exports.getAllProducts = () => {
@@ -83,11 +83,11 @@ exports.getAllProducts = () => {
     })
 };
 
-// add a new product 
+// add a new product
 exports.createProduct = (product) => {
     return new Promise((resolve, reject) => {
       const sql = 'INSERT INTO PRODUCTS(name,description,category,quantity, price, farmer_id, img_path, confirmed) VALUES(?,?,?,?,?,?,?,?)';
-      
+
       db.run(sql, [product.name, product.description, product.category, product.quantity, product.price, product.farmer_id, product.img_path, product.confirmed], function (err) {
         if (err) {
           reject(err);
@@ -184,11 +184,11 @@ exports.changeDateTime = (order_id, date, time) => {
   });
 };
 
-// add a new wallet 
+// add a new wallet
 exports.createWallet = (clientID) => {
   return new Promise((resolve, reject) => {
     const sql = 'INSERT INTO WALLETS(AMOUNT, CLIENT_ID) VALUES(?,?)';
-    
+
     db.run(sql, [0, clientID], function (err) {
       if (err) {
         reject(err);
@@ -220,7 +220,7 @@ exports.updateWallet = (value, client_id) => {
 exports.createBasket = (basket) => {
   return new Promise((resolve, reject) => {
     const sql = 'INSERT INTO BASKETS (order_id, product_id, quantity, updated) VALUES(?,?,?,?)';
-    
+
     db.run(sql, [basket.order_id, basket.product_id, basket.quantity, basket.updated], function (err) {
       if (err) {
         reject(err);
@@ -246,6 +246,21 @@ exports.getBasket = (order_id) => {
   })
 };
 
+// retrieve a basket from a order id
+exports.getReportBasket = (order_id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT BASKETS.product_id, PRODUCTS.name, PRODUCTS.price, BASKETS.quantity, PRODUCTS.img_path FROM BASKETS INNER JOIN PRODUCTS ON BASKETS.product_id = PRODUCTS.id WHERE BASKETS.order_id = ?';
+        db.all(sql, [order_id], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const products = rows.map((p) => ({ id: p.product_id, name: p.name, price: p.price, quantity: p.quantity, img_path: p.img_path, availability: p.availability}));
+            resolve(products);
+        });
+    })
+};
+
 //update avaiability of product when an order is issued
 exports.changeQuantity = (product_id, order_quantity) => {
   return new Promise((resolve,reject)=>{
@@ -264,7 +279,7 @@ exports.changeQuantity = (product_id, order_quantity) => {
 exports.createNotification = (description, client_id) => {
   return new Promise((resolve, reject) => {
     const sql = 'INSERT INTO NOTIFICATIONS(description, client_id) VALUES(?,?)';
-    
+
     db.run(sql, [description,client_id], function (err) {
       if (err) {
         reject(err);
@@ -294,7 +309,7 @@ exports.getNotifications = (id) => {
 exports.deleteNotification = (id) => {
   return new Promise((resolve, reject) => {
     const sql = 'DELETE FROM NOTIFICATIONS WHERE client_id = ?';
-    
+
     db.run(sql, [id], function (err) {
       if (err) {
         reject(err);
@@ -426,7 +441,7 @@ exports.getProductsForNextWeek = (id) => {
 exports.createProductForNextWeek = (product) => {
   return new Promise((resolve, reject) => {
     const sql = 'INSERT INTO PRODUCTS_NEXT_WEEK (quantity, price, name, description,category,farmer_id,img_path,confirmed_by_farmer) VALUES(?,?,?,?,?,?,?,?)';
-    
+
     db.run(sql, [product.quantity, product.price, product.name, product.description, product.category, product.farmer_id,product.img_path, product.confirmed_by_farmer], function (err) {
       if (err) {
         reject(err);
