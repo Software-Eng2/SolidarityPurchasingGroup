@@ -68,6 +68,7 @@ function Wallet(props) {
               <Form.Label column xs={1} md={1} className="ml-3">€</Form.Label>
               <Col xs={5} md={5}>
                 <Form.Control 
+                  data-testid="formControl"
                   type="number"
                   value={props.increment}
                   min="0"
