@@ -15,8 +15,10 @@
 - Route `/client`: this page shows the list of orders of the logged client. They are divided by state and the client can modify a "pending" order.
 - Route `/warehouseEmployee`: this page allows the warehouse employee to confirm the preparation of the bags of confirmed order.
 - Route `/clock`: allow the professor to use the virtual clock
-
-//TODO WAREHOUSE MANAGER
+- Route `/warehousemanager`: this page allows the warehouse manager to see the confirmation of the preparation of the bags of confirmed order.
+- Route `/manager`: this page allows the manager to see the reports
+- Route `/weeklyReports`: this page shows the weekly reports 
+- Route `/monthlyReports`: this page shows the monthly reports
 
 ## API Server
 
@@ -561,6 +563,25 @@
             "first_name": Andrea
           }
         ]`
+- GET `/api/report/basket/:order_id`
+    - Description: get all the products associated to an order
+    - request parameters: id of the order
+    - response body content: list of the products
+      `[
+      {id: 1,
+      name: 'banana',
+      quantity: 5,
+      price: 2.00,
+      id: 2
+      },
+      {name: 'apple',
+      quantity: 1,
+      price: 2.50,
+      }
+      ]`
+    - Response: 200 OK (success)
+    - Error responses: generic error
+
 - POST `/api/telegramMsg`
     - Description: Send at 9:00 am on Friday a message that informs the user that they can see all avaiable products.
     - request body content: description of message
