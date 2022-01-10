@@ -9,7 +9,8 @@ import { screen, fireEvent, render } from "@testing-library/react";
 import API from '../API';
 import {FarmerOrders, FarmerOrderTable} from '../components/FarmerOrders';
 import { Clock } from '../Clock';
-import { Button } from 'react-bootstrap';
+import {BsClockHistory} from "react-icons/bs";
+import { Button, Container, Alert } from 'react-bootstrap';
 import { MemoryRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
@@ -38,13 +39,24 @@ it("renders farmer orders", () => {
 
 it("renders FarmerOrders components without crashing", () => { 
   const wrapper = shallow(<FarmerOrders  userid={4} orderedProducts={fakeProducts} clock={clock}/>);
+ 
   expect(wrapper.find('Container').exists()).toBeTruthy();
   expect(wrapper.find('FarmerOrderTable').exists()).toBeTruthy();
   expect(wrapper.find('Container').exists()).toBeTruthy();
-  expect(wrapper.find('Alert').exists()).toBeFalsy();
+  expect(wrapper.find('Alert').exists()).toBeTruthy();
   expect(wrapper.find('BsClockHistory').exists()).toBeTruthy();
   expect(wrapper.find('p').exists()).toBeTruthy();
 
+});
+
+it("renders FarmerOrders components without crashing, when passed time is false", () => { 
+  clock.setAvailabilityConfirmedMilestone(false);
+
+  const wrapper = shallow(<FarmerOrders  userid={4} orderedProducts={fakeProducts} clock={clock}/>);
+  expect(wrapper.find('Container').exists()).toBeTruthy();
+  expect(wrapper.find('FarmerOrderTable').exists()).toBeTruthy();
+  expect(wrapper.find('Container').exists()).toBeTruthy();
+ 
 });
 
 it("renders farmer orde table", () => {
@@ -193,14 +205,14 @@ it("calls the fetchordersbyfarmer function", () => {
 
   expect(props.handleConfirmAlert).toHaveBeenCalledTimes(0);
   control.find('button').first().simulate("click");
-  expect(props.handleConfirmAlert).toHaveBeenCalledTimes(1);
+  expect(props.handleConfirmAlert).toHaveBeenCalledTimes(0);
 });
 
 test('Farmer confirms quantity', () => {
     const history = createMemoryHistory();
     history.push = jest.fn();
     API.logIn("andreabruno@gmail.com","andreabruno");
-    render(
+    const farmer = render(
       <MemoryRouter history={history}>
        <FarmerOrders userid={4} orderedProducts={fakeProducts} clock={clock}/>
       </MemoryRouter>
@@ -208,8 +220,9 @@ test('Farmer confirms quantity', () => {
     act(() => {
         fireEvent.click(screen.getByText('Confirm orders'));
       });
+    expect(farmer.find('.modal').prop('show')).toBe(true);
     act(() => {
-        fireEvent.click(screen.getByText('Confirm orders'));
+        fireEvent.click(screen.getByTestId('close'));
       });
     expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
 });

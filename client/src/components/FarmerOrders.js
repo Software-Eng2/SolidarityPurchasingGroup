@@ -13,16 +13,17 @@ function FarmerOrders(props){
 
     return (
         <Container fluid className="page width-100 below-nav table" {...props}>
-            {passedTime ? '' : 
-                <Alert show={passedTime} variant="warning">
-                    <Alert.Heading className="mt-2">
-                    <BsClockHistory size={25} className="mr-3"/>
-                        Confirmation not available
-                    </Alert.Heading>
-                    <p>
-                    Confirmation time has passed, you have to wait unitl next Monday. 
-                    </p>
-                </Alert>
+            {passedTime ? 
+            <Alert show={passedTime} variant="warning">
+                <Alert.Heading className="mt-2">
+                <BsClockHistory size={25} className="mr-3"/>
+                    Confirmation not available
+                </Alert.Heading>
+                <p>
+                Confirmation time has passed, you have to wait until next Monday. 
+                </p>
+            </Alert> : 
+            ''  
             }
             <FarmerOrderTable products={orderedProducts} quantities={sendQuantities} passedTime={passedTime}/>
         </Container>
