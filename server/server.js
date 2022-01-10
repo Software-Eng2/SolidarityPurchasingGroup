@@ -588,6 +588,7 @@ app.post('/api/productNW',
       return res.status(422).json({ errors: errors.array() })
     }
     const product = {
+      id: req.body.id,
       quantity: req.body.quantity,
       price: req.body.price,
       name: req.body.name,

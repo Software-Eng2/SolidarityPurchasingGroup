@@ -45,6 +45,7 @@ function PlanningModal(props) {
 
 
 function FormPlanning(props) {
+    const [id, setId] = useState('');
     const [product, setProduct] = useState('');
     const [quantity, setQuantity] = useState('');
     const [price, setPrice] = useState("");
@@ -64,7 +65,7 @@ function FormPlanning(props) {
         } else if (!props.update) {
 
 
-             API.createProductNW(({ quantity: quantity, price: price, name: product, description: description, category: category, farmer_id: props.userid, img_path: path, confirmed_by_farmer: 0 })).then(props.onHide);
+             API.createProductNW(({id: id, quantity: quantity, price: price, name: product, description: description, category: category, farmer_id: props.userid, img_path: path, confirmed_by_farmer: 0 })).then(props.onHide);
 
 
         } else {
@@ -76,6 +77,7 @@ function FormPlanning(props) {
 
     }
 
+    console.log(id);
 
     return (
         <>
@@ -134,6 +136,7 @@ function FormPlanning(props) {
                                 as="select"
                                 value={product}
                                 onChange={(event) => {
+                                    setId(props.farmerProducts.filter(r => r.name == event.target.value)[0].id);
                                     setProduct(event.target.value);
                                     setPrice(props.farmerProducts.filter(r => r.name == event.target.value)[0].price);
                                     setCategory(props.farmerProducts.filter(r => r.name == event.target.value)[0].category);

@@ -64,6 +64,7 @@ function Basket(props){
                     quantity: product.quantity,
                     updated: 0,
                 };
+                console.log(productBasket);
                 API.changeQuantity(productBasket.product_id, productBasket.quantity);
                 return API.createBasket(productBasket).then((res) => {
                     if (!res.inserted) {

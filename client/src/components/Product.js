@@ -15,7 +15,6 @@ function Product(props) {
 	
 	const handleConfirm = () => {
 		props.setBasket([...props.basket, {id: id, name:name, price:price, img: img_path, quantity:counter, total: price*counter}]);
-		console.log(props.basket);
 	}
 
 	return (
