@@ -136,8 +136,7 @@ function Market(props) {
                                 )
                             
                             : 
-                            
-                            products.map(product => 
+                            products.map(product =>
                             product.confirmed ? 
                             <Col fluid key={`product-"${product.id}"`} xs={12} sm={6} md={4} lg={3} >
                                 <Product product={product} basket={basket} setBasket={setBasket}/>

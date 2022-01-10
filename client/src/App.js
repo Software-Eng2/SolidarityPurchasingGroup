@@ -135,7 +135,7 @@ function App() {
       routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
-
+  
   return (
     <Router history={routerHistory}>
       <NavBar loggedIn={loggedIn} doLogOut={doLogOut} userRole={userRole} />

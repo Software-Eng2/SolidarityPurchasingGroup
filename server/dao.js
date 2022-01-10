@@ -264,7 +264,7 @@ exports.getReportBasket = (order_id) => {
 //update avaiability of product when an order is issued
 exports.changeQuantity = (product_id, order_quantity) => {
   return new Promise((resolve,reject)=>{
-    const sql = 'UPDATE PRODUCTS SET quantity = quantity - ? WHERE id = ?';
+    const sql = 'UPDATE PRODUCTS_NEXT_WEEK SET quantity = quantity - ? WHERE id = ?';
     db.run(sql,[order_quantity,product_id], function(err){
       if(err){
         reject(err);
