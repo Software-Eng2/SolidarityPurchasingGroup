@@ -243,7 +243,7 @@ it('add a next week product correctly', async() => {
   const setUpdate = jest.fn();
 
   render(<MemoryRouter><FormTable disable={false} clock={clock} setShowPopUp={setShowPopUp} farmerProducts={farmerProduct} userid={fakeFarmer.id} productNW={productNW} products={fakeProducts} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} /></MemoryRouter>);
-  
+   
 
   await act( async()=>{
     const plus = await screen.findByTestId("BsFillPlusCircleFill");

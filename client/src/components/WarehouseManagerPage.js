@@ -107,7 +107,7 @@ function OrderTable(props) {
 
 
 function OrderModal(props) {
-
+ 
     return (
         <Modal
             show={props.show}
@@ -178,7 +178,7 @@ function OrderModal(props) {
             </ModalBody>
             <Modal.Footer style={{ backgroundColor: "#b4e6e2" }}>
                 <Col className="text-left">
-                    <Button data-testid="button-close" variant='danger' onClick={props.onHide}>
+                    <Button data-testid="button-close-order-modal" variant='danger' onClick={props.onHide}>
                         Close
                     </Button>
                 </Col>
