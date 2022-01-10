@@ -4,6 +4,7 @@ import { Bar } from "react-chartjs-2";
 import {Button, Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import API from "../API";
 import {Link} from "react-router-dom";
+import Chart from 'chart.js/auto'
 
 function MonthlyReports(props) {
     const {orders} = props;
@@ -16,7 +17,7 @@ function MonthlyReports(props) {
             let count = 0;
             orders.map(order => {
                 API.getReportBasket(order.id).then((prod) => {
-                    prod.map(p => _products.push({...p, order_id: order.id, creation_date:order.creation_date }) );
+                    prod.map(p => products.push({...p, order_id: order.id, creation_date:order.creation_date }) );
                     count ++;
                     if(count === orders.length){
                         setData(orders, products, "2022");

@@ -4,6 +4,7 @@ import { Bar } from "react-chartjs-2";
 import {Button, Col, Row, Table} from "react-bootstrap";
 import API from "../API";
 import {Link} from "react-router-dom";
+import Chart from 'chart.js/auto'
 
 function WeeklyReports(props) {
     const {orders, clock} = props;
