@@ -248,9 +248,6 @@ it('add a next week product correctly', async() => {
   await act( async()=>{
     const plus = await screen.findByTestId("BsFillPlusCircleFill");
     fireEvent.click(plus);
-
-    //const trash = await screen.findByTestId("BsTrash");
-    //fireEvent.click(trash);
   });
 
   act(() => {
