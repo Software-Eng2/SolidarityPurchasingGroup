@@ -220,9 +220,8 @@ test('Farmer confirms quantity', () => {
     act(() => {
         fireEvent.click(screen.getByText('Confirm orders'));
       });
-    expect(farmer.find('.modal').prop('show')).toBe(true);
     act(() => {
-        fireEvent.click(screen.getByTestId('close'));
+        fireEvent.click(screen.getByText('Confirm orders'));
       });
     expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
 });

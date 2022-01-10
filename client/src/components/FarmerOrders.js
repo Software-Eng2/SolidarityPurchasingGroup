@@ -6,10 +6,8 @@ import API from '../API';
 function FarmerOrders(props){
     const {orderedProducts, clock } = props;
     const sendQuantities = orderedProducts.map((p) => ({id: p.id, quantity: p.amount}));
-    const passedTime = clock.checkProductsAvailabilityMilestone();
+    const passedTime = clock.checkWalletsOkMilestone();
     // Do here the fetch between products and return of new query
-    console.log('ordered: ', orderedProducts);
-    console.log('passed: ', clock.checkProductsAvailabilityMilestone());
 
     return (
         <Container fluid className="page width-100 below-nav table" {...props}>
@@ -41,7 +39,7 @@ function FarmerOrderTable(props){
 
     useEffect(() => {
         setConfirmedProducts(quantities);
-    }, [quantities]);
+    }, []);
 
 
     const onHide = () => {setShowConfirmation(false)}
@@ -117,7 +115,6 @@ function FarmerOrderTable(props){
                 </tr>
             </thead>
             <tbody>
-                {console.log(products)}
                 {
                     products.map((p, index) => (
                         <tr key={`tr-${p.id}`} data-testid = {`tr-${p.id}`}>
