@@ -188,7 +188,7 @@ function MonthlyReport(props){
     function getTotalFoodEuro(month, year) {
         let filter = filterProducts(month, year);
         let total = 0;
-        filter.map(p => total += p.price * p.quantity);
+        filter.forEach(p => total += p.price * p.quantity);
         return total.toFixed(2);
     }
 

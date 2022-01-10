@@ -141,19 +141,19 @@ function WeeklyReports(props) {
 
     function getTotalOrder() {
         let total = 0;
-        filteredOrders.map(i => total+=i);
+        filteredOrders.forEach(i => total+=i);
         return total;
     }
 
     function getTotalFood() {
         let total = 0;
-        unretrievedFood.map(i => total+=i);
+        unretrievedFood.forEach(i => total+=i);
         return total;
     }
 
     function getTotalFoodEuro() {
         let total = 0;
-        filteredProducts.map(p => total += p.price*p.quantity);
+        filteredProducts.forEach(p => total += p.price*p.quantity);
         return total;
     }
 
