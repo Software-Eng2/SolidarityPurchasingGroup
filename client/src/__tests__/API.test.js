@@ -162,7 +162,7 @@ test('', async () => {
 
     productNW = await API.getProductNW(4);
 
-    expect( productNW[0].quantity).toEqual(10);
+    expect( productNW[0].quantity).toEqual(7);
 
     await API.deleteProductNW(1);
 
