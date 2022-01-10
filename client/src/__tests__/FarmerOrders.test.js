@@ -183,17 +183,17 @@ describe("confirm orders button", () => {
 
 it("calls the fetchordersbyfarmer function", () => {
   const props = {
-    fetchOrdersByFarmer: jest.fn(),
-    products: ({id: 0 , name: 'test', price: 100 , estimated: 10, amount: 10, updated: 0},
-    {id: 1 , name: 'test1', price: 100 , estimated: 10, amount: 10, updated: 0}),
-    quantities: ({id: 0, quantity: 10}, {id:1, quantity:10})
+    handleConfirmAlert: jest.fn(),
+    products: [{id: 0 , name: 'test', price: 100 , estimated: 10, amount: 10, updated: 0},
+    {id: 1 , name: 'test1', price: 100 , estimated: 10, amount: 10, updated: 0}],
+    quantities: [{id: 0, quantity: 10}, {id:1, quantity:10}]
   }
 
   const control = shallow(<FarmerOrderTable {...props} />);
 
-  expect(props.fetchOrdersByFarmer).toHaveBeenCalledTimes(1);
-  control.find('button').simulate("click");
-  expect(props.fetchOrdersByFarmer).toHaveBeenCalledTimes(2);
+  expect(props.handleConfirmAlert).toHaveBeenCalledTimes(0);
+  control.find('button').first().simulate("click");
+  expect(props.handleConfirmAlert).toHaveBeenCalledTimes(1);
 });
 
 test('Farmer confirms quantity', () => {

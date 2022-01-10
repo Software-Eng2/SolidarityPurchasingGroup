@@ -298,5 +298,3 @@ it('test search bar and estimation button', async() => {
   });
 
 })
-
-
