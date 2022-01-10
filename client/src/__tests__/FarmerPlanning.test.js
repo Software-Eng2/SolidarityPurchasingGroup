@@ -4,6 +4,7 @@ import React, {
 import { MemoryRouter } from 'react-router-dom';
 import "@testing-library/jest-dom/extend-expect";
 import { shallow, configure } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import FarmerPlanning from '../components/FarmerPlanning';
 import FormTable from '../components/FarmerPlanning';
 import Adapter from 'enzyme-adapter-react-16';
@@ -65,7 +66,33 @@ const productNW = [{
   confirmed_by_farmer: 0
 }];
 
-
+const fakeProducts = [{id: "0", 
+    name: "name1", 
+    description: "description1", 
+    category: "category1", 
+    quantity: 100, 
+    price: 100, 
+    farmer_id: 4, 
+    img_path: "some-img-path-1", 
+    confirmed: 1},
+    {id: "2", 
+    name: "name2", 
+    description: "description2", 
+    category: "category2", 
+    quantity: 100, 
+    price: 100, 
+    farmer_id: 4, 
+    img_path: "some-img-path-2", 
+    confirmed: 1},
+    {id: "3", 
+    name: "name3", 
+    description: "description3", 
+    category: "category3", 
+    quantity: 100, 
+    price: 100, 
+    farmer_id: 4, 
+    img_path: "some-img-path-3", 
+    confirmed: 1}];
 
 
 
@@ -206,6 +233,44 @@ describe("View", () => {
 });
 
 
+it('add a next week product correctly', async() => {
+    
+  const setShowPopUp = jest.fn();
+  const deleteTask = jest.fn();
+  const setModalShow = jest.fn();
+  const setDirty = jest.fn();
+  const setId = jest.fn();
+  const setUpdate = jest.fn();
 
+  render(<MemoryRouter><FormTable disable={false} clock={clock} setShowPopUp={setShowPopUp} farmerProducts={farmerProduct} userid={fakeFarmer.id} productNW={productNW} products={fakeProducts} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} /></MemoryRouter>);
+  
+
+  await act( async()=>{
+    const plus = await screen.findByTestId("BsFillPlusCircleFill");
+    fireEvent.click(plus);
+
+    //const trash = await screen.findByTestId("BsTrash");
+    //fireEvent.click(trash);
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('formControl'), {
+      target: { value: 'name1' },
+    });
+  });
+
+
+  act(() => {
+    fireEvent.change(screen.getByPlaceholderText('0.0'), {
+      target: { value: '10' },
+    });
+  });
+
+  await act( async()=>{
+    const submit = await screen.findByText('submit');
+    fireEvent.click(submit);
+  });
+  
+})
 
 
