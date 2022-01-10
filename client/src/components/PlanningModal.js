@@ -129,6 +129,7 @@ function FormPlanning(props) {
                         <Form.Group as={Col} sm={5} controlId="Product">
                             <Form.Label className="mr-3">Product</Form.Label>
                             <Form.Control
+                                data-testid="formControl"
                                 required
                                 as="select"
                                 value={product}
