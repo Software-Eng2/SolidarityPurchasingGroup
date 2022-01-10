@@ -480,14 +480,15 @@ async function createProductNW(p) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
         {
-      quantity: p.quantity,
-      price: p.price,
-      name:p.name,
-      description:p.description,
-      category:p.category,
-      farmer_id: p.farmer_id,
-      img_path:p.img_path,
-      confirmed_by_farmer:p.confirmed_by_farmer
+          id: p.id,
+          quantity: p.quantity,
+          price: p.price,
+          name: p.name,
+          description: p.description,
+          category: p.category,
+          farmer_id: p.farmer_id,
+          img_path: p.img_path,
+          confirmed_by_farmer: p.confirmed_by_farmer
         }
       )
     })

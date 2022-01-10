@@ -440,9 +440,9 @@ exports.getProductsForNextWeek = (id) => {
 //add a new product for next week
 exports.createProductForNextWeek = (product) => {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO PRODUCTS_NEXT_WEEK (quantity, price, name, description,category,farmer_id,img_path,confirmed_by_farmer) VALUES(?,?,?,?,?,?,?,?)';
+    const sql = 'INSERT INTO PRODUCTS_NEXT_WEEK (id, quantity, price, name, description,category,farmer_id,img_path,confirmed_by_farmer) VALUES(?,?,?,?,?,?,?,?,?)';
 
-    db.run(sql, [product.quantity, product.price, product.name, product.description, product.category, product.farmer_id,product.img_path, product.confirmed_by_farmer], function (err) {
+    db.run(sql, [product.id, product.quantity, product.price, product.name, product.description, product.category, product.farmer_id,product.img_path, product.confirmed_by_farmer], function (err) {
       if (err) {
         reject(err);
         return;
