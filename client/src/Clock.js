@@ -112,7 +112,6 @@ import API from "./API";
         //Checking events
         this.checkEvents();
 
-        console.log('ok')
         this.start();
 
     }
