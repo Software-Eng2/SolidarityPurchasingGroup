@@ -550,7 +550,7 @@ function deleteProductNW(id) {
           } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
-                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) });
           }
       }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
   });
@@ -566,7 +566,7 @@ function deleteAllProductNWNotConfirmed() {
           } else {
               response.json()
                   .then((obj) => { reject(obj); }) // error msg in the response body
-                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+                  .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse this server response" }] }) });
           }
       }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
   });

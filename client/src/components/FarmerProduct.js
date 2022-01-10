@@ -9,7 +9,7 @@ function FarmerProduct(props) {
   const {id, name, description, category, quantity, price, img_path, confirmed} = props.product;
 	const initialSwitch = confirmed ? true : false;
 	const [show, setShow] = useState(false);
-	const [switched, setSwitch] = useState(initialSwitch);
+	const switched = initialSwitch;
 	const [disabled, setDisabled] = useState(true);
 	const [nameProduct, setNameProduct] = useState(name);
 	const [descriptionProduct, setDescriptionProduct] = useState(description);
@@ -34,7 +34,6 @@ function FarmerProduct(props) {
         }
 				API.updateConfirmedProduct( changedProduct.confirmed, id);
 				window.location.reload();
-        //DO THE API CALL WITH CHANGED VALUES
 
 	}
 	const handleDeleteAlert = () => {setShowConfirmation(true)};

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { MDBContainer } from "mdbreact";
 import { Bar } from "react-chartjs-2";
-import Chart from 'chart.js/auto'
 import {Button, Col, Row, Table} from "react-bootstrap";
 import API from "../API";
 import {Link} from "react-router-dom";

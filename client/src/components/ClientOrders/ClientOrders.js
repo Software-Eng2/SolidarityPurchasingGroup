@@ -411,8 +411,8 @@ function ListIteam(props) {
     const {p, basket, setBasket, edit, setDirty} = props;
     const [quantity, setQuantity] = useState(p.quantity);
 
-    const handleChange = (event, quantity, availability) => {
-        if (event.target.value > 0 && event.target.value <= (quantity + availability)) {
+    const handleChange = (event, qty, availability) => {
+        if (event.target.value > 0 && event.target.value <= (qty + availability)) {
             setDirty(true);
             let value = event.target.value;
             setQuantity(value);
@@ -424,6 +424,7 @@ function ListIteam(props) {
     }
 
     console.log(basket);
+    console.log(quantity);
 
     return (
         <ListGroup.Item as="li" key={p.id} id="basketItem">

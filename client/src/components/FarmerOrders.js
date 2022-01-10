@@ -82,8 +82,6 @@ function FarmerOrderTable(props){
        document.getElementById(`button-${index}`).disabled = true;
        document.getElementById(`input-${index}`).disabled = true;
     }
-
-    // TODO: Send quantities when confirm button is pressed and confirm orders
     const updateFieldChanged = index => e => {
         let newArr = [...confirmedProducts];
         const newNumber = Number(e.target.value);
@@ -99,12 +97,7 @@ function FarmerOrderTable(props){
     const checkClientAmount = async (client_id, total) =>{
         
         const client = await API.getClientById(client_id);
-        
-        if (client.amount < total){
-            return true;
-        } else {
-            return false;
-        }
+        return (client.amount < total);
         
     }
 

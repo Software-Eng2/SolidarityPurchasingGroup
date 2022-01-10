@@ -141,9 +141,6 @@ import API from "./API";
         this.setTelegramUsers();
 
         setInterval(() => {
-
-
-            //console.log(this.tlgrmusrs);
             if(!this.stopped){
                 this.time.setSeconds(this.time.getSeconds() + 1);
                 console.log(this.time.getDate() + ' ' + this.time.getMonth() + ' ' + this.time.getHours() + ':' + this.time.getMinutes() + ':' + this.time.getSeconds());
@@ -154,8 +151,7 @@ import API from "./API";
                 this.minutes = this.time.getMinutes();
 
                 if(this.day == 6 && this.hours >= 9 && (this.minutes >= 0 && this.minutes <= 2) ){
-                   //insert here milestones
-                   this.setFarmerEstimatesMilestone();
+                   this.setFarmerEstimatesMilestone();//insert here milestones
                    this.flag = true;
                    if(this.flagMsg){
                     this.tlgrmusrs.forEach((tU)=>{
@@ -385,22 +381,18 @@ import API from "./API";
     /* ---------------------------------------- */
 
     checkEstimatesMilestone(checkDate = true){
-        //this.checkEvents(checkDate);
         return this.eventsObject.estimates;
     }
 
     checkOrdersAcceptedMilestone(checkDate = true){
-        //this.checkEvents(checkDate);
         return this.eventsObject.ordersAccepted;
     }
 
     checkProductsAvailabilityMilestone(checkDate = true){
-        //this.checkEvents(checkDate);
         return this.eventsObject.availability;
     }
 
     checkWalletsOkMilestone(checkDate = true){
-        //this.checkEvents(checkDate);
         return this.eventsObject.walletsOK;
     }
 

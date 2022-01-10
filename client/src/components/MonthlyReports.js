@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { MDBContainer } from "mdbreact";
 import { Bar } from "react-chartjs-2";
-import Chart from 'chart.js/auto'
 import {Button, Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import API from "../API";
 import {Link} from "react-router-dom";
@@ -13,11 +12,11 @@ function MonthlyReports(props) {
     const [unretrievedFood, setUnretrievedFood] = useState([]);
     const [year, setYear] = useState('2022');
     useEffect(()=>{
-            let products = [];
+            let _products = [];
             let count = 0;
             orders.map(order => {
                 API.getReportBasket(order.id).then((prod) => {
-                    prod.map(p => products.push({...p, order_id: order.id, creation_date:order.creation_date }) );
+                    prod.map(p => _products.push({...p, order_id: order.id, creation_date:order.creation_date }) );
                     count ++;
                     if(count === orders.length){
                         setData(orders, products, "2022");
