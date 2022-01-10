@@ -14,7 +14,7 @@ test('clock-object-initialization', () => {
     expect(clock.checkEstimatesMilestone(false)).toEqual(true);
     expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(true);
     expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(true);
-    expect(clock.checkWalletsOkMilestone(false)).toEqual(true);
+    expect(clock.checkWalletsOkMilestone(false)).toEqual(false);
 })
 
 //Setting a Monday at 18 --> only WalletsOK check should be passed
@@ -35,7 +35,7 @@ test('clock-object-initialization', () => {
     clock.time.setMinutes(59)
     expect(clock.checkEstimatesMilestone(false)).toEqual(true);
     expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(true);
-    expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(false);
+    expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(true);
     expect(clock.checkWalletsOkMilestone(false)).toEqual(false);
 })
 
@@ -45,7 +45,7 @@ test('clock-object-initialization', () => {
     clock.time.setMinutes(0)
     expect(clock.checkEstimatesMilestone(false)).toEqual(true);
     expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(true);
-    expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(false);
+    expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(true);
     expect(clock.checkWalletsOkMilestone(false)).toEqual(false);
 })
 
@@ -56,7 +56,7 @@ test('clock-object-initialization', () => {
     clock.time.setHours(19)
     clock.time.setMinutes(0)
     expect(clock.checkEstimatesMilestone(false)).toEqual(true);
-    expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(false);
+    expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(true);
     expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(false);
     expect(clock.checkWalletsOkMilestone(false)).toEqual(false);
 })
@@ -66,7 +66,7 @@ test('clock-object-initialization', () => {
 test('clock-object-initialization', () => {
     clock.time.setHours(8)
     clock.time.setMinutes(59)
-    expect(clock.checkEstimatesMilestone(false)).toEqual(false);
+    expect(clock.checkEstimatesMilestone(false)).toEqual(true);
     expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(false);
     expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(false);
     expect(clock.checkWalletsOkMilestone(false)).toEqual(false);
@@ -80,7 +80,7 @@ test('clock-object-initialization', () => {
 //Testing farmer products estimationd and checking time and other events
 test('clock- set an event', () => {
     clock.time.setDate(18);
-    expect(clock.setFarmerEstimatesMilestone(false)).toEqual(true);
+    expect(clock.setFarmerEstimatesMilestone(false)).toEqual(false);
     expect(clock.checkEstimatesMilestone(false)).toEqual(true);
     expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(false);
     expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(false);
@@ -98,7 +98,7 @@ test('clock- set an event', () => {
 //Testing order accepted and checking time and other events
 test('clock- set an event', () => {
     clock.time.setDate(18);
-    expect(clock.setOrdersAcceptedMilestone(false)).toEqual(true);
+    expect(clock.setOrdersAcceptedMilestone(false)).toEqual(false);
     expect(clock.checkEstimatesMilestone(false)).toEqual(true);
     expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(true);
     expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(false);
@@ -164,7 +164,7 @@ test('clock- set an event', () => {
     clock.time.setDate(18);
     expect(clock.setWalletOKMilestone(false)).toEqual(true);
     expect(clock.checkEstimatesMilestone(false)).toEqual(true);
-    expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(true);
+    expect(clock.checkOrdersAcceptedMilestone(false)).toEqual(false);
     expect(clock.checkProductsAvailabilityMilestone(false)).toEqual(true);
     expect(clock.checkWalletsOkMilestone(false)).toEqual(true);
 })

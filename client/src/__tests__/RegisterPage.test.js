@@ -188,6 +188,76 @@ it('change data input', async () => {
     });
   });
 
+  act(() => {
+    fireEvent.click(screen.getByText('submit'));
+  });
+
+  expect(screen.getByText('submit')).toBeTruthy();
+  act(() => {
+    fireEvent.click(screen.getByText('back'));
+  });
+});
+
+it('change data invalid input', async () => {
+  const history = createMemoryHistory();
+  history.push = jest.fn();
+
+  render(
+    <MemoryRouter history={history}>
+      <RegisterInterface />
+    </MemoryRouter>
+  );
+
+
+  const name = screen.getByText('First name');
+  const surname = screen.getByText('Last name');
+  const birthday = screen.getByText('Birthday');
+  const email = screen.getByText('Email');
+  const password = screen.getByText('Password');
+  expect(name).toBeInTheDocument();
+  expect(surname).toBeInTheDocument();
+  expect(birthday).toBeInTheDocument();
+  expect(email).toBeInTheDocument();
+  expect(password).toBeInTheDocument();
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('firstname'), {
+      target: { value: ""},
+    });
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('lastName'), {
+      target: { value: "" },
+    });
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('Birthday'), {
+      target: { value: "" },
+    });
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('Email'), {
+      target: { value: "" },
+    });
+  });
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('Password'), {
+      target: { value: "" },
+    });
+  });
+
+  act(() => {
+    fireEvent.click(screen.getByText('submit'));
+  });
+
+  expect(screen.getByText('submit')).toBeTruthy();
+  act(() => {
+    fireEvent.click(screen.getByText('back'));
+  });
 });
 
 

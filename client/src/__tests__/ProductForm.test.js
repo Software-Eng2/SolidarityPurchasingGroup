@@ -24,7 +24,7 @@ it("renders product form components without crashing", () => {
     expect(wrappedProduct.find('Col').exists()).toBeTruthy();
     expect(wrappedProduct.find('div').exists()).toBeTruthy();
     expect(wrappedProduct.find('button').exists()).toBeTruthy();
-    expect(wrappedProduct.find('Alert').exists()).toBeTruthy();
+    expect(wrappedProduct.find('Alert').exists()).toBeFalsy();
 });
 
 

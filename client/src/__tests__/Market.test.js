@@ -3,6 +3,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { shallow, configure } from 'enzyme';
 import Market from '../views/Market';
 import Adapter from 'enzyme-adapter-react-16';
+import {Clock} from '../Clock.js';
 /**
 * @jest-environment node
 */
@@ -44,13 +45,14 @@ const fakeClient = {id: "0",
     email: "somemail@email.com", 
     password: "someHashedPassword", 
     isConfirmed: 1 };
+const fakeClock = new Clock();
 
 it("renders market without crashing", () => {
     shallow(<Market products={fakeProducts} client={fakeClient}/>);
 });
 
 it("renders market components without crashing", () => {
-    const wrapperMarket = shallow(<Market products={fakeProducts} client={fakeClient}/>);
+    const wrapperMarket = shallow(<Market products={fakeProducts} client={fakeClient} clock={fakeClock} userRole={"client"}/>);
     expect(wrapperMarket.find('Basket').exists()).toBeTruthy();
     expect(wrapperMarket.find('AlertWallet').exists()).toBeTruthy();
     expect(wrapperMarket.find('Container').exists()).toBeTruthy();
