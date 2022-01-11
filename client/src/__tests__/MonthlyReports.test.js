@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { render, cleanup, fireEvent, screen} from "@testing-library/react";
-import {Button, Col, Row, Table} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Button, Tab, Tabs} from "react-bootstrap";
+import {Link, MemoryRouter} from "react-router-dom";
 
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -15,7 +15,7 @@ import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
 import MonthlyReports from "../components/MonthlyReports";
 import {MonthlyReport, ProductTable, UnretrievedFoodReport} from "../components/MonthlyReports";
-import OrdersList, {OrderTable} from "../components/OrdersList";
+import {createMemoryHistory} from "history";
 
 afterEach(() => {
     cleanup();
@@ -109,13 +109,12 @@ it("accept props correctly", () => {
 
 it("render ProductTable components correctly", () =>{
     const wrapper = shallow(<ProductTable products={fakeProducts}/>);
-
+    expect(wrapper).toBeTruthy();
     expect(wrapper.find('thead').exists()).toBeTruthy();
     expect(wrapper.find('tbody').exists()).toBeTruthy();
     expect(wrapper.find('tr').exists()).toBeTruthy();
     expect(wrapper.find('td').exists()).toBeTruthy();
 });
-
 
 it("render UnretrievedFoodReport components correctly", () =>{
     const getTotalFoodEuro= jest.fn();
@@ -129,3 +128,39 @@ it("render UnretrievedFoodReport components correctly", () =>{
     expect(wrapper.find('ProductTable').exists()).toBeTruthy();
 });
 
+it("render graph when clicking on tab year", () => {
+    const unretrievedFood = [1,0,0,0,1,1,0];
+    const failedOrders = [3,0,0,0,1,3,0];
+    const setData = jest.fn();
+    render(<Tabs activeKey={"2021"} onSelect={setData} className="mb-3 months" align="center">
+        <Tab eventKey="2021" title="2021">
+            <MonthlyReport orders={fakeOrders} products={fakeProducts} unretrievedFood={unretrievedFood} failedOrders={failedOrders} year="2021"/>
+        </Tab>
+    </Tabs>)
+
+    fireEvent.click(screen.getByText("2021"));
+    fireEvent.select(screen.getByText("2021"));
+    expect(setData).toHaveBeenCalledTimes(1);
+});
+
+test('view orderTable', ()=>{
+    const history = createMemoryHistory();
+    history.push = jest.fn();
+
+    render(
+        <MemoryRouter history={history}>
+            <ProductTable products={fakeProducts}/>
+        </MemoryRouter>
+    );
+    const thID = screen.getByText(`Order ID`);
+    const thD = screen.getByText(`Date`);
+    const thPN = screen.getByText(`Product Name`);
+    const thQ = screen.getByText(`Quantity`);
+    const thP = screen.getByText(`Price`);
+
+    expect(thID).toBeInTheDocument();
+    expect(thD).toBeInTheDocument();
+    expect(thPN).toBeInTheDocument();
+    expect(thQ).toBeInTheDocument();
+    expect(thP).toBeInTheDocument();
+});

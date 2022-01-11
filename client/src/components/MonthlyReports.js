@@ -13,7 +13,7 @@ function MonthlyReports(props) {
     const [unretrievedFood, setUnretrievedFood] = useState([]);
     const [year, setYear] = useState('2022');
     useEffect(()=>{
-            let _products = [];
+            let products = [];
             let count = 0;
             orders.map(order => {
                 API.getReportBasket(order.id).then((prod) => {
@@ -30,11 +30,11 @@ function MonthlyReports(props) {
     },[]);
 
 
-    function setData(orders, products, year){
+    function setData(orders, products, y){
         let arrayOrders = [0,0,0,0,0,0,0,0,0,0,0,0];
         let arrayFood = [0,0,0,0,0,0,0,0,0,0,0,0];
 
-        orders.filter(o => o.status === 'FAILED' && o.creation_date.substring(0,4) === year)
+        orders.filter(o => o.status === 'FAILED' && o.creation_date.substring(0,4) === y)
             .map(o => {
                 switch(o.creation_date.substring(5,7)){
                     case '01' :
@@ -146,10 +146,10 @@ function MonthlyReports(props) {
         <div className="page">
             <Tabs activeKey={year} onSelect={(k) => {setYear(k); setData(orders, products, k)}} className="mb-3 months" align="center">
                 <Tab eventKey="2021" title="2021">
-                    <MonthlyReport orders={orders} products={products} unretrievedFood={unretrievedFood} failedOrders={failedOrders} year="2021"/>
+                    <MonthlyReport orders={orders} products={products} unretrievedFood={unretrievedFood} failedOrders={failedOrders} y="2021"/>
                 </Tab>
                 <Tab eventKey="2022" title="2022">
-                    <MonthlyReport orders={orders} products={products} unretrievedFood={unretrievedFood} failedOrders={failedOrders} year="2022"/>
+                    <MonthlyReport orders={orders} products={products} unretrievedFood={unretrievedFood} failedOrders={failedOrders} y="2022"/>
                 </Tab>
             </Tabs>
 
@@ -170,9 +170,9 @@ function MonthlyReport(props){
     const completeM  = [[1, "01", "January"], [2, "02", "February"], [3, "03", "March"], [4, "04", "April"],
         [5, "05", "May"], [6, "06", "June"], [7, "07", "July"], [8, "08", "August"], [9, "09", "September"],
         [10, "10", "October"], [11, "11", "November"], [12, "12", "December"]]
-    function filterProducts(month, year){
+    function filterProducts(month, y){
         let filter = [];
-        let filteredO = props.orders.filter(o => o.status === 'FAILED' && o.creation_date.substring(5,7) === month && o.creation_date.substring(0,4) === year) ;
+        let filteredO = props.orders.filter(o => o.status === 'FAILED' && o.creation_date.substring(5,7) === month && o.creation_date.substring(0,4) === y) ;
         props.products.map(p => {
             for(let o of filteredO)
                 if(o.id === p.order_id)
@@ -185,8 +185,8 @@ function MonthlyReport(props){
         return  props.unretrievedFood[month-1];
     }
 
-    function getTotalFoodEuro(month, year) {
-        let filter = filterProducts(month, year);
+    function getTotalFoodEuro(month, y) {
+        let filter = filterProducts(month, y);
         let total = 0;
         filter.forEach(p => total += p.price * p.quantity);
         return total.toFixed(2);
@@ -236,7 +236,7 @@ function MonthlyReport(props){
         {completeM.map(month =>
             <Tab eventKey={month[1]} title={month[2]}>
                 <Row className='mt-3 mb-4' align='center'>
-                    <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={month[0]} monthString={month[1]} year={props.year}/>
+                    <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={month[0]} monthString={month[1]} y={props.y}/>
                     <ProductTable products={filterProducts(month[1])}/>
                 </Row>
             </Tab>
@@ -283,9 +283,9 @@ function UnretrievedFoodReport(props){
                 <h6>Total number of unretrived food this month: {props.getTotalFood(props.month)}</h6>
             </Col>
             <Col xs={12}>
-                <h6>Total euro of unretrived food this month: {props.getTotalFoodEuro(props.monthString, props.year)} €</h6>
+                <h6>Total euro of unretrived food this month: {props.getTotalFoodEuro(props.monthString, props.y)} €</h6>
             </Col>
-            <ProductTable products={props.filterProducts(props.monthString, props.year)}/>
+            <ProductTable products={props.filterProducts(props.monthString, props.y)}/>
         </>
     )
 }
