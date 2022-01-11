@@ -59,7 +59,7 @@ NOTE: coverage and .scannerwork folders created by jest and sonar-scanner are no
 
 # Docker image
 
-To get docker image of our project (demo 1) you can type the following command:
+To get docker image of our project you can type the following command:
 
 ```
 sudo docker pull francescoplc/solidarity_purchasing_group_p05:final
