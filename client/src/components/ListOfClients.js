@@ -4,6 +4,7 @@ import {IoWallet} from "react-icons/io5";
 import '../App.css';
 import API from '../API';
 import { useState, useEffect} from 'react';
+import dayjs from 'dayjs';
 
 function ListOfClients(props){
     const [allClients, setAllClients] = useState([]);
@@ -70,7 +71,7 @@ function ListOfClients(props){
                        <tr key={client.id} className="p-0" style={selectedClient === client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelectedClient(client);}}>        
                             <td>{client.name}</td>
                             <td>{client.surname}</td>
-                            <td>{client.birthdate}</td>
+                            <td>{dayjs(client.birthdate).format("YYYY-MM-DD")}</td>
                             <td>{client.email}</td>
                             <td>€ {client.amount.toFixed(2)}</td>
                             <td><Button size="sm" variant="outline-info" className="ml-5" onClick={() => handleClick(client)}>Top up</Button></td>
@@ -81,9 +82,9 @@ function ListOfClients(props){
                         <tr key={client.id} className="p-0" style={selectedClient === client ? {backgroundColor: "#d4edda"} : {}} onClick={()=>{setSelectedClient(client);}}>        
                              <td>{client.name}</td>
                              <td>{client.surname}</td>
-                             <td>{client.birthdate}</td>
+                             <td>{dayjs(client.birthdate).format("YYYY-MM-DD")}</td>
                              <td>{client.email}</td>
-                             <td>€ {client.amount}</td> 
+                             <td>€ {client.amount.toFixed(2)}</td> 
                              <td><Button size="sm" variant="outline-info" className="ml-5" onClick={() => handleClick(client)}>Top up</Button></td>
                         </tr>
                      ))}
