@@ -4,12 +4,13 @@
 
 import React from 'react';
 import { render, cleanup, fireEvent, screen} from "@testing-library/react";
-import {Button, Col, Row, Table} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import { MDBContainer } from "mdbreact";
+import { Bar } from "react-chartjs-2";
 
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-
 
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
@@ -100,17 +101,23 @@ it("renders button correctly", () => {
 });
 
 it("renders button correctly", () => {
+    const setData = jest.fn();
     const { getByTestId } = render(
-        <Button data-testid="button-prev" size="lg" className="mt-1 mb-5" onClick={() => {}}>Go to the previous week</Button>
+        <Button data-testid="button-prev" size="lg" className="mt-1 mb-5" onClick={setData}>Go to the previous week</Button>
     );
     expect(getByTestId('button-prev')).toHaveTextContent("Go to the previous week");
+    fireEvent.click(screen.getByText("Go to the previous week"));
+    expect(setData).toHaveBeenCalledTimes(1);
 });
 
 it("renders button correctly", () => {
+    const setData = jest.fn();
     const { getByTestId } = render(
-        <Button data-testid="button-next" size="lg" className="mt-1 mb-5" onClick={() => {}}>Go to the next week</Button>
+        <Button data-testid="button-next" size="lg" className="mt-1 mb-5" onClick={setData}>Go to the next week</Button>
     );
     expect(getByTestId('button-next')).toHaveTextContent("Go to the next week");
+    fireEvent.click(screen.getByText("Go to the next week"));
+    expect(setData).toHaveBeenCalledTimes(1);
 });
 
 test('calls setData when Prev Button is clicked', () => {
@@ -137,4 +144,15 @@ test('calls setData when Next Button is clicked', () => {
 it('includes link to monthly reports', () => {
     const wrapper = shallow(<WeeklyReports orders={fakeOrders} clock={fakeClock} />);
     expect(wrapper.find(Link).at(0).props().to).toStrictEqual({ pathname: '/manager' });
+});
+
+
+it('renders MDBContainer without crashing', () => {
+    const page = shallow(<MDBContainer  />);
+    expect(page).toBeTruthy();
+});
+
+it('renders Nar without crashing', () => {
+    const page = shallow(<Bar  />);
+    expect(page).toBeTruthy();
 });
