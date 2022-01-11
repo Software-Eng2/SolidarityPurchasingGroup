@@ -153,7 +153,7 @@ function FarmerOrderTable(props){
 						<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"left"}} onClick={onHide}>
 							Close
                         </Button>
-                        <Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={()=>updateConfirmation(actualIndex)}>
+                        <Button data-testid="last_confirm" style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={()=>updateConfirmation(actualIndex)}>
                             Confirm
 						</Button>
 					</Modal.Footer>

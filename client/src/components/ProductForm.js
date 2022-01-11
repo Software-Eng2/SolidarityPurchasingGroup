@@ -123,7 +123,7 @@ function ProductForm(props) {
 									controlId="quantity"
 									className="position-relative"
 								>
-									<Form.Label>Initial quantity </Form.Label>
+									<Form.Label>Initial quantity</Form.Label>
 									<Form.Control
 										required
 										data-testid="quantityofproduct"
@@ -144,7 +144,7 @@ function ProductForm(props) {
 									controlId="category"
 									className="position-relative"
 								>
-									<Form.Label>Category </Form.Label>
+									<Form.Label>Category</Form.Label>
 										<Form.Control
 											required
 											as="select"
