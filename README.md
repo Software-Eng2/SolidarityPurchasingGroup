@@ -62,12 +62,12 @@ NOTE: coverage and .scannerwork folders created by jest and sonar-scanner are no
 To get docker image of our project (demo 1) you can type the following command:
 
 ```
-sudo docker pull francescoplc/solidarity_purchasing_group_p05:release1
+sudo docker pull francescoplc/solidarity_purchasing_group_p05:final
 ```
 
 Run with:
 ```
-docker run -it -p 3000:3000 francescoplc/solidarity_purchasing_group_p05:release1
+docker run -it -p 3000:3000 francescoplc/solidarity_purchasing_group_p05:final
 ```
 
 On your browser go to localhost:3000 page to navigate our app
