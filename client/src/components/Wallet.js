@@ -55,7 +55,7 @@ function Wallet(props) {
             <Row className="mt-1">
                 <Col xs={12} >
                     <h6 className="text-center mt-1">Balance</h6>
-                    <h3 className="text-center">€ {props.user.amount.toFixed(2)}</h3>
+                    <h3 className="text-center">€ {typeof props.user.amount == 'number' ? props.user.amount.toFixed(2) : props.user.amount}</h3>
                 </Col>
             </Row>
             <Row>
