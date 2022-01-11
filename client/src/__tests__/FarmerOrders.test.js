@@ -227,7 +227,7 @@ test('Farmer confirms quantity', () => {
     act(() => {
         fireEvent.click(screen.getByTestId('last_confirm'));
       });
-    expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
+    expect(screen.getByText('Confirm orders')).not.toHaveAttribute('disabled');
 });
 
 test('Farmer cancels confirm', () => {
