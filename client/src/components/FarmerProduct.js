@@ -49,7 +49,7 @@ function FarmerProduct(props) {
 
 	return (
 		<>
-			<Container onClick={handleShow} {...props}>
+			<Container data-testid="container-form" onClick={handleShow} {...props}>
 				<FarmerCard confirmed={confirmed} title={name} body={description} img={img_path} subinfo={price} ></FarmerCard>
 			</Container>
 			<Modal centered show={show} onHide={handleClose}>
@@ -60,9 +60,9 @@ function FarmerProduct(props) {
 											<Form.Label>Name of product</Form.Label>
 											<Form.Control
 													type="text"
+													data-testid="nameofproduct"
 													defaultValue={name}
 													placeholder={name}
-													disabled={true}
 													onChange={(event) => {setNameProduct(event.target.value); handleChange();}}
 													/>
 									</Form.Group>
@@ -83,7 +83,7 @@ function FarmerProduct(props) {
 																			rows={3}
 																			defaultValue={description}
 																			placeholder={description}
-																			disabled={true}
+																			data-testid="description"
 																			onChange={(event) => {setDescriptionProduct(event.target.value); handleChange();}}
 																			/>
 															</p>
@@ -92,7 +92,7 @@ function FarmerProduct(props) {
 																	<Form.Control
 																			as="select"
 																			value={category}
-																			disabled={true}
+																			data-testid="category"
 																			onChange={(event) => { setCategoryProduct(event.target.value); handleChange()}}
 																	>
 																			<option default>{category}</option>
@@ -115,7 +115,7 @@ function FarmerProduct(props) {
 																	type="text"
 																	defaultValue={price}
 																	placeholder={price}
-																	disabled={true}
+																	data-testid="price"
 																	onChange={(event) => {setPriceProduct(event.target.value); handleChange();}}
 																	/>
 													</Col>
@@ -126,12 +126,12 @@ function FarmerProduct(props) {
 									<Row>
 											<Col xs={12} md={6}>
 													<div className='farmer-card-button align-left'>
-															<input type='button' class='btn' style={{backgroundColor:"#dc3545", fontWeight:"bold"}} onClick={handleDeleteAlert} value="Delete"/>
+															<input data-testid="delete-product" type='button' class='btn' style={{backgroundColor:"#dc3545", fontWeight:"bold"}} onClick={handleDeleteAlert} value="Delete"/>
 													</div>
 											</Col>
 											<Col xs={12} md={6}>
 													<div className='farmer-card-button align-left'>
-														<button disabled={disabled} style={{fontWeight:"bold"}} onClick={() => {handleConfirm(); handleClose();}}>
+														<button data-testid="edit-product" disabled={false} style={{fontWeight:"bold"}} onClick={() => {handleConfirm(); handleClose();}}>
 															Confirm changes
 														</button>
 													</div>
@@ -162,7 +162,7 @@ function FarmerProduct(props) {
 						<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"left"}} onClick={onHide}>
 								Close
 							</Button>
-							<Button style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={handleDelete}>
+							<Button data-testid="delete-confirmed" style={{ backgroundColor: "#247D37", borderColor: "#247D37" , position:"right"}} onClick={handleDelete}>
 								Confirm
 						</Button>
 					</Modal.Footer>
