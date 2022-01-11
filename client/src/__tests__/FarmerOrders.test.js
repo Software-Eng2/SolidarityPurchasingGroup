@@ -5,7 +5,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { shallow, configure, mount} from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Adapter from 'enzyme-adapter-react-16';
-import { screen, fireEvent, render } from "@testing-library/react";
+import { screen, fireEvent, render, cleanup } from "@testing-library/react";
 import API from '../API';
 import {FarmerOrders, FarmerOrderTable} from '../components/FarmerOrders';
 import { Clock } from '../Clock';
@@ -33,11 +33,14 @@ const fakeQuantities = [{
   id: "0",
   quantity: 10
 }]
+
+afterEach(cleanup);
 it("renders farmer orders", () => {
     shallow(<FarmerOrders userid={4} orderedProducts={fakeProducts} clock={clock}/>);
 });
 
 it("renders FarmerOrders components without crashing", () => { 
+  clock.setWalletOKMilestone(false);
   const wrapper = shallow(<FarmerOrders  userid={4} orderedProducts={fakeProducts} clock={clock}/>);
  
   expect(wrapper.find('Container').exists()).toBeTruthy();
@@ -46,6 +49,7 @@ it("renders FarmerOrders components without crashing", () => {
   expect(wrapper.find('Alert').exists()).toBeTruthy();
   expect(wrapper.find('BsClockHistory').exists()).toBeTruthy();
   expect(wrapper.find('p').exists()).toBeTruthy();
+  clock.setWalletOKMilestone(true);
 
 });
 
@@ -212,16 +216,16 @@ test('Farmer confirms quantity', () => {
     const history = createMemoryHistory();
     history.push = jest.fn();
     API.logIn("andreabruno@gmail.com","andreabruno");
-    const farmer = render(
+    render(
       <MemoryRouter history={history}>
-       <FarmerOrders userid={4} orderedProducts={fakeProducts} clock={clock}/>
+       <FarmerOrderTable products={fakeProducts} quantities={fakeQuantities} passedTime={false}/>
       </MemoryRouter>
     );
     act(() => {
         fireEvent.click(screen.getByText('Confirm orders'));
       });
     act(() => {
-        fireEvent.click(screen.getByText('Confirm orders'));
+        fireEvent.click(screen.getByTestId('last_confirm'));
       });
     expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
 });
@@ -232,12 +236,15 @@ test('Farmer cancels confirm', () => {
   API.logIn("andreabruno@gmail.com","andreabruno");
   render(
     <MemoryRouter history={history}>
-     <FarmerOrders userid={4} orderedProducts={fakeProducts} clock={clock}/>
+      <FarmerOrderTable products={fakeProducts} quantities={fakeQuantities} passedTime={false}/>   
     </MemoryRouter>
   );
   act(() => {
       fireEvent.click(screen.getByText('Confirm orders'));
     });
-  expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
+  act(() => {
+      fireEvent.click(screen.getAllByText('Close')[0]);
+    });
+  expect(screen.getByText('Confirm orders')).not.toHaveAttribute('disabled');
 });
 
