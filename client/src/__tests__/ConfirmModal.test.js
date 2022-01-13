@@ -10,28 +10,31 @@ import { createMemoryHistory } from 'history';
 import Adapter from 'enzyme-adapter-react-16';
 import { screen, fireEvent, render } from "@testing-library/react";
 import  {FaPlus} from "react-icons/fa";
-import { Button } from 'react-bootstrap';
+import { Button, Modal,Card, Row } from 'react-bootstrap';
+import { act } from 'react-dom/test-utils';
+import { OrdersList } from '../Order';
+
 
 
 
 configure({ adapter: new Adapter() });
 
-const farmerProduct = [{
+const farmerProducts = [{
     id: "1",
     name: "name1",
     description: "description1",
     category: "category1",
-    quantity: 100,
-    price: 100,
+    quantity: 7,
+    price: 3,
     farmer_id: 4,
     img_path: "some-img-path-1",
     confirmed: 1
 }];
 
 const productNW=[
-{ quantity:7,price:3, name: 'name1', description: "description1", category: "category1", farmer_id: 4, img_path: 'some-img-path-1', confirmed_by_farmer: 0},
-{quantity:10 ,price:4, name: 'name2', description: "description2", category: "category2", farmer_id: 5, img_path: 'some-img-path-2', confirmed_by_farmer: 1},
-{quantity:20,price:3, name: 'name3', description: "description3", category: "category3", farmer_id: 5, img_path: 'some-img-path-3', confirmed_by_farmer: 1}];
+{id:1, quantity:7,price:3, name: 'name1', description: "description1", category: "category1", farmer_id: 4, img_path: 'some-img-path-1', confirmed_by_farmer: 1},
+{id:2,quantity:10 ,price:4, name: 'name2', description: "description2", category: "category2", farmer_id: 5, img_path: 'some-img-path-2', confirmed_by_farmer: 1},
+{id:3,quantity:20,price:3, name: 'name3', description: "description3", category: "category3", farmer_id: 5, img_path: 'some-img-path-3', confirmed_by_farmer: 1}];
 
 
     describe("Render", () => {
@@ -53,7 +56,7 @@ const productNW=[
           })
 
           it("Check CardRiepilogo", () => {
-            const  page = shallow(<ConfirmModal productNW={productNW} farmerProducts={farmerProduct}/> );
+            const  page = shallow(<ConfirmModal productNW={productNW} farmerProducts={farmerProducts}/> );
             const wrapper = page.find('CardRiepilogo').dive();
                 
             
@@ -97,4 +100,44 @@ const productNW=[
             expect(onHide).toHaveBeenCalledTimes(1);
 
         })
+    });
+
+    test('view summary', async()=>{
+
+        
+    const products = jest.fn();
+    const setDirty = jest.fn();
+    const setShowPopUp = jest.fn();
+
+        
+        
+    render(<ConfirmModal show={true} setDirty={setDirty} setShowPopUp={setShowPopUp} productNW={productNW} products={products} userid={farmerProducts.id} farmerProducts={farmerProducts}/>);
+
+    await act( async() =>{
+
+        
+        const closeButton = await screen.getByTestId('close1');
+        expect(closeButton).toBeInTheDocument();
+        fireEvent.click(closeButton);
+
+
+        
+        const product = await screen.findByText(`Product: ${farmerProducts[0].name}`);
+        expect(product).toBeInTheDocument();
+
+        const quantity = await screen.findByText(`Quantity: ${farmerProducts[0].quantity}`);
+        expect(quantity).toBeInTheDocument();
+
+        
+        const price = await screen.findByText(`Price: ${farmerProducts[0].price}`);
+        expect(price).toBeInTheDocument();
+
+        const listButton = await screen.getByTestId('list_product');
+        expect(listButton).toBeInTheDocument();
+        fireEvent.click(listButton);
+       
+       
+    });
+
+
     });

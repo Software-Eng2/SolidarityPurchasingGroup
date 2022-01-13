@@ -162,6 +162,7 @@ it('change data input', async () => {
     fireEvent.change(screen.getByTestId('firstname'), {
       target: { value: fakeClient.name },
     });
+   
   });
 
   act(() => {
@@ -186,6 +187,16 @@ it('change data input', async () => {
     fireEvent.change(screen.getByTestId('Password'), {
       target: { value: fakeClient.password },
     });
+  });
+
+ await act(async() => {
+    const closeButton = await screen.getByText('back');
+        expect(closeButton).toBeInTheDocument();
+        fireEvent.click(closeButton);
+
+        const submit = await screen.getByText('submit');
+        expect(submit).toBeInTheDocument();
+        fireEvent.click(submit);
   });
 
 });

@@ -53,7 +53,7 @@ function ConfirmModal(props) {
 
         </Modal.Body>
         <Modal.Footer>
-          <Button data-testid="close" variant="secondary" onClick={props.onHide} >
+          <Button data-testid="close1" variant="secondary" onClick={props.onHide} >
             Close
           </Button>
           <Button data-testid='list_product' style={{ backgroundColor: '#b4e6e2', border: '0px', borderRadius: '4px', color: 'red' }} onClick={deleteUpdateProduct} >

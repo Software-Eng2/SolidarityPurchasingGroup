@@ -1,10 +1,9 @@
-import React, {
-    useState as useStateMock
-} from 'react';
+import React from 'react';
 import '@testing-library/jest-dom';
 import "@testing-library/jest-dom/extend-expect";
 import { shallow, configure } from 'enzyme';
 import WarehouseManagerPage from '../components/WarehouseManagerPage';
+
 import { OrderModal, OrderTable } from '../components/WarehouseManagerPage';
 import { MemoryRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
@@ -12,8 +11,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { screen, fireEvent, render, cleanup } from "@testing-library/react";
 import { act } from 'react-dom/test-utils';
 
-import { FaPlus } from "react-icons/fa";
-import { Button } from 'react-bootstrap';
+import { Button, Col, Form } from 'react-bootstrap';
 
 
 afterEach(() => {
@@ -26,28 +24,28 @@ const fakeOrders = [
     {
         id: 28,
         creation_date: '2021-11-16',
-        client_id: 2,
+        client_id: 2, 
         client_name: 'Marco',
         client_surname: 'Bianchi',
         total: 0.75,
-        date: '',
-        time: '',
-        pick_up: 1,
-        address: 'Corso Duca degli Abruzzi, 24',
-        status: 'PENDING'
-    },
-    {
-        id: 24,
-        creation_date: '2021-11-26',
-        client_id: 3,
-        client_name: 'Luca',
-        client_surname: 'Neri',
-        total: 3.40,
         date: '2021-11-30',
         time: '10:00',
         pick_up: 1,
         address: 'Corso Duca degli Abruzzi, 24',
         status: 'ACCEPTED'
+    },
+    {
+        id: 24,
+        creation_date: '2021-11-26',
+        client_id: 3, 
+        client_name: 'Luca',
+        client_surname: 'Neri',
+        total: 3.40,
+        date: '',
+        time: '',
+        pick_up: 0,
+        address: 'Via dei Test, 0',
+        status: 'PENDING'
     }
 ];
 
@@ -134,9 +132,7 @@ describe("Render OrderTable", () => {
         expect(thT).toBeInTheDocument();
         expect(thS).toBeInTheDocument();
 
-        act(() => {
-            fireEvent.click(screen.getByTestId(`tr-${fakeOrders[1].id}`));
-        });
+       
 
 
 
@@ -223,7 +219,7 @@ it("renders OrderModal components without crashing", () => {
                 onHide={() => { setModalShow(false); setDate(''); setTime('') }}
                 selectedOrder={order}
                 basket={basket} />
-        </MemoryRouter>
+        </MemoryRouter> 
     );
 
     const title = screen.getByText(`Order ${order.id} - ${order.client_name} ${order.client_surname}`);
@@ -234,6 +230,57 @@ it("renders OrderModal components without crashing", () => {
     expect(products).toBeInTheDocument();
     expect(datePicker).toBeInTheDocument();
     expect(timePicker).toBeInTheDocument();
+
+})
+
+
+
+    it('try click', async() => {
+        const setModalShow = jest.fn();
+        const setDate = jest.fn();
+        const setTime = jest.fn();
+        const setSelectedOrder = jest.fn();
+        
+    render(<OrderTable orders={fakeOrders} setSelectedOrder={setSelectedOrder} setModalShow={setModalShow} setDate={setDate} setTime={setTime}/>);
+
+
+    act(() => {
+        fireEvent.click(screen.getByTestId(`tr-${fakeOrders[0].id}`));
+    });
+
+    await act( async() =>{
+        const orderId = await screen.findByText('28');
+        fireEvent.click(orderId);
+        
+        const creation = await screen.findByText('2021-11-16');
+        fireEvent.click(creation);
+        
+        const clientId = await screen.findByText('2');
+        fireEvent.click(clientId);
+       
+        const name = await screen.findByText('Marco');
+        fireEvent.click(name);
+       
+        const surname = await screen.findByText('Bianchi');
+        fireEvent.click(surname);
+       
+        const price = await screen.findByText('€ 0.75');
+        fireEvent.click(price);
+        
+        const delivery = await screen.findByText('Pick-Up');
+        fireEvent.click(delivery);
+        
+        const address = await screen.findByText('Corso Duca degli Abruzzi, 24');
+        fireEvent.click(address);
+        
+        const date = await screen.findByText('2021-11-30');
+        fireEvent.click(date);
+        
+        const time = await screen.findByText('10:00');
+        fireEvent.click(time);
+    });
+
+
 
 
 });
