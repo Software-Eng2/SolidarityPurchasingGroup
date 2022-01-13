@@ -6,32 +6,27 @@ import {Button, Col, Row, Tab, Table, Tabs} from "react-bootstrap";
 import API from "../API";
 import {Link} from "react-router-dom";
 
-function MonthlyReports() {
-    const [orders, setOrders] = useState([]);
+function MonthlyReports(props) {
+    const {orders} = props;
     const [products, setProducts] = useState([]);
     const [failedOrders, setFailedOrders] = useState([]);
     const [unretrievedFood, setUnretrievedFood] = useState([]);
     const [year, setYear] = useState('2022');
-
     useEffect(()=>{
-        API.getAllOrders().then((o) => {
-            setOrders(o);
-
             let products = [];
             let count = 0;
-            o.map(order => {
+            orders.map(order => {
                 API.getReportBasket(order.id).then((prod) => {
-                    prod.map(p => products.push({...p, order_id: order.id, creation_date:o.creation_date }) );
+                    prod.map(p => products.push({...p, order_id: order.id, creation_date:order.creation_date }) );
                     count ++;
-                    if(count === o.length){
-                        setData(o, products, "2022");
+                    if(count === orders.length){
+                        setData(orders, products, "2022");
                         setProducts(products);
 
                     }
                 })
             })
 
-        });
     },[]);
 
 
@@ -148,7 +143,7 @@ function MonthlyReports() {
 
 
     return (
-        <>
+        <div className="page">
             <Tabs activeKey={year} onSelect={(k) => {setYear(k); setData(orders, products, k)}} className="mb-3 months" align="center">
                 <Tab eventKey="2021" title="2021">
                     <MonthlyReport orders={orders} products={products} unretrievedFood={unretrievedFood} failedOrders={failedOrders} year="2021"/>
@@ -161,18 +156,20 @@ function MonthlyReports() {
             <Row className="mt-5" >
                 <Col xs={12} sm={12} md={3} >
                     <Link to={{ pathname: '/manager' }}>
-                        <Button size="md" className="mb-5 ml-5">Back</Button>
+                        <Button data-testid="button-back" size="md" className="mb-5 ml-5">Back</Button>
                     </Link>
                 </Col>
             </Row>
-        </>
+        </div>
     );
 }
 
 function MonthlyReport(props){
     const [key, setKey] = useState('01');
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
+    const completeM  = [[1, "01", "January"], [2, "02", "February"], [3, "03", "March"], [4, "04", "April"],
+        [5, "05", "May"], [6, "06", "June"], [7, "07", "July"], [8, "08", "August"], [9, "09", "September"],
+        [10, "10", "October"], [11, "11", "November"], [12, "12", "December"]]
     function filterProducts(month, year){
         let filter = [];
         let filteredO = props.orders.filter(o => o.status === 'FAILED' && o.creation_date.substring(5,7) === month && o.creation_date.substring(0,4) === year) ;
@@ -236,78 +233,14 @@ function MonthlyReport(props){
         className="mb-3 months"
         align="center"
     >
-        <Tab eventKey="01" title="January">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={1} monthString={"01"} year={props.year}/>
-                <ProductTable products={filterProducts("01")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="02" title="February">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={2} monthString={"02"} year={props.year}/>
-                <ProductTable products={filterProducts("02")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="03" title="March">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={3} monthString={"03"} year={props.year}/>
-                <ProductTable products={filterProducts("03")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="04" title="April">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={4} monthString={"04"} year={props.year}/>
-                <ProductTable products={filterProducts("04")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="05" title="May">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={5} monthString={"05"} year={props.year}/>
-                <ProductTable products={filterProducts("05")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="06" title="June">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={6} monthString={"06"} year={props.year}/>
-                <ProductTable products={filterProducts("06")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="07" title="July">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={7} monthString={"07"} year={props.year}/>
-                <ProductTable products={filterProducts("07")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="08" title="August">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={8} monthString={"08"} year={props.year}/>
-                <ProductTable products={filterProducts("08")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="09" title="September">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={9} monthString={"09"} year={props.year}/>
-                <ProductTable products={filterProducts("09")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="10" title="October">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={10} monthString={"10"} year={props.year}/>
-                <ProductTable products={filterProducts("10")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="11" title="November">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={11} monthString={"11"} year={props.year}/>
-                <ProductTable products={filterProducts("11")}/>
-            </Row>
-        </Tab>
-        <Tab eventKey="12" title="December">
-            <Row className='mt-3 mb-4' align='center'>
-                <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={12} monthString={"12"} year={props.year}/>
-                <ProductTable products={filterProducts("12")}/>
-            </Row>
-        </Tab>
+        {completeM.map(month =>
+            <Tab eventKey={month[1]} title={month[2]}>
+                <Row className='mt-3 mb-4' align='center'>
+                    <UnretrievedFoodReport getTotalFoodEuro={getTotalFoodEuro} getTotalFood={getTotalFood} filterProducts={filterProducts} month={month[0]} monthString={month[1]} year={props.year}/>
+                    <ProductTable products={filterProducts(month[1])}/>
+                </Row>
+            </Tab>
+        )}
     </Tabs>
     </>
     )

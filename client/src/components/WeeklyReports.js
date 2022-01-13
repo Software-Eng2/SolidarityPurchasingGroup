@@ -7,7 +7,7 @@ import API from "../API";
 import {Link} from "react-router-dom";
 
 function WeeklyReports(props) {
-    const {orders} = props;
+    const {orders, clock} = props;
     const [monday, setMonday] = useState('');
     const [sunday, setSunday] = useState('');
     const [filteredOrders, setFilteredOrders] = useState([]);
@@ -15,7 +15,7 @@ function WeeklyReports(props) {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [unretrievedFood, setUnretrievedFood] = useState([]);
     useEffect(()=>{
-            let d = props.clock.time;
+            let d = clock;
             let m = getCurrentMonday(d);
             setMonday(new Date(d.setDate(m)));
             setSunday(new Date(d.setDate(m + 6)));
@@ -162,10 +162,10 @@ function WeeklyReports(props) {
           <div className="page">
           <Row className="mt-5" align='center'>
                 <Col xs={12} sm={12} md={6} >
-                    <Button size="lg" className="mt-1 mb-5" onClick={() => setData( getPreviousMonday(monday), getPreviousSunday(sunday), orders, products)}>Go to the previous week</Button>
+                    <Button data-testid="button-prev" size="lg" className="mt-1 mb-5" onClick={() => setData( getPreviousMonday(monday), getPreviousSunday(sunday), orders, products)}>Go to the previous week</Button>
                 </Col>
                 <Col xs={12} sm={12} md={6} >
-                    <Button size="lg" className="mt-1 mb-5" onClick={() => setData( getNextMonday(monday), getNextSunday(sunday), orders, products)}>Go to the next week</Button>
+                    <Button data-testid="button-next" size="lg" className="mt-1 mb-5" onClick={() => setData( getNextMonday(monday), getNextSunday(sunday), orders, products)}>Go to the next week</Button>
                 </Col>
             </Row>
             <hr style={{ marginTop: 10, marginBottom: 10}} />
@@ -194,7 +194,7 @@ function WeeklyReports(props) {
             </MDBContainer>
             <Row className='mt-3 mb-4' align='center'>
                 <Col xs={12}>
-                    <h6>Total number of failed orders this week: {getTotalOrder()}</h6>
+                    <h6>Total number of failed orders this week: {getTotalOrder}</h6>
                 </Col>
             </Row>
             <hr style={{ marginTop: 10, marginBottom: 10}} />
@@ -258,7 +258,7 @@ function WeeklyReports(props) {
             <Row className="mt-5" >
                 <Col xs={12} sm={12} md={3} >
                     <Link to={{ pathname: '/manager' }}>
-                        <Button size="md" className="mb-5 ml-5">Back</Button>
+                        <Button  data-testid="button-back" size="md" className="mb-5 ml-5">Back</Button>
                     </Link>
                 </Col>
             </Row>
