@@ -39,14 +39,14 @@ test('c- getClientFromId', () => {
 /* -------------------------------------- */
 
 test('c-getClients', () => {
-    //for now only 3 clients present in DB. Modify the toEqual if more clients are stored
-    return clientObject.initialize().then(() => expect(clientObject.getClients().length).toEqual(3));
+    //for now only 5 clients present in DB. Modify the toEqual if more clients are stored
+    return clientObject.initialize().then(() => expect(clientObject.getClients().length).toEqual(5));
 });
 
 //adding one more client -> testing the createUser API
 test('c-addClient', () => {
     clientObject.addClient('Andrea', 'Di Mauro', '11/03/1998', 'andrea@email.com', 'pass',1).then(() =>
-    expect(clientObject.getClients().length).toEqual(4));
+    expect(clientObject.getClients().length).toEqual(6));
 })
 
 //testing the getFromId
@@ -85,17 +85,17 @@ test('p-updateConfirmed', async () =>{
 
 test('p-getProducts', () => {
     //WARNING: for now only 20 clients present in DB. Modify the toEqual if more products are stored
-    return productObject.initialize().then(() => expect(productObject.getProducts().length).toEqual(22))
+    return productObject.initialize().then(() => expect(productObject.getProducts().length).toEqual(28))
 })
 
 //adding one more product -> testing the createUser API
 test('p-addProduct', () => {
     return productObject.addProduct("boh", "boh", 0.78, "Fruits", 0,12,"boh", 4).then(() =>
-    expect(productObject.getProducts().length).toEqual(23));
+    expect(productObject.getProducts().length).toEqual(29));
 })
 
 test('p-getProductsFromCategory', () => {
-    return expect(productObject.getProductsFromCategory("Fruits").length).toEqual(6);
+    return expect(productObject.getProductsFromCategory("Fruits").length).toEqual(9);
 })
 
 //updating confirmed status test
@@ -121,7 +121,7 @@ test('', async () => {
 
 test('o-getAllOrders',()=>{
     API.logIn("mariorossi@gmail.com","mariorossi");
-    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(10)})
+    return orders.initialize().then(()=>{expect(orders.getOrders().length).toEqual(11)})
 });
 
 test('o-createOrder', async ()=>{

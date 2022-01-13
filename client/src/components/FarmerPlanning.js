@@ -165,7 +165,7 @@ function FormTable(props) {
                 </Col>
 
                 <Col xs={10} md={6} className="d-flex justify-content-end" >
-                    <Form.Control onChange={(ev) => {
+                    <Form.Control data-testid="searchBar" onChange={(ev) => {
                         var value = ev.target.value;
                         if (value !== "") {
                             setView("search");

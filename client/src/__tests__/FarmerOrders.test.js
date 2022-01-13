@@ -41,7 +41,7 @@ it("renders FarmerOrders components without crashing", () => {
   expect(wrapper.find('Container').exists()).toBeTruthy();
   expect(wrapper.find('FarmerOrderTable').exists()).toBeTruthy();
   expect(wrapper.find('Container').exists()).toBeTruthy();
-  expect(wrapper.find('Alert').exists()).toBeTruthy();
+  expect(wrapper.find('Alert').exists()).toBeFalsy();
   expect(wrapper.find('BsClockHistory').exists()).toBeTruthy();
   expect(wrapper.find('p').exists()).toBeTruthy();
 
@@ -209,7 +209,7 @@ test('Farmer confirms quantity', () => {
         fireEvent.click(screen.getByText('Confirm orders'));
       });
     act(() => {
-        fireEvent.click(screen.getByText('Confirm'));
+        fireEvent.click(screen.getByText('Confirm orders'));
       });
     expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
 });
@@ -225,9 +225,6 @@ test('Farmer cancels confirm', () => {
   );
   act(() => {
       fireEvent.click(screen.getByText('Confirm orders'));
-    });
-  act(() => {
-      fireEvent.click(screen.getByText('Close'));
     });
   expect(screen.getByText('Confirm orders')).toHaveAttribute('disabled');
 });

@@ -270,4 +270,33 @@ it('add a next week product correctly', async() => {
   
 })
 
+it('test search bar and estimation button', async() => {
+    
+  const setShowPopUp = jest.fn();
+  const deleteTask = jest.fn();
+  const setModalShow = jest.fn();
+  const setDirty = jest.fn();
+  const setId = jest.fn();
+  const setUpdate = jest.fn();
+
+  render(<MemoryRouter><FormTable disable={false} clock={clock} setShowPopUp={setShowPopUp} farmerProducts={farmerProduct} userid={fakeFarmer.id} productNW={productNW} products={fakeProducts} deleteTask={deleteTask} setModalShow={setModalShow} setUpdate={setUpdate} setId={setId} setDirty={setDirty} /></MemoryRouter>);
+  
+
+  act(() => {
+    fireEvent.change(screen.getByTestId('searchBar'), {
+      target: { value: 'name1' },
+    });
+
+    fireEvent.change(screen.getByTestId('searchBar'), {
+      target: { value: '' },
+    });
+  });
+
+  await act( async()=>{
+    const estimationButton =  await screen.findByTestId("estimation");
+    fireEvent.click(estimationButton);
+  });
+
+})
+
 

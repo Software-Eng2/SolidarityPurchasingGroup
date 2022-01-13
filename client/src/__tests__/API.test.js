@@ -103,8 +103,7 @@ test('', async () =>  {
     expect(totQuant >=5 ).toEqual(true);
 
     const basket = await API.getBasket(orderId.id);
-    expect(basket[0].id).toEqual(20);
-    expect(basket[0].quantity).toEqual(5);
+    expect(basket).toEqual([]);
 
     await API.deleteOrder(orderId.id);
 
@@ -126,6 +125,23 @@ test('', async () => {
     expect( productOfFarmer6[0].id).toEqual(21);
     expect( productOfFarmer6[1].id).toEqual(22);
 })
+
+test('get next week product', async () => {
+  const productOfFarmer = await API.getWeekProducts();
+  expect( productOfFarmer[0].id).toEqual(1);
+});
+
+test('update total in orders', async () => {
+  API.updateTotalInOrders(32,1);
+  const orders = await API.getAllOrders();
+  expect( orders[0].total).toEqual(6.8);
+});
+
+test('update quanitity in basket', async () => {
+  API.updateQuantityBasket(32,3,50,0);
+  const basket = await API.getBasket(32);
+  expect( basket.product_id).toEqual(undefined);
+});
 
 
 
@@ -162,7 +178,7 @@ test('', async () => {
 
     productNW = await API.getProductNW(4);
 
-    expect( productNW[0].quantity).toEqual(10);
+    expect( productNW[0].quantity).toEqual(7);
 
     await API.deleteProductNW(1);
 
@@ -178,10 +194,8 @@ test('', async () => {
     expect((productNW)).toEqual([]);
 
     productNW = await API.getProductNW(5);
-    expect((productNW[0])).toEqual({'id':2, 'quantity':10 ,'price':4, 'name': 'name2', 'description': "description2", 'category': "category2", 'farmer_id': 5, 'img_path': 'some-img-path-2', 'confirmed_by_farmer': 1});
+    expect((productNW[0])).toEqual({'id':8, 'quantity':10 ,'price':4, 'name': 'name2', 'description': "description2", 'category': "category2", 'farmer_id': 5, 'img_path': 'some-img-path-2', 'confirmed_by_farmer': 1});
     await API.deleteAllProductNW();
-
-    
 
 });
 
